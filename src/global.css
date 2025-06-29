@@ -3,6 +3,6 @@
 @layer base {
   html,
   body {
-    @apply mx-auto max-w-[430px] bg-white;
+    @apply mx-auto h-screen max-w-[430px] bg-white;
   }
 }

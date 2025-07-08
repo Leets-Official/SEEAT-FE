@@ -1,8 +1,20 @@
+@import url('/fonts/fonts.css');
 @import 'tailwindcss';
 
 @layer base {
   html,
   body {
     @apply mx-auto h-screen max-w-[430px] bg-white;
+    font-family: var(--font-suit);
   }
+}
+
+@layer utilities {
+  .font-suit {
+    font-family: var(--font-suit);
+  }
+}
+
+@theme {
+  --font-suit: 'SUIT', ui-sans-serif, system-ui, sans-serif;
 }

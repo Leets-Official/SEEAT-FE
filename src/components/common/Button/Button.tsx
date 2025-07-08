@@ -3,13 +3,13 @@ import type { ButtonProps } from './Button.types';
 import { BUTTON_BASE, BUTTON_VARIANT, BUTTON_SIZE, BUTTON_ROUNDED } from './Button.styled';
 
 export default function Button({
-  text,
+  children,
   variant = 'primary',
   color = 'red',
   size = 'lg',
   rounded = 'lg',
   disabled = false,
-  fontType = 'title-3',
+  fontType = 'body-1',
   className,
   ...props
 }: ButtonProps) {
@@ -29,7 +29,7 @@ export default function Button({
       )}
       {...props}
     >
-      {text}
+      {children}
     </button>
   );
 }

@@ -8,11 +8,11 @@ export type ButtonRounded = 'full' | 'lg' | 'md' | 'sm';
 export type ButtonFont = 'body-1' | 'title-3';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
   rounded?: ButtonRounded;
   disabled?: boolean;
   fontType?: ButtonFont;
+  children: React.ReactNode;
 }

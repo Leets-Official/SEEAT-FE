@@ -154,6 +154,12 @@
   .text-red-300 {
     color: var(--red-300);
   }
+  .text-gray-300 {
+    color: var(--gray-300);
+  }
+  .text-gray-400 {
+    color: var(--gray-400);
+  }
 
   /* 배경 색상 */
   .bg-black {
@@ -169,6 +175,12 @@
   .bg-gray-600 {
     background-color: var(--gray-600);
   }
+  .bg-gray-700 {
+    background-color: var(--gray-700);
+  }
+  .bg-gray-800 {
+    background-color: var(--gray-800);
+  }
 
   .bg-red-300 {
     background-color: var(--red-300);
@@ -176,6 +188,9 @@
 
   .bg-red-400 {
     background-color: var(--red-400);
+  }
+  .bg-red-500 {
+    background-color: var(--red-500);
   }
 
   /* border 색상 */

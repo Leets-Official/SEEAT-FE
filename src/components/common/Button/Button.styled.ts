@@ -20,7 +20,7 @@ export const BUTTON_VARIANT = {
 } as const;
 
 export const BUTTON_SIZE = {
-  lg: 'px-8 py-4',
+  lg: 'px-5 py-3',
   md: 'px-4 py-2',
   sm: 'px-3 py-1.5',
   xs: 'px-2.5 py-1',

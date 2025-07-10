@@ -1,4 +1,10 @@
+import ButtonExamples from '@/components/examples/ButtonExamples';
+
 const Signup = () => {
-  return <div className="p-4 text-lg font-bold">Signup Page</div>;
+  return (
+    <div>
+      <ButtonExamples />
+    </div>
+  );
 };
 export default Signup;

@@ -1,8 +1,206 @@
+@import url('/fonts/fonts.css');
 @import 'tailwindcss';
+
+@theme {
+  --font-suit: 'SUIT', ui-sans-serif, system-ui, sans-serif;
+
+  --text-5xl: 30px;
+  --text-4xl: 26px;
+  --text-3xl: 24px;
+  --text-2xl: 22px;
+  --text-xl: 20px;
+  --text-lg: 18px;
+  --text-md: 16px;
+  --text-sm: 14px;
+  --text-xs: 12px;
+  --text-xxs: 10px;
+
+  --leading-xxl: 30px;
+  --leading-xl: 26px;
+  --leading-l: 24px;
+  --leading-m: 22px;
+  --leading-s: 20px;
+  --leading-xs: 18px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --black: #000000;
+  --white: #ffffff;
+
+  --gray-050: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #eeeeee;
+  --gray-300: #e0e0e0;
+  --gray-400: #bdbdbd;
+  --gray-500: #9e9e9e;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #222222;
+  --gray-950: #181818;
+
+  --red-050: #ffebec;
+  --red-100: #ffddd3;
+  --red-200: #ffa5aa;
+  --red-300: #ff7a83;
+  --red-350: #ff6671;
+  --red-400: #f5515c;
+  --red-500: #dd3742;
+  --red-600: #cf2934;
+  --red-700: #b61620;
+  --red-800: #8e0811;
+  --red-900: #700008;
+}
 
 @layer base {
   html,
   body {
-    @apply mx-auto h-screen max-w-[430px] bg-white;
+    @apply mx-auto h-screen max-w-[430px];
+    font-family: var(--font-suit);
+    background-color: var(--gray-900);
+    color: var(--white);
+  }
+}
+
+@layer utilities {
+  .font-suit {
+    font-family: var(--font-suit);
+  }
+
+  /* * 타이포그래피 
+   * 텍스트 스타일 정의
+   */
+  .text-title-1 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--text-3xl);
+    line-height: var(--leading-xxl);
+  }
+
+  .text-title-2 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    line-height: var(--leading-xl);
+  }
+
+  .text-title-3 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-md);
+    line-height: var(--leading-l);
+  }
+
+  .text-title-4 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    line-height: var(--leading-m);
+  }
+
+  .text-body-1 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-sm);
+    line-height: var(--leading-m);
+  }
+
+  .text-body-2 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--text-sm);
+    line-height: var(--leading-m);
+  }
+
+  .text-caption-1 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xs);
+    line-height: var(--leading-s);
+  }
+
+  .text-caption-2 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-xs);
+    line-height: var(--leading-s);
+  }
+
+  .text-caption-3 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--text-xs);
+    line-height: var(--leading-s);
+  }
+
+  .text-caption-4 {
+    font-family: var(--font-suit);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-xxs);
+    line-height: var(--leading-xs);
+  }
+
+  /* 텍스트 색상 */
+  .text-black {
+    color: var(--black);
+  }
+  .text-white {
+    color: var(--white);
+  }
+
+  .text-red-300 {
+    color: var(--red-300);
+  }
+  .text-gray-300 {
+    color: var(--gray-300);
+  }
+  .text-gray-400 {
+    color: var(--gray-400);
+  }
+
+  /* 배경 색상 */
+  .bg-black {
+    background-color: var(--black);
+  }
+  .bg-white {
+    background-color: var(--white);
+  }
+
+  .bg-gray-500 {
+    background-color: var(--gray-500);
+  }
+  .bg-gray-600 {
+    background-color: var(--gray-600);
+  }
+  .bg-gray-700 {
+    background-color: var(--gray-700);
+  }
+  .bg-gray-800 {
+    background-color: var(--gray-800);
+  }
+
+  .bg-red-300 {
+    background-color: var(--red-300);
+  }
+
+  .bg-red-400 {
+    background-color: var(--red-400);
+  }
+  .bg-red-500 {
+    background-color: var(--red-500);
+  }
+
+  /* border 색상 */
+  .border-red-500 {
+    border-color: var(--red-500);
+  }
+  .border-gray-400 {
+    border-color: var(--gray-400);
+  }
+  .border-gray-800 {
+    border-color: var(--gray-800);
   }
 }

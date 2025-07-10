@@ -1,10 +1,4 @@
-import ButtonExamples from '@/components/examples/ButtonExamples';
-
 const Signup = () => {
-  return (
-    <div>
-      <ButtonExamples />
-    </div>
-  );
+  return <div></div>;
 };
 export default Signup;

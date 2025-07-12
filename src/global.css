@@ -154,11 +154,28 @@
   .text-red-300 {
     color: var(--red-300);
   }
+  .text-red-400 {
+    color: var(--red-400);
+  }
+  .text-red-500 {
+    color: var(--red-500);
+  }
+  .text-red-700 {
+    color: var(--red-700);
+  }
+
   .text-gray-300 {
     color: var(--gray-300);
   }
+
   .text-gray-400 {
     color: var(--gray-400);
+  }
+  .text-gray-500 {
+    color: var(--gray-500);
+  }
+  .text-gray-700 {
+    color: var(--gray-700);
   }
 
   /* 배경 색상 */

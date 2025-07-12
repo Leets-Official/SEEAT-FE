@@ -59,6 +59,13 @@ const ButtonExamples = () => {
       <Button variant="text" color="gray" disabled>
         텍스트 버튼
       </Button>
+
+      <Button variant="text" color="red">
+        텍스트 버튼
+      </Button>
+      <Button variant="text" color="red" fontType="title-3">
+        텍스트 버튼
+      </Button>
     </div>
   );
 };

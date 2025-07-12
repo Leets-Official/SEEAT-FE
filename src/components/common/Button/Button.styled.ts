@@ -14,8 +14,8 @@ export const BUTTON_VARIANT = {
     gray: 'bg-transparent text-gray-300 border border-gray-500 hover:bg-white/20 active:bg-white/5 disabled:bg-transparent disabled:text-gray-400 disabled:border-gray-500',
   },
   text: {
-    gray: 'bg-transparent text-gray-300 disabled:text-gray-400',
-    red: 'bg-transparent text-red-300 disabled:text-gray-400',
+    gray: 'bg-transparent  active:text-gray-500 disabled:text-gray-700 text-gray-300',
+    red: 'bg-transparent  hover:text-red-400 active:text-red-500 disabled:text-gray-700 text-red-300',
   },
 } as const;
 

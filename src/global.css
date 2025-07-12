@@ -160,6 +160,9 @@
   .text-gray-400 {
     color: var(--gray-400);
   }
+  .text-gray-500 {
+    color: var(--gray-500);
+  }
 
   /* 배경 색상 */
   .bg-black {

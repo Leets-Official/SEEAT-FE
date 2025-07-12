@@ -22,16 +22,13 @@ export default function BottomNavigationItem({
       <div
         className={twMerge(
           'flex h-6 w-6 items-center justify-center transition-colors duration-200',
-          active ? 'text-[#F5515C]' : 'text-[#FFFFFF]',
+          active ? 'text-red-400' : 'text-white',
         )}
       >
         {icon}
       </div>
       <span
-        className={twMerge(
-          'transition-colos text-[10px]',
-          active ? 'text-[#F5515C]' : 'text-[#FFFFFF]',
-        )}
+        className={twMerge('transition-colos text-[10px]', active ? 'text-red-400' : 'text-white')}
       >
         {label}
       </span>

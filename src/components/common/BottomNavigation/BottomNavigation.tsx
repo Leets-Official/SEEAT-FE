@@ -54,7 +54,7 @@ export default function BottomNavigation(props: BottomNavigationProps) {
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 flex h-[59px] w-full items-center justify-around rounded-t-lg border-t border-r border-l border-[#424242] bg-[#181818]">
+    <nav className="fixed bottom-0 left-0 flex h-[59px] w-full items-center justify-around rounded-t-lg border-t border-r border-l border-gray-800 bg-gray-950">
       {items.map((item, index) => (
         <BottomNavigationItem
           key={index}

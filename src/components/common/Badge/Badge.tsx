@@ -6,7 +6,10 @@ export default function Badge({ type, size = 'sm', children, onRemove, className
   const baseClass = 'inline-flex items-center justify-center whitespace-nowrap gap-1';
 
   const typeClass = {
-    tag: 'bg-red-300/30 text-white border border-red-300 rounded-full px-2 py-0.2',
+    tag: {
+      sm: 'bg-red-300/30 text-white border border-red-300 rounded-full px-2 py-0.2',
+      md: 'bg-red-300/30 text-white border border-red-300 rounded-full px-3 py-1',
+    },
     info: 'bg-gray-800 text-white rounded-lg px-5 py-1',
     removable: 'bg-gray-800/30 text-gray-300 border border-gray-500 rounded-lg px-3 py-1',
   } as const;
@@ -20,7 +23,8 @@ export default function Badge({ type, size = 'sm', children, onRemove, className
         ? 'text-caption-1'
         : 'text-caption-2';
 
-  const selectedClass = typeClass[type as keyof typeof typeClass];
+  const selectedClass =
+    type === 'tag' ? typeClass.tag[size] : typeClass[type as 'info' | 'removable'];
 
   const displayText = type === 'tag' ? `#${children}` : children;
 

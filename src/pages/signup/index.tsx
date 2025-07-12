@@ -1,12 +1,11 @@
 import Badge from '@/components/common/Badge/Badge';
+import BadgeExample from '@/components/examples/BadgeExamples';
 import ImageExamples from '@/components/examples/ImageExamples';
 
 const Signup = () => {
   return (
     <div>
-      <Badge type="tag">태그</Badge>
-      <Badge type="info">후기 정보</Badge>
-      <Badge type="removable">뭔가 검색했겠지 </Badge>
+      <BadgeExample />
       <ImageExamples />
     </div>
   );

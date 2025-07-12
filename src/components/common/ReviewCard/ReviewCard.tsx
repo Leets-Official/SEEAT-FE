@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import HeartOn from '@/assets/icons/heart-on.svg?react';
 
 interface ReviewCardProps {
   imageUrl: string;
@@ -29,8 +30,11 @@ export default function ReviewCard({
       {/*썸네일*/}
       <div className="relative h-[82px] w-[82px] shrink-0 overflow-hidden rounded-lg bg-gray-600">
         <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
-        <div className="text-caption-4 absolute right-1 bottom-1 rounded-full bg-white/30 px-2 py-[2px] text-white">
-          {likeCount}
+        <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] px-1 text-white">
+          <span>
+            <HeartOn className="h-[12px] w-[12px]" />
+          </span>
+          <span>{likeCount}</span>
         </div>
       </div>
 

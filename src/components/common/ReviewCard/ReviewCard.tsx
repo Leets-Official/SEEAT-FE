@@ -35,13 +35,13 @@ export default function ReviewCard({
       </div>
 
       {/*텍스트*/}
-      <div className="flex flex-col gap-1 overflow-hidden">
+      <div className="flex flex-col overflow-hidden">
         {/*태그*/}
-        <div className="flex flex-wrap gap-[10px]">
+        <div className="flex gap-[10px] py-[4px]">
           {tags.map((tag, i) => (
             <span
               key={i}
-              className="text-caption-2 rounded-full border border-red-300 bg-[rgba(255,122,130,0.3)] px-2 text-white"
+              className="text-caption-2 shrink-0 rounded-full border border-red-300 bg-[rgba(255,122,130,0.3)] px-2 text-white"
             >
               #{tag}
             </span>

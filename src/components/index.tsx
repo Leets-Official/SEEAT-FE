@@ -1,3 +1,4 @@
 import Button from '@/components/common/Button';
 
-export { Button };
+import Image from '@/components/common/Image/Image';
+export { Button, Image };

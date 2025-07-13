@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-import HeartOn from '@/assets/icons/heart-on.svg?react';
-
+import HeartOn from '@/assets/icons/heart_on.svg?react';
 interface ReviewCardProps {
   imageUrl: string;
   tags: string[];

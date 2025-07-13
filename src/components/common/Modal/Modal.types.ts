@@ -1,5 +1,12 @@
-export interface ToggleTabProps {
-  options: string[];
-  selected: string;
-  onSelect: (option: string) => void;
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+  cancelText?: string; 
+  confirmText?: string; 
+  children?: React.ReactNode;
+
+  title?: string;
+  subtitle?: string;
+  subWarningText?: string;
 }

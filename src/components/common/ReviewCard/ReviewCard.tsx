@@ -29,9 +29,9 @@ export default function ReviewCard({
       {/*썸네일*/}
       <div className="relative h-[82px] w-[82px] shrink-0 overflow-hidden rounded-lg bg-gray-600">
         <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
-        <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] px-1 text-white">
+        <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] pr-[6px] pl-1 text-white">
           <span>
-            <HeartOn className="h-[12px] w-[12px]" />
+            <HeartOn className="h-4 w-4" />
           </span>
           <span>{likeCount}</span>
         </div>

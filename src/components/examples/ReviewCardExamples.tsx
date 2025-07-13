@@ -1,5 +1,4 @@
-import BestCinemaCard from '../common/BestCinemaCard/BestCinemaCard';
-import ReviewCard from '../common/ReviewCard/ReviewCard';
+import { BestCinemaCard, ReviewCard } from '@/components';
 
 export default function ReviewCardExamples() {
   return (

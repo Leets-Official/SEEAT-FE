@@ -4,8 +4,8 @@ import { twMerge } from 'tailwind-merge';
 interface BottomNavigationItemProps {
   icon: React.ReactNode;
   label: string;
-  active?: boolean;
-  onClick?: () => void;
+  active: boolean;
+  onClick: () => void;
 }
 
 export default function BottomNavigationItem({

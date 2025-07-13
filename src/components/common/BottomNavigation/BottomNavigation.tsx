@@ -1,8 +1,5 @@
-import HomeIcon from '@/assets/icons/home.svg?react';
-import SearchIcon from '@/assets/icons/search.svg?react';
-import MyIcon from '@/assets/icons/my.svg?react';
 import BottomNavigationItem from './BottomNavigationItem';
-
+import { HomeIcon, SearchIcon, MyIcon } from '@/assets';
 export type BottomNavItem = {
   icon: React.ReactNode;
   label: string;
@@ -10,48 +7,32 @@ export type BottomNavItem = {
   onClick: () => void;
 };
 
-type BottomNavigationProps =
-  | {
-      variant?: 'default';
-      pathname: string;
-      onNavigate: (path: string) => void;
-    }
-  | {
-      variant: 'custom';
-      items: BottomNavItem[];
-    };
+interface BottomNavigationProps {
+  pathname: string;
+  onNavigate: (path: string) => void;
+}
 
-// props.variant 기본값 default 처리
-export default function BottomNavigation(props: BottomNavigationProps) {
-  const isCustom = props.variant === 'custom';
-
-  let items: BottomNavItem[];
-
-  if (isCustom) {
-    items = props.items;
-  } else {
-    const { pathname, onNavigate } = props;
-    items = [
-      {
-        icon: <HomeIcon />,
-        label: '홈',
-        active: pathname === '/home',
-        onClick: () => onNavigate('/home'),
-      },
-      {
-        icon: <SearchIcon />,
-        label: '검색',
-        active: pathname === '/search',
-        onClick: () => onNavigate('/search'),
-      },
-      {
-        icon: <MyIcon />,
-        label: '마이',
-        active: pathname === '/my',
-        onClick: () => onNavigate('/my'),
-      },
-    ];
-  }
+const BottomNavigation = ({ pathname, onNavigate }: BottomNavigationProps) => {
+  const items: BottomNavItem[] = [
+    {
+      icon: <HomeIcon />,
+      label: '홈',
+      active: pathname === '/home',
+      onClick: () => onNavigate('/home'),
+    },
+    {
+      icon: <SearchIcon />,
+      label: '검색',
+      active: pathname === '/search',
+      onClick: () => onNavigate('/search'),
+    },
+    {
+      icon: <MyIcon />,
+      label: '마이',
+      active: pathname === '/my',
+      onClick: () => onNavigate('/my'),
+    },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 flex h-[59px] w-full items-center justify-around rounded-t-lg border-t border-r border-l border-gray-800 bg-gray-950">
@@ -66,4 +47,6 @@ export default function BottomNavigation(props: BottomNavigationProps) {
       ))}
     </nav>
   );
-}
+};
+
+export default BottomNavigation;

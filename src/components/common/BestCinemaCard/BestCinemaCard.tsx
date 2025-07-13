@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 interface BestCinemaCardProps {
   imageUrl: string;
@@ -18,7 +18,7 @@ export default function BestCinemaCard({
   return (
     <div
       onClick={onClick}
-      className={clsx(
+      className={cn(
         'flex w-[172px] flex-col overflow-hidden rounded-[12px] p-1 transition-colors',
         'bg-gray-900 hover:bg-[#424242] active:bg-gray-950',
         'cursor-pointer',

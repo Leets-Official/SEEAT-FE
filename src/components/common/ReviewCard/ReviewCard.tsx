@@ -1,4 +1,5 @@
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
+
 import { HeartOn } from '@/assets';
 interface ReviewCardProps {
   imageUrl: string;
@@ -20,7 +21,7 @@ export default function ReviewCard({
   return (
     <div
       onClick={onClick}
-      className={clsx(
+      className={cn(
         'flex h-[90px] w-full items-center gap-3 rounded-[12px] p-1 transition-colors',
         'bg-gray-900 hover:bg-[#424242] active:bg-gray-950',
         'cursor-pointer',

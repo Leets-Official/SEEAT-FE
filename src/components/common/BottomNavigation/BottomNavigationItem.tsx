@@ -1,5 +1,5 @@
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/utils/cn';
 
 interface BottomNavigationItemProps {
   icon: React.ReactNode;
@@ -20,16 +20,14 @@ export default function BottomNavigationItem({
       className="flex w-full flex-col items-center justify-center gap-[5px] py-1"
     >
       <div
-        className={twMerge(
+        className={cn(
           'flex h-6 w-6 items-center justify-center transition-colors duration-200',
           active ? 'text-red-400' : 'text-white',
         )}
       >
         {icon}
       </div>
-      <span
-        className={twMerge('transition-colos text-[10px]', active ? 'text-red-400' : 'text-white')}
-      >
+      <span className={cn('transition-colos text-[10px]', active ? 'text-red-400' : 'text-white')}>
         {label}
       </span>
     </button>

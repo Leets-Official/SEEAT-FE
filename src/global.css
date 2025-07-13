@@ -54,7 +54,7 @@
   --red-800: #8e0811;
   --red-900: #700008;
 
-  --yellow-400: #f4a825;
+  --yellow-warn: #FFC342;
 }
 
 @layer base {
@@ -206,7 +206,7 @@
     border-color: var(--gray-800);
   }
 
-  .text-yellow-400 {
-  color: var(--yellow-400);
+  .text-yellow-warn {
+  color: var(--yellow-warn);
   }
 }

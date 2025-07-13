@@ -38,7 +38,7 @@ const Modal = () => {
           </p>
         )}
         {subWarningText && (
-          <p className="text-[14px] text-yellow-400 font-normal text-center">
+          <p className="text-[14px] text-yellow-warn font-normal text-center">
             {subWarningText}
           </p>
         )}

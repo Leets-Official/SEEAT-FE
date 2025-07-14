@@ -19,8 +19,8 @@ const ToggleTab = ({ options, selected, onSelect }: ToggleTabProps) => {
           <button
             key={option}
             onClick={() => onSelect(option)}
-            className={`flex-1 z-20 text-[16px] font-normal py-[10px] transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
-              option === selected ? 'text-white' : 'text-white/30'
+            className={`flex-1 z-20 text-body-1 py-[10px] transition-colors duration-200 whitespace-nowrap overflow-hidden text-ellipsis ${
+              option === selected ? 'text-[#E0E0E0]' : 'text-[#616161]'
             }`}
           >
             {option}

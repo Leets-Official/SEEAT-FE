@@ -28,30 +28,30 @@ const Modal = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-[#424242] w-[360px] min-h-[200px] rounded-[12px] shadow-lg px-[16px] pt-[28px] pb-[24px] flex flex-col items-center gap-[28px]">
         {title && (
-          <h2 className="text-white text-[20px] font-medium text-center">
+          <h2 className="text-white text-title-3 text-center">
             {title}
           </h2>
         )}
         {subtitle && (
-          <p className="text-white text-[16px] font-normal leading-[1.5] text-center">
+          <p className="text-white text-body-2 text-center">
             {subtitle}
           </p>
         )}
         {subWarningText && (
-          <p className="text-[14px] text-yellow-warn font-normal text-center">
+          <p className="text-body-2 text-yellow-warn text-center">
             {subWarningText}
           </p>
         )}
         <div className="flex gap-4 justify-center">
           <button
             onClick={handleCancel}
-            className="w-[155px] h-[55px] bg-[#7D7D7D] text-[#F5F5F5] text-[16px] font-bold rounded-[12px]"
+            className="w-[155px] h-[55px] bg-[#7D7D7D] text-[#E0E0E0] text-[16px] text-title-3 rounded-[12px]"
           >
             {cancelText}
           </button>
           <button
             onClick={handleConfirm}
-            className="w-[155px] h-[55px] bg-[#EF5350] text-white text-[16px] font-bold rounded-[12px]"
+            className="w-[155px] h-[55px] bg-[#EF5350] text-white text-title-3 rounded-[12px]"
           >
             {confirmText}
           </button>

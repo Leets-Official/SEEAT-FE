@@ -1,36 +1,29 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import BottomNavigationItem from './BottomNavigationItem';
 import { HomeIcon, SearchIcon, MyIcon } from '@/assets';
-export type BottomNavItem = {
-  icon: React.ReactNode;
-  label: string;
-  active: boolean;
-  onClick: () => void;
-};
 
-interface BottomNavigationProps {
-  pathname: string;
-  onNavigate: (path: string) => void;
-}
+const BottomNavigation = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-const BottomNavigation = ({ pathname, onNavigate }: BottomNavigationProps) => {
-  const items: BottomNavItem[] = [
+  const items = [
     {
       icon: <HomeIcon />,
       label: '홈',
       active: pathname === '/home',
-      onClick: () => onNavigate('/home'),
+      onClick: () => navigate('/home'),
     },
     {
       icon: <SearchIcon />,
       label: '검색',
       active: pathname === '/search',
-      onClick: () => onNavigate('/search'),
+      onClick: () => navigate('/search'),
     },
     {
       icon: <MyIcon />,
       label: '마이',
       active: pathname === '/my',
-      onClick: () => onNavigate('/my'),
+      onClick: () => navigate('/my'),
     },
   ];
 

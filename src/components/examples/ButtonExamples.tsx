@@ -4,7 +4,8 @@ import { Button } from '@/components';
  * Button 컴포넌트 예제
  *
  * - variant: 버튼 유형
- *   - 'primary' | 'secondary' | 'text'
+ *   - 'primary' | 'secondary' | 'text' | 'secondary-assistive'
+ *
  *
  * - color: 텍스트 색상
  *   - 'red' | 'gray'
@@ -37,7 +38,7 @@ const ButtonExamples = () => {
       </Button>
 
       {/* 예시 2) Secondary Gray, Medium 사이즈 + 전체 라운드 */}
-      <Button variant="secondary" color="gray" size="md" rounded="full">
+      <Button variant="secondary" color="gray" size="md" rounded="md">
         확인
       </Button>
 
@@ -52,19 +53,27 @@ const ButtonExamples = () => {
       </Button>
 
       {/* 예시 5) Text 타입 버튼 (배경/테두리 없음, 텍스트만 표시) */}
-      <Button variant="text" color="gray">
+      <Button variant="text" color="gray" fontType="title-3">
         텍스트 버튼
       </Button>
-      {/* 예시 6) Text 타입 버튼 + disabled */}
+      {/* 예시 6) Text - gray 타입 버튼 + disabled */}
       <Button variant="text" color="gray" disabled>
         텍스트 버튼
       </Button>
 
-      <Button variant="text" color="red">
+      {/* 예시 7) Text - red 타입 버튼 */}
+      <Button variant="text" fontType="title-3" color="red">
         텍스트 버튼
       </Button>
-      <Button variant="text" color="red" fontType="title-3">
+
+      {/* 예시 8) secondary-assitive  타입 버튼 */}
+      <Button variant="secondary-assistive" size="md" fontType="title-3">
         텍스트 버튼
+      </Button>
+
+      {/* 예시 9) secondary-assitive 선택되었을 때  */}
+      <Button variant="secondary-assistive" size="sm" selected>
+        판타지
       </Button>
     </div>
   );

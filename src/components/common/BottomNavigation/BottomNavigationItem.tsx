@@ -27,7 +27,7 @@ export default function BottomNavigationItem({
       >
         {icon}
       </div>
-      <span className={cn('transition-colos text-[10px]', active ? 'text-red-400' : 'text-white')}>
+      <span className={cn('text-[10px] transition-colors', active ? 'text-red-400' : 'text-white')}>
         {label}
       </span>
     </button>

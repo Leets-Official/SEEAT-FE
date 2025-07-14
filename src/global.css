@@ -150,34 +150,70 @@
   .btn-text-black {
     color: var(--color-black);
   }
+  .text-black {
+    color: var(--color-black);
+  }
+
   .btn-text-white {
+    color: var(--color-white);
+  }
+  .text-white {
     color: var(--color-white);
   }
 
   .btn-text-red-300 {
     color: var(--color-red-300);
   }
+  .text-red-300 {
+    color: var(--color-red-300);
+  }
+
   .btn-text-red-400 {
     color: var(--color-red-400);
   }
+  .text-red-400 {
+    color: var(--color-red-400);
+  }
+
   .btn-text-red-500 {
     color: var(--color-red-500);
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
+
   .btn-text-red-700 {
+    color: var(--color-red-700);
+  }
+  .text-red-700 {
     color: var(--color-red-700);
   }
 
   .btn-text-gray-300 {
     color: var(--color-gray-300);
   }
+  .text-gray-300 {
+    color: var(--color-gray-300);
+  }
 
   .btn-text-gray-400 {
     color: var(--color-gray-400);
   }
+  .text-gray-400 {
+    color: var(--color-gray-400);
+  }
+
   .btn-text-gray-500 {
     color: var(--color-gray-500);
   }
+  .text-gray-500 {
+    color: var(--color-gray-500);
+  }
+
   .btn-text-gray-700 {
+    color: var(--color-gray-700);
+  }
+  .text-gray-700 {
     color: var(--color-gray-700);
   }
 

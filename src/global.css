@@ -69,6 +69,11 @@
   .font-suit {
     font-family: var(--font-suit);
   }
+@layer utilities {
+  .text-yellow-figma {
+    color: #FFC342;
+  }
+}
 
   /* * 타이포그래피 
    * 텍스트 스타일 정의

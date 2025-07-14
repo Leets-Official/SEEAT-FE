@@ -1,67 +1,50 @@
-// src/components/Header/Header.tsx
+// src/components/common/Header/Header.tsx
+import React, { useState } from 'react';
 
-/*import { cn } from '@/utils/cn';
-import { HEADER_CONTAINER_BASE, NAV_BAR_AREA, NAV_BAR_BASE } from './Header.styled';
-import type { HeaderProps } from './Header.types';
+import ChevronIcon from '@/assets/icons/chervon.svg';
+import HeartFilledIcon from '@/assets/icons/heart_f.svg';
+import HeartOutlineIcon from '@/assets/icons/heart_o.svg';
+import BookmarkFilledIcon from '@/assets/icons/bookmark_f.svg';
+import BookmarkOutlineIcon from '@/assets/icons/bookmark_o.svg';
 
-import SettingsIcon from '@/components/common/icons/settings.svg?react';
-import HeartIcon from '@/components/common/icons/heart.svg?react';
-import BookmarkIcon from '@/components/common/icons/bookmark.svg?react';
-import BackIcon from '@/components/common/icons/back.svg?react';
+interface HeaderProps {
+  title: string;
+  showBack?: boolean;
+  onBackClick?: () => void;
+}
 
-// --- 임시 로고 컴포넌트 ---
-const TempLogo = () => (
-  <div className="h-6 w-24 rounded bg-white" aria-label="임시 로고"></div>
-);
+const Header: React.FC<HeaderProps> = ({ title, showBack = true, onBackClick }) => {
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
 
-// 메인 헤더 컴포넌트
-export default function Header({
-  variant = 'main',
-  title,
-  leftAddon,
-  rightAddon,
-  className,
-  ...props
-}: HeaderProps) {
-  let finalLeftAddon;
-  let finalRightAddon;
-if (variant === 'main') {
-    finalLeftAddon = <TempLogo />;
-    finalRightAddon = (
-      <button type="button" aria-label="설정">
-        {/*  */
-       /* <SettingsIcon className="text-white hover:text-gray-300" />
-      </button>
-    );
-  } else if (variant === 'sub') {
-    finalLeftAddon = (
-      <button type="button" aria-label="뒤로가기">
-        <BackIcon />
-      </button>
-    );
-    finalRightAddon = (
+  return (
+    <div className="flex items-center justify-between px-4 w-full max-w-[375px] h-[44px] mx-auto">
+      <div className="flex items-center gap-2">
+        {showBack && (
+          <button onClick={onBackClick}>
+            <img src={ChevronIcon} alt="Back" className="w-5 h-5" />
+          </button>
+        )}
+        <span className="text-title-3">{title}</span>
+      </div>
       <div className="flex items-center gap-4">
-        <button type="button" aria-label="좋아요">
-          <HeartIcon />
+        <button onClick={() => setLiked(prev => !prev)}>
+          <img
+            src={liked ? HeartOutlineIcon : HeartFilledIcon}
+            alt="Heart"
+            className="w-5 h-5"
+          />
         </button>
-        <button type="button" aria-label="북마크">
-          <BookmarkIcon />
+        <button onClick={() => setBookmarked(prev => !prev)}>
+          <img
+            src={bookmarked ? BookmarkOutlineIcon : BookmarkFilledIcon}
+            alt="Bookmark"
+            className="w-5 h-5"
+          />
         </button>
       </div>
-    );
-  }
-  
-  return (
-    <header className={cn(HEADER_CONTAINER_BASE, className)} {...props}>
-      <nav className={cn(NAV_BAR_BASE)}>
-        <div className={cn(NAV_BAR_AREA)}>{finalLeftAddon}</div>
-        {variant === 'sub' && (
-          <div className={cn(NAV_BAR_AREA, 'justify-center')}>
-            <h1 className="text-title-2">{title}</h1>
-          </div>
-        )}
-        <div className={cn(NAV_BAR_AREA, 'justify-end')}>{finalRightAddon}</div>
-      </nav>
-    </header>
+    </div>
   );
-}*/
+};
+
+export default Header;

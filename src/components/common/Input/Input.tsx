@@ -1,46 +1,95 @@
+import { cn } from "@/utils/cn";
 import { useState } from "react";
-import clsx from "clsx";
 
 interface InputProps {
   label: string;
-  active?: boolean;
-  focus?: boolean;
+  value: string;
+  onChange: (value: string) => void;
   placeholder?: string;
   helperText?: string;
+  helperSubText?: string;
+  focus?: boolean;
+  showBackground?: boolean;
+  placeholderColorType?: "gray" | "white";
 }
 
 export default function InputField({
   label,
-  active = false,
-  focus = false,
+  value,
+  onChange,
   placeholder = "메시지를 입력하세요",
-  helperText = "메시지에 마침표를 입력해요.",
+  helperText,
+  helperSubText,
+  focus = false,
+  showBackground = false,
+  placeholderColorType = "gray",
 }: InputProps) {
-  const [value, setValue] = useState("");
-  const [isFocused, setIsFocused] = useState(focus);
+  const [showDotWarning, setShowDotWarning] = useState(false);
+
+  const handleCheck = () => {
+    if (!value.includes(".")) {
+      setShowDotWarning(true);
+    } else {
+      setShowDotWarning(false);
+    }
+  };
+
+  const placeholderColorClass =
+    placeholderColorType === "white" ? "placeholder-white" : "placeholder-gray-400";
 
   return (
-    <div className="flex flex-col gap-2 p-4 border border-dashed rounded-xl border-violet-400 bg-gray-900">
-      <label className="text-caption-2 text-white">{label}</label>
+    <div className="flex flex-col gap-1 w-[335px]">
+      {/* 라벨: caption-2 */}
+      <label className="text-caption-2 text-gray-300 h-[20px]">
+        {label} <span className="text-red-500">*</span>
+      </label>
+
       <div
-        className={clsx(
-          "flex items-center rounded-lg px-3 py-2 bg-black transition-colors",
-          active ? "border border-violet-400" : "border border-gray-800",
-          isFocused ? "outline outline-1 outline-violet-400" : ""
+        className={cn(
+          "flex items-center px-3 border rounded-lg h-[48px] w-[335px]",
+          focus ? "border-gray-400 bg-gray-800" : "border-gray-800 bg-black",
+          showBackground && "bg-gray-800/30"
         )}
       >
+        {/* 입력: body-2 / placeholder: body-2 */}
         <input
           type="text"
           value={value}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent text-body-1 text-white placeholder-gray-400 focus:outline-none"
+          className={cn(
+            "flex-1 bg-transparent text-body-2 text-white",
+            placeholderColorClass,
+            "focus:outline-none focus:ring-0"
+          )}
         />
-        <button className="ml-2 text-white text-title-3">＋</button>
+        <button
+          type="button"
+          onClick={handleCheck}
+          className="ml-2 text-white text-title-3 focus:outline-none"
+        >
+          ＋
+        </button>
       </div>
-      <p className="text-caption-2 text-yellow-400">{helperText}</p>
+
+      {/* text-yellow-figma를 text-gray-400으로 변경해서 써도 됩니당! */}
+      {(helperText || helperSubText || showDotWarning) && (
+        <div className="flex flex-col gap-0.5 mt-1">
+          {helperText && (
+            <p className="text-caption-2 text-gray-400 h-[20px] w-[335px]">{helperText}</p>
+          )}
+          {helperSubText && (
+            <p className="text-caption-3 text-yellow-figma h-[20px] w-[335px]">
+              {helperSubText}
+            </p>
+          )}
+          {showDotWarning && (
+            <p className="text-caption-3 text-yellow-figma h-[20px] w-[335px]">
+              메시지에 마침표를 입력해요.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

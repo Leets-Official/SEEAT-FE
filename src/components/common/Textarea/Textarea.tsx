@@ -1,46 +1,81 @@
-// components/TextAreaField.tsx
-import { useState } from "react";
-import clsx from "clsx";
+import React, { useState } from 'react';
+import { cn } from '@/utils/cn';
 
-interface TextAreaProps {
-  label: string;
-  active?: boolean;
-  focus?: boolean;
+interface TextareaProps {
+  title: string;
   placeholder?: string;
-  helperText?: string;
   maxLength?: number;
+  minLength?: number;
+  focus?: boolean;
+  placeholderColorType?: 'gray' | 'white';
 }
 
-export default function TextAreaField({
-  label,
-  active = false,
-  focus = false,
-  placeholder = "메시지를 입력하세요",
-  helperText = "내용을 입력해주세요",
+const Textarea = ({
+  title,
+  placeholder = '메시지를 입력해요',
   maxLength = 1000,
-}: TextAreaProps) {
-  const [value, setValue] = useState("");
-  const [isFocused, setIsFocused] = useState(focus);
+  minLength = 20,
+  focus = false,
+  placeholderColorType = 'gray',
+}: TextareaProps) => {
+  const [text, setText] = useState('');
+
+  const borderClass = cn(
+    'border',
+    focus ? 'border-gray-400' : 'border-gray-800'
+  );
+
+  const backgroundClass = cn(
+    focus ? 'bg-[rgba(66,66,66,0.3)]' : 'bg-black'
+  );
+
+  const placeholderClass =
+    placeholderColorType === 'white' ? 'placeholder:text-white' : 'placeholder:text-gray-400';
+
+  const showMinLengthWarning = text.length < minLength;
+  const showEmptyWarning = text.length === 0;
 
   return (
-    <div className="flex flex-col gap-2 p-4 border border-dashed rounded-xl border-violet-400 bg-gray-900">
-      <label className="text-caption-2 text-white">{label}</label>
-      <textarea
-        value={value}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onChange={(e) => setValue(e.target.value)}
-        className={clsx(
-          "h-24 resize-none rounded-lg px-3 py-2 bg-black text-body-1 text-white placeholder-gray-400 transition-colors",
-          active ? "border border-violet-400" : "border border-gray-800",
-          isFocused ? "outline outline-1 outline-violet-400" : ""
+    <div className="w-[335px] space-y-1">
+      <label className="text-caption-2 text-gray-300 h-[20px] inline-block">
+        {title} <span className="text-red-500">*</span>
+      </label>
+
+      <div className={cn('w-[335px] min-h-[120px] p-4 rounded-lg', borderClass, backgroundClass)}>
+        <textarea
+          placeholder={placeholder}
+          maxLength={maxLength}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className={cn(
+            'w-full h-[120px] resize-none bg-transparent',
+            'text-body-2 text-white', 
+            placeholderClass,        
+            'outline-none'
+          )}
+        />
+
+        <div className="mt-2 flex justify-end items-start">
+          <div className="text-caption-4 text-gray-400 text-right">
+            {text.length}/{maxLength}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-0.5 mt-1">
+        {showMinLengthWarning && (
+          <p className="text-caption-3 text-gray-400 h-[20px]">
+            {minLength}자 이상 입력해주세요
+          </p>
         )}
-      />
-      <p className="text-caption-3 text-gray-400 text-right">{value.length}/{maxLength}</p>
-      <p className="text-caption-2 text-red-300">○○자 이상 입력해주세요</p>
-      <p className="text-caption-2 text-yellow-400">{helperText}</p>
+        {showEmptyWarning && (
+          <p className="text-caption-3 text-yellow-figma h-[20px]">
+            내용을 입력해주세요
+          </p>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default Textarea;

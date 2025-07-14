@@ -1,4 +1,4 @@
-import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigation';
+import { BottomNavigation } from '@/components';
 
 export default function BottomNavigationExamples() {
   return (

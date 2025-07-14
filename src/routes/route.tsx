@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <BottomNavigationExamples />,
   },
   {
-    path: '/review-test', //이것도 테스트용... 지우기!
+    path: '/review-test', //이것도 테스트용... 나중에 지우기
     element: <ReviewCardExamples></ReviewCardExamples>,
   },
 ]);

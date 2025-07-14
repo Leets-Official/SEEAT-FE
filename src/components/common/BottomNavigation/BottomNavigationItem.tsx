@@ -17,7 +17,7 @@ export default function BottomNavigationItem({
   return (
     <button
       onClick={onClick}
-      className="flex w-full flex-col items-center justify-center gap-[5px] py-1"
+      className="flex w-full cursor-pointer flex-col items-center justify-center gap-[5px] py-1"
     >
       <div
         className={cn(

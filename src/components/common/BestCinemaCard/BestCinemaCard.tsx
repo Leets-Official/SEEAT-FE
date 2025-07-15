@@ -1,4 +1,5 @@
 import { cn } from '@/utils/cn';
+import { Image } from '@/components';
 
 interface BestCinemaCardProps {
   imageUrl: string;
@@ -25,8 +26,14 @@ export default function BestCinemaCard({
       )}
     >
       {/*썸네일*/}
-      <div className="relative h-[92px] w-full overflow-hidden rounded-lg bg-gray-600">
-        <img src={imageUrl} alt={title} className="object cover h-full w-full" />
+      <div className="relative h-[92px] w-full">
+        <Image
+          src={imageUrl}
+          alt={title}
+          aspectRatio="h-[92px] w-full"
+          rounded="rounded-lg"
+          className="bg-gray-600"
+        />
         <div className="text-caption-1 absolute top-2 left-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white">
           {rank}
         </div>

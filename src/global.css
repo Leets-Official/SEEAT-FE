@@ -24,6 +24,11 @@
   --leading-s: 20px;
   --leading-xs: 18px;
 
+  --radius-s: 2px; /* Radius S */
+  --radius-m: 8px; /* Radius M */
+  --radius-l: 12px; /* Radius L */
+  --radius-full: 99px; /* Radius Round */
+
   --color-black: #000000;
   --color-white: #ffffff;
 

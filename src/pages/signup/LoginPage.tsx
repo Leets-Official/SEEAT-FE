@@ -5,7 +5,7 @@ function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#1E1E1E] px-6">
       <div className="mb-24 text-center">
-        <h1 className="text-white text-xl">그래픽,,들어갈 자리,,</h1>
+        <h1 className="text-white text-yellow-warn">그래픽,,들어갈 자리,,</h1>
       </div>
 
       <div className="flex flex-col w-full max-w-xs gap-4">

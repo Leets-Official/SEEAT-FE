@@ -10,10 +10,14 @@ export default function Button({
   disabled = false,
   fontType = 'body-1',
   className,
+  selected = false,
   children,
   ...props
 }: ButtonProps) {
   const fontClass = fontType === 'body-1' ? 'text-body-1' : 'text-title-3';
+
+  const selectedClass =
+    variant === 'secondary-assistive' && selected ? 'bg-red-400/30 border-red-400' : '';
 
   return (
     <button
@@ -21,10 +25,13 @@ export default function Button({
       className={cn(
         'inline-flex items-center justify-center',
         BUTTON_BASE,
-        BUTTON_VARIANT[variant][color],
+        fontClass,
+        typeof BUTTON_VARIANT[variant] === 'string'
+          ? BUTTON_VARIANT[variant]
+          : color && BUTTON_VARIANT[variant][color],
         BUTTON_SIZE[size],
         BUTTON_ROUNDED[rounded],
-        fontClass,
+        selectedClass,
         disabled && 'cursor-not-allowed',
         className,
       )}

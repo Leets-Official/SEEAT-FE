@@ -24,7 +24,7 @@ export default function ReviewCard({
       onClick={onClick}
       className={cn(
         'flex h-[90px] w-full items-center gap-3 rounded-[12px] p-1 transition-colors',
-        'bg-gray-900 hover:bg-[#424242] active:bg-gray-950',
+        'bg-gray-900 hover:bg-gray-800 active:bg-gray-950',
         'cursor-pointer',
       )}
     >

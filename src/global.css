@@ -4,6 +4,8 @@
 @theme {
   --font-suit: 'SUIT', ui-sans-serif, system-ui, sans-serif;
 
+  --color-*: initial;
+
   --text-5xl: 30px;
   --text-4xl: 26px;
   --text-3xl: 24px;
@@ -22,46 +24,47 @@
   --leading-s: 20px;
   --leading-xs: 18px;
 
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
+  --color-black: #000000;
+  --color-white: #ffffff;
 
-  --black: #000000;
-  --white: #ffffff;
+  --color-gray-050: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #eeeeee;
+  --color-gray-300: #e0e0e0;
+  --color-gray-400: #bdbdbd;
+  --color-gray-500: #9e9e9e;
+  --color-gray-600: #757575;
+  --color-gray-700: #616161;
+  --color-gray-800: #424242;
+  --color-gray-900: #222222;
+  --color-gray-950: #181818;
 
-  --gray-050: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #eeeeee;
-  --gray-300: #e0e0e0;
-  --gray-400: #bdbdbd;
-  --gray-500: #9e9e9e;
-  --gray-600: #757575;
-  --gray-700: #616161;
-  --gray-800: #424242;
-  --gray-900: #222222;
-  --gray-950: #181818;
-
-  --red-050: #ffebec;
-  --red-100: #ffddd3;
-  --red-200: #ffa5aa;
-  --red-300: #ff7a83;
-  --red-350: #ff6671;
-  --red-400: #f5515c;
-  --red-500: #dd3742;
-  --red-600: #cf2934;
-  --red-700: #b61620;
-  --red-800: #8e0811;
-  --red-900: #700008;
+  --color-red-050: #ffebec;
+  --color-red-100: #ffddd3;
+  --color-red-200: #ffa5aa;
+  --color-red-300: #ff7a83;
+  --color-red-350: #ff6671;
+  --color-red-400: #f5515c;
+  --color-red-500: #dd3742;
+  --color-red-600: #cf2934;
+  --color-red-700: #b61620;
+  --color-red-800: #8e0811;
+  --color-red-900: #700008;
 }
 
 @layer base {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
   html,
   body {
     @apply mx-auto h-screen max-w-[430px];
     font-family: var(--font-suit);
-    background-color: var(--gray-900);
-    color: var(--white);
+    background-color: var(--color-gray-900);
+    color: var(--color-white);
   }
 }
 
@@ -144,21 +147,74 @@
   }
 
   /* 텍스트 색상 */
-  .text-black {
-    color: var(--black);
+  .btn-text-black {
+    color: var(--color-black);
   }
-  .text-white {
-    color: var(--white);
+  .text-black {
+    color: var(--color-black);
   }
 
+  .btn-text-white {
+    color: var(--color-white);
+  }
+  .text-white {
+    color: var(--color-white);
+  }
+
+  .btn-text-red-300 {
+    color: var(--color-red-300);
+  }
   .text-red-300 {
-    color: var(--red-300);
+    color: var(--color-red-300);
+  }
+
+  .btn-text-red-400 {
+    color: var(--color-red-400);
+  }
+  .text-red-400 {
+    color: var(--color-red-400);
+  }
+
+  .btn-text-red-500 {
+    color: var(--color-red-500);
+  }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
+
+  .btn-text-red-700 {
+    color: var(--color-red-700);
+  }
+  .text-red-700 {
+    color: var(--color-red-700);
+  }
+
+  .btn-text-gray-300 {
+    color: var(--color-gray-300);
   }
   .text-gray-300 {
-    color: var(--gray-300);
+    color: var(--color-gray-300);
+  }
+
+  .btn-text-gray-400 {
+    color: var(--color-gray-400);
   }
   .text-gray-400 {
-    color: var(--gray-400);
+    color: var(--color-gray-400);
+  }
+
+  .btn-text-gray-500 {
+    color: var(--color-gray-500);
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
+  }
+
+  .btn-text-gray-700 {
+    color: var(--color-gray-700);
+  }
+  .text-gray-700 {
+    color: var(--color-gray-700);
   }
   .text-gray-500 {
     color: var(--gray-500);
@@ -166,23 +222,23 @@
 
   /* 배경 색상 */
   .bg-black {
-    background-color: var(--black);
+    background-color: var(--color-black);
   }
   .bg-white {
-    background-color: var(--white);
+    background-color: var(--color-white);
   }
 
   .bg-gray-500 {
-    background-color: var(--gray-500);
+    background-color: var(--color-gray-500);
   }
   .bg-gray-600 {
-    background-color: var(--gray-600);
+    background-color: var(--color-gray-600);
   }
   .bg-gray-700 {
-    background-color: var(--gray-700);
+    background-color: var(--color-gray-700);
   }
   .bg-gray-800 {
-    background-color: var(--gray-800);
+    background-color: var(--color-gray-800);
   }
   .bg-gray-900 {
     background-color: var(--gray-900);
@@ -192,27 +248,30 @@
   }
 
   .bg-red-300 {
-    background-color: var(--red-300);
+    background-color: var(--color-red-300);
   }
 
   .bg-red-400 {
-    background-color: var(--red-400);
+    background-color: var(--color-red-400);
   }
   .bg-red-500 {
-    background-color: var(--red-500);
+    background-color: var(--color-red-500);
   }
 
   /* border 색상 */
   .border-red-500 {
-    border-color: var(--red-500);
+    border-color: var(--color-red-500);
   }
   .border-gray-400 {
-    border-color: var(--gray-400);
+    border-color: var(--color-gray-400);
+  }
+  .border-gray-500 {
+    border-color: var(--color-gray-500);
   }
   .border-gray-500 {
     border-color: var(--gray-500);
   }
   .border-gray-800 {
-    border-color: var(--gray-800);
+    border-color: var(--color-gray-800);
   }
 }

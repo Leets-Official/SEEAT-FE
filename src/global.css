@@ -269,7 +269,7 @@
     border-color: var(--color-gray-500);
   }
   .border-gray-500 {
-    border-color: var(--gray-500);
+    border-color: var(--color-gray-500);
   }
   .border-gray-800 {
     border-color: var(--color-gray-800);

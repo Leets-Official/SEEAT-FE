@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { cn } from '@/utils/cn';
+import { useState } from 'react';
+
 
 interface TextareaProps {
   title: string;

@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
-import Signup from '@/pages/signup';
-//테스트용
+import SplashPage from '@/pages/splash/SplashPage'
 //테스트용
 import BottomNavigationExamples from '@/components/examples/BottomNavigationExamples';
 import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
@@ -10,7 +9,7 @@ import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Signup />,
+    element: <SplashPage />,
   },
   {
     path: '/my',

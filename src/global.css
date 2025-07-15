@@ -60,6 +60,9 @@
 
   --color-seat5-default: #4ce4af; /* Seat5 Default & Action */
   --color-seat5-hover: #c7ffeb; /* Seat5 Hover */
+
+  --color-kakao: #fee500; /* Kakao/bg */
+  --color-naver: #03c75a; /* Naver/bg */
 }
 
 @layer base {
@@ -237,13 +240,6 @@
     color: var(--gray-500);
   }
 
-  .btn-mint {
-    color: var(--color-seat5-default);
-  }
-  .btn-mint-hover {
-    color: var(--color-seat5-hover);
-  }
-
   /* 배경 색상 */
   .bg-black {
     background-color: var(--color-black);
@@ -280,6 +276,20 @@
   }
   .bg-red-500 {
     background-color: var(--color-red-500);
+  }
+
+  .bg-mint-default {
+    background-color: var(--color-seat5-default);
+  }
+  .bg-mint-hover {
+    background-color: var(--color-seat5-hover);
+  }
+
+  .bg-kakao {
+    background-color: var(--color-kakao);
+  }
+  .bg-naver {
+    background-color: var(--color-naver);
   }
 
   /* border 색상 */

@@ -50,6 +50,8 @@
   --color-red-700: #b61620;
   --color-red-800: #8e0811;
   --color-red-900: #700008;
+
+  --color-yellow-warn: #ffc342;
 }
 
 @layer base {
@@ -218,6 +220,10 @@
   }
   .text-gray-500 {
     color: var(--gray-500);
+  }
+
+  .text-yellow-warn {
+    color: var(--color-yellow-warn);
   }
 
   /* 배경 색상 */

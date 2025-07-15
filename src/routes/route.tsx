@@ -3,6 +3,7 @@ import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
 //테스트용
+//테스트용
 import BottomNavigationExamples from '@/components/examples/BottomNavigationExamples';
 import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
 

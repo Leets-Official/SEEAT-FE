@@ -2,6 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
+//테스트용
+//테스트용
+import BottomNavigationExamples from '@/components/examples/BottomNavigationExamples';
+import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +19,14 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home />,
+  },
+  {
+    path: '/bottom-test', //테스트용
+    element: <BottomNavigationExamples />,
+  },
+  {
+    path: '/review-test', //이것도 테스트용... 나중에 지우기
+    element: <ReviewCardExamples></ReviewCardExamples>,
   },
 ]);
 

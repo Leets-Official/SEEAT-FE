@@ -1,11 +1,5 @@
-// src/components/common/Header/Header.tsx
 import React, { useState } from 'react';
-
-import ChevronIcon from '@/assets/icons/chervon.svg';
-import HeartFilledIcon from '@/assets/icons/heart_f.svg';
-import HeartOutlineIcon from '@/assets/icons/heart_o.svg';
-import BookmarkFilledIcon from '@/assets/icons/bookmark_f.svg';
-import BookmarkOutlineIcon from '@/assets/icons/bookmark_o.svg';
+import {ChevronIcon, HeartFilledIcon,HeartOutlineIcon,BookmarkFilledIcon,BookmarkOutlineIcon,} from '@/assets';
 
 interface HeaderProps {
   title: string;
@@ -22,25 +16,25 @@ const Header: React.FC<HeaderProps> = ({ title, showBack = true, onBackClick }) 
       <div className="flex items-center gap-2">
         {showBack && (
           <button onClick={onBackClick}>
-            <img src={ChevronIcon} alt="Back" className="w-5 h-5" />
+            <ChevronIcon className="w-5 h-5 text-white" />
           </button>
         )}
         <span className="text-title-3">{title}</span>
       </div>
       <div className="flex items-center gap-4">
-        <button onClick={() => setLiked(prev => !prev)}>
-          <img
-            src={liked ? HeartOutlineIcon : HeartFilledIcon}
-            alt="Heart"
-            className="w-5 h-5"
-          />
+        <button onClick={() => setLiked((prev) => !prev)}>
+          {liked ? (
+            <HeartOutlineIcon className="w-5 h-5 text-white" />
+          ) : (
+            <HeartFilledIcon className="w-5 h-5 text-white" />
+          )}
         </button>
-        <button onClick={() => setBookmarked(prev => !prev)}>
-          <img
-            src={bookmarked ? BookmarkOutlineIcon : BookmarkFilledIcon}
-            alt="Bookmark"
-            className="w-5 h-5"
-          />
+        <button onClick={() => setBookmarked((prev) => !prev)}>
+          {bookmarked ? (
+            <BookmarkOutlineIcon className="w-5 h-5 text-white" />
+          ) : (
+            <BookmarkFilledIcon className="w-5 h-5 text-white" />
+          )}
         </button>
       </div>
     </div>
@@ -48,3 +42,4 @@ const Header: React.FC<HeaderProps> = ({ title, showBack = true, onBackClick }) 
 };
 
 export default Header;
+

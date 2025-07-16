@@ -1,5 +1,6 @@
 import { cn } from "@/utils/cn";
 import { useState } from "react";
+import { PlusIcon } from "@/assets"; 
 
 interface InputProps {
   label: string;
@@ -39,7 +40,6 @@ export default function InputField({
 
   return (
     <div className="flex flex-col gap-1 w-[335px]">
-      {/* 라벨: caption-2 */}
       <label className="text-caption-2 text-gray-300 h-[20px]">
         {label} <span className="text-red-500">*</span>
       </label>
@@ -51,7 +51,6 @@ export default function InputField({
           showBackground && "bg-gray-800/30"
         )}
       >
-        {/* 입력: body-2 / placeholder: body-2 */}
         <input
           type="text"
           value={value}
@@ -66,25 +65,25 @@ export default function InputField({
         <button
           type="button"
           onClick={handleCheck}
-          className="ml-2 text-white text-title-3 focus:outline-none"
+          className="ml-2 text-white focus:outline-none"
         >
-          ＋
+          <PlusIcon className="w-5 h-5" /> 
         </button>
       </div>
 
-      {/* text-yellow-figma를 text-gray-400으로 변경해서 써도 됩니당! */}
+      {/* text-yellow-warn를 text-gray-400으로 변경해서 써도 됩니당! */}
       {(helperText || helperSubText || showDotWarning) && (
         <div className="flex flex-col gap-0.5 mt-1">
           {helperText && (
             <p className="text-caption-2 text-gray-400 h-[20px] w-[335px]">{helperText}</p>
           )}
           {helperSubText && (
-            <p className="text-caption-3 text-yellow-figma h-[20px] w-[335px]">
+            <p className="text-caption-3 text-yellow-warn h-[20px] w-[335px]">
               {helperSubText}
             </p>
           )}
           {showDotWarning && (
-            <p className="text-caption-3 text-yellow-figma h-[20px] w-[335px]">
+            <p className="text-caption-3 text-yellow-warn h-[20px] w-[335px]">
               메시지에 마침표를 입력해요.
             </p>
           )}

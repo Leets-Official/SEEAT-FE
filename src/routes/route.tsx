@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
-
 const router = createBrowserRouter([
   {
     path: '/',

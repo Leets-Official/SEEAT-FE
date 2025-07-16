@@ -30,7 +30,7 @@ export default function BadgeExample() {
 
         {/* 2. 태그 뱃지 (size: md) */}
         <div className="w-full">
-          <h2 className="mb-2 text-lg font-semibold">2. 태그 뱃지 (size: md)</h2>
+          <h2 className="mb-2 text-yellow-warn font-semibold">2. 태그 뱃지 (size: md)</h2>
           <Badge type="tag" size="md">
             태그
           </Badge>

@@ -1,4 +1,3 @@
-const Signup = () => {
-  return <div></div>;
-};
-export default Signup;
+import LoginPage from './LoginPage';
+
+export default LoginPage;

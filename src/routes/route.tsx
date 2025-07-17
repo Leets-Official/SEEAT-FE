@@ -2,30 +2,39 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
-//테스트용
-import BottomNavigationExamples from '@/components/examples/BottomNavigationExamples';
-import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
+import SplashPage from '@/pages/splash/SplashPage';
+import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
+import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
+import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Signup />,
+    element: <SplashPage />,
   },
   {
-    path: '/my',
-    element: <MyPage />,
+    path: '/login',
+    element: <Signup />,
   },
   {
     path: '/home',
     element: <Home />,
   },
   {
-    path: '/bottom-test', //테스트용
-    element: <BottomNavigationExamples />,
+    path: '/my',
+    element: <MyPage />,
   },
   {
-    path: '/review-test', //이것도 테스트용... 나중에 지우기
-    element: <ReviewCardExamples></ReviewCardExamples>,
+    path: '/onboarding/nickname',
+    element: <OnboardingNicknamePage />,
+  },
+  {
+    path: '/onboarding/genre',
+    element: <OnboardingGenrePage />,
+  },
+  {
+    path: '/onboarding/theater',
+    element: <OnboardingTheaterPage />,
   },
 ]);
 

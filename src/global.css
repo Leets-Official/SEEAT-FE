@@ -63,6 +63,8 @@
 
   --color-kakao: #fee500; /* Kakao/bg */
   --color-naver: #03c75a; /* Naver/bg */
+
+  --color-yellow-warn: #ffc342;
 }
 
 @layer base {
@@ -238,6 +240,10 @@
   }
   .text-gray-500 {
     color: var(--gray-500);
+  }
+
+  .text-yellow-warn {
+    color: var(--color-yellow-warn);
   }
 
   /* 배경 색상 */

@@ -33,7 +33,7 @@ export const BUTTON_SIZE = {
 
 export const BUTTON_ROUNDED = {
   full: 'rounded-full',
-  lg: 'rounded-lg',
-  md: 'rounded-md',
-  sm: 'rounded-sm',
+  lg: 'rounded-l',
+  md: 'rounded-m',
+  sm: 'rounded-s',
 } as const;

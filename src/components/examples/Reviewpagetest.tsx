@@ -1,13 +1,11 @@
 // src/examples/ReviewTest.tsx
-import ReviewLayout from '@/pages/review/ReviewLayout';
-//import { useNavigate } from 'react-router-dom';
-
+import { TicketUploadStep } from '@/pages/review/TicketPage';
+import { useNavigate } from 'react-router-dom';
+//import RatingStep from '@/pages/review/RatingStep';
 const ReviewTest = () => {
-  return (
-    <ReviewLayout>
-      <div className="text-white">이곳에 테스트할 리뷰 컴포넌트 넣으세요!</div>
-    </ReviewLayout>
-  );
+  const navigate = useNavigate();
+  //return <RatingStep onNext={() => navigate('review/hashtag')} />;
+  return <TicketUploadStep onNext={() => navigate('/review/info')} />;
 };
 
 export default ReviewTest;

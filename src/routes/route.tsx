@@ -3,6 +3,8 @@ import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
 import ReviewTest from '@/components/examples/Reviewpagetest';
+import MovieInfoForm from '@/pages/review/MovieInfoStep';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -17,8 +19,12 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: '/review-test',
+    path: '/review', //테스트
     element: <ReviewTest />,
+  },
+  {
+    path: '/review/info',
+    element: <MovieInfoForm />, //테스트
   },
 ]);
 

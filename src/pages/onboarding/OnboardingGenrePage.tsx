@@ -9,7 +9,7 @@ const genreOptions: GenreType[] = ['액션', '로맨스'];
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
   const { setGenre } = useOnboardingStore();
-  const [selectedGenre, setSelectedGenre] = useState<GenreType | ''>(''); 
+  const [selectedGenre, setSelectedGenre] = useState<GenreType | ''>('');
 
   const handleNext = () => {
     if (!selectedGenre) {
@@ -17,22 +17,19 @@ const OnboardingGenrePage = () => {
       return;
     }
 
-    setGenre([selectedGenre]); 
+    setGenre([selectedGenre]);
     navigate('/signup/onboarding/theater');
   };
 
   return (
-    <div className="flex flex-col gap-8 items-center justify-center w-full h-screen px-6 py-8">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-8 px-6 py-8">
       <ToggleTab
         options={genreOptions}
         selected={selectedGenre}
         onSelect={(genre) => setSelectedGenre(genre as GenreType)} // optional
       />
 
-      <button
-        onClick={handleNext}
-        className="bg-white text-black hover:opacity-90 w-full max-w-sm"
-      >
+      <button onClick={handleNext} className="w-full max-w-sm bg-white text-black hover:opacity-90">
         다음
       </button>
     </div>

@@ -14,6 +14,7 @@ interface InputProps {
   placeholderColorType?: 'gray' | 'white';
   onClickPlus?: () => void;
   readOnly?: boolean;
+  className?: string;
 }
 
 export default function InputField({
@@ -28,6 +29,7 @@ export default function InputField({
   placeholderColorType = 'gray',
   onClickPlus,
   readOnly = false,
+  className,
 }: InputProps) {
   const [showDotWarning] = useState(false);
 
@@ -35,14 +37,14 @@ export default function InputField({
     placeholderColorType === 'white' ? 'placeholder-white' : 'placeholder-gray-400';
 
   return (
-    <div className="flex w-[335px] flex-col gap-1">
+    <div className={cn('flex flex-col gap-1', className)}>
       <label className="text-caption-2 h-[20px] text-gray-300">
         {label} <span className="text-red-500">*</span>
       </label>
 
       <div
         className={cn(
-          'flex h-[48px] w-[335px] items-center rounded-lg border px-3',
+          'flex h-[48px] items-center rounded-lg border px-3',
           focus ? 'border-gray-400 bg-gray-800' : 'border-gray-800 bg-black',
           showBackground && 'bg-gray-800/30',
         )}
@@ -54,7 +56,7 @@ export default function InputField({
           placeholder={placeholder}
           readOnly={readOnly}
           className={cn(
-            'text-body-2 flex-1 bg-transparent text-white',
+            'text-body-2 flex-1 bg-transparent text-white placeholder:transition-all',
             placeholderColorClass,
             'focus:ring-0 focus:outline-none',
           )}

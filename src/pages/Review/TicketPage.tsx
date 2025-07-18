@@ -1,8 +1,15 @@
-import { Button } from '@/components';
-import ReviewHeader from './ReviewHeader';
+import { Button, ReviewHeader } from '@/components';
 import { useNavigate } from 'react-router-dom';
+import { useReviewStore } from '@/store';
+import { useEffect } from 'react';
 
 export const TicketUploadStep = () => {
+  const { setInitialized } = useReviewStore();
+
+  useEffect(() => {
+    // 리뷰 작성 시작 시 상태 초기화
+    setInitialized();
+  }, [setInitialized]);
   const navigate = useNavigate();
 
   const handleNext = () => {

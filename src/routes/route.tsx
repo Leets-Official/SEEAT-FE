@@ -11,6 +11,8 @@ import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import CinemaSelect from '@/pages/review/CinemaSelect';
 import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
+import ReviewTagsPage from '@/pages/review/TagPage';
+import ReviewTextForm from '@/pages/review/ReviewContent';
 
 const router = createBrowserRouter([
   {
@@ -25,13 +27,14 @@ const router = createBrowserRouter([
     path: '/home',
     element: <Home />,
   },
+  //리뷰
   {
-    path: '/review', //테스트
+    path: '/review',
     element: <TicketUploadStep />,
   },
   {
     path: '/review/info',
-    element: <MovieInfoForm />, //테스트
+    element: <MovieInfoForm />,
   },
   {
     path: '/review/info/cinema',
@@ -41,6 +44,15 @@ const router = createBrowserRouter([
     path: '/review/rating',
     element: <RatingStep />,
   },
+  {
+    path: '/review/tag',
+    element: <ReviewTagsPage />,
+  },
+  {
+    path: '/review/form',
+    element: <ReviewTextForm />,
+  },
+  //마이
   {
     path: '/my',
     element: <MyPage />,

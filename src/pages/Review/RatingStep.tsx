@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useReviewStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
 import { StarFill, StarHalf, StarLine } from '@/assets';
-import ReviewStepLayout from './ReviewLayout';
+import { ReviewStepLayout } from '@/components';
+import { useEffect } from 'react';
 
 const RatingStep = () => {
-  const [rating, setRating] = useState(0);
+  const { isInitialized } = useReviewStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isInitialized) {
+      navigate('/review');
+    }
+  }, [isInitialized, navigate]);
+  const { rating, setRating } = useReviewStore();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, value: number) => {
     const { left, width } = e.currentTarget.getBoundingClientRect();
@@ -16,13 +24,14 @@ const RatingStep = () => {
   };
 
   const handleNext = () => {
-    navigate('/review/next'); // 원하는 다음 경로로 설정
+    navigate('/review/tag'); // 원하는 다음 경로로 설정
   };
 
   return (
     <ReviewStepLayout
       title="관람했던 상영관은 어땠나요?"
       onClickNext={handleNext}
+      onClickBack={() => navigate('/review/info')}
       disabled={rating === 0}
     >
       {/* 점수 출력 */}

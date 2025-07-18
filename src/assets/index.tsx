@@ -9,9 +9,9 @@ import HeartOutlineIcon from '@/assets/icons/heart_o.svg?react';
 import BookmarkFilledIcon from '@/assets/icons/bookmark_f.svg?react';
 import BookmarkOutlineIcon from '@/assets/icons/bookmark_o.svg?react';
 import PlusIcon from '@/assets/icons/plus.svg?react';
-import StarFill from '@/assets/icons/StarFill.svg?react';
-import StarHalf from '@/assets/icons/StarHalf.svg?react';
-import StarLine from '@/assets/icons/StarLine.svg?react';
+import StarFill from '@/assets/icons/starFill.svg?react';
+import StarHalf from '@/assets/icons/starHalf.svg?react';
+import StarLine from '@/assets/icons/starLine.svg?react';
 
 export {
   HeartOn,

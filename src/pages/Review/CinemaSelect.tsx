@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, ToggleTab } from '@/components';
-import { useState } from 'react';
-import ReviewHeader from './ReviewHeader';
+import { Button, ToggleTab, ReviewHeader } from '@/components';
+import { useState, useEffect } from 'react';
+import { useReviewStore } from '@/store';
 
 const cinemaData = {
   IMAX: [
@@ -26,7 +26,14 @@ const cinemaData = {
 };
 
 export default function CinemaSelect() {
+  const { isInitialized } = useReviewStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isInitialized) {
+      navigate('/review');
+    }
+  }, [isInitialized, navigate]);
   const [selectedTab, setSelectedTab] = useState<'IMAX' | 'Dolby Cinema'>('IMAX');
   const [selectedCinema, setSelectedCinema] = useState('');
 
@@ -38,7 +45,7 @@ export default function CinemaSelect() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 py-6">
-      <ReviewHeader onBackClick={() => navigate('/review/info')} />
+      <ReviewHeader onClickBack={() => navigate('/review/info')} />
 
       {/* 탭 */}
       <div className="mb-4 flex w-full justify-center">

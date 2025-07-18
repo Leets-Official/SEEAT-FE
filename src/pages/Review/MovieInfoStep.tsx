@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Badge, InputField } from '@/components';
-import ReviewStepLayout from './ReviewLayout';
+import { Badge, InputField, ReviewStepLayout } from '@/components';
 import { useReviewStore } from '@/store';
 
 export default function MovieInfoForm() {
+  const { isInitialized } = useReviewStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isInitialized) {
+      navigate('/review');
+    }
+  }, [isInitialized, navigate]);
   const location = useLocation();
 
   const { movieTitle, setTitle, cinema, setCinema, seats, addSeat, removeSeat } = useReviewStore();
@@ -21,7 +27,7 @@ export default function MovieInfoForm() {
   };
 
   const handleNext = () => {
-    navigate('/review/rating'); // 실제 다음 스텝 경로
+    navigate('/review/rating');
   };
 
   // 영화관 선택 후 돌아왔을 때 state 반영
@@ -35,11 +41,12 @@ export default function MovieInfoForm() {
 
   return (
     <ReviewStepLayout
-      title="티켓을 인식하고 빠르게 후기 남겨봐요"
+      title="관람하신 영화의 정보를 알려주세요"
       onClickNext={handleNext}
+      onClickBack={() => navigate('/review')}
       disabled={!isFormValid}
     >
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 px-1 py-5">
         <InputField
           label="영화 제목"
           value={movieTitle}
@@ -64,14 +71,14 @@ export default function MovieInfoForm() {
           helperText="좌석을 여러 개 추가할 수 있어요."
           onClickPlus={handleAddSeat}
         />
-      </div>
 
-      <div className="flex flex-wrap gap-4 pt-2">
-        {seats.map((seat) => (
-          <Badge key={seat} type="removable" onRemove={() => removeSeat(seat)}>
-            {seat}
-          </Badge>
-        ))}
+        <div className="flex flex-wrap gap-3">
+          {seats.map((seat) => (
+            <Badge key={seat} type="removable" onRemove={() => removeSeat(seat)}>
+              {seat}
+            </Badge>
+          ))}
+        </div>
       </div>
     </ReviewStepLayout>
   );

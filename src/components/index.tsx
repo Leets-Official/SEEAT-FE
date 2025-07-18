@@ -5,8 +5,12 @@ import ReviewCard from '@/components/common/ReviewCard/ReviewCard';
 import Badge from '@/components/common/Badge/Badge';
 import Image from '@/components/common/Image/Image';
 import ToggleTab from '@/components/common/ToggleTab';
-import InputField from './common/Input/Input';
-
+import Textarea from '@/components/common/Textarea/Textarea';
+import InputField from '@/components/common/Input/Input';
+import ReviewStepLayout from '@/components/reviewComponents/ReviewLayout';
+import TagSection from '@/components/reviewComponents/TagSection';
+import ReviewHeader from '@/components/reviewComponents/ReviewHeader';
+import Modal from '@/components/common/Modal/Modal';
 export {
   InputField,
   Button,
@@ -16,4 +20,9 @@ export {
   BottomNavigation,
   BestCinemaCard,
   ReviewCard,
+  ReviewStepLayout,
+  TagSection,
+  ReviewHeader,
+  Textarea,
+  Modal,
 };

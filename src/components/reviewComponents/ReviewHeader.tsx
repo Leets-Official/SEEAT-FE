@@ -3,14 +3,14 @@ import { ChevronIcon } from '@/assets';
 
 interface ReviewHeaderProps {
   showBack?: boolean;
-  onBackClick?: () => void;
+  onClickBack?: () => void;
 }
 
-const ReviewHeader = ({ showBack = true, onBackClick }: ReviewHeaderProps) => {
+const ReviewHeader = ({ showBack = true, onClickBack }: ReviewHeaderProps) => {
   const navigate = useNavigate();
   const handleBack = () => {
-    if (onBackClick) {
-      onBackClick();
+    if (onClickBack) {
+      onClickBack();
     } else {
       navigate(-1);
     }

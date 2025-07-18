@@ -3,12 +3,14 @@ import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
 
-import ReviewTest from '@/components/examples/Reviewpagetest';
 import MovieInfoForm from '@/pages/review/MovieInfoStep';
 import SplashPage from '@/pages/splash/SplashPage';
 import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
 import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
+import CinemaSelect from '@/pages/review/CinemaSelect';
+import { TicketUploadStep } from '@/pages/review/TicketPage';
+import RatingStep from '@/pages/review/RatingStep';
 
 const router = createBrowserRouter([
   {
@@ -25,11 +27,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/review', //테스트
-    element: <ReviewTest />,
+    element: <TicketUploadStep />,
   },
   {
     path: '/review/info',
     element: <MovieInfoForm />, //테스트
+  },
+  {
+    path: '/review/info/cinema',
+    element: <CinemaSelect />,
+  },
+  {
+    path: '/review/rating',
+    element: <RatingStep />,
   },
   {
     path: '/my',

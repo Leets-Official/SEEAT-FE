@@ -12,6 +12,8 @@ interface InputProps {
   focus?: boolean;
   showBackground?: boolean;
   placeholderColorType?: 'gray' | 'white';
+  onClickPlus?: () => void;
+  readOnly?: boolean;
 }
 
 export default function InputField({
@@ -24,16 +26,10 @@ export default function InputField({
   focus = false,
   showBackground = false,
   placeholderColorType = 'gray',
+  onClickPlus,
+  readOnly = false,
 }: InputProps) {
-  const [showDotWarning, setShowDotWarning] = useState(false);
-
-  const handleCheck = () => {
-    if (!value.includes('.')) {
-      setShowDotWarning(true);
-    } else {
-      setShowDotWarning(false);
-    }
-  };
+  const [showDotWarning] = useState(false);
 
   const placeholderColorClass =
     placeholderColorType === 'white' ? 'placeholder-white' : 'placeholder-gray-400';
@@ -56,15 +52,22 @@ export default function InputField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          readOnly={readOnly}
           className={cn(
             'text-body-2 flex-1 bg-transparent text-white',
             placeholderColorClass,
             'focus:ring-0 focus:outline-none',
           )}
         />
-        <button type="button" onClick={handleCheck} className="ml-2 text-white focus:outline-none">
-          <PlusIcon className="h-5 w-5" />
-        </button>
+        {onClickPlus && (
+          <button
+            type="button"
+            onClick={onClickPlus}
+            className="ml-2 text-white focus:outline-none"
+          >
+            <PlusIcon className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       {/* text-yellow-warn를 text-gray-400으로 변경해서 써도 됩니당! */}

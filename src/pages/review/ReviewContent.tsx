@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { ReviewStepLayout, Image, Textarea } from '@/components';
-import { CloseIcon, PlusIcon } from '@/assets';
+import { ReviewStepLayout, Textarea, ImagePreviewItem } from '@/components';
+import { PlusIcon } from '@/assets';
 import { useReviewStore, useModalStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
 import { useImgUpload } from '@/hooks';
@@ -65,23 +65,7 @@ export default function ReviewTextForm() {
           </label>
           {/* 이미지 미리보기? */}
           {images.map((image, index) => (
-            <div className="relative h-[84px] w-[84px] shrink-0 rounded-md">
-              <div key={index} className="h-full w-full overflow-hidden">
-                <Image
-                  src={URL.createObjectURL(image)}
-                  alt={`preview-${index}`}
-                  className="z-10 h-full w-full"
-                  aspectRatio=""
-                  rounded="rounded-md"
-                />
-              </div>
-              <button
-                onClick={() => removeImage(index)}
-                className="absolute -top-1.5 -right-1.5 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-red-500"
-              >
-                <CloseIcon className="h-2 w-2" />
-              </button>
-            </div>
+            <ImagePreviewItem key={index} image={image} index={index} onRemove={removeImage} />
           ))}
         </div>
       </div>

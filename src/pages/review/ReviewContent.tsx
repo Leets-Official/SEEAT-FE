@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useImgUpload } from '@/hooks';
 
 const MAX_IMAGES = 5;
-const MIN_TEXT_LENGTH = 10;
+const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
   const { text, setText } = useReviewStore();
@@ -75,7 +75,7 @@ export default function ReviewTextForm() {
         <Textarea
           title="주제"
           placeholder="관람 경험을 자유롭게 적어주세요. (예: 사운드 중심 좌석으로 돌비 효과를 제대로 느낄 수 있어서 좋았어요!)"
-          minLength={10}
+          minLength={30}
           maxLength={1000}
           placeholderColorType="gray"
           value={text}

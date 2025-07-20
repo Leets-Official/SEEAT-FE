@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { tagSections } from '@/constants';
 
 export default function ReviewTagsPage() {
-  const { isInitialized } = useReviewStore();
+  const { isInitialized, tags, toggleTag } = useReviewStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,8 +13,6 @@ export default function ReviewTagsPage() {
       navigate('/review');
     }
   }, [isInitialized, navigate]);
-
-  const { tags, toggleTag } = useReviewStore();
 
   const canProceed = tags.sound.length > 0 && tags.environment.length > 0;
 

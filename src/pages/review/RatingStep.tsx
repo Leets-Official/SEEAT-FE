@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { calculateRatingClick } from '@/utils/rating';
 
 const RatingStep = () => {
-  const { isInitialized } = useReviewStore();
+  const { isInitialized, rating, setRating } = useReviewStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +14,6 @@ const RatingStep = () => {
       navigate('/review');
     }
   }, [isInitialized, navigate]);
-  const { rating, setRating } = useReviewStore();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, value: number) => {
     const finalValue = calculateRatingClick(e, value);
@@ -22,7 +21,7 @@ const RatingStep = () => {
   };
 
   const handleNext = () => {
-    navigate('/review/tag'); // 원하는 다음 경로로 설정
+    navigate('/review/tag');
   };
 
   return (

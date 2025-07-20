@@ -1,3 +1,3 @@
 import { cinemaData } from '@/constants/cinema';
-
-export { cinemaData };
+import { tagSections } from '@/constants/reviewTags';
+export { cinemaData, tagSections };

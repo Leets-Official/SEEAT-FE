@@ -2,6 +2,7 @@ import { ReviewStepLayout, TagSection } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useReviewStore } from '@/store';
 import { useEffect } from 'react';
+import { tagSections } from '@/constants';
 
 export default function ReviewTagsPage() {
   const { isInitialized } = useReviewStore();
@@ -28,26 +29,16 @@ export default function ReviewTagsPage() {
       onClickNext={handleNext}
       disabled={!canProceed}
     >
-      <TagSection
-        title="음향"
-        required
-        options={['좋아요', '아무튼좋아요', '이런게좋아요', '어쩌구저쩌구', '좋다고요', '저쩌구']}
-        selected={tags.sound}
-        onChange={(value) => toggleTag('sound', value)}
-      />
-      <TagSection
-        title="관람 환경"
-        required
-        options={['좋아요', '아무튼좋아요', '이런게좋아요', '어쩌구저쩌구', '좋다고요', '저쩌구']}
-        selected={tags.environment}
-        onChange={(value) => toggleTag('environment', value)}
-      />
-      <TagSection
-        title="동반인"
-        options={['혼자', '친구', '연인', '형제자매', '부모님', '아무튼...']}
-        selected={tags.companion}
-        onChange={(value) => toggleTag('companion', value)}
-      />
+      {tagSections.map(({ key, title, required, options }) => (
+        <TagSection
+          key={key}
+          title={title}
+          options={options}
+          required={required}
+          selected={tags[key]}
+          onChange={(value) => toggleTag(key, value)}
+        />
+      ))}
     </ReviewStepLayout>
   );
 }

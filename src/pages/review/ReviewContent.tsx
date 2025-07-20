@@ -76,7 +76,6 @@ export default function ReviewTextForm() {
           title="주제"
           placeholder="관람 경험을 자유롭게 적어주세요. (예: 사운드 중심 좌석으로 돌비 효과를 제대로 느낄 수 있어서 좋았어요!)"
           minLength={30}
-          maxLength={1000}
           placeholderColorType="gray"
           value={text}
           onChange={setText}

@@ -30,7 +30,7 @@ export default function ReviewStepLayout({
 
         <div className="items-center gap-6">{children}</div>
         {/* 고정 하단 버튼 */}
-        <div className="fixed right-0 bottom-0 left-0 z-10 mx-auto w-full max-w-[430px] px-5 pt-4 pb-6">
+        <div className="fixed right-0 bottom-[10px] left-0 z-10 mx-auto w-full max-w-[430px] px-5 pt-4 pb-6">
           <Button
             variant="primary"
             color="red"

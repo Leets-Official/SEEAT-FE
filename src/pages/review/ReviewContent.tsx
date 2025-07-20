@@ -1,27 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ReviewStepLayout, Image, Textarea } from '@/components';
 import { CloseIcon, PlusIcon } from '@/assets';
 import { useReviewStore, useModalStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
+import { useImgUpload } from '@/hooks';
 
 const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 10;
 
 export default function ReviewTextForm() {
-  const [images, setImages] = useState<File[]>([]);
   const { text, setText } = useReviewStore();
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-
-    const selected = Array.from(files).slice(0, MAX_IMAGES - images.length);
-    setImages((prev) => [...prev, ...selected]);
-  };
-
-  const handleRemoveImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-  };
+  const { images, addImages, removeImage } = useImgUpload(5);
 
   const isValid = text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal } = useModalStore();
@@ -60,23 +49,23 @@ export default function ReviewTextForm() {
           사진 추가하기
           <span className="text-caption-3 px-2 text-red-300">최대 5장까지 업로드할 수 있어요.</span>
         </p>
-        <div className="flex flex-wrap gap-3 pt-3">
+        <div className="scrollbar-hidden flex gap-3 overflow-x-auto pt-3 whitespace-nowrap">
           {/* 업로드 버튼 */}
-          {images.length < MAX_IMAGES && (
-            <label className="flex h-[84px] w-[84px] cursor-pointer items-center justify-center rounded-md border border-white text-white">
-              <PlusIcon />
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                className="hidden"
-                onChange={handleImageChange}
-              />
-            </label>
-          )}
+
+          <label className="flex h-[84px] w-[84px] shrink-0 cursor-pointer items-center justify-center rounded-md border border-white text-white">
+            <PlusIcon />
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={(e) => addImages(e.target.files)}
+              disabled={images.length >= MAX_IMAGES}
+            />
+          </label>
           {/* 이미지 미리보기? */}
           {images.map((image, index) => (
-            <div className="relative h-[84px] w-[84px] rounded-md">
+            <div className="relative h-[84px] w-[84px] shrink-0 rounded-md">
               <div key={index} className="h-full w-full overflow-hidden">
                 <Image
                   src={URL.createObjectURL(image)}
@@ -87,7 +76,7 @@ export default function ReviewTextForm() {
                 />
               </div>
               <button
-                onClick={() => handleRemoveImage(index)}
+                onClick={() => removeImage(index)}
                 className="absolute -top-1.5 -right-1.5 z-10 flex h-4 w-4 items-center justify-center rounded-full bg-red-500"
               >
                 <CloseIcon className="h-2 w-2" />

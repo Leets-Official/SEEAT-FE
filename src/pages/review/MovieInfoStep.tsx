@@ -4,19 +4,28 @@ import { Badge, InputField, ReviewStepLayout } from '@/components';
 import { useReviewStore } from '@/store';
 
 export default function MovieInfoForm() {
-  const { isInitialized } = useReviewStore();
-  const navigate = useNavigate();
+  const { movieTitle, setTitle, cinema, setCinema, seats, addSeat, removeSeat, isInitialized } =
+    useReviewStore();
 
+  const [seatInput, setSeatInput] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  //입력 상태 불완전 하면 초기 단계로...
   useEffect(() => {
     if (!isInitialized) {
       navigate('/review');
     }
   }, [isInitialized, navigate]);
-  const location = useLocation();
 
-  const { movieTitle, setTitle, cinema, setCinema, seats, addSeat, removeSeat } = useReviewStore();
+  // 영화관 선택 후 돌아왔을 때 state 반영
+  useEffect(() => {
+    if (location.state?.cinema) {
+      setCinema(location.state.cinema);
+    }
+  }, [location.state?.cinema, setCinema]);
 
-  const [seatInput, setSeatInput] = useState('');
+  const isFormValid = movieTitle.trim() && cinema.trim() && seats.length > 0;
 
   const handleAddSeat = () => {
     const trimmed = seatInput.trim();
@@ -29,15 +38,6 @@ export default function MovieInfoForm() {
   const handleNext = () => {
     navigate('/review/rating');
   };
-
-  // 영화관 선택 후 돌아왔을 때 state 반영
-  useEffect(() => {
-    if (location.state?.cinema) {
-      setCinema(location.state.cinema);
-    }
-  }, [location.state?.cinema, setCinema]);
-
-  const isFormValid = movieTitle.trim() && cinema.trim() && seats.length > 0;
 
   return (
     <ReviewStepLayout

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, ToggleTab, ReviewHeader } from '@/components';
+import { Button, ToggleTab, Header } from '@/components';
 import { useState, useEffect } from 'react';
 import { useReviewStore } from '@/store';
 
@@ -45,7 +45,12 @@ export default function CinemaSelect() {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 py-6">
-      <ReviewHeader onClickBack={() => navigate('/review/info')} />
+      <Header
+        title=""
+        onBackClick={() => navigate('/review/info')}
+        showLike={false}
+        showBookmark={false}
+      />
 
       {/* 탭 */}
       <div className="mb-4 flex w-full justify-center">

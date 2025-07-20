@@ -1,4 +1,4 @@
-import { Button, ReviewHeader } from '@/components';
+import { Button, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useReviewStore } from '@/store';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ export const TicketUploadStep = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 py-6">
-      <ReviewHeader />
+      <Header title="" showLike={false} showBookmark={false} />
       {/* 상단 */}
       <div className="flex flex-col gap-6 px-5 pt-4">
         <div className="w-full max-w-[430px] text-left">

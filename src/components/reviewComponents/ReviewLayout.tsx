@@ -1,6 +1,6 @@
 // components/layouts/ReviewStepLayout.tsx
 import type { ReactNode } from 'react';
-import { Button, ReviewHeader } from '@/components';
+import { Button, Header } from '@/components';
 
 interface ReviewStepLayoutProps {
   title: string;
@@ -22,7 +22,7 @@ export default function ReviewStepLayout({
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 py-6">
       {/* 하단 버튼 여백 고려 */}
-      <ReviewHeader onClickBack={onClickBack} />
+      <Header title="" showBack onBackClick={onClickBack} showLike={false} showBookmark={false} />
       <div className="flex flex-col gap-6 px-5 pt-4">
         <div className="w-full max-w-[430px] text-left">
           <h2 className="text-title-2 text-white">{title}</h2>

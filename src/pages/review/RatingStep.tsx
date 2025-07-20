@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { StarFill, StarHalf, StarLine } from '@/assets';
 import { ReviewStepLayout } from '@/components';
 import { useEffect } from 'react';
+import { calculateRatingClick } from '@/utils/rating';
 
 const RatingStep = () => {
   const { isInitialized } = useReviewStore();
@@ -16,10 +17,7 @@ const RatingStep = () => {
   const { rating, setRating } = useReviewStore();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, value: number) => {
-    const { left, width } = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - left;
-    const clickedHalf = clickX < width / 2;
-    const finalValue = clickedHalf ? value - 0.5 : value;
+    const finalValue = calculateRatingClick(e, value);
     setRating(finalValue);
   };
 

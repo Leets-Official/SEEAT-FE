@@ -25,7 +25,7 @@ export default function ReviewStepLayout({
       <ReviewHeader onClickBack={onClickBack} />
       <div className="flex flex-col gap-6 px-5 pt-4">
         <div className="w-full max-w-[430px] text-left">
-          <h2 className="text-title-2 leading-snug text-white">{title}</h2>
+          <h2 className="text-title-2 text-white">{title}</h2>
         </div>
 
         <div className="items-center gap-6">{children}</div>
@@ -35,7 +35,7 @@ export default function ReviewStepLayout({
             variant="primary"
             color="red"
             size="lg"
-            className="w-full rounded-md"
+            className="w-full"
             onClick={onClickNext}
             disabled={disabled}
           >

@@ -45,6 +45,7 @@
   --color-gray-800: #424242; /* BG 2  & Stroke 5 */
   --color-gray-900: #222222; /* BG 1  $ Stroke 6 */
   --color-gray-950: #181818; /* BG 3  & Text 5 */
+  --color-seat1-default: #4e4e4e; /* Seat1 Default */
 
   --color-red-050: #ffebec;
   --color-red-100: #ffddd3;
@@ -271,6 +272,10 @@
   }
   .bg-gray-950 {
     background-color: var(--gray-950);
+  }
+
+  .bg-seat1-default {
+    background-color: var(--color-seat1-default);
   }
 
   .bg-red-300 {

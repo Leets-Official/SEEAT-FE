@@ -1,0 +1,42 @@
+export const mockSeats = [
+  {
+    seatId: '13018A4',
+    row: 'A',
+    column: 4,
+    hasReview: true,
+    score: 4.8,
+    isWheelchair: false,
+  },
+  {
+    seatId: '13018A5',
+    row: 'A',
+    column: 5,
+    hasReview: false,
+    score: undefined,
+    isWheelchair: false,
+  },
+  {
+    seatId: '13018A6',
+    row: 'A',
+    column: 6,
+    hasReview: true,
+    score: 2.3,
+    isWheelchair: false,
+  },
+  {
+    seatId: '13018A7',
+    row: 'A',
+    column: 7,
+    hasReview: true,
+    score: 1.5,
+    isWheelchair: true,
+  },
+  {
+    seatId: '13018A8',
+    row: 'A',
+    column: 8,
+    hasReview: true,
+    score: 3.5,
+    isWheelchair: false,
+  },
+];

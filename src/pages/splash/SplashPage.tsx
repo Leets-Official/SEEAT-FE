@@ -14,8 +14,8 @@ function SplashPage() {
   }, [navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-black">
-      <h1 className="text-white text-4xl font-bold">SEEAT</h1>
+    <div className="flex h-screen items-center justify-center bg-black">
+      <h1 className="text-4xl font-bold text-white">SEEAT</h1>
     </div>
   );
 }

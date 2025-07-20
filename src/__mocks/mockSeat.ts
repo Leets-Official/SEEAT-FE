@@ -32,6 +32,14 @@ export const mockSeats = [
     isWheelchair: true,
   },
   {
+    seatId: '13018A7',
+    row: 'A',
+    column: 11,
+    hasReview: true,
+    score: 1.5,
+    isWheelchair: false,
+  },
+  {
     seatId: '13018A8',
     row: 'A',
     column: 8,

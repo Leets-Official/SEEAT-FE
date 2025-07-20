@@ -37,9 +37,6 @@ export const TicketUploadStep = () => {
 
       <div className="mt-auto flex flex-col items-start gap-[10px] px-[20px] py-[10px]">
         <Button
-          variant="primary"
-          color="red"
-          size="lg"
           fontType="title-3"
           className="w-full"
           //onClick={} <=티켓 있을 때 인식하는 페이지
@@ -50,7 +47,6 @@ export const TicketUploadStep = () => {
         {/* 티켓 없을 때 선택 텍스트 버튼 */}
         <Button
           variant="text"
-          color="red"
           fontType="body-1"
           className="w-full text-center"
           onClick={handleNext}

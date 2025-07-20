@@ -33,7 +33,7 @@ export default function ReviewStepLayout({
         <div className="items-center gap-6">{children}</div>
         {/* 고정 하단 버튼 */}
         <div className="fixed right-0 bottom-[10px] left-0 z-10 mx-auto w-full max-w-[430px] px-5 pt-4 pb-6">
-          <Button className="w-full" onClick={onClickNext} disabled={disabled}>
+          <Button className="w-full" onClick={onClickNext} disabled={disabled} fontType="title-3">
             {nextLabel}
           </Button>
         </div>

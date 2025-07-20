@@ -74,7 +74,7 @@ export default function ReviewTextForm() {
       <div className="flex flex-col gap-1 pt-6">
         <Textarea
           title="주제"
-          placeholder="머시기를 위반한 후기는 삭제될 수 있습니다~"
+          placeholder="관람 경험을 자유롭게 적어주세요. (예: 사운드 중심 좌석으로 돌비 효과를 제대로 느낄 수 있어서 좋았어요!)"
           minLength={10}
           maxLength={1000}
           placeholderColorType="gray"

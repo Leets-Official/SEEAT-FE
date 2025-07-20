@@ -17,7 +17,7 @@ export const TicketUploadStep = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 py-6">
+    <div className="flex min-h-screen flex-col bg-gray-900 py-5">
       <Header title="" showLike={false} showBookmark={false} />
       {/* 상단 */}
       <div className="flex flex-col gap-6 px-5 pt-4">

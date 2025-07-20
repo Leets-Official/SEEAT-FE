@@ -30,28 +30,16 @@ const router = createBrowserRouter([
   //리뷰
   {
     path: '/review',
-    element: <TicketUploadStep />,
+    children: [
+      { index: true, element: <TicketUploadStep /> },
+      { path: 'info', element: <MovieInfoForm /> },
+      { path: 'info/cinema', element: <CinemaSelect /> },
+      { path: 'rating', element: <RatingStep /> },
+      { path: 'tag', element: <ReviewTagsPage /> },
+      { path: 'form', element: <ReviewTextForm /> },
+    ],
   },
-  {
-    path: '/review/info',
-    element: <MovieInfoForm />,
-  },
-  {
-    path: '/review/info/cinema',
-    element: <CinemaSelect />,
-  },
-  {
-    path: '/review/rating',
-    element: <RatingStep />,
-  },
-  {
-    path: '/review/tag',
-    element: <ReviewTagsPage />,
-  },
-  {
-    path: '/review/form',
-    element: <ReviewTextForm />,
-  },
+
   //마이
   {
     path: '/my',

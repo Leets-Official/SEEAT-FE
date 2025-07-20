@@ -63,6 +63,7 @@ export default function MovieInfoForm() {
           onClickPlus={() => navigate('/review/info/cinema')}
         />
 
+        {/*추후 좌석 페이지 연결 시 readOnly 속성 추가*/}
         <InputField
           label="좌석"
           value={seatInput}

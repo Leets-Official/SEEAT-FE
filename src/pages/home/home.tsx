@@ -13,13 +13,13 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 py-5 pb-[172px]">
+    <div className="flex min-h-screen flex-col py-5 pb-[172px]">
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
         <HomeHeader />
       </div>
       {/* 이미지?*/}
-      <div className="mx-auto w-full max-w-[430px] pt-6">
-        <Image src={imgUrl} className="w-full" />
+      <div className="mx-auto w-full max-w-[430px] bg-gray-700 pt-6">
+        <Image src={imgUrl} aspectRatio="aspect-[375/210]" className="w-full" />
       </div>
       <div className="mx-auto w-full px-5">
         {/*영화관 리스트 선택*/}

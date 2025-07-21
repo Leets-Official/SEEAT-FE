@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
 
@@ -13,6 +12,7 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
+import HomePage from '@/pages/home/home';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home />,
+    element: <HomePage />,
   },
   //리뷰
   {

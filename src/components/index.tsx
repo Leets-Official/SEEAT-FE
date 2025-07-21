@@ -11,7 +11,8 @@ import ReviewStepLayout from '@/components/review/ReviewLayout';
 import TagSection from '@/components/review/TagSection';
 import Modal from '@/components/common/Modal/Modal';
 import Header from '@/components/common/Header/Header';
-import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
+import ImagePreviewItem from '@/components/common/ImagePreview/ImagePreviewItem';
+import HomeHeader from '@/components/common/Header/HomeHeader';
 export {
   InputField,
   Button,
@@ -27,4 +28,5 @@ export {
   Modal,
   Header,
   ImagePreviewItem,
+  HomeHeader,
 };

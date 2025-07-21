@@ -1,5 +1,5 @@
 import React from 'react';
-import GearIcon from '@/assets/icons/icon_gear.svg';
+import { HeaderLogo, GearIcon } from '@/assets';
 
 interface HomeHeaderProps {
   onSettingsClick?: () => void;
@@ -7,12 +7,12 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ onSettingsClick }) => {
   return (
-    <div className="flex items-center justify-between px-4 w-full max-w-[375px] h-[44px] mx-auto">
+    <div className="mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-5">
       {/* 로고 자리 (비어 있음) */}
-      <div className="w-[60px] h-[24px]" />
-      
+      <HeaderLogo className="h-6 w-20" />
+
       <button onClick={onSettingsClick}>
-        <img src={GearIcon} alt="Settings" className="w-5 h-5" />
+        <GearIcon className="h-6 w-6" />
       </button>
     </div>
   );

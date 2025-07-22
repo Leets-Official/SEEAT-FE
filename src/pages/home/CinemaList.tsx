@@ -58,10 +58,11 @@ export default function TheaterListPage({ onSelect }: CinemaSelectorProps) {
               <div key={name} className="w-full px-5">
                 <Button
                   onClick={() => {
+                    setSelectedCinema(name);
                     if (Array.isArray(halls) && halls.length === 1) {
-                      onSelect?.(name, halls[0]);
-                      setSelectedCinema(name);
-                      setSelectedHall(null);
+                      setSelectedHall(halls[0]);
+                    } else {
+                      setSelectedHall(null); // 상영관 수동 선택 요구
                     }
                   }}
                   variant="secondary-assistive"

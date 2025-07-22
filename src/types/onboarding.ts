@@ -1,4 +1,11 @@
 export type GenreType = '액션' | '로맨스' | 'SF' | '공포' | '코미디' | '다큐' | '애니메이션';
-export type CinemaType = 'CGV 강남' | '롯데시네마 홍대' | '메가박스 코엑스'| 'CGV 용산' | '메가박스 성수';
+export type CinemaType =
+  | '남양주현대아울렛 스페이스원'
+  | '대구 신세계(동대구)'
+  | '대전신세계아트앤사이언스'
+  | '송도(트리플스트리트)'
+  | '수원AK플라자(수원역)'
+  | '안성스타필드'
+  | '코엑스';
 
-export type CinemaFormat = 'IMAX' | 'Dolby Cinema';
+export type CinemaFormat = 'IMAX' | 'Dolby';

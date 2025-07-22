@@ -29,7 +29,7 @@ const HomePage = () => {
           </div>
           <div className="flex justify-center gap-3">
             <button
-              onClick={() => navigate('/thaeaters?tab=imax')}
+              onClick={() => navigate('/theaters?tab=imax')}
               className="rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800"
             >
               {/*로고 자리*/}
@@ -37,7 +37,7 @@ const HomePage = () => {
               <p className="mt-2 text-xl text-white">IMAX</p>
             </button>
             <button
-              onClick={() => navigate('/thaeaters?tab=imax')}
+              onClick={() => navigate('/theaters?tab=imax')}
               className="rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800"
             >
               {/*로고 자리*/}
@@ -93,7 +93,7 @@ const HomePage = () => {
         </div>
       </div>
       <button
-        onClick={() => navigate('/review')} // 원하는 경로로 변경 가능
+        onClick={() => navigate('/review')}
         className="rounded-m fixed right-5 bottom-20 z-50 flex h-12 w-12 items-center justify-center bg-red-400 text-white shadow-md"
       >
         <PlusIcon className="h-6 w-6" />

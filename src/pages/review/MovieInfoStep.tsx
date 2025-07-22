@@ -25,7 +25,7 @@ export default function MovieInfoForm() {
     }
   }, [location.state?.cinema, setCinema]);
 
-  const isFormValid = movieTitle.trim() && cinema.trim() && seats.length > 0;
+  const isFormValid = movieTitle.trim() && cinema?.name && cinema?.hall && seats.length > 0;
 
   const handleAddSeat = () => {
     const trimmed = seatInput.trim();
@@ -56,9 +56,15 @@ export default function MovieInfoForm() {
 
         <InputField
           label="영화관"
-          value={cinema}
-          onChange={setCinema}
+          value={
+            cinema && cinema.name
+              ? cinema.hall
+                ? `${cinema.name} (${cinema.hall})`
+                : cinema.name
+              : ''
+          }
           readOnly
+          onChange={() => {}}
           placeholder="관람하신 영화관을 선택해주세요"
           onClickPlus={() => navigate('/review/info/cinema')}
         />

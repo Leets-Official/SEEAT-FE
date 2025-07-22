@@ -6,9 +6,9 @@ export const cinemaData = {
     { name: '송도(트리플스트리트)' },
     { name: '기타 등등' },
     { name: '추후 연결' },
-    { name: '가나다', halls: ['1관'] },
-    { name: '라마바', halls: ['1관'] },
-    { name: '사아자', halls: ['1관'] },
+    { name: '가나다' },
+    { name: '라마바' },
+    { name: '사아자' },
   ],
   'Dolby Cinema': [
     { name: '수원AK플라자(수원역)', halls: ['1관', '2관'] },

@@ -25,7 +25,7 @@ export default function MovieInfoForm() {
     }
   }, [location.state?.cinema, setCinema]);
 
-  const isFormValid = movieTitle.trim() && cinema?.name && cinema?.hall && seats.length > 0;
+  const isFormValid = movieTitle.trim() && cinema?.name && seats.length > 0;
 
   const handleAddSeat = () => {
     const trimmed = seatInput.trim();

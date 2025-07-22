@@ -13,6 +13,7 @@ import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
 import HomePage from '@/pages/home/home';
+import TheaterListPage from '@/pages/home/theaterList';
 
 const router = createBrowserRouter([
   {
@@ -23,9 +24,14 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Signup />,
   },
+  //홈
   {
     path: '/home',
     element: <HomePage />,
+  },
+  {
+    path: '/theaters',
+    element: <TheaterListPage />,
   },
   //리뷰
   {

@@ -37,7 +37,7 @@ const HomePage = () => {
               <p className="mt-2 text-xl text-white">IMAX</p>
             </button>
             <button
-              onClick={() => navigate('/theaters?tab=imax')}
+              onClick={() => navigate('/theaters?tab=dolby')}
               className="rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800"
             >
               {/*로고 자리*/}

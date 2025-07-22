@@ -37,8 +37,8 @@ export default function CinemaSelect() {
       nextLabel="선택 완료"
     >
       {/* 탭 */}
-      <div className="mb-4 flex justify-center">
-        <div className="w-[335px]">
+      <div className="mb-4 flex justify-center pt-5">
+        <div className="w-full">
           <ToggleTab
             options={['IMAX', 'Dolby Cinema']}
             selected={selectedTab}
@@ -52,14 +52,14 @@ export default function CinemaSelect() {
       </div>
 
       {/* 영화관 목록 */}
-      <div className="scrollbar-hidden max-h-[calc(100vh-44px-56px-160px)] overflow-y-auto">
+      <div className="scrollbar-hidden max-h-[calc(100vh-236px)] overflow-y-auto pt-5">
         <div className="flex flex-col items-center gap-3 pb-[160px]">
           {cinemas.map(({ name, halls }) => {
             const isThisSelected = selectedCinema === name;
             const isMulti = Array.isArray(halls) && halls.length > 1;
 
             return (
-              <div key={name} className="w-full max-w-[335px]">
+              <div key={name} className="w-full">
                 <Button
                   onClick={() => {
                     setSelectedCinema(name);

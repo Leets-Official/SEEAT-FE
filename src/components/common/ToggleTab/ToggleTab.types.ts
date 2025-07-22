@@ -1,5 +1,11 @@
+export interface ToggleOption {
+  label: string;
+  value: string;
+}
+
 export interface ToggleTabProps {
-  options: string[];
+  options: ToggleOption[];
   selected: string;
   onSelect: (option: string) => void;
+  className?: string;
 }

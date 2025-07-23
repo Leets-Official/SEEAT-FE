@@ -1,50 +1,24 @@
-export const mockSeats = [
-  {
-    seatId: '13018A4',
-    row: 'A',
-    column: 4,
-    hasReview: true,
-    score: 4.8,
-    isWheelchair: false,
-  },
-  {
-    seatId: '13018A5',
-    row: 'A',
-    column: 5,
-    hasReview: false,
-    score: undefined,
-    isWheelchair: false,
-  },
-  {
-    seatId: '13018A6',
-    row: 'A',
-    column: 6,
-    hasReview: true,
-    score: 2.3,
-    isWheelchair: false,
-  },
-  {
-    seatId: '13018A7',
-    row: 'A',
-    column: 7,
-    hasReview: true,
-    score: 1.5,
-    isWheelchair: true,
-  },
-  {
-    seatId: '13018A7',
-    row: 'A',
-    column: 11,
-    hasReview: true,
-    score: 1.5,
-    isWheelchair: false,
-  },
-  {
-    seatId: '13018A8',
-    row: 'A',
-    column: 8,
-    hasReview: true,
-    score: 3.5,
-    isWheelchair: false,
-  },
-];
+import type { Seat } from '../../src/types/seat';
+
+export const mockSeats: Seat[] = [];
+
+const rows = 'ABCDEFGHIJKLMNOP'.split('');
+const columns = Array.from({ length: 23 }, (_, i) => i + 5); // 5~27
+
+rows.forEach((row) => {
+  columns.forEach((col) => {
+    const hasReview = Math.random() < 0.3;
+    const isWheelchair = row === 'A' && col >= 10 && col <= 13;
+
+    const seat = {
+      seatId: `13018${row}${col}`,
+      row,
+      column: col,
+      hasReview,
+      score: hasReview ? parseFloat((Math.random() * 5).toFixed(1)) : undefined,
+      isWheelchair,
+    };
+
+    mockSeats.push(seat);
+  });
+});

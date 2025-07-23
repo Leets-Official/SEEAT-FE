@@ -296,6 +296,10 @@
     background-color: var(--color-seat5-hover);
   }
 
+  .hover\:bg-mint-hover:hover {
+    background-color: var(--color-seat5-hover);
+  }
+
   .bg-kakao {
     background-color: var(--color-kakao);
   }

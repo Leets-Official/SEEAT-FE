@@ -12,6 +12,9 @@ import TagSection from '@/components/review/TagSection';
 import Modal from '@/components/common/Modal/Modal';
 import Header from '@/components/common/Header/Header';
 import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
+import SeatItem from '@/components/seat/SeatItem';
+import SeatMap from '@/components/seat/SeatMap';
+
 export {
   InputField,
   Button,
@@ -27,4 +30,6 @@ export {
   Modal,
   Header,
   ImagePreviewItem,
+  SeatItem,
+  SeatMap,
 };

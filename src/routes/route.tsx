@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
@@ -13,6 +14,7 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
+import SeatTest from '@/pages/seat';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,7 @@ const router = createBrowserRouter([
     path: '/my',
     element: <MyPage />,
   },
+
   {
     path: '/onboarding/nickname',
     element: <OnboardingNicknamePage />,
@@ -56,6 +59,12 @@ const router = createBrowserRouter([
   {
     path: '/onboarding/theater',
     element: <OnboardingTheaterPage />,
+  },
+
+  // 좌석 배치도 테스트
+  {
+    path: '/seat',
+    element: <SeatTest />,
   },
 ]);
 

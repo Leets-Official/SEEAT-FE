@@ -1,24 +1,16 @@
 import { cn } from '@/utils/cn';
 import { getSeatColor } from '@/utils/getSeatColor';
 import { useState } from 'react';
+import type { SeatItemProps } from '@/types/seat';
 
-type SeatItemProps = {
-  seatId: string;
-  seatLabel: string;
-  hasReview?: boolean;
-  score?: number;
-  isWheelchair?: boolean;
-  onClick?: (seatId: string) => void;
-};
-
-export default function SeatItem({
+const SeatItem = ({
   seatId,
   seatLabel,
   hasReview = false,
   score,
   isWheelchair = false,
   onClick,
-}: SeatItemProps) {
+}: SeatItemProps) => {
   const [selected, setSelected] = useState(false);
 
   const bgColor = getSeatColor({ hasReview, score, isWheelchair });
@@ -43,4 +35,6 @@ export default function SeatItem({
       {seatLabel}
     </div>
   );
-}
+};
+
+export default SeatItem;

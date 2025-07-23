@@ -6,3 +6,8 @@ export interface Seat {
   score?: number;
   isWheelchair: boolean;
 }
+
+export interface SeatItemProps extends Seat {
+  seatLabel: string;
+  onClick?: (seatId: string) => void;
+}

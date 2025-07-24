@@ -12,8 +12,10 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
-import HomePage from '@/pages/home/home';
-import TheaterListPage from '@/pages/home/theaterList';
+import HomePage from '@/pages/home/HomePage';
+import TheaterListPage from '@/pages/home/TheatersList';
+import TheaterDetailPage from '@/pages/home/TheaterDetail';
+import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,15 @@ const router = createBrowserRouter([
     path: '/theaters',
     element: <TheaterListPage />,
   },
+  {
+    path: '/theaters/:tab/:cinemaName',
+    element: <TheaterDetailPage />,
+  },
+  {
+    path: '/theaters/:tab/:cinemaName/reviews',
+    element: <TheaterReviewListPage />,
+  },
+
   //리뷰
   {
     path: '/review',

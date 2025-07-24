@@ -1,6 +1,12 @@
 export const cinemaData = {
   IMAX: [
-    { name: '남양주현대아울렛 스페이스원', halls: ['1관', '2관'] },
+    {
+      name: '남양주현대아울렛 스페이스원',
+      halls: ['1관', '2관'],
+      screenSize: '22m x 12m',
+      format: '4K Laser',
+      sound: 'Dolby Atmos',
+    },
     { name: '대구 신세계(동대구)' },
     { name: '대전신세계아트앤사이언스' },
     { name: '송도(트리플스트리트)' },

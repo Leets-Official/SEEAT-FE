@@ -3,11 +3,7 @@ import { ToggleTab, Button, Header } from '@/components';
 import { cinemaData } from '@/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-interface CinemaSelectorProps {
-  onSelect?: (cinemaName: string, hallName: string) => void;
-}
-
-export default function TheaterListPage({ onSelect }: CinemaSelectorProps) {
+export default function TheaterListPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,10 +55,15 @@ export default function TheaterListPage({ onSelect }: CinemaSelectorProps) {
                 <Button
                   onClick={() => {
                     setSelectedCinema(name);
-                    if (Array.isArray(halls) && halls.length === 1) {
-                      setSelectedHall(halls[0]);
+                    if (!Array.isArray(halls) || halls.length === 0) {
+                      // (받아온 데이터에서)관이 없는 경우
+                      navigate(`/theaters/${selectedTab}/${encodeURIComponent(name)}`);
+                    } else if (halls.length === 1) {
+                      // 관이 1개인 경우
+                      navigate(`/theaters/${selectedTab}/${encodeURIComponent(name)}`);
                     } else {
-                      setSelectedHall(null); // 상영관 수동 선택 요구
+                      // 관이 2개 이상인 경우
+                      setSelectedHall(null);
                     }
                   }}
                   variant="secondary-assistive"
@@ -79,12 +80,10 @@ export default function TheaterListPage({ onSelect }: CinemaSelectorProps) {
                   <div className="mx-auto mt-2 ml-10 grid grid-cols-2 gap-2 px-1">
                     {halls.map((hall) => (
                       <Button
-                        key={hall}
                         onClick={() => {
-                          setSelectedHall(hall);
-                          if (onSelect) {
-                            onSelect(name, halls[0]);
-                          }
+                          navigate(
+                            `/theaters/${selectedTab}/${encodeURIComponent(`${name} (${hall})`)}`,
+                          );
                         }}
                         variant="secondary-assistive"
                         color="gray"

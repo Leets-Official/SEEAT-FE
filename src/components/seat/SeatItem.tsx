@@ -3,6 +3,10 @@ import { getSeatColor } from '@/utils/getSeatColor';
 import { useState } from 'react';
 import type { SeatItemProps } from '@/types/seat';
 
+interface Props extends SeatItemProps {
+  className?: string;
+}
+
 const SeatItem = ({
   seatId,
   seatLabel,
@@ -10,7 +14,8 @@ const SeatItem = ({
   score,
   isWheelchair = false,
   onClick,
-}: SeatItemProps) => {
+  className,
+}: Props) => {
   const [selected, setSelected] = useState(false);
 
   const bgColor = getSeatColor({ hasReview, score, isWheelchair });
@@ -29,6 +34,7 @@ const SeatItem = ({
         bgColor,
         textColor,
         selected && 'ring-1 ring-white',
+        className,
       )}
       onClick={handleClick}
     >

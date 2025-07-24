@@ -2,15 +2,18 @@ import type { Seat } from '../../src/types/seat';
 
 export const mockSeats: Seat[] = [];
 
-const rows = 'ABCDEFGHIJKLMNOP'.split('');
-const columns = Array.from({ length: 23 }, (_, i) => i + 5); // 5~27
+const rows = 'ABCDEFGHIJKLMNOP'.split(''); // A ~ P
+const columns = Array.from({ length: 23 }, (_, i) => i + 5); // 5 ~ 27
 
 rows.forEach((row) => {
   columns.forEach((col) => {
+    const shouldExist = Math.random() < 0.7;
+    if (!shouldExist) return;
+
     const hasReview = Math.random() < 0.3;
     const isWheelchair = row === 'A' && col >= 10 && col <= 13;
 
-    const seat = {
+    const seat: Seat = {
       seatId: `13018${row}${col}`,
       row,
       column: col,

@@ -13,7 +13,7 @@ const SeatPickerModal = ({ theaterType, theaterName, auditoriumId }: SeatPickerM
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950">
-      <div className="bg-bg relative w-[90%] max-w-[600px] rounded-2xl">
+      <div className="relative w-[90%] max-w-[600px] rounded-l">
         {/* 헤더 */}
         <div className="mb-4 flex items-center justify-between">
           <div className="text-title-3">좌석을 선택해주세요</div>

@@ -1,7 +1,7 @@
 import { HomeHeader, ReviewCard, BestCinemaCard, BottomNavigation, Image } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from '@/assets';
-import { popularReviews, bestCinemas, getRandomImage } from '@/__mocks';
+import { cinemaReviewsMock, bestCinemas, getRandomImage } from '@/__mocks';
 import { PlusIcon } from '@/assets';
 
 const HomePage = () => {
@@ -11,6 +11,8 @@ const HomePage = () => {
   const handleGoToPopular = () => {
     navigate('/review/popular');
   };
+
+  const popularReviews = [...cinemaReviewsMock].sort((a, b) => b.likes - a.likes).slice(0, 3);
 
   return (
     <div className="flex min-h-screen flex-col py-5 pb-[172px]">
@@ -60,11 +62,11 @@ const HomePage = () => {
             {popularReviews.map((review) => (
               <ReviewCard
                 key={review.id}
-                imageUrl={review.imageUrl}
+                imageUrl={getRandomImage(82, 82)}
                 tags={review.tags}
-                title={review.title}
-                description={review.description}
-                likeCount={review.likeCount}
+                title={review.cinemaName}
+                description={review.content}
+                likeCount={review.likes}
                 onClick={() => navigate(`review/${review.id}`)}
               />
             ))}
@@ -86,7 +88,7 @@ const HomePage = () => {
                 title={cinema.title}
                 rating={cinema.rating}
                 reviewCount={cinema.reviewCount}
-                onClick={() => navigate(`/cinema/${cinema.id}`)}
+                onClick={() => navigate(`/review/${cinema.id}`)}
               />
             ))}
           </div>

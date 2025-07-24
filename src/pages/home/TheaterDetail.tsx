@@ -1,31 +1,26 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, Badge, ReviewCard } from '@/components';
 import { StarSmall, ArrowRight } from '@/assets';
-import { getRandomImage, cinemaDetailMock } from '@/__mocks';
+import { getRandomImage, cinemaReviewsMock } from '@/__mocks';
+import { cinemaInfoMap } from '@/constants/theaterInfo';
 
 const CinemaDetailPage = () => {
+  const { tab, cinemaName } = useParams<{ tab: string; cinemaName: string }>();
   const navigate = useNavigate();
-  const { tab, cinemaName } = useParams<{
-    tab: 'IMAX' | 'Dolby Cinema';
-    cinemaName: string;
-  }>();
+  const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
 
-  if (!tab || !cinemaName) {
-    return <div>잘못된 접근입니다</div>;
-  }
+  const reviews = cinemaReviewsMock.filter((review) => review.cinemaName === decodeCinemaName);
+  const reviewCount = reviews.length;
+  const rating =
+    reviews.length === 0
+      ? 0
+      : (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1);
 
-  const decodeCinemaName = decodeURIComponent(cinemaName);
-
-  const cinema = cinemaDetailMock.find((c) => c.name === decodeCinemaName);
-
-  const {
-    screenSize = '정보 없음',
-    format = '정보 없음',
-    sound = '정보 없음',
-    rating = 0,
-    reviewCount = 0,
-    reviews = [],
-  } = cinema ?? {};
+  const cinemaInfo = cinemaInfoMap[decodeCinemaName] ?? {
+    screenSize: '정보 없음',
+    format: '정보 없음',
+    sound: '정보 없음',
+  };
 
   const imgUrl = getRandomImage(246, 142);
 
@@ -67,19 +62,19 @@ const CinemaDetailPage = () => {
             <Badge type="info" className="h-7 w-[85px] justify-center">
               스크린
             </Badge>
-            <span className="text-caption-2 text-white">{screenSize}</span>
+            <span className="text-caption-2 text-white">{cinemaInfo.screenSize}</span>
           </div>
           <div className="flex items-center gap-4">
             <Badge type="info" className="h-7 w-[85px] justify-center">
               영사 포맷
             </Badge>
-            <span className="text-caption-2 text-white">{format}</span>
+            <span className="text-caption-2 text-white">{cinemaInfo.format}</span>
           </div>
           <div className="flex items-center gap-4">
             <Badge type="info" className="h-7 w-[85px] justify-center">
               음향
             </Badge>
-            <span className="text-caption-2 text-white">{sound}</span>
+            <span className="text-caption-2 text-white">{cinemaInfo.sound}</span>
           </div>
         </div>
 
@@ -88,7 +83,9 @@ const CinemaDetailPage = () => {
           <div className="mb-3 flex items-center justify-between">
             <p className="text-title-3">후기</p>
             <button
-              onClick={() => navigate(`/theaters/${tab}/${encodeURIComponent(cinemaName)}/reviews`)}
+              onClick={() =>
+                navigate(`/theaters/${tab}/${encodeURIComponent(cinemaName!)}/reviews`)
+              }
             >
               <ArrowRight className="h-5 w-5 text-gray-500" />
             </button>
@@ -102,7 +99,7 @@ const CinemaDetailPage = () => {
                 title={decodeCinemaName}
                 description={review.content}
                 likeCount={review.likes}
-                onClick={() => navigate(`/theaters/${tab}/${cinemaName}/review/${review.id}`)}
+                onClick={() => navigate(`/review/${review.id}`)}
               />
             ))}
           </div>

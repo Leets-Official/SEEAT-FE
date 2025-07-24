@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { cinemaDetailMock, getRandomImage } from '@/__mocks';
+import { getRandomImage, cinemaReviewsMock } from '@/__mocks';
 import { Header, ReviewCard } from '@/components';
 
 const TheaterReviewListPage = () => {
@@ -9,11 +9,10 @@ const TheaterReviewListPage = () => {
   const ImgURL = getRandomImage(81, 81);
 
   /* 묵데이터에서 리뷰 가져오는 로직 */
-  const selectedReviews = (() => {
-    const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
-    const cinema = cinemaDetailMock.find((c) => c.name === decodeCinemaName);
-    return cinema?.reviews ?? [];
-  })();
+  const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
+  const selectedReviews = cinemaReviewsMock.filter(
+    (review) => review.cinemaName === decodeCinemaName,
+  );
 
   return (
     <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">
@@ -38,6 +37,7 @@ const TheaterReviewListPage = () => {
               title={decodeURIComponent(cinemaName ?? '')}
               description={review.content}
               likeCount={review.likes}
+              onClick={() => navigate(`review/${review.id}`)}
             />
           ))
         )}

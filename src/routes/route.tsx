@@ -37,11 +37,11 @@ const router = createBrowserRouter([
     element: <TheaterListPage />,
   },
   {
-    path: '/theaters/:tab/:cinemaName',
+    path: '/theaters/:cinemaName',
     element: <TheaterDetailPage />,
   },
   {
-    path: '/theaters/:tab/:cinemaName/reviews',
+    path: '/theaters/:cinemaName/reviews',
     element: <TheaterReviewListPage />,
   },
   {

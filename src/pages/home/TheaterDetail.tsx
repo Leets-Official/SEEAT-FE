@@ -5,7 +5,7 @@ import { getRandomImage, cinemaReviewsMock } from '@/__mocks';
 import { cinemaInfoMap } from '@/constants/theaterInfo';
 
 const CinemaDetailPage = () => {
-  const { tab, cinemaName } = useParams<{ tab: string; cinemaName: string }>();
+  const { cinemaName } = useParams<{ cinemaName: string }>();
   const navigate = useNavigate();
   const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
 
@@ -30,7 +30,7 @@ const CinemaDetailPage = () => {
         <Header
           title=""
           showBack
-          onBackClick={() => navigate('/theaters')}
+          onBackClick={() => navigate(-1)}
           showBookmark={false}
           showLike={false}
         />
@@ -83,9 +83,7 @@ const CinemaDetailPage = () => {
           <div className="mb-3 flex items-center justify-between">
             <p className="text-title-3">후기</p>
             <button
-              onClick={() =>
-                navigate(`/theaters/${tab}/${encodeURIComponent(cinemaName!)}/reviews`)
-              }
+              onClick={() => navigate(`/theaters/${encodeURIComponent(cinemaName!)}/reviews`)}
             >
               <ArrowRight className="h-5 w-5 text-gray-500" />
             </button>

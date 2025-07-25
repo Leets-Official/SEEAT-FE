@@ -86,10 +86,10 @@ const HomePage = () => {
                 key={cinema.rank}
                 rank={cinema.rank}
                 imageUrl={cinema.imageUrl}
-                title={cinema.title}
+                title={cinema.cinemaName}
                 rating={cinema.rating}
                 reviewCount={cinema.reviewCount}
-                onClick={() => navigate(`/review/${cinema.id}`)}
+                onClick={() => navigate(`/theaters/${encodeURIComponent(cinema.cinemaName)}`)}
               />
             ))}
           </div>

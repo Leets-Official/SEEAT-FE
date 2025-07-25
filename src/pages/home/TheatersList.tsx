@@ -57,10 +57,10 @@ export default function TheaterListPage() {
                     setSelectedCinema(name);
                     if (!Array.isArray(halls) || halls.length === 0) {
                       // (받아온 데이터에서)관이 없는 경우
-                      navigate(`/theaters/${selectedTab}/${encodeURIComponent(name)}`);
+                      navigate(`/theaters/${encodeURIComponent(name)}`);
                     } else if (halls.length === 1) {
                       // 관이 1개인 경우
-                      navigate(`/theaters/${selectedTab}/${encodeURIComponent(name)}`);
+                      navigate(`/theaters/${encodeURIComponent(name)}`);
                     } else {
                       // 관이 2개 이상인 경우
                       setSelectedHall(null);
@@ -81,9 +81,7 @@ export default function TheaterListPage() {
                     {halls.map((hall) => (
                       <Button
                         onClick={() => {
-                          navigate(
-                            `/theaters/${selectedTab}/${encodeURIComponent(`${name} (${hall})`)}`,
-                          );
+                          navigate(`/theaters/${encodeURIComponent(`${name} (${hall})`)}`);
                         }}
                         variant="secondary-assistive"
                         color="gray"

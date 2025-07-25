@@ -12,10 +12,11 @@ const HomePage = () => {
     navigate('/review/popular');
   };
 
+  //좋아요 순으로 정렬
   const popularReviews = [...cinemaReviewsMock].sort((a, b) => b.likes - a.likes).slice(0, 3);
 
   return (
-    <div className="flex min-h-screen flex-col py-5 pb-[172px]">
+    <div className="flex min-h-screen flex-col py-5">
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
         <HomeHeader />
       </div>
@@ -67,14 +68,14 @@ const HomePage = () => {
                 title={review.cinemaName}
                 description={review.content}
                 likeCount={review.likes}
-                onClick={() => navigate(`review/${review.id}`)}
+                onClick={() => navigate(`/review/${review.id}`)}
               />
             ))}
           </div>
         </div>
 
         {/*베스트 상영관*/}
-        <div className="mt-12">
+        <div className="mt-12 pb-[172px]">
           <div className="mb-2 flex items-center justify-between">
             <p className="text-title-3">베스트 상영관</p>
           </div>
@@ -94,12 +95,15 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <button
-        onClick={() => navigate('/review')}
-        className="rounded-m fixed right-5 bottom-20 z-50 flex h-12 w-12 items-center justify-center bg-red-400 text-white shadow-md"
-      >
-        <PlusIcon className="h-6 w-6" />
-      </button>
+      {/*플로팅 버튼*/}
+      <div className="sticky bottom-20 z-40 mx-auto mt-10 flex w-full max-w-[430px] justify-end px-5">
+        <button
+          onClick={() => navigate('/review')}
+          className="rounded-m flex h-12 w-12 items-center justify-center bg-red-400 text-white shadow-md"
+        >
+          <PlusIcon className="h-6 w-6" />
+        </button>
+      </div>
 
       {/*바텀네비*/}
       <BottomNavigation />

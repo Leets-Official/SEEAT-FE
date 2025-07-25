@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
   const [bookmarked, setBookmarked] = useState(false);
 
   return (
-    <div className="mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-4">
+    <div className="mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-5">
       <div className="flex items-center gap-2">
         {showBack && (
           <button onClick={onBackClick}>

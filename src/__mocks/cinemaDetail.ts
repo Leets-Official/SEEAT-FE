@@ -1,3 +1,4 @@
+import { getRandomImage } from './mockImage';
 export type Review = {
   id: number;
   user: string;
@@ -6,8 +7,9 @@ export type Review = {
   likes: number;
   tags: string[];
   movieTitle: string;
-  seatInfo: string;
+  seatInfo: string[];
   cinemaName: string; // ex) 남양주현대아울렛 스페이스원 (1관)
+  imageUrls?: string[];
 };
 
 export const cinemaReviewsMock: Review[] = [
@@ -19,8 +21,9 @@ export const cinemaReviewsMock: Review[] = [
     likes: 22,
     tags: ['음향최고', '시야좋음', '자녀와'],
     movieTitle: '명탐정 코난',
-    seatInfo: 'F6, F12',
+    seatInfo: ['F6, F12'],
     cinemaName: '남양주현대아울렛 스페이스원 (1관)',
+    imageUrls: [getRandomImage(82, 82), getRandomImage(82, 82)],
   },
   {
     id: 2,
@@ -30,8 +33,9 @@ export const cinemaReviewsMock: Review[] = [
     likes: 10,
     tags: ['화질굿', '대형스크린'],
     movieTitle: '범죄도시4',
-    seatInfo: 'E10',
+    seatInfo: ['E10'],
     cinemaName: '남양주현대아울렛 스페이스원 (1관)',
+    imageUrls: [getRandomImage(82, 82)],
   },
   {
     id: 3,
@@ -41,7 +45,7 @@ export const cinemaReviewsMock: Review[] = [
     likes: 22,
     tags: ['음향최고', '시야좋음', '자녀와'],
     movieTitle: '명탐정 코난',
-    seatInfo: 'F6, F12',
+    seatInfo: ['F6, F12'],
     cinemaName: '남양주현대아울렛 스페이스원 (1관)',
   },
   {
@@ -52,8 +56,9 @@ export const cinemaReviewsMock: Review[] = [
     likes: 34,
     tags: ['음질만족', '출입구근처'],
     movieTitle: '드래곤 길들이기',
-    seatInfo: 'A1',
+    seatInfo: ['A1'],
     cinemaName: '남양주현대아울렛 스페이스원 (1관)',
+    imageUrls: [getRandomImage(82, 82), getRandomImage(82, 82)],
   },
   {
     id: 5,
@@ -64,19 +69,21 @@ export const cinemaReviewsMock: Review[] = [
     likes: 7,
     tags: ['주변산만', '잡음있음'],
     movieTitle: '위키드',
-    seatInfo: 'D4',
+    seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (1관)',
   },
   {
     id: 6,
     user: 'Mina',
     rating: 3,
-    content: '음향은 괜찮았지만, 좌석이 다소 불편했어요.',
+    content:
+      '음향은 괜찮았지만, 좌석이 불편했어요. 단어 자동 줄바꿈 wowowoowowowoowowow \n 줄바꿈 적용되는지 그리고 리뷰도 이렇게 길어지면 어떻게 보이는지 확인용 길어지면 이상하게 보일 수도 잇은니까 어쩌고저쩌고 이만큼 길게 길게 길게',
     likes: 4,
-    tags: ['좌석불편', '음향좋음'],
+    tags: ['좌석불편', '음향좋음', '이렇게', '많아지면', '어떻게', '보이는지', '확인용'],
     movieTitle: '듄2',
-    seatInfo: 'D9',
+    seatInfo: ['D9'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
+    imageUrls: [getRandomImage(82, 82)],
   },
   {
     id: 7,
@@ -87,7 +94,7 @@ export const cinemaReviewsMock: Review[] = [
     likes: 24,
     tags: ['주변산만', '잡음있음'],
     movieTitle: '드래곤 길들이기',
-    seatInfo: 'D4',
+    seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
   },
   {
@@ -99,8 +106,9 @@ export const cinemaReviewsMock: Review[] = [
     likes: 24,
     tags: ['주변산만', '잡음있음'],
     movieTitle: '드래곤 길들이기',
-    seatInfo: 'D4',
+    seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
+    imageUrls: [getRandomImage(82, 82), getRandomImage(82, 82)],
   },
   {
     id: 9,
@@ -111,8 +119,9 @@ export const cinemaReviewsMock: Review[] = [
     likes: 24,
     tags: ['주변산만', '잡음있음'],
     movieTitle: '드래곤 길들이기',
-    seatInfo: 'D4',
+    seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
+    imageUrls: [getRandomImage(82, 82)],
   },
   {
     id: 10,
@@ -123,7 +132,7 @@ export const cinemaReviewsMock: Review[] = [
     likes: 24,
     tags: ['주변산만', '잡음있음'],
     movieTitle: '드래곤 길들이기',
-    seatInfo: 'D4',
+    seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
   },
 ];

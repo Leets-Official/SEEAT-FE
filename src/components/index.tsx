@@ -13,6 +13,7 @@ import Modal from '@/components/common/Modal/Modal';
 import Header from '@/components/common/Header/Header';
 import ImagePreviewItem from '@/components/common/ImagePreview/ImagePreviewItem';
 import HomeHeader from '@/components/common/Header/HomeHeader';
+import RatingCard from '@/components/review/RatingCard';
 export {
   InputField,
   Button,
@@ -29,4 +30,5 @@ export {
   Header,
   ImagePreviewItem,
   HomeHeader,
+  RatingCard,
 };

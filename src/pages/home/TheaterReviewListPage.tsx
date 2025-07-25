@@ -37,7 +37,7 @@ const TheaterReviewListPage = () => {
               title={decodeURIComponent(cinemaName ?? '')}
               description={review.content}
               likeCount={review.likes}
-              onClick={() => navigate(`review/${review.id}`)}
+              onClick={() => navigate(`/review/${review.id}`)}
             />
           ))
         )}

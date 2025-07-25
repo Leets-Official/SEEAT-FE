@@ -16,6 +16,7 @@ import HomePage from '@/pages/home/HomePage';
 import TheaterListPage from '@/pages/home/TheatersList';
 import TheaterDetailPage from '@/pages/home/TheaterDetail';
 import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
+import ReviewDetailPage from '@/pages/home/ReviewDetail';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: '/theaters/:tab/:cinemaName/reviews',
     element: <TheaterReviewListPage />,
+  },
+  {
+    path: '/review/:reviewId',
+    element: <ReviewDetailPage />,
   },
 
   //리뷰

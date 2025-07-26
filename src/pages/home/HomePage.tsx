@@ -1,19 +1,18 @@
 import { HomeHeader, ReviewCard, BestCinemaCard, BottomNavigation, Image } from '@/components';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from '@/assets';
+import { ArrowRight, PlusIcon } from '@/assets';
 import { cinemaReviewsMock, bestCinemas, getRandomImage } from '@/__mocks';
-import { PlusIcon } from '@/assets';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
 
+  //좋아요 순으로 정렬
+  const popularReviews = [...cinemaReviewsMock].sort((a, b) => b.likes - a.likes).slice(0, 3);
+
   const handleGoToPopular = () => {
     navigate('/review/popular');
   };
-
-  //좋아요 순으로 정렬
-  const popularReviews = [...cinemaReviewsMock].sort((a, b) => b.likes - a.likes).slice(0, 3);
 
   return (
     <div className="flex min-h-screen flex-col py-5">

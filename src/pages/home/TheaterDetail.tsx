@@ -8,7 +8,7 @@ const CinemaDetailPage = () => {
   const { cinemaName } = useParams<{ cinemaName: string }>();
   const navigate = useNavigate();
   const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
-
+  const imgUrl = getRandomImage(246, 142);
   const reviews = cinemaReviewsMock.filter((review) => review.cinemaName === decodeCinemaName);
   const reviewCount = reviews.length;
   const rating =
@@ -21,8 +21,6 @@ const CinemaDetailPage = () => {
     format: '정보 없음',
     sound: '정보 없음',
   };
-
-  const imgUrl = getRandomImage(246, 142);
 
   return (
     <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">

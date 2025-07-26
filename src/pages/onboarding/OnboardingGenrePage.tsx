@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
 import { genreOptions } from '@/types/onboarding';
 import type { GenreType } from '@/types/onboarding';
-
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
@@ -29,22 +29,15 @@ const OnboardingGenrePage = () => {
   };
 
   return (
-    <div className="text-white relative pb-32">
+    <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
       {/* 상단 헤더 */}
       <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
       {/* 진행도 바 */}
-      <div className="mt-6 mb-2">
-        <div className="h-2 w-full bg-gray-800 relative">
-          <div className="absolute left-0 top-0 h-full bg-red-400" style={{ width: '66.66%' }} />
-        </div>
-      </div>
+      <ProgressBar currentStep={2} totalSteps={3} />
 
       {/* 콘텐츠 영역 */}
       <div className="px-6 mt-6">
-        {/* 진행도 */}
-        <div className="text-title-1 text-white mb-3">2/3</div>
-
         {/* 타이틀 */}
         <h1 className="text-title-2 text-white mb-1">좋아하는 장르를 선택해주세요</h1>
         <p className="text-caption-2 text-red-300 mb-6">최대 5개까지 추가할 수 있어요.</p>

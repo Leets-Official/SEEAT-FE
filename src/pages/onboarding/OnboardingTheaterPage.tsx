@@ -4,6 +4,7 @@ import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { Button, ToggleTab, Header } from '@/components';
 import { theaterData } from '@/types/onboarding';
 import type { CinemaType, CinemaFormat } from '@/types/onboarding';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 const OnboardingTheaterPage = () => {
   const navigate = useNavigate();
@@ -42,17 +43,14 @@ const OnboardingTheaterPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
+      {/* 상단 헤더 */}
       <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
-      <div className="mt-6 mb-2">
-        <div className="h-2 w-full bg-gray-800 relative">
-          <div className="absolute left-0 top-0 h-full bg-red-400" style={{ width: '100%' }} />
-        </div>
-      </div>
+      {/* 진행도 바 */}
+      <ProgressBar currentStep={3} totalSteps={3} />
 
+      {/* 콘텐츠 영역 */}
       <div className="px-6 mt-6">
-        <div className="text-title-1 text-white mb-3">3/3</div>
-
         <h1 className="text-title-2 text-white mb-1">자주 가는 영화관을 선택해주세요</h1>
         <p className="text-caption-2 text-red-300 mb-6">최대 2개까지 선택할 수 있어요.</p>
 
@@ -86,6 +84,7 @@ const OnboardingTheaterPage = () => {
         </div>
       </div>
 
+      {/* 하단 버튼 */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[375px] px-6">
         <Button
           onClick={handleNext}

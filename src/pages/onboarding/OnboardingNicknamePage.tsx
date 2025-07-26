@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
 import Input from '@/components/common/Input/Input';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
   const handleNext = () => {
-    console.log('닉네임:', input);
     navigate('/onboarding/genre');
   };
 
@@ -17,22 +17,15 @@ const OnboardingNicknamePage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-[375px] mx-auto bg-gray-900 text-white relative pb-32">
+    <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
       {/* 상단 헤더 */}
       <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
       {/* 진행도 바 */}
-      <div className="mt-6 mb-2">
-        <div className="h-2 w-full bg-gray-800 relative">
-          <div className="absolute left-0 top-0 h-full bg-red-400" style={{ width: '33.33%' }} />
-        </div>
-      </div>
+      <ProgressBar currentStep={1} totalSteps={3} />
 
       {/* 콘텐츠 영역 */}
       <div className="px-6 mt-6">
-        {/* 진행도 */}
-        <div className="text-title-1 text-white mb-3">1/3</div>
-
         {/* 타이틀 */}
         <h1 className="text-title-2 mb-10">프로필을 만들어주세요</h1>
 

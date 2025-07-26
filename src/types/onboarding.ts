@@ -1,4 +1,16 @@
-export type GenreType = '액션' | '로맨스' | 'SF' | '공포' | '코미디' | '다큐' | '애니메이션';
+export type GenreType =
+  | '액션' | '호러' | '스릴러' | '코미디'
+  | 'SF' | '로맨스' | '판타지' | '미스터리'
+  | '범죄' | '모험' | '전쟁' | '역사'
+  | '뮤지컬' | '애니메이션' | '드라마';
+
+  export const genreOptions: GenreType[] = [
+  '액션', '호러', '스릴러', '코미디',
+  'SF', '로맨스', '판타지', '미스터리',
+  '범죄', '모험', '전쟁', '역사',
+  '뮤지컬', '애니메이션', '드라마',
+];
+
 export type CinemaType = string;
 
 export type CinemaFormat = 'IMAX' | 'Dolby';

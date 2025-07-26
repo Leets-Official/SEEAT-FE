@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
+import { genreOptions } from '@/types/onboarding';
 import type { GenreType } from '@/types/onboarding';
 
-const genreOptions = [
-  '액션', '호러', '스릴러', '코미디',
-  'SF', '로맨스', '판타지', '미스터리',
-  '범죄', '모험', '전쟁', '역사',
-  '뮤지컬', '애니메이션', '드라마',
-] as GenreType[];
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
@@ -34,7 +29,7 @@ const OnboardingGenrePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
+    <div className="text-white relative pb-32">
       {/* 상단 헤더 */}
       <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 

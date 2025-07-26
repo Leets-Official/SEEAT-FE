@@ -1,10 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import MyPage from '@/pages/my';
-import SplashPage from '@/pages/splash/SplashPage'
-//테스트용
-import BottomNavigationExamples from '@/components/examples/BottomNavigationExamples';
-import ReviewCardExamples from '@/components/examples/ReviewCardExamples';
+import Signup from '@/pages/signup';
+
+import MovieInfoForm from '@/pages/review/MovieInfoStep';
+import SplashPage from '@/pages/splash/SplashPage';
+import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
+import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
+import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
+import CinemaSelect from '@/pages/review/CinemaSelect';
+import { TicketUploadStep } from '@/pages/review/TicketPage';
+import RatingStep from '@/pages/review/RatingStep';
+import ReviewTagsPage from '@/pages/review/TagPage';
+import ReviewTextForm from '@/pages/review/ReviewContent';
 
 const router = createBrowserRouter([
   {
@@ -12,22 +20,43 @@ const router = createBrowserRouter([
     element: <SplashPage />,
   },
   {
-    path: '/my',
-    element: <MyPage />,
+    path: '/login',
+    element: <Signup />,
   },
   {
     path: '/home',
     element: <Home />,
   },
+  // 리뷰
   {
-    path: '/bottom-test', //테스트용
-    element: <BottomNavigationExamples />,
+    path: '/review',
+    children: [
+      { index: true, element: <TicketUploadStep /> },
+      { path: 'info', element: <MovieInfoForm /> },
+      { path: 'info/cinema', element: <CinemaSelect /> },
+      { path: 'rating', element: <RatingStep /> },
+      { path: 'tag', element: <ReviewTagsPage /> },
+      { path: 'form', element: <ReviewTextForm /> },
+    ],
+  },
+  // 마이
+  {
+    path: '/my',
+    element: <MyPage />,
+  },
+  // 온보딩
+  {
+    path: '/onboarding/nickname',
+    element: <OnboardingNicknamePage />,
   },
   {
-    path: '/review-test', //이것도 테스트용... 나중에 지우기
-    element: <ReviewCardExamples></ReviewCardExamples>,
+    path: '/onboarding/genre',
+    element: <OnboardingGenrePage />,
+  },
+  {
+    path: '/onboarding/theater',
+    element: <OnboardingTheaterPage />,
   },
 ]);
 
 export default router;
-

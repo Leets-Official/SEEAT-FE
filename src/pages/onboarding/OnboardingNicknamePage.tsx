@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components';
+import { Button, Header } from '@/components';
 import Input from '@/components/common/Input/Input';
-import Header from '@/components/common/Header/Header';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
@@ -20,7 +19,7 @@ const OnboardingNicknamePage = () => {
   return (
     <div className="min-h-screen w-full max-w-[375px] mx-auto bg-gray-900 text-white relative pb-32">
       {/* 상단 헤더 */}
-      <Header title="" onBackClick={handleBack} />
+      <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
       {/* 진행도 바 */}
       <div className="mt-6 mb-2">

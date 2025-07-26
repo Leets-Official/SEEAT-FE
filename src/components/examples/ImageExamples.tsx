@@ -8,7 +8,7 @@ import { getRandomImage } from '@/__mocks/mockImage';
  * - alt: 이미지 설명 (접근성)
  * - className: 추가 스타일 클래스
  * - aspectRatio: 이미지 비율 (예: 'aspect-[3/2]', 'aspect-[1/1]')
- * - rounded: 테두리 둥글기 (예: 'rounded-md', 'rounded-full')
+ * - rounded: 테두리 둥글기 (예: 'rounded-m', 'rounded-full')
  *
  *
  */
@@ -24,7 +24,7 @@ export default function ImageExample() {
             alt="기본이미지" // 실제 이미지 설명 추가 필요
             className="h-[200px] w-[300px]"
             aspectRatio="aspect-[3/2]"
-            rounded="rounded-md"
+            rounded="rounded-l"
           />
         </section>
 
@@ -35,7 +35,7 @@ export default function ImageExample() {
             alt="기본이미지"
             className="h-[120px] w-[120px]"
             aspectRatio="aspect-[1/1]"
-            rounded="rounded-md"
+            rounded="rounded-m"
           />
         </section>
 
@@ -46,7 +46,7 @@ export default function ImageExample() {
             alt="기본이미지"
             className="h-[200px] w-[300px]"
             aspectRatio="aspect-[3/2]"
-            rounded="rounded-md"
+            rounded="rounded-m"
           />
         </section>
       </div>

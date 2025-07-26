@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
-import Button from '@/components/common/Button';
-import ToggleTab from '@/components/common/ToggleTab';
-import Header from '@/components/common/Header/Header';
+import { Button, ToggleTab, Header } from '@/components';
 import type { CinemaType, CinemaFormat } from '@/types/onboarding';
 
 const theaterData: Record<CinemaFormat, CinemaType[]> = {
@@ -57,7 +55,7 @@ const OnboardingTheaterPage = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
       {/* 헤더 */}
-      <Header title="" onBackClick={handleBack} />
+      <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
       {/* 진행도 바 */}
       <div className="mt-6 mb-2">

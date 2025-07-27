@@ -10,7 +10,7 @@ interface ToastState {
 export const useToastStore = create<ToastState>((set) => ({
   message: '',
   isVisible: false,
-  show: (message, duration = 3000) => {
+  show: (message, duration = 1000) => {
     set({ message, isVisible: true });
     setTimeout(() => set({ isVisible: false }), duration);
   },

@@ -14,7 +14,8 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
-import SeatTest from '@/pages/seat';
+import SeatTest from '@/pages/seat/SeatTest';
+import SeatReviewPage from '@/pages/seat';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
   {
     path: '/seat',
     element: <SeatTest />,
+  },
+  //좌석 리뷰 목록 페이지
+  {
+    path: '/seat/review/:seatId',
+    element: <SeatReviewPage />,
   },
 ]);
 

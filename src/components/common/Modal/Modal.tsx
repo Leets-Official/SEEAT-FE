@@ -10,7 +10,7 @@ const Modal = () => {
     case 'seatPicker':
       return <SeatPickerModal {...(modalProps as any)} />;
     case 'confirm':
-      break; // 아래 공통 confirm 모달 렌더링으로 넘어감
+      break;
     default:
       return null;
   }

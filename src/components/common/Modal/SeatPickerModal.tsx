@@ -3,6 +3,7 @@ import { useModalStore } from '@/store/modalStore';
 import { CloseIcon } from '@/assets';
 import ScreenBar from '@/components/seat/ScreenBar';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface SeatPickerModalProps {
   theaterType: 'IMAX' | 'Dolby Cinema';
@@ -12,8 +13,16 @@ interface SeatPickerModalProps {
 
 const SeatPickerModal = ({ theaterType, theaterName, auditoriumId }: SeatPickerModalProps) => {
   const { closeModal } = useModalStore();
+  // const nav = useNavigate();
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+
+  const handleSeatClick = (seatId: string) => {
+    closeModal();
+    // nav(`/seat/review/${seatId}`);
+    window.location.href = `/seat/review/${seatId}`;
+  };
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -45,7 +54,7 @@ const SeatPickerModal = ({ theaterType, theaterName, auditoriumId }: SeatPickerM
           <div className="max-h-[400px] overflow-auto p-4" ref={scrollContainerRef}>
             <div ref={innerRef} className="flex min-w-max flex-col items-center">
               <ScreenBar />
-              <SeatMap auditoriumId={auditoriumId} isMock />
+              <SeatMap auditoriumId={auditoriumId} isMock onSeatClick={handleSeatClick} />
             </div>
           </div>
         </div>

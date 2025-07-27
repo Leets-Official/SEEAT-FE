@@ -1,11 +1,14 @@
-import { TestSeatModalButton } from '@/components/seat/TestSeatButton';
+import { Header } from '@/components';
+import { useParams } from 'react-router-dom';
 
-const SeatTest = () => {
+const SeatReviewPage = () => {
+  const { seatId } = useParams<{ seatId: string }>();
+
   return (
-    <>
-      <TestSeatModalButton />
-    </>
+    <div>
+      <Header title="" showBookmark={false} showLike={false} />
+    </div>
   );
 };
 
-export default SeatTest;
+export default SeatReviewPage;

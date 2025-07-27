@@ -25,7 +25,7 @@ const SeatPickerModal = ({ theaterType, theaterName, auditoriumId }: SeatPickerM
         </p>
 
         {/* 스크롤 가능한 좌석 영역 */}
-        <div className="max-h-[400px] overflow-auto rounded-xl p-4">
+        <div className="max-h-[400px] overflow-auto p-4">
           <div className="min-w-[500px]">
             <SeatMap auditoriumId={auditoriumId} isMock />
           </div>

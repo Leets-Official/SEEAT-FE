@@ -18,7 +18,7 @@ const SeatMap = ({ onSeatClick }: SeatMapProps) => {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {Object.entries(seatRows)
         .sort(([a], [b]) => a.localeCompare(b)) // row 정렬: A, B, C...
         .map(([row, seats]) => {

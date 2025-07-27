@@ -1,3 +1,4 @@
+import type { ApiError, ApiResponse } from '@/types/api-response';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -26,34 +27,31 @@ api.interceptors.request.use(
 // 응답 인터셉터
 api.interceptors.response.use(
   (response) => {
-    const res = response.data;
+    const res = response.data as ApiResponse<any>;
 
     if (!res.success) {
-      const message = res.message || '알 수 없는 오류가 발생했습니다.';
-
-      if (String(res.code).startsWith('401')) {
-        console.error(`인증 오류 (${res.code}): ${message}`);
-      }
-
-      return Promise.reject({
-        message,
+      const apiError: ApiError = {
+        message: res.message || '알 수 없는 오류가 발생했습니다.',
         code: res.code,
-        error: res.error,
-      });
+        error: Array.isArray(res.error) ? res.error : null,
+      };
+
+      return Promise.reject(apiError);
     }
 
     return res.data;
   },
-
   (error) => {
     const status = error.response?.status;
-    const message = error.response?.data?.message || '알 수 없는 오류가 발생했습니다.';
+    const resData = error.response?.data as ApiResponse<any> | undefined;
 
-    return Promise.reject({
-      message,
-      code: status,
-      error: error.response?.data?.error ?? null,
-    });
+    const apiError: ApiError = {
+      message: resData?.message || '네트워크 오류 또는 서버 에러가 발생했습니다.',
+      code: resData?.code || status || 'UNKNOWN',
+      error: Array.isArray(resData?.error) ? resData?.error : null,
+    };
+
+    return Promise.reject(apiError);
   },
 );
 

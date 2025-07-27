@@ -3,7 +3,7 @@ import { useModalStore } from '@/store/modalStore';
 import { CloseIcon } from '@/assets';
 import ScreenBar from '@/components/seat/ScreenBar';
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 interface SeatPickerModalProps {
   theaterType: 'IMAX' | 'Dolby Cinema';
@@ -11,7 +11,7 @@ interface SeatPickerModalProps {
   auditoriumId: string;
 }
 
-const SeatPickerModal = ({ theaterType, theaterName, auditoriumId }: SeatPickerModalProps) => {
+const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
   const { closeModal } = useModalStore();
   // const nav = useNavigate();
 

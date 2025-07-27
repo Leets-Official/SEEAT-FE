@@ -1,5 +1,6 @@
 import { useModalStore } from '@/store/modalStore';
 import SeatPickerModal from './SeatPickerModal';
+import type { ConfirmModalProps } from './Modal.types';
 
 const Modal = () => {
   const { isOpen, modalProps, modalType, closeModal } = useModalStore();
@@ -22,11 +23,9 @@ const Modal = () => {
     cancelText = '취소',
     confirmText = '등록하기',
     onConfirm,
-    onCancel,
-  } = modalProps;
+  } = modalProps as ConfirmModalProps;
 
   const handleCancel = () => {
-    onCancel?.();
     closeModal();
   };
 

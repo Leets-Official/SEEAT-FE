@@ -1,4 +1,3 @@
-import { Modal } from '@/components';
 import { TestSeatModalButton } from '@/components/seat/TestSeatButton';
 
 const SeatTest = () => {

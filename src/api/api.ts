@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: BASE_URL,
   timeout: 7000,
   headers: {
     'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// 요청 인터셉터
+// 요청 인터셉터 - 모든 요청에 Authorization 헤더를 추가
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');

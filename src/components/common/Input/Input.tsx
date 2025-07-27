@@ -1,6 +1,6 @@
-import { cn } from "@/utils/cn";
 import { useState } from "react";
-import { PlusIcon } from "@/assets"; 
+import { PlusIcon } from "@/assets";
+import { cn } from "@/utils/cn";
 
 interface InputProps {
   label: string;
@@ -9,7 +9,6 @@ interface InputProps {
   placeholder?: string;
   helperText?: string;
   helperSubText?: string;
-  focus?: boolean;
   showBackground?: boolean;
   placeholderColorType?: "gray" | "white";
 }
@@ -21,10 +20,10 @@ export default function InputField({
   placeholder = "메시지를 입력하세요",
   helperText,
   helperSubText,
-  focus = false,
   showBackground = false,
   placeholderColorType = "gray",
 }: InputProps) {
+  const [isFocused, setIsFocused] = useState(false);
   const [showDotWarning, setShowDotWarning] = useState(false);
 
   const handleCheck = () => {
@@ -47,7 +46,7 @@ export default function InputField({
       <div
         className={cn(
           "flex items-center px-3 border rounded-lg h-[48px] w-[335px]",
-          focus ? "border-gray-400 bg-gray-800" : "border-gray-800 bg-black",
+          isFocused ? "border-gray-400 bg-gray-800" : "border-gray-800 bg-black",
           showBackground && "bg-gray-800/30"
         )}
       >
@@ -56,6 +55,8 @@ export default function InputField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           className={cn(
             "flex-1 bg-transparent text-body-2 text-white",
             placeholderColorClass,
@@ -67,11 +68,10 @@ export default function InputField({
           onClick={handleCheck}
           className="ml-2 text-white focus:outline-none"
         >
-          <PlusIcon className="w-5 h-5" /> 
+          <PlusIcon className="w-5 h-5" />
         </button>
       </div>
 
-      {/* text-yellow-warn를 text-gray-400으로 변경해서 써도 됩니당! */}
       {(helperText || helperSubText || showDotWarning) && (
         <div className="flex flex-col gap-0.5 mt-1">
           {helperText && (

@@ -1,27 +1,20 @@
-import { cn } from '@/utils/cn';
-
 interface ScreenBarProps {
-  width?: number;
+  width?: string;
   bgColor?: string;
   textColor?: string;
   className?: string;
 }
 
 const ScreenBar = ({
-  width = 400,
+  width = '100%',
   bgColor = 'bg-gray-400',
   textColor = 'text-black',
   className = '',
 }: ScreenBarProps) => {
   return (
     <div
-      className={cn(
-        'text-caption-4 mx-auto rounded-md py-1 text-center',
-        bgColor,
-        textColor,
-        className,
-      )}
-      style={{ width }}
+      className={`text-caption-2 py-1 text-center ${bgColor} ${textColor} ${className} `}
+      style={{ width, height: '28px', marginBottom: '24px' }}
     >
       SCREEN
     </div>

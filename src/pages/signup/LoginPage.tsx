@@ -1,5 +1,6 @@
 import KakaoIcon from '@/assets/kakao-icon.svg';
 import NaverIcon from '@/assets/naver-icon.svg';
+import ToastExample from '@/components/examples/ToastExample';
 
 function LoginPage() {
   return (
@@ -18,6 +19,7 @@ function LoginPage() {
           <img src={NaverIcon} alt="Naver" className="h-5 w-5" />
           네이버로 시작하기
         </button>
+        <ToastExample />
       </div>
     </div>
   );

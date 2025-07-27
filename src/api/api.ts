@@ -23,4 +23,38 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
+// 응답 인터셉터
+api.interceptors.response.use(
+  (response) => {
+    const res = response.data;
+
+    if (!res.success) {
+      const message = res.message || '알 수 없는 오류가 발생했습니다.';
+
+      if (String(res.code).startsWith('401')) {
+        console.error(`인증 오류 (${res.code}): ${message}`);
+      }
+
+      return Promise.reject({
+        message,
+        code: res.code,
+        error: res.error,
+      });
+    }
+
+    return res.data;
+  },
+
+  (error) => {
+    const status = error.response?.status;
+    const message = error.response?.data?.message || '알 수 없는 오류가 발생했습니다.';
+
+    return Promise.reject({
+      message,
+      code: status,
+      error: error.response?.data?.error ?? null,
+    });
+  },
+);
+
 export default api;

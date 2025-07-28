@@ -1,6 +1,3 @@
-// src/pages/my/ProfileEdit.tsx (최종 수정본)
-
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import ChevronIcon from '@/assets/icons/chevron.svg?react';
@@ -15,9 +12,11 @@ export default function ProfileEdit() {
     window.history.back();
   };
 
-  // '선호 장르'를 클릭하면 이 함수가 호출되어야 합니다.
   const handleNavigateToGenreSelect = () => {
     navigate('/my/select-genre');
+  };
+    const handleNavigateToCinemaChoice = () => {
+    navigate('/my/cinema-choice');
   };
 
   return (
@@ -53,13 +52,6 @@ export default function ProfileEdit() {
         </section>
 
         <div className="mx-auto mt-10 flex h-[168px] w-[330px] flex-col justify-around">
-          {/* ============================================================== */}
-          {/* ★★★ 원인은 바로 여기입니다 ★★★                               */}
-          {/*                                                              */}
-          {/* 아래 <button> 태그에 onClick={handleNavigateToGenreSelect}    */}
-          {/* 속성을 정확하게 추가했습니다. 이 부분이 없으면 버튼을 눌러도   */}
-          {/* 아무 일도 일어나지 않습니다.                                   */}
-          {/* ============================================================== */}
           <button
             onClick={handleNavigateToGenreSelect}
             className="flex w-full items-start justify-between text-left"
@@ -72,7 +64,7 @@ export default function ProfileEdit() {
           </button>
 
           {/* 즐겨찾는 영화관 섹션 */}
-          <button className="flex w-full items-start justify-between text-left">
+          <button onClick={handleNavigateToCinemaChoice} className="flex w-full items-start justify-between text-left">
             <div>
               <h2 className="text-title-3 text-white">즐겨찾는 영화관</h2>
               <div className="text-caption-2 mt-2 space-y-2 text-red-300">

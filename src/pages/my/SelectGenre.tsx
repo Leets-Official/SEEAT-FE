@@ -45,25 +45,20 @@ export default function SelectGenre() {
       </HeaderBasic>
 
       <main className="flex-grow pt-4">
-        {/* 1. 타이틀 스타일 적용: text-title-2, text-white */}
         <h2 className="text-title-2 text-white mb-2">좋아하는 장르를 선택해주세요</h2>
         
-        {/* 2. 서브타이틀 스타일 적용: text-caption-2, text-red-300 */}
         <p className="text-caption-2 text-red-300 mb-6">최대 {MAX_SELECTABLE_GENRES}개까지 선택할 수 있어요.</p>
         
-        {/* 3. 장르 버튼 컨테이너: 317x164 사이즈 적용 */}
         <div className="w-[317px] h-[164px] flex flex-wrap content-start gap-2">
           {GENRES.map((genre) => (
             <Button
               key={genre}
               variant="secondary-assistive"
-              // 4. 장르 버튼 높이(32px)를 맞추기 위해 size를 'sm'으로 조정
               size="sm"
               rounded="lg"
               fontType="body-1"
               selected={selectedGenres.includes(genre)}
               onClick={() => handleGenreClick(genre)}
-              // 버튼의 가로 길이는 글자 수에 따라 자동으로 조절됩니다.
             >
               {genre}
             </Button>
@@ -79,7 +74,6 @@ export default function SelectGenre() {
           size="lg"
           rounded="lg"
           className="w-full"
-          // 5. '선택하기' 글씨 스타일 적용: text-title-3
           fontType="title-3"
           disabled={selectedGenres.length === 0}
         >

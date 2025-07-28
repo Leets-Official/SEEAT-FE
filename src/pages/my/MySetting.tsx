@@ -1,14 +1,10 @@
-// src/pages/my/MySetting.tsx
-
 import KakaoIcon from '@/assets/icons/kakaoset.svg?react';
 import HeaderBasic from '@/components/common/Header/HeaderBasic';
-// react-router-dom에서 useNavigate를 import합니다.
 import { useNavigate } from 'react-router-dom';
 
 export default function MySettingPage() {
   const userEmail = 'ihatemonday@gmail.com';
   const appVersion = '1.0.0';
-  // useNavigate 훅을 초기화합니다.
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,7 +17,6 @@ export default function MySettingPage() {
     }
   };
 
-  // 뒤로가기 버튼 클릭 시 이전 페이지로 이동하도록 수정합니다.
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -29,7 +24,6 @@ export default function MySettingPage() {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        {/* onBackClick 핸들러는 이미 handleGoBack으로 연결되어 있습니다. */}
         <HeaderBasic onBackClick={handleGoBack}>
           <h1 className="text-title-3">설정</h1>
         </HeaderBasic>

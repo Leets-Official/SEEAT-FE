@@ -1,3 +1,5 @@
+// src/pages/my/MyPage.tsx
+
 import { useNavigate } from 'react-router-dom';
 
 import HomeHeader from '@/components/common/Header/HomeHeader';
@@ -18,7 +20,12 @@ const MyPage = () => {
     favoriteTheaters: ['남양주현대아울렛 스페이스원', '용산아이파크몰 (용아맥)'],
   };
 
-  const menuItems = ['나의 후기', '북마크', '의견 보내기'];
+  // 메뉴 아이템 데이터: '의견 보내기'에 대한 경로가 이미 설정되어 있습니다.
+  const menuItems = [
+    { name: '나의 후기', path: '/my/reviews' },
+    { name: '북마크', path: '/my/bookmarks' },
+    { name: '의견 보내기', path: '/my/feedback' }, // 이 경로로 이동합니다.
+  ];
 
   const handleSettingsClick = () => {
     navigate('/my/settings');
@@ -105,9 +112,12 @@ const MyPage = () => {
             <section>
               <ul className="flex flex-col">
                 {menuItems.map((item) => (
-                  <li key={item}>
-                    <button className="flex w-full items-center justify-between px-2 py-4 text-left">
-                      <span className="text-title-3 text-white">{item}</span>
+                  <li key={item.name}>
+                    <button 
+                      onClick={() => navigate(item.path)} 
+                      className="flex w-full items-center justify-between px-2 py-4 text-left"
+                    >
+                      <span className="text-title-3 text-white">{item.name}</span>
                       <ChevronRightIcon className="h-5 w-5 text-gray-500" />
                     </button>
                   </li>

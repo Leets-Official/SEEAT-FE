@@ -3,9 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import HeaderBasic from '@/components/common/Header/HeaderBasic';
 import Button from '@/components/common/Button';
 import MoreVerticalIcon from '@/assets/icons/more_vertical.svg?react';
+import ToggleTab from '@/components/common/ToggleTab/ToggleTab';
 
-const SPECIAL_FORMATS = ['IMAX', 'Dolby Cinema'];
-const THEATERS = [
+const IMAX_THEATERS = [
+  '왕십리',
+  '용산아이파크몰',
+  '천호',
+  '광교',
+  '울산삼산',
+  '서면',
+  '소풍',
+  '압구정',
+];
+const DOLBY_CINEMA_THEATERS = [
   '남양주현대아울렛 스페이스원',
   '대구 신세계(동대구)',
   '대전신세계아트앤사이언스',
@@ -16,12 +26,17 @@ const THEATERS = [
   '하남스타필드',
 ];
 
+const THEATERS_BY_FORMAT: Record<string, string[]> = {
+  'IMAX': IMAX_THEATERS,
+  'Dolby Cinema': DOLBY_CINEMA_THEATERS,
+};
+
 const MAX_SELECTABLE_THEATERS = 2;
 
 export default function CinemaChoice() {
   const navigate = useNavigate();
   const [selectedTheaters, setSelectedTheaters] = useState<string[]>(['남양주현대아울렛 스페이스원']);
-  const [activeFormat, setActiveFormat] = useState<string | null>(null);
+  const [activeFormat, setActiveFormat] = useState<string>('Dolby Cinema');
 
   const handleTheaterClick = (theater: string) => {
     setSelectedTheaters((prevSelected) => {
@@ -38,8 +53,15 @@ export default function CinemaChoice() {
 
   const handleConfirmSelection = () => {
     console.log('선택된 영화관:', selectedTheaters);
-    navigate(-1); 
+    navigate(-1);
   };
+
+  const handleFormatSelect = (format: string) => {
+    setActiveFormat(format);
+    setSelectedTheaters([]); // 포맷 변경 시 선택된 영화관 초기화
+  };
+
+  const currentTheaters = THEATERS_BY_FORMAT[activeFormat];
 
   return (
     <div className="flex h-screen flex-col bg-gray-900 p-4">
@@ -55,24 +77,16 @@ export default function CinemaChoice() {
         <h2 className="text-title-2 text-white mb-2">자주 가는 영화관을 선택해주세요</h2>
         <p className="text-caption-2 text-red-300 mb-6">최대 {MAX_SELECTABLE_THEATERS}개까지 선택할 수 있어요.</p>
 
-        {/* 특별관 선택 버튼 */}
-        <div className="flex items-center gap-x-2 mb-4">
-          {SPECIAL_FORMATS.map((format) => (
-            <Button
-              key={format}
-              variant={activeFormat === format ? 'secondary' : 'secondary-assistive'}
-              color={activeFormat === format ? 'red' : 'gray'}
-              className="flex-1"
-              onClick={() => setActiveFormat(activeFormat === format ? null : format)}
-            >
-              {format}
-            </Button>
-          ))}
-        </div>
+        {/* 특별관 선택 토글 */}
+        <ToggleTab
+          options={['IMAX', 'Dolby Cinema']}
+          selected={activeFormat}
+          onSelect={handleFormatSelect}
+        />
 
         {/* 영화관 목록 */}
-        <div className="flex flex-col gap-y-3">
-          {THEATERS.map((theater) => (
+        <div className="flex flex-col gap-y-3 mt-4">
+          {currentTheaters.map((theater) => (
             <Button
               key={theater}
               variant="secondary-assistive"

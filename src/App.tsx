@@ -8,11 +8,14 @@ import MySettingPage from '@/pages/my/MySetting';
 import ProfileEdit from '@/pages/my/ProfileEdit';
 import SelectGenre from '@/pages/my/SelectGenre';
 import CinemaChoice from '@/pages/my/CinemaChoice';
+import MyReviewPage from '@/pages/my/MyReview';
+import MyBookmarkPage from '@/pages/my/MyBookmark';
 import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
 import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import ReviewSearchPage from '@/pages/search/ReviewSearch';
 import ReviewSearchResultPage from '@/pages/search/ReviewSearchResult';
+import MyFeedbackPage from '@/pages/my/MyFeedback';
 
 import { FilterProvider } from '@/contexts/FilterContext';
 
@@ -25,6 +28,9 @@ function App() {
           <Route path="/login" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/my" element={<MyPage />} />
+          <Route path="/my/reviews" element={<MyReviewPage />} />
+          <Route path="/my/bookmarks" element={<MyBookmarkPage />} />
+          <Route path="/my/feedback" element={<MyFeedbackPage />} />
           <Route path="/my/settings" element={<MySettingPage />} />
           <Route path="/my/profile-edit" element={<ProfileEdit />} />
           <Route path="/my/select-genre" element={<SelectGenre />} />

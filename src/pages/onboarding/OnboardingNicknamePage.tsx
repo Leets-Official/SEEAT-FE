@@ -1,43 +1,70 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { Button, Header } from '@/components';
+import Input from '@/components/common/Input/Input';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 const OnboardingNicknamePage = () => {
-  const [nickname, setNickname] = useState('');
-  const { setNickname: saveNickname } = useOnboardingStore();
+  const [input, setInput] = useState('');
   const navigate = useNavigate();
 
   const handleNext = () => {
-    if (!nickname.trim()) return;
-    saveNickname(nickname);
-    navigate('/signup/genre'); // 다음 단계로 이동
+    navigate('/onboarding/genre');
+  };
+
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
-    <div className="h-screen bg-[#121212] text-white flex flex-col items-center px-6 pt-20">
-      <p className="text-[#E31221] text-sm mb-2">1/3</p>
-      <h1 className="text-xl font-semibold mb-2">닉네임을 입력해주세요</h1>
-      <p className="text-sm text-gray-400 mb-8">다른 유저에게 보여질 이름이에요</p>
+    <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
+      {/* 상단 헤더 */}
+      <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
 
-      <input
-        type="text"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-        placeholder="닉네임을 입력하세요"
-        className="w-full max-w-sm px-4 py-3 rounded-md bg-[#1E1E1E] text-white border border-gray-600 placeholder-gray-500 focus:outline-none mb-6"
-      />
+      {/* 진행도 바 */}
+      <ProgressBar currentStep={1} totalSteps={3} />
 
-      <button
-        onClick={handleNext}
-        disabled={!nickname.trim()}
-        className={`w-full max-w-sm py-3 rounded-md font-semibold ${
-          nickname.trim()
-            ? 'bg-[#E31221] text-white'
-            : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-        }`}
-      >
-        다음
-      </button>
+      {/* 콘텐츠 영역 */}
+      <div className="px-6 mt-6">
+        {/* 타이틀 */}
+        <h1 className="text-title-2 mb-10">프로필을 만들어주세요</h1>
+
+        {/* 프로필 이미지 (예시용 박스) */}
+        <div className="flex justify-center mb-10">
+          <div className="w-36 h-36 rounded-full bg-gray-100 flex items-center justify-center text-black text-sm">
+            갤러리 아이콘
+          </div>
+        </div>
+
+        {/* 닉네임 입력 */}
+        <div className="mb-2">
+          <Input
+            label=""
+            value={input}
+            onChange={setInput}
+            placeholder="닉네임을 입력해주세요"
+            placeholderColorType="gray"
+            showBackground={true}
+          />
+        </div>
+
+        <p className="text-caption-3 text-gray-500 ml-1">10자 이내로 작성해주세요.</p>
+      </div>
+
+      {/* 하단 버튼 */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[375px] px-6">
+        <Button
+          onClick={handleNext}
+          disabled={!input.trim()}
+          variant="primary"
+          color="red"
+          size="lg"
+          fontType="title-3"
+          className="w-full"
+        >
+          다음
+        </Button>
+      </div>
     </div>
   );
 };

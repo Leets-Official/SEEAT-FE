@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     path: '/home',
     element: <Home />,
   },
-  //리뷰
+  // 리뷰
   {
     path: '/review',
     children: [
@@ -39,12 +39,12 @@ const router = createBrowserRouter([
       { path: 'form', element: <ReviewTextForm /> },
     ],
   },
-
-  //마이
+  // 마이
   {
     path: '/my',
     element: <MyPage />,
   },
+  // 온보딩
   {
     path: '/onboarding/nickname',
     element: <OnboardingNicknamePage />,

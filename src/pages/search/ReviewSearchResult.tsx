@@ -2,12 +2,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-
-import SearchInput from '@/components/common/SearchInput/SearchInput';
-import ReviewCard from '@/components/common/ReviewCard/ReviewCard';
-import FilterIcon from '@/assets/icons/filter.svg?react';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
-
+import {SearchInput, ReviewCard, HeaderBasic} from '@/components'
+import {FilterIcon} from '@/assets'
 const mockSearchResults = [
   {
     id: 1,
@@ -41,7 +37,7 @@ export default function ReviewSearchResultPage() {
   const { isFiltered } = useFilter();
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
         <HeaderBasic>
           <SearchInput

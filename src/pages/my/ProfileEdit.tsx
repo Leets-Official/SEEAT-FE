@@ -1,9 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '@/components/common/Button';
-import ChevronIcon from '@/assets/icons/chevron.svg?react';
-import MyProfileEditIcon from '@/assets/icons/my_profile_edit.svg?react';
-import PencilIcon from '@/assets/icons/pencil.svg?react';
-import MoreVerticalIcon from '@/assets/icons/more_vertical.svg?react';
+import {Button} from '@/components';
+import{ChevronIcon, MyProfileEditIcon, PencilIcon, MoreVerticalIcon} from '@/assets';
 
 export default function ProfileEdit() {
   const navigate = useNavigate();
@@ -20,7 +17,7 @@ export default function ProfileEdit() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-gray-900 font-suit text-white">
+    <div className="flex h-screen flex-col  font-suit text-white">
       {/* Header */}
       <header className="flex flex-shrink-0 items-center justify-between px-4 py-3">
         <button onClick={handleBackClick} aria-label="뒤로가기">

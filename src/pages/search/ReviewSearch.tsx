@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import SearchInput from '@/components/common/SearchInput/SearchInput';
-import Badge from '@/components/common/Badge/Badge';
-import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigation';
-
+import {SearchInput, Badge, BottomNavigation} from '@/components'
 const initialKeywords = [
   '뭔가검색했겠지...', '뭐가있지', '아무거나',
   '두줄은', '채워야되니까', '일단써보기'
@@ -27,7 +24,7 @@ export default function ReviewSearchPage() {
   };
 
  return (
-    <div className="relative flex justify-center min-h-screen text-white bg-gray-900">
+    <div className="relative flex justify-center min-h-screen text-white ">
       <div className="w-full max-w-[400px] px-4 pt-4 pb-20">
         <SearchInput
           value={search}

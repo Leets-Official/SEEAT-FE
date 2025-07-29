@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@/components/common/Button';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
-import MoreVerticalIcon from '@/assets/icons/more_vertical.svg?react';
+import {Button, HeaderBasic} from '@/components';
+import { MoreVerticalIcon } from '@/assets';
+
 
 export default function MyFeedbackPage() {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ export default function MyFeedbackPage() {
   const isButtonDisabled = feedbackText.length === 0;
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // 최대 글자수 제한
     if (e.target.value.length > MAX_LENGTH) {
       setFeedbackText(e.target.value.slice(0, MAX_LENGTH));
     } else {
@@ -21,7 +20,7 @@ export default function MyFeedbackPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-gray-900 text-white">
+    <div className="flex h-screen flex-col text-white">
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col px-4">
         {/* 헤더 */}
         <HeaderBasic onBackClick={() => navigate(-1)}>

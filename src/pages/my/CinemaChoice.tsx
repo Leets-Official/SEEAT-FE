@@ -1,32 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
-import Button from '@/components/common/Button';
-import MoreVerticalIcon from '@/assets/icons/more_vertical.svg?react';
-import ToggleTab from '@/components/common/ToggleTab/ToggleTab';
+import { Button, HeaderBasic, ToggleTab } from '@/components';
+import { MoreVerticalIcon } from '@/assets';
+import type { CinemaFormat, CinemaType } from '@/types/onboarding';
 
-const IMAX_THEATERS = [
-  '왕십리',
-  '용산아이파크몰',
-  '천호',
-  '광교',
-  '울산삼산',
-  '서면',
-  '소풍',
-  '압구정',
+const IMAX_THEATERS: CinemaType[] = [
+  'CGV 용산',
+  '메가박스 성수',
 ];
-const DOLBY_CINEMA_THEATERS = [
-  '남양주현대아울렛 스페이스원',
-  '대구 신세계(동대구)',
-  '대전신세계아트앤사이언스',
-  '송도(트리플스트리트)',
-  '수원AK플라자(수원역)',
-  '안성스타필드',
-  '코엑스',
-  '하남스타필드',
+const DOLBY_CINEMA_THEATERS: CinemaType[] = [
+  'CGV 강남',
+  '롯데시네마 홍대',
+  '메가박스 코엑스',
 ];
 
-const THEATERS_BY_FORMAT: Record<string, string[]> = {
+const THEATERS_BY_FORMAT: Record<CinemaFormat, CinemaType[]> = {
   'IMAX': IMAX_THEATERS,
   'Dolby Cinema': DOLBY_CINEMA_THEATERS,
 };
@@ -35,10 +23,10 @@ const MAX_SELECTABLE_THEATERS = 2;
 
 export default function CinemaChoice() {
   const navigate = useNavigate();
-  const [selectedTheaters, setSelectedTheaters] = useState<string[]>(['남양주현대아울렛 스페이스원']);
-  const [activeFormat, setActiveFormat] = useState<string>('Dolby Cinema');
+  const [selectedTheaters, setSelectedTheaters] = useState<CinemaType[]>([]);
+  const [activeFormat, setActiveFormat] = useState<CinemaFormat>('Dolby Cinema');
 
-  const handleTheaterClick = (theater: string) => {
+  const handleTheaterClick = (theater: CinemaType) => {
     setSelectedTheaters((prevSelected) => {
       const isAlreadySelected = prevSelected.includes(theater);
       if (isAlreadySelected) {
@@ -57,8 +45,8 @@ export default function CinemaChoice() {
   };
 
   const handleFormatSelect = (format: string) => {
-    setActiveFormat(format);
-    setSelectedTheaters([]); // 포맷 변경 시 선택된 영화관 초기화
+    setActiveFormat(format as CinemaFormat);
+    setSelectedTheaters([]);
   };
 
   const currentTheaters = THEATERS_BY_FORMAT[activeFormat];

@@ -1,11 +1,8 @@
 import { Fragment, useState } from 'react';
 import { cn } from '@/utils/cn';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
-import ChevronDownIcon from '@/assets/icons/chevron-down.svg?react';
-import ChevronUpIcon from '@/assets/icons/chevron-up.svg?react';
-import CheckSquareOnIcon from '@/assets/icons/check-square-on.svg?react';
-import CheckSquareOffIcon from '@/assets/icons/check-square-off.svg?react';
 import { useFilter } from '@/contexts/FilterContext';
+import { HeaderBasic,AccordionSection} from '@/components';
+import {FilterCheckbox} from '@/components';
 
 const sortOptions = ['가장 인기있는 순', '평점순', '최신순'];
 const cinemaOptions = {
@@ -18,41 +15,9 @@ const cinemaOptions = {
 const soundOptions = ['Dolby Atmos', 'DTS:X'];
 const environmentOptions = ['리클라이너', '카포트'];
 
-const AccordionSection = ({ title, isOpen, onToggle, children }: { title: string; isOpen: boolean; onToggle: () => void; children: React.ReactNode }) => (
-  <div className="py-2">
-    <button
-      onClick={onToggle}
-      className="flex w-full items-center justify-between"
-    >
-      <span className="text-title-4 text-gray-300">{title}</span>
-      {isOpen ? <ChevronUpIcon className="h-5 w-5 text-gray-300" /> : <ChevronDownIcon className="h-5 w-5 text-gray-300" />}
-    </button>
-    <div
-      className={cn(
-        'overflow-hidden transition-[max-height] duration-300 ease-in-out',
-        isOpen ? 'max-h-screen' : 'max-h-0'
-      )}
-    >
-      <div className="pt-4">{children}</div>
-    </div>
-  </div>
-);
-
-const FilterCheckbox = ({ option, isSelected, onToggle }: { option: string; isSelected: boolean; onToggle: () => void; }) => (
-  <label className="flex cursor-pointer items-center gap-x-2">
-    <input type="checkbox" checked={isSelected} onChange={onToggle} className="sr-only" />
-    {isSelected ? (
-      <CheckSquareOnIcon className="h-6 w-6 text-red-400" />
-    ) : (
-      <CheckSquareOffIcon className="h-6 w-6 text-gray-700" />
-    )}
-    <span className="text-body-1 text-gray-500">{option}</span>
-  </label>
-);
-
 export default function ReviewFilter() {
   const [activeSort, setActiveSort] = useState('인기순');
-  const [openSections, setOpenSections] = useState<string[]>([ 'Dolby Cinema', '음향', '관람 환경' ]);
+  const [openSections, setOpenSections] = useState<string[]>(['Dolby Cinema', '음향', '관람 환경']);
   const [selectedCinemas, setSelectedCinemas] = useState<Record<string, boolean>>({});
   const [selectedSounds, setSelectedSounds] = useState<Record<string, boolean>>({});
   const [selectedEnvironments, setSelectedEnvironments] = useState<Record<string, boolean>>({});
@@ -79,7 +44,7 @@ export default function ReviewFilter() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
         <HeaderBasic>
           <h1 className="text-lg font-semibold">필터</h1>

@@ -1,30 +1,36 @@
-// src/pages/my/MyPage.tsx
-
 import { useNavigate } from 'react-router-dom';
+import { HomeHeader, BottomNavigation, LevelCard } from '@/components';
+import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
+import React from 'react';
 
-import HomeHeader from '@/components/common/Header/HomeHeader';
-import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigation';
+interface User {
+  name: string;
+  level: number;
+  progress: number;
+  preferredGenres: string[];
+  favoriteTheaters: string[];
+}
 
-import EditIcon from '@/assets/icons/pencil.svg?react';
-import ChevronRightIcon from '@/assets/icons/chevron_right.svg?react';
-import MyProfileIcon from '@/assets/icons/my_profile.svg?react';
+interface MenuItem {
+  name: string;
+  path: string;
+}
 
-const MyPage = () => {
+const MyPage: React.FC = () => {
   const navigate = useNavigate();
-  const user = {
+
+  const user: User = {
     name: '김씨잇',
     level: 3,
-    levelTitle: '영화계의 권위자',
     progress: 60,
     preferredGenres: ['호러', 'SF', '로맨스'],
     favoriteTheaters: ['남양주현대아울렛 스페이스원', '용산아이파크몰 (용아맥)'],
   };
 
-  // 메뉴 아이템 데이터: '의견 보내기'에 대한 경로가 이미 설정되어 있습니다.
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { name: '나의 후기', path: '/my/reviews' },
     { name: '북마크', path: '/my/bookmarks' },
-    { name: '의견 보내기', path: '/my/feedback' }, // 이 경로로 이동합니다.
+    { name: '의견 보내기', path: '/my/feedback' },
   ];
 
   const handleSettingsClick = () => {
@@ -36,8 +42,7 @@ const MyPage = () => {
   };
 
   return (
-    <div className="bg-gray-900">
-      <div className="relative mx-auto w-full max-w-md bg-gray-950 text-white">
+      <div className="relative mx-auto w-full max-w-md text-white">
         <div className="min-h-screen">
           <HomeHeader onSettingsClick={handleSettingsClick} />
 
@@ -81,40 +86,16 @@ const MyPage = () => {
               </div>
             </section>
 
-            {/* 레벨 카드 */}
-            <section className="h-[140px] rounded-lg bg-gray-800/30 p-4">
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-title-1 text-red-400">Lv.{user.level}</span>
-                    <span className="text-title-4 text-white">{user.levelTitle}</span>
-                  </div>
-                  <div className="mt-2 h-2 w-full rounded-full bg-gray-950">
-                    <div className="h-full rounded-full bg-red-300" style={{ width: `${user.progress}%` }} />
-                  </div>
-                  <p className="mt-3 text-caption-3 text-gray-300">
-                    다음 레벨까지 할 일은... <br />
-                    후기 <span className="text-red-400">OO</span>개, 좋아요 <span className="text-red-400">OO</span>개
-                    누르기
-                  </p>
-                </div>
-                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-md border border-dashed border-gray-700 bg-transparent">
-                  <span className="text-center text-caption-3 text-gray-500">
-                    레벨 캐릭터
-                    <br />
-                    이미지
-                  </span>
-                </div>
-              </div>
-            </section>
+            {/* 레벨 카드 (컴포넌트로 분리) */}
+            <LevelCard userLevel={user.level} userProgress={user.progress} />
 
             {/* 메뉴 리스트 */}
             <section>
               <ul className="flex flex-col">
                 {menuItems.map((item) => (
                   <li key={item.name}>
-                    <button 
-                      onClick={() => navigate(item.path)} 
+                    <button
+                      onClick={() => navigate(item.path)}
                       className="flex w-full items-center justify-between px-2 py-4 text-left"
                     >
                       <span className="text-title-3 text-white">{item.name}</span>
@@ -131,7 +112,7 @@ const MyPage = () => {
           <BottomNavigation />
         </div>
       </div>
-    </div>
+
   );
 };
 

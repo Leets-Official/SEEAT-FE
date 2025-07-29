@@ -1,9 +1,6 @@
 import { create } from 'zustand';
 
-interface ModalState {
-  isOpen: boolean;
-  modalType: 'confirm' | 'custom' | null;
-  modalProps: {
+export interface ModalProps {
   title?: string;
   subtitle?: string;
   subWarningText?: string;
@@ -11,11 +8,13 @@ interface ModalState {
   confirmText?: string;
   onCancel?: () => void;
   onConfirm?: () => void;
-  };
-  openModal: (
-    type: ModalState['modalType'],
-    props: ModalState['modalProps']
-  ) => void;
+}
+
+interface ModalState {
+  isOpen: boolean;
+  modalType: 'confirm' | 'custom' | null;
+  modalProps: ModalProps;
+  openModal: (props: ModalProps, type?: ModalState['modalType']) => void;
   closeModal: () => void;
 }
 
@@ -23,8 +22,9 @@ export const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
   modalType: null,
   modalProps: {},
-  openModal: (type, props) =>
-    set({ isOpen: true, modalType: type, modalProps: props }),
+   openModal: (props, type = 'confirm') => {
+    set({ isOpen: true, modalType: type, modalProps: props });
+  },
   closeModal: () =>
     set({ isOpen: false, modalType: null, modalProps: {} }),
 }));

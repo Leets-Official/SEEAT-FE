@@ -1,9 +1,7 @@
 import { useModalStore } from '@/store/modalStore';
 const Modal = () => {
-  const { isOpen, modalProps, closeModal } = useModalStore();
-
+  const { isOpen, modalProps, closeModal} = useModalStore();
   if (!isOpen) return null;
-
   const {
     title = '',
     subtitle = '',

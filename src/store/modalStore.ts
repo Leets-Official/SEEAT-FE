@@ -1,35 +1,25 @@
 import { create } from 'zustand';
+import type {
+  ConfirmModalProps,
+  SeatPickerModalProps,
+} from '@/components/common/Modal/Modal.types';
 
-type BaseModalProps = {
-  title?: string;
-  subtitle?: string;
-  subWarningText?: string;
-  cancelText?: string;
-  confirmText?: string;
-  onCancel?: () => void;
-  onConfirm?: () => void;
-};
+type ModalType = keyof ModalPropsMap; // 'confirm' | 'seatPicker'
 
 type ModalPropsMap = {
-  confirm: BaseModalProps;
-  custom: BaseModalProps;
-  seatPicker: {
-    theaterType: 'IMAX' | 'Dolby Cinema';
-    theaterName: string;
-    auditoriumId: string;
-  };
+  confirm: ConfirmModalProps;
+  seatPicker: SeatPickerModalProps;
 };
 
-type ModalType = keyof ModalPropsMap;
-type ModalProps<T extends ModalType = ModalType> = ModalPropsMap[T];
+type ModalProps<T extends ModalType = ModalType> = T extends ModalType ? ModalPropsMap[T] : never;
 
-interface ModalState<T extends ModalType = ModalType> {
+type ModalState = {
   isOpen: boolean;
-  modalType: T | null;
-  modalProps: T extends ModalType ? ModalProps<T> : never;
-  openModal: <K extends ModalType>(type: K, props: ModalProps<K>) => void;
+  modalType: ModalType | null;
+  modalProps: ModalProps;
+  openModal: <T extends ModalType>(type: T, props: ModalPropsMap[T]) => void;
   closeModal: () => void;
-}
+};
 
 export const useModalStore = create<ModalState>((set) => ({
   isOpen: false,

@@ -12,6 +12,7 @@ import PlusIcon from '@/assets/icons/plus.svg?react';
 import StarFill from '@/assets/icons/star_fill.svg?react';
 import StarHalf from '@/assets/icons/star_half.svg?react';
 import StarLine from '@/assets/icons/star_line.svg?react';
+import CheckIcon from '@/assets/icons/check.svg?react';
 
 export {
   HeartOn,
@@ -28,4 +29,5 @@ export {
   StarFill,
   StarLine,
   StarHalf,
+  CheckIcon,
 };

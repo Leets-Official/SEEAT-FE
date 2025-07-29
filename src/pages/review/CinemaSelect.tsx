@@ -33,10 +33,13 @@ export default function CinemaSelect() {
       <div className="mb-4 flex justify-center">
         <div className="w-[335px]">
           <ToggleTab
-            options={['IMAX', 'Dolby Cinema']}
+              options={[
+                  { label: 'IMAX', value: 'IMAX' },
+                  { label: 'Dolby Cinema', value: 'Dolby Cinema' },
+            ]}
             selected={selectedTab}
             onSelect={(option) => setSelectedTab(option as 'IMAX' | 'Dolby Cinema')}
-          />
+       />
         </div>
       </div>
 

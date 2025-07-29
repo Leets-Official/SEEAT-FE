@@ -13,7 +13,7 @@ function SplashPage() {
   }, [navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
+    <div className="flex h-screen items-center justify-center bg-gray-900">
       <h1 className="text-title-1 text-white">SEEAT</h1>
     </div>
   );

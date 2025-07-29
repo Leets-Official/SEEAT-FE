@@ -240,7 +240,7 @@
     color: var(--color-gray-700);
   }
   .text-gray-500 {
-    color: var(--gray-500);
+    color: var(--color-gray-500);
   }
 
   .text-yellow-warn {

@@ -273,13 +273,10 @@
   }
   .bg-gray-950 {
     background-color: var(--color-gray-950);
-<<<<<<< HEAD
-=======
   }
 
   .bg-seat1-default {
     background-color: var(--color-seat1-default);
->>>>>>> 6ef5435858e3f72fe579945c287a12aa06b45e5a
   }
 
   .bg-red-300 {

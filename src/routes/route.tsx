@@ -1,9 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-<<<<<<< HEAD
-=======
-
-import Home from '@/pages/home';
->>>>>>> 6ef5435858e3f72fe579945c287a12aa06b45e5a
 import MyPage from '@/pages/my';
 import Signup from '@/pages/signup';
 
@@ -17,16 +12,13 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
-<<<<<<< HEAD
 import HomePage from '@/pages/home/HomePage';
 import TheaterListPage from '@/pages/home/TheatersList';
 import TheaterDetailPage from '@/pages/home/TheaterDetail';
 import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
 import ReviewDetailPage from '@/pages/home/ReviewDetail';
-=======
 import SeatTest from '@/pages/seat/SeatTest';
 import SeatReviewPage from '@/pages/seat';
->>>>>>> 6ef5435858e3f72fe579945c287a12aa06b45e5a
 
 const router = createBrowserRouter([
   {
@@ -42,7 +34,6 @@ const router = createBrowserRouter([
     path: '/home',
     element: <HomePage />,
   },
-<<<<<<< HEAD
   {
     path: '/theaters',
     element: <TheaterListPage />,
@@ -61,9 +52,6 @@ const router = createBrowserRouter([
   },
 
   //리뷰
-=======
-  // 리뷰
->>>>>>> 6ef5435858e3f72fe579945c287a12aa06b45e5a
   {
     path: '/review',
     children: [

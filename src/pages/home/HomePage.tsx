@@ -2,15 +2,14 @@ import { HomeHeader, ReviewCard, BestCinemaCard, BottomNavigation, Image } from 
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
 import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
+import { getTopReviewByLikes } from '@/utils/reviewUtils';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
 
   //좋아요 순으로 정렬
-  const popularReviews = [...reviewSummaryMock]
-    .sort((a, b) => b.heartCount - a.heartCount)
-    .slice(0, 3);
+  const popularReviews = getTopReviewByLikes(reviewSummaryMock, 3);
 
   const handleGoToPopular = () => {
     navigate('/review/popular');

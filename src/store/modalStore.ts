@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ModalType = 'confirm' | 'seatPicker' | null;
+export type ModalType = 'confirm' | 'seatPicker' | 'action' | null;
 
 interface ModalStore {
   modalType: ModalType;

@@ -39,11 +39,11 @@ const router = createBrowserRouter([
     element: <TheaterListPage />,
   },
   {
-    path: '/theaters/:cinemaName',
+    path: '/theaters/:auditoriumId',
     element: <TheaterDetailPage />,
   },
   {
-    path: '/theaters/:cinemaName/reviews',
+    path: '/theaters/:auditoriumId/reviews',
     element: <TheaterReviewListPage />,
   },
   {

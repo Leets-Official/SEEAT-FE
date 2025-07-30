@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ToggleTab, Button, Header } from '@/components';
-import { cinemaData } from '@/constants';
+import { groupCinemasByTheater } from '@/utils/groupCinemasByTheater';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function TheaterListPage() {
@@ -15,7 +15,7 @@ export default function TheaterListPage() {
   const [selectedCinema, setSelectedCinema] = useState<string | null>(null);
   const [selectedHall, setSelectedHall] = useState<string | null>(null);
 
-  const cinemas = cinemaData[selectedTab];
+  const cinemas = groupCinemasByTheater(selectedTab);
 
   return (
     <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11">
@@ -49,23 +49,18 @@ export default function TheaterListPage() {
       {/* 리스트 */}
       <div className="scrollbar-hidden max-h-[calc(100vh-136px)] overflow-y-auto pt-5">
         <div className="flex flex-col items-center gap-3">
-          {cinemas.map(({ name, halls }) => {
-            const isSelected = selectedCinema === name;
-            const isMulti = Array.isArray(halls) && halls.length > 1;
+          {Object.entries(cinemas).map(([theaterName, halls]) => {
+            const isSelected = selectedCinema === theaterName;
+            const isMulti = halls.length > 1;
 
             return (
-              <div key={name} className="w-full px-5">
+              <div key={theaterName} className="w-full px-5">
                 <Button
                   onClick={() => {
-                    setSelectedCinema(name);
-                    if (!Array.isArray(halls) || halls.length === 0) {
-                      // (받아온 데이터에서)관이 없는 경우
-                      navigate(`/theaters/${encodeURIComponent(name)}`);
-                    } else if (halls.length === 1) {
-                      // 관이 1개인 경우
-                      navigate(`/theaters/${encodeURIComponent(name)}`);
+                    if (!isMulti) {
+                      navigate(`/theaters/${halls[0].auditoriumId}`);
                     } else {
-                      // 관이 2개 이상인 경우
+                      setSelectedCinema(theaterName);
                       setSelectedHall(null);
                     }
                   }}
@@ -76,23 +71,24 @@ export default function TheaterListPage() {
                   className="w-full justify-start rounded-lg text-left"
                   selected={isSelected}
                 >
-                  {name}
+                  {theaterName}
                 </Button>
 
                 {isSelected && isMulti && (
                   <div className="mx-auto mt-2 ml-10 grid grid-cols-2 gap-2 px-1">
                     {halls.map((hall) => (
                       <Button
+                        key={hall.auditoriumId}
                         onClick={() => {
-                          navigate(`/theaters/${encodeURIComponent(`${name} (${hall})`)}`);
+                          navigate(`/theaters/${hall.auditoriumId}`);
                         }}
                         variant="secondary-assistive"
                         color="gray"
                         size="sm"
-                        selected={selectedHall === hall}
+                        selected={selectedHall === hall.auditoriumId}
                         className="w-full"
                       >
-                        {hall}
+                        {hall.auditoriumName}
                       </Button>
                     ))}
                   </div>

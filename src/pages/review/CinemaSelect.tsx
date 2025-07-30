@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToggleTab, Button, ReviewStepLayout } from '@/components';
 import { useState, useEffect } from 'react';
 import { useReviewStore } from '@/store';
-import { cinemaData } from '@/constants';
+import { groupCinemasByTheater } from '@/utils/groupCinemasByTheater';
 
 export default function CinemaSelect() {
   const { isInitialized } = useReviewStore();
@@ -12,12 +12,7 @@ export default function CinemaSelect() {
   const [selectedCinema, setSelectedCinema] = useState<string | null>(null);
   const [selectedHall, setSelectedHall] = useState<string | null>(null);
 
-  const cinemas = cinemaData[selectedTab];
-  const selectedCinemaData = cinemas.find((c) => c.name === selectedCinema);
-  const hasMultipleHalls =
-    selectedCinemaData &&
-    Array.isArray(selectedCinemaData.halls) &&
-    selectedCinemaData.halls.length > 1;
+  const cinemas = groupCinemasByTheater(selectedTab);
 
   useEffect(() => {
     if (!isInitialized) {
@@ -33,7 +28,7 @@ export default function CinemaSelect() {
     <ReviewStepLayout
       onClickNext={handleNext}
       onClickBack={() => navigate('/review/info')}
-      disabled={!selectedCinema || (hasMultipleHalls && !selectedHall)}
+      disabled={!selectedCinema || (cinemas[selectedCinema]?.length > 1 && !selectedHall)}
       nextLabel="선택 완료"
     >
       {/* 탭 */}
@@ -57,17 +52,17 @@ export default function CinemaSelect() {
       {/* 영화관 목록 */}
       <div className="scrollbar-hidden max-h-[calc(100vh-236px)] overflow-y-auto pt-5">
         <div className="flex flex-col items-center gap-3 pb-[160px]">
-          {cinemas.map(({ name, halls }) => {
-            const isThisSelected = selectedCinema === name;
+          {Object.entries(cinemas).map(([theaterName, halls]) => {
+            const isThisSelected = selectedCinema === theaterName;
             const isMulti = Array.isArray(halls) && halls.length > 1;
 
             return (
-              <div key={name} className="w-full">
+              <div key={theaterName} className="w-full">
                 <Button
                   onClick={() => {
-                    setSelectedCinema(name);
-                    if (Array.isArray(halls) && halls.length === 1) {
-                      setSelectedHall(halls[0]);
+                    setSelectedCinema(theaterName);
+                    if (halls.length === 1) {
+                      setSelectedHall(halls[0].auditoriumName);
                     } else {
                       setSelectedHall(null); // 상영관 수동 선택 요구
                     }
@@ -79,7 +74,7 @@ export default function CinemaSelect() {
                   className="w-full justify-start rounded-lg text-left"
                   selected={isThisSelected}
                 >
-                  {name}
+                  {theaterName}
                 </Button>
 
                 {/* 상영관 선택 (2관 이상인 경우만 표시) */}
@@ -87,15 +82,15 @@ export default function CinemaSelect() {
                   <div className="mx-auto mt-2 ml-10 grid grid-cols-2 gap-2 px-1">
                     {halls.map((hall) => (
                       <Button
-                        key={hall}
-                        onClick={() => setSelectedHall(hall)}
+                        key={hall.auditoriumId}
+                        onClick={() => setSelectedHall(hall.auditoriumName)}
                         variant="secondary-assistive"
                         color="gray"
                         size="sm"
-                        selected={selectedHall === hall}
+                        selected={selectedHall === hall.auditoriumName}
                         className="w-full"
                       >
-                        {hall}
+                        {hall.auditoriumName}
                       </Button>
                     ))}
                   </div>

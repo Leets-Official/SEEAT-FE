@@ -2,27 +2,31 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, Badge, ReviewCard } from '@/components';
 import { StarSmall, ArrowRight } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
-import { cinemaInfoMap } from '@/constants/theaterInfo';
+import { cinemaData } from '@/constants';
 
 const CinemaDetailPage = () => {
-  const { cinemaName } = useParams<{ cinemaName: string }>();
+  const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();
-  const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
   const imgUrl = getRandomImage(246, 142);
-  const reviews = reviewSummaryMock.filter(
-    (review) => review.movieSeatInfo.theaterName === decodeCinemaName,
-  );
-  const reviewCount = reviews.length;
-  const rating =
-    reviews.length === 0
-      ? 0
-      : (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1);
 
-  const cinemaInfo = cinemaInfoMap[decodeCinemaName] ?? {
-    screenSize: '정보 없음',
-    format: '정보 없음',
-    sound: '정보 없음',
-  };
+  const cinema = Object.values(cinemaData)
+    .flat()
+    .find((c) => c.auditoriumId === auditoriumId);
+
+  const title = cinema?.theaterName
+    ? cinema.auditoriumName
+      ? `${cinema.theaterName} (${cinema.auditoriumName})`
+      : cinema.theaterName
+    : '영화관 정보 없음';
+
+  const reviews = reviewSummaryMock.filter(
+    (review) =>
+      review.movieSeatInfo.theaterName === cinema?.theaterName &&
+      review.movieSeatInfo.auditoriumName === cinema?.auditoriumName,
+  );
+  const reviewCount = cinema?.reviewCount;
+
+  const rating = cinema?.averageReview.toFixed?.(1);
 
   return (
     <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">
@@ -37,7 +41,7 @@ const CinemaDetailPage = () => {
       </div>
       <div className="w-full px-5 pt-5">
         {/*영화관(상영관) 이름*/}
-        <div className="text-title-2 text-left text-white">{decodeCinemaName}</div>
+        <div className="text-title-2 text-left text-white">{title}</div>
         <div className="mt-2 flex items-center">
           <StarSmall className="mr-1 h-4 w-4" />
           <span className="text-caption-1 mr-3 pt-[2px] text-white">{rating}</span>
@@ -62,19 +66,20 @@ const CinemaDetailPage = () => {
             <Badge type="info" className="h-7 w-[85px] justify-center">
               스크린
             </Badge>
-            <span className="text-caption-2 text-white">{cinemaInfo.screenSize}</span>
+            <span className="text-caption-2 text-white">{cinema?.screenSize || '정보 없음'}</span>
           </div>
           <div className="flex items-center gap-4">
             <Badge type="info" className="h-7 w-[85px] justify-center">
               영사 포맷
             </Badge>
-            <span className="text-caption-2 text-white">{cinemaInfo.format}</span>
+            {/*!!스웨거에서 영사 포맷을 받고 있지 않는 것 같아서 우선 하드코딩 해뒀습니다!!*/}
+            <span className="text-caption-2 text-white">정보 없음</span>
           </div>
           <div className="flex items-center gap-4">
             <Badge type="info" className="h-7 w-[85px] justify-center">
               음향
             </Badge>
-            <span className="text-caption-2 text-white">{cinemaInfo.sound}</span>
+            <span className="text-caption-2 text-white">{cinema?.soundType || '정보 없음'}</span>
           </div>
         </div>
 
@@ -82,9 +87,7 @@ const CinemaDetailPage = () => {
         <div className="mt-9">
           <div className="mb-3 flex items-center justify-between">
             <p className="text-title-3">후기</p>
-            <button
-              onClick={() => navigate(`/theaters/${encodeURIComponent(cinemaName!)}/reviews`)}
-            >
+            <button onClick={() => navigate(`/theaters/${auditoriumId}/reviews`)}>
               <ArrowRight className="h-5 w-5 text-gray-500" />
             </button>
           </div>
@@ -94,7 +97,7 @@ const CinemaDetailPage = () => {
                 key={review.id}
                 imageUrl={getRandomImage(82, 82)}
                 tags={review.hashtags.map((h) => h.hashTagName)}
-                title={decodeCinemaName}
+                title={title}
                 description={review.content}
                 likeCount={review.heartCount}
                 onClick={() => navigate(`/review/${review.id}`)}

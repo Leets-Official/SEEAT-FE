@@ -1,17 +1,25 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { Header, ReviewCard } from '@/components';
+import { cinemaData } from '@/constants';
 
 const TheaterReviewListPage = () => {
-  const { cinemaName } = useParams<{ cinemaName: string }>();
-
+  const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();
   const ImgURL = getRandomImage(81, 81);
 
   /* 묵데이터에서 리뷰 가져오는 로직 */
-  const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
+  const cinema = Object.values(cinemaData)
+    .flat()
+    .find((c) => c.auditoriumId === auditoriumId);
+
+  const theaterName = cinema?.theaterName ?? '영화관 정보 없음';
+  const auditoriumName = cinema?.auditoriumName ?? '상영관 정보 없음';
+
   const selectedReviews = reviewSummaryMock.filter(
-    (review) => review.movieSeatInfo.theaterName === decodeCinemaName,
+    (review) =>
+      review.movieSeatInfo.theaterName === theaterName &&
+      review.movieSeatInfo.auditoriumName === auditoriumName,
   );
 
   return (
@@ -34,7 +42,7 @@ const TheaterReviewListPage = () => {
               key={review.id}
               imageUrl={ImgURL}
               tags={review.hashtags.map((h) => h.hashTagName)}
-              title={decodeURIComponent(cinemaName ?? '')}
+              title={`${theaterName} (${auditoriumName})`}
               description={review.content}
               likeCount={review.heartCount}
               onClick={() => navigate(`/review/${review.id}`)}

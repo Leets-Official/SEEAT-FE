@@ -56,7 +56,6 @@ const Modal = () => {
         </div>
       );
     }
-
     default:
       return null;
   }

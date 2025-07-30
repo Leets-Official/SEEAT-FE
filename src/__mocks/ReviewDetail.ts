@@ -1,29 +1,32 @@
 import { getRandomImage } from './mockImage';
-export type Review = {
-  id: number;
-  user: string;
-  rating: number;
-  content: string;
-  likes: number;
-  tags: string[];
-  movieTitle: string;
-  seatInfo: string[];
-  cinemaName: string; // ex) 남양주현대아울렛 스페이스원 (1관)
-  imageUrls?: string[];
-};
+import type { Review } from '@/types/review';
 
 export const cinemaReviewsMock: Review[] = [
   {
-    id: 1,
-    user: 'Leets',
-    rating: 5,
+    movieSeatInfo: {
+      movieTitle: '명탐정 코난',
+      theaterName: '남양주현대아울렛 스페이스원',
+      auditoriumName: '1관',
+      seatNumber: 'F6, F12',
+    },
+    hashtags: [
+      { hashTagId: 1, hashTagName: '음향최고' },
+      { hashTagId: 2, hashTagName: '시야좋음' },
+      { hashTagId: 3, hashTagName: '자녀와' },
+    ],
     content: 'IMAX 사운드는 정말 감동적이에요. 앉은 좌석도 시야 확보 최고였습니다.',
-    likes: 22,
-    tags: ['음향최고', '시야좋음', '자녀와'],
-    movieTitle: '명탐정 코난',
-    seatInfo: ['F6, F12'],
-    cinemaName: '남양주현대아울렛 스페이스원 (1관)',
-    imageUrls: [getRandomImage(82, 82), getRandomImage(82, 82)],
+    rating: 5,
+    user: {
+      userId: 1,
+      nickname: 'Leets',
+      profileImageUrl: '',
+    },
+    imageInfo: [
+      { imageUrl: getRandomImage(82, 82), order: 1 },
+      { imageUrl: getRandomImage(82, 82), order: 2 },
+    ],
+    heartCount: 22,
+    createdAt: '2025-07-27T07:14:36.744Z',
   },
   {
     id: 2,

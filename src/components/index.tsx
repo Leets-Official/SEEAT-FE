@@ -14,6 +14,9 @@ import Header from '@/components/common/Header/Header';
 import ImagePreviewItem from '@/components/common/ImagePreview/ImagePreviewItem';
 import HomeHeader from '@/components/common/Header/HomeHeader';
 import RatingCard from '@/components/review/RatingCard';
+import SeatItem from '@/components/seat/SeatItem';
+import SeatMap from '@/components/seat/SeatMap';
+
 export {
   InputField,
   Button,
@@ -31,4 +34,6 @@ export {
   ImagePreviewItem,
   HomeHeader,
   RatingCard,
+  SeatItem,
+  SeatMap,
 };

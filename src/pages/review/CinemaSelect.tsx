@@ -40,14 +40,22 @@ export default function CinemaSelect() {
       <div className="mb-4 flex justify-center pt-5">
         <div className="w-full">
           <ToggleTab
-            options={['IMAX', 'Dolby Cinema']}
+              options={[
+                  { label: 'IMAX', value: 'IMAX' },
+                  { label: 'Dolby Cinema', value: 'Dolby Cinema' },
+            ]}
             selected={selectedTab}
+<<<<<<< HEAD
             onSelect={(option) => {
               setSelectedTab(option as 'IMAX' | 'Dolby Cinema');
               setSelectedCinema(null);
               setSelectedHall(null);
             }}
           />
+=======
+            onSelect={(option) => setSelectedTab(option as 'IMAX' | 'Dolby Cinema')}
+       />
+>>>>>>> 6ef5435858e3f72fe579945c287a12aa06b45e5a
         </div>
       </div>
 

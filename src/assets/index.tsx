@@ -17,6 +17,7 @@ import StarSmall from '@/assets/icons/starfill_s.svg?react';
 import HeaderLogo from '@/assets/icons/header_logo.svg?react';
 import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
+import CheckIcon from '@/assets/icons/check.svg?react';
 
 export {
   HeartOn,
@@ -38,4 +39,5 @@ export {
   HeaderLogo,
   GearIcon,
   DefaultProfile,
+  CheckIcon,
 };

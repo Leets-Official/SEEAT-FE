@@ -139,7 +139,7 @@ export const cinemaData = {
     },
     {
       auditoriumId: 'AUD-D0006',
-      theaterName: 'ㄱㄴㄷㄹ',
+      theaterName: '용산 CGV 아이맥스관',
       auditoriumName: '',
       screenSize: '',
       soundType: '',

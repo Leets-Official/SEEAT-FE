@@ -2,7 +2,7 @@ import type { BestCinema } from '@/types/bestCinema';
 
 const rawCinemas = [
   {
-    auditoriumId: '13018',
+    auditoriumId: 'AUD00001',
     auditoriumName: '남양주현대아울렛 스페이스원 (1관)',
     avgRating: 4.5,
     reviewCount: 28,
@@ -10,7 +10,7 @@ const rawCinemas = [
     imageUrl: '/images/cinema1.png',
   },
   {
-    auditoriumId: '13019',
+    auditoriumId: 'AUD-D0006',
     auditoriumName: '용산 CGV 아이맥스관',
     avgRating: 4.7,
     reviewCount: 32,
@@ -18,7 +18,7 @@ const rawCinemas = [
     imageUrl: '/images/cinema2.png',
   },
   {
-    auditoriumId: '13020',
+    auditoriumId: 'AUD-D0007',
     auditoriumName: '신촌 메가박스 컴포트관 근데영화관이름이이렇게길어지면',
     avgRating: 4.3,
     reviewCount: 18,
@@ -26,8 +26,8 @@ const rawCinemas = [
     imageUrl: '/images/cinema3.png',
   },
   {
-    auditoriumId: '13021',
-    auditoriumName: '강남 롯데시네마',
+    auditoriumId: 'AUD00004',
+    auditoriumName: '대전신세계아트앤사이언스',
     avgRating: 4.1,
     reviewCount: 25,
     score: 85.0,

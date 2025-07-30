@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Home from '@/pages/home';
 import Signup from '@/pages/signup';
+
+// 마이페이지
 import MyPage from '@/pages/my/MyPage';
 import MySettingPage from '@/pages/my/MySetting';
 import ProfileEdit from '@/pages/my/ProfileEdit';
@@ -9,18 +11,59 @@ import SelectGenre from '@/pages/my/SelectGenre';
 import CinemaChoice from '@/pages/my/CinemaChoice';
 import MyReviewPage from '@/pages/my/MyReview';
 import MyBookmarkPage from '@/pages/my/MyBookmark';
+import MyFeedbackPage from '@/pages/my/MyFeedback';
 
+// 검색
 import Search from '@/pages/search/ReviewSearch';
 import ReviewSearchResult from '@/pages/search/ReviewSearchResult';
 import ReviewFilter from '@/pages/search/ReviewFilter';
 
-import MyFeedbackPage from '@/pages/my/MyFeedback';
+// 리뷰 작성
+import MovieInfoForm from '@/pages/review/MovieInfoStep';
+import CinemaSelect from '@/pages/review/CinemaSelect';
+import { TicketUploadStep } from '@/pages/review/TicketPage';
+import RatingStep from '@/pages/review/RatingStep';
+import ReviewTagsPage from '@/pages/review/TagPage';
+import ReviewTextForm from '@/pages/review/ReviewContent';
+
+// 온보딩
+import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
+import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
+import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
+
+// 좌석
+import SeatTest from '@/pages/seat/SeatTest';
+import SeatReviewPage from '@/pages/seat';
+
+// 스플래시
+import SplashPage from '@/pages/splash/SplashPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <SplashPage />,
+  },
+  {
+    path: '/login',
     element: <Signup />,
   },
+  {
+    path: '/home',
+    element: <Home />,
+  },
+  // 리뷰
+  {
+    path: '/review',
+    children: [
+      { index: true, element: <TicketUploadStep /> },
+      { path: 'info', element: <MovieInfoForm /> },
+      { path: 'info/cinema', element: <CinemaSelect /> },
+      { path: 'rating', element: <RatingStep /> },
+      { path: 'tag', element: <ReviewTagsPage /> },
+      { path: 'form', element: <ReviewTextForm /> },
+    ],
+  },
+  // 마이페이지
   {
     path: '/my',
     element: <MyPage />,
@@ -53,12 +96,9 @@ const router = createBrowserRouter([
     path: '/my/cinema-choice',
     element: <CinemaChoice />,
   },
+  // 검색
   {
-    path: '/home',
-    element: <Home />,
-  },
-  {
-    path: '/search', // 테스트용
+    path: '/search',
     element: <Search />,
   },
   {
@@ -66,8 +106,30 @@ const router = createBrowserRouter([
     element: <ReviewSearchResult />,
   },
   {
-    path: '/search/filter', // 필터 페이지
+    path: '/search/filter',
     element: <ReviewFilter />,
+  },
+  // 온보딩
+  {
+    path: '/onboarding/nickname',
+    element: <OnboardingNicknamePage />,
+  },
+  {
+    path: '/onboarding/genre',
+    element: <OnboardingGenrePage />,
+  },
+  {
+    path: '/onboarding/theater',
+    element: <OnboardingTheaterPage />,
+  },
+  // 좌석 관련
+  {
+    path: '/seat',
+    element: <SeatTest />,
+  },
+  {
+    path: '/seat/review/:seatId',
+    element: <SeatReviewPage />,
   },
 ]);
 

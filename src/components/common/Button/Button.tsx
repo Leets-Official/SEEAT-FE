@@ -6,7 +6,7 @@ export default function Button({
   variant = 'primary',
   color = 'red',
   size = 'lg',
-  rounded = 'lg',
+  rounded = 'md',
   disabled = false,
   fontType = 'body-1',
   className,

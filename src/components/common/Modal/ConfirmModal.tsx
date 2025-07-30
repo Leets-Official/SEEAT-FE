@@ -1,4 +1,4 @@
-import BaseModal from './BaseModal';
+import { Button, BaseModal } from '@/components';
 
 interface ConfirmModalProps {
   title: string;
@@ -8,6 +8,7 @@ interface ConfirmModalProps {
   cancelText?: string;
   onConfirm?: () => void;
   onCancel?: () => void;
+  reverseButton?: boolean; // 버튼 순서 반전
 }
 
 const ConfirmModal = ({
@@ -18,29 +19,43 @@ const ConfirmModal = ({
   confirmText = '등록하기',
   onCancel,
   onConfirm,
+  reverseButton = false,
 }: ConfirmModalProps) => {
+  const CancelButton = (
+    <Button fontType="title-3" color="gray" className="w-full" onClick={onCancel}>
+      {cancelText}
+    </Button>
+  );
+
+  const ConfirmButton = (
+    <Button fontType="title-3" className="w-full" onClick={onConfirm}>
+      {confirmText}
+    </Button>
+  );
+
   return (
     <BaseModal>
-      <div className="w-[360px] rounded-[12px] bg-[#424242] px-4 pt-6 pb-5 shadow-lg">
-        {title && <h2 className="text-title-3 text-center text-white">{title}</h2>}
-        {subtitle && <p className="text-body-2 text-center text-white">{subtitle}</p>}
-        {subWarningText && (
-          <p className="text-body-2 text-yellow-warn text-center">{subWarningText}</p>
-        )}
+      <div className="w-[335px] rounded-l bg-gray-800 px-4 pt-6 pb-5 shadow-md">
+        <div className="p-1">
+          {title && <div className="text-title-3 text-center">{title}</div>}
+          {subtitle && <div className="text-body-2 my-1 text-center">{subtitle}</div>}
+          {subWarningText && (
+            <div className="text-body-2 text-yellow-warn my-1 text-center">{subWarningText}</div>
+          )}
+        </div>
 
-        <div className="mt-4 flex justify-center gap-4">
-          <button
-            onClick={onCancel}
-            className="h-[55px] w-[155px] rounded-[12px] bg-[#7D7D7D] text-[#E0E0E0]"
-          >
-            {cancelText}
-          </button>
-          <button
-            onClick={onConfirm}
-            className="h-[55px] w-[155px] rounded-[12px] bg-[#EF5350] text-white"
-          >
-            {confirmText}
-          </button>
+        <div className="mt-5 flex gap-3">
+          {reverseButton ? (
+            <>
+              {ConfirmButton}
+              {CancelButton}
+            </>
+          ) : (
+            <>
+              {CancelButton}
+              {ConfirmButton}
+            </>
+          )}
         </div>
       </div>
     </BaseModal>

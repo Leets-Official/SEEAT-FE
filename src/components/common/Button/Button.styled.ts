@@ -7,7 +7,7 @@ export const BUTTON_BASE = 'transition-colors active:scale-95';
 export const BUTTON_VARIANT = {
   primary: {
     red: 'bg-red-400 hover:bg-red-300 active:bg-red-500 disabled:bg-gray-800 disabled:text-gray-700',
-    gray: 'bg-gray-600  hover:bg-gray-500 active:bg-gray-700 disabled:bg-gray-800 disabled:text-gray-700',
+    gray: 'bg-gray-600 btn-text-gray-300 hover:bg-gray-500 active:bg-gray-700 disabled:bg-gray-800 disabled:text-gray-700',
   },
   secondary: {
     red: 'bg-[rgba(221,55,66,0.3)]  border border-red-400 hover:bg-[rgba(221,55,66,0.5)] active:bg-[rgba(221,55,66,0.15)] active:border-red-500 disabled:bg-gray-800/30 disabled:text-gray-700 disabled:border-gray-800',

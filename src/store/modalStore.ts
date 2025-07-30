@@ -2,24 +2,14 @@ import { create } from 'zustand';
 
 export type ModalType = 'confirm' | 'seatPicker' | null;
 
-interface ModalState {
-  isOpen: boolean;
+interface ModalStore {
   modalType: ModalType;
   openModal: (type: Exclude<ModalType, null>) => void;
   closeModal: () => void;
 }
 
-export const useModalStore = create<ModalState>((set) => ({
-  isOpen: false,
+export const useModalStore = create<ModalStore>((set) => ({
   modalType: null,
-  openModal: (type) =>
-    set({
-      isOpen: true,
-      modalType: type,
-    }),
-  closeModal: () =>
-    set({
-      isOpen: false,
-      modalType: null,
-    }),
+  openModal: (type) => set({ modalType: type }),
+  closeModal: () => set({ modalType: null }),
 }));

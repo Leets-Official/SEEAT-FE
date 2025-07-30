@@ -1,4 +1,12 @@
-import type { ConfirmModalProps } from './Modal.types';
+interface ConfirmModalProps {
+  title: string;
+  subtitle?: string;
+  subWarningText?: string;
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+}
 
 const ConfirmModal = ({
   title,

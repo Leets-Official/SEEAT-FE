@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
 import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
 import { getTopReviewByLikes } from '@/utils/reviewUtils';
+import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -31,22 +32,8 @@ const HomePage = () => {
             <p className="text-title-3">영화관 리스트</p>
           </div>
           <div className="flex justify-center gap-3">
-            <button
-              onClick={() => navigate('/theaters?tab=imax')}
-              className="rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800"
-            >
-              {/*로고 자리*/}
-              <div className="mt-5 aspect-square w-[60%] bg-gray-700" />
-              <p className="mt-2 text-xl text-white">IMAX</p>
-            </button>
-            <button
-              onClick={() => navigate('/theaters?tab=dolby')}
-              className="rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800"
-            >
-              {/*로고 자리*/}
-              <div className="mt-5 aspect-square w-[60%] bg-gray-700" />
-              <p className="mt-2 text-xl text-white">Dolby Cinema</p>
-            </button>
+            <CinemaTypeButton label="IMAX" tab="imax" />
+            <CinemaTypeButton label="Dolby Cinema" tab="dolby" />
           </div>
         </div>
 

@@ -29,11 +29,10 @@ export const TestSeatModalButton = () => {
       {modalType === 'confirm' && (
         <ConfirmModal
           title="후기를 등록하시겠어요?"
-          // subWarningText="탈퇴하면 7일 후 다시 가입할 수 있어요."
+          subWarningText="탈퇴하면 7일 후 다시 가입할 수 있어요."
           subtitle="등록한 후기는 마이페이지에서 확인할 수 있어요."
           confirmText="등록하기"
           cancelText="취소"
-          onCancel={closeModal}
         />
       )}
     </>

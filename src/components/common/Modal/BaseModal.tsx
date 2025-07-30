@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import { useModalStore } from '@/store/modalStore';
-import { cn } from '@/utils/cn';
 
 interface BaseModalProps {
   children: ReactNode;
@@ -8,24 +7,28 @@ interface BaseModalProps {
 
 const BaseModal = ({ children }: BaseModalProps) => {
   const { modalType, closeModal } = useModalStore();
-
   const isActionType = modalType === 'action';
 
-  return (
-    <>
-      {!isActionType && <div className="fixed inset-0 z-40 bg-gray-800/10" onClick={closeModal} />}
+  // 액션 시트 모달일 때 위치 조정 - TODO: 구현 시 알맞게 위치 수정
+  if (isActionType) {
+    return (
+      <>
+        <div className="fixed inset-0 z-40 bg-gray-800/20" onClick={closeModal} />
+        <div className="absolute top-[52px] right-4 z-50" onClick={(e) => e.stopPropagation()}>
+          {children}
+        </div>
+      </>
+    );
+  }
 
-      <div
-        className={cn(
-          'z-50',
-          isActionType
-            ? 'absolute top-[52px] right-4' // 액션시트모달 구현 시 알맞은 위치로 조정
-            : 'fixed inset-0 flex items-center justify-center',
-        )}
-      >
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* 모달 외부 클릭 시 모달 닫힘 */}
+      <div className="absolute inset-0 bg-gray-800/20" onClick={closeModal} />
+      <div className="relative z-10" onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
-    </>
+    </div>
   );
 };
 

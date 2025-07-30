@@ -1,4 +1,5 @@
 import { Button, BaseModal } from '@/components';
+import { useModalStore } from '@/store';
 
 interface ConfirmModalProps {
   title: string;
@@ -21,8 +22,19 @@ const ConfirmModal = ({
   onConfirm,
   reverseButton = false,
 }: ConfirmModalProps) => {
+  const { closeModal } = useModalStore();
+
   const CancelButton = (
-    <Button fontType="title-3" color="gray" className="w-full" onClick={onCancel}>
+    <Button
+      fontType="title-3"
+      color="gray"
+      className="w-full"
+      onClick={() => {
+        // onCanCel이 정의되어 있지 않으면 closeModal()만 실행
+        onCancel?.();
+        closeModal();
+      }}
+    >
       {cancelText}
     </Button>
   );

@@ -24,6 +24,11 @@ import LevelCharacter1 from '@/assets/icons/level1.svg?react';
 import LevelCharacter2 from '@/assets/icons/level2.svg?react';
 import LevelCharacter3 from '@/assets/icons/level3.svg?react';
 import LevelCharacter4 from '@/assets/icons/level4.svg?react';
+import StarFill from '@/assets/icons/star_fill.svg?react';
+import StarHalf from '@/assets/icons/star_half.svg?react';
+import StarLine from '@/assets/icons/star_line.svg?react';
+import CheckIcon from '@/assets/icons/check.svg?react';
+
 export {
   MoreVerticalIcon,
   CheckSquareOffIcon,
@@ -50,6 +55,9 @@ export {
   LevelCharacter1,
   LevelCharacter2,
   LevelCharacter3,
-  LevelCharacter4
+  LevelCharacter4,
+  StarFill,
+  StarLine,
+  StarHalf,
+  CheckIcon,
 };
-

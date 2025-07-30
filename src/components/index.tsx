@@ -5,28 +5,37 @@ import ReviewCard from '@/components/common/ReviewCard/ReviewCard';
 import Badge from '@/components/common/Badge/Badge';
 import Image from '@/components/common/Image/Image';
 import ToggleTab  from '@/components/common/ToggleTab';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
-import HomeHeader from '@/components/common/Header/HomeHeader';
-import Input from '@/components/common/Input/Input';
-import SearchInput from '@/components/common/SearchInput/SearchInput';
-import Textarea from '@/components/common/Textarea/Textarea';
 import LevelCard from './common/LevelCard/LeveCard';
+import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
+import { Header } from '@/components/common/Header/Header';
+import InputField from '@/components/common/Input/Input';
+import Textarea from '@/components/common/Textarea/Textarea';
+import ReviewStepLayout from '@/components/review/ReviewLayout';
+import TagSection from '@/components/review/TagSection';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
-export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox'
+import SeatItem from '@/components/seat/SeatItem';
+import SeatMap from '@/components/seat/SeatMap';
+import HomeHeader from '@/components/common/Header/HomeHeader';
+
 export { default as Modal } from './common/Modal/Modal';
-export { 
-  Button, 
-  ToggleTab, 
-  Badge, 
-  Image, 
-  BottomNavigation, 
-  BestCinemaCard, 
+export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
+export {
+  Button,
+  BottomNavigation,
+  BestCinemaCard,
   ReviewCard,
-  Input,
-  SearchInput,
-  Textarea,
-  HomeHeader,
-  HeaderBasic,
+  Badge,
+  Image,
+  ToggleTab,
   LevelCard,
+  ImagePreviewItem,
+  Header,
+  HomeHeader,
+  InputField,
+  Textarea,
+  ReviewStepLayout,
+  TagSection,
   AccordionSection,
+  SeatItem,
+  SeatMap,
 };

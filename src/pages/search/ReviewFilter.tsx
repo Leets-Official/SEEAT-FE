@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react';
 import { cn } from '@/utils/cn';
 import { useFilter } from '@/contexts/FilterContext';
-import { HeaderBasic,AccordionSection} from '@/components';
-import {FilterCheckbox} from '@/components';
+// [수정됨] HeaderBasic을 Header로 변경
+import { Header, AccordionSection, FilterCheckbox } from '@/components';
 
 const sortOptions = ['가장 인기있는 순', '평점순', '최신순'];
 const cinemaOptions = {
@@ -46,9 +46,8 @@ export default function ReviewFilter() {
   return (
     <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        <HeaderBasic>
-          <h1 className="text-lg font-semibold">필터</h1>
-        </HeaderBasic>
+        {/* [수정됨] HeaderBasic을 Header로 변경하고 title 프롭스 사용 */}
+        <Header title="필터" />
 
         {/* 정렬 */}
         <section className="py-4">

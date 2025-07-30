@@ -1,4 +1,3 @@
-// src/pages/splash/SplashPage.tsx
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,14 +7,14 @@ function SplashPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/login');
-    }, 2000); // 2초 뒤 이동
+    }, 2000);
 
-    return () => clearTimeout(timer); // cleanup
+    return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-black">
-      <h1 className="text-white text-4xl font-bold">SEEAT</h1>
+    <div className="flex h-screen items-center justify-center bg-gray-900">
+      <h1 className="text-title-1 text-white">SEEAT</h1>
     </div>
   );
 }

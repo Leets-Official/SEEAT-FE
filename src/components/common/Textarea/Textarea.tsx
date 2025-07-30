@@ -7,13 +7,12 @@ interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaEl
   onChange?: (value: string) => void;
   onValueChange?: (value: string) => void;
   placeholder?: string;
-  maxLength?: number;
   minLength?: number;
   focus?: boolean;
   placeholderColorType?: 'gray' | 'white';
   width?: string;
   height?: string;
-  showValidationMessage?: boolean;
+  showValidationMessage?: boolean; 
 }
 
 const Textarea = ({
@@ -23,10 +22,10 @@ const Textarea = ({
   onValueChange,
   placeholder = '메시지를 입력해요',
   maxLength = 1000,
-  minLength = 0,
+  minLength = 0,    
   focus = false,
   placeholderColorType = 'gray',
-  width = 'w-full',
+  width = 'w-full', 
   height = 'h-[120px]',
   showValidationMessage = true,
   className,

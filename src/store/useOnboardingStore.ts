@@ -12,13 +12,14 @@ interface OnboardingState {
   setCinemaFormat: (format: CinemaFormat) => void;
   genre: GenreType[];
   setGenre: (genres: GenreType[]) => void;
+  setSelectedCinemas: (cinemas: CinemaType[]) => void; 
 }
 
 export const useOnboardingStore = create<OnboardingState>((set, get) => ({
 
   genre: [],
   setGenre: (genres) => set({ genre: genres }),
-  
+
   nickname: '',
   selectedGenres: [],
   selectedCinemas: [],
@@ -47,4 +48,6 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
   },
 
   setCinemaFormat: (format) => set({ cinemaFormat: format }),
+
+  setSelectedCinemas: (cinemas) => set({ selectedCinemas: cinemas }), // ✅ 추가
 }));

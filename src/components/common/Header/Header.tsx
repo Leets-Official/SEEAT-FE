@@ -1,48 +1,65 @@
 import React, { useState } from 'react';
-import {ChevronIcon, HeartFilledIcon,HeartOutlineIcon,BookmarkFilledIcon,BookmarkOutlineIcon,} from '@/assets';
+import {
+  ChevronIcon,
+  HeartFilledIcon,
+  HeartOutlineIcon,
+  BookmarkFilledIcon,
+  BookmarkOutlineIcon,
+} from '@/assets';
 
 interface HeaderProps {
   title: string;
   showBack?: boolean;
   onBackClick?: () => void;
+  showLike?: boolean;
+  showBookmark?: boolean;
 }
 
-// const Header... 대신 export const Header... 로 수정
-export const Header: React.FC<HeaderProps> = ({ title, showBack = true, onBackClick }) => {
+export const Header: React.FC<HeaderProps> = ({
+  title,
+  showBack = true,
+  onBackClick,
+  showLike = true,
+  showBookmark = true,
+}) => {
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
 
   return (
-    <div className="flex items-center justify-between px-4 w-full max-w-[375px] h-[44px] mx-auto">
+    <div className="mx-auto flex h-[44px] w-full items-center justify-between px-4">
       <div className="flex items-center gap-2">
         {showBack && (
           <button onClick={onBackClick}>
-            <ChevronIcon className="w-5 h-5 text-white" />
+            <ChevronIcon className="h-5 w-5 text-white" />
           </button>
         )}
         <span className="text-title-3">{title}</span>
       </div>
-      <div className="flex items-center gap-4">
-        <button onClick={() => setLiked((prev) => !prev)}>
-          {/* '좋아요' 상태일 때(liked가 true) 채워진 아이콘이 보여야 합니다. */}
-          {liked ? (
-            <HeartFilledIcon className="w-5 h-5 text-white" />
-          ) : (
-            <HeartOutlineIcon className="w-5 h-5 text-white" />
+
+      {(showLike || showBookmark) && (
+        <div className="flex items-center gap-4">
+          {showLike && (
+            <button onClick={() => setLiked((prev) => !prev)}>
+              {liked ? (
+                <HeartFilledIcon className="h-5 w-5 text-white" />
+              ) : (
+                <HeartOutlineIcon className="h-5 w-5 text-white" />
+              )}
+            </button>
           )}
-        </button>
-        <button onClick={() => setBookmarked((prev) => !prev)}>
-          {/* '북마크' 상태일 때(bookmarked가 true) 채워진 아이콘이 보여야 합니다. */}
-          {bookmarked ? (
-            <BookmarkFilledIcon className="w-5 h-5 text-white" />
-          ) : (
-            <BookmarkOutlineIcon className="w-5 h-5 text-white" />
+
+          {showBookmark && (
+            <button onClick={() => setBookmarked((prev) => !prev)}>
+              {bookmarked ? (
+                <BookmarkFilledIcon className="h-5 w-5 text-white" />
+              ) : (
+                <BookmarkOutlineIcon className="h-5 w-5 text-white" />
+              )}
+            </button>
           )}
-        </button>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
 
-// 마지막 export default 라인 삭제
-// export default Header;

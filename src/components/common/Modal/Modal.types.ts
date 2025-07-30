@@ -1,12 +1,13 @@
-export interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm?: () => void;
-  cancelText?: string; 
-  confirmText?: string; 
-  children?: React.ReactNode;
-
+export interface ConfirmModalProps {
   title?: string;
   subtitle?: string;
   subWarningText?: string;
+  cancelText?: string;
+  confirmText?: string;
+  onConfirm?: () => void;
+}
+export interface SeatPickerModalProps {
+  theaterType: 'IMAX' | 'Dolby Cinema';
+  theaterName: string;
+  auditoriumId: string;
 }

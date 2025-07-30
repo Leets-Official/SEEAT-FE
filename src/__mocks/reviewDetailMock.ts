@@ -1,10 +1,10 @@
-import { getRandomImage } from './mockImage';
-import type { Review } from '@/types/review';
+import type { ReviewDetail } from '@/types/review';
 
-export const cinemaReviewsMock: Review[] = [
+export const reviewDetailMock: ReviewDetail[] = [
   {
+    id: 1,
     movieSeatInfo: {
-      movieTitle: '명탐정 코난',
+      movieTitle: '어벤져스: 엔드게임',
       theaterName: '남양주현대아울렛 스페이스원',
       auditoriumName: '1관',
       seatNumber: 'F6, F12',
@@ -17,64 +17,118 @@ export const cinemaReviewsMock: Review[] = [
     content: 'IMAX 사운드는 정말 감동적이에요. 앉은 좌석도 시야 확보 최고였습니다.',
     rating: 5,
     user: {
-      userId: 1,
+      userId: 101,
       nickname: 'Leets',
       profileImageUrl: '',
     },
     imageInfo: [
-      { imageUrl: getRandomImage(82, 82), order: 1 },
-      { imageUrl: getRandomImage(82, 82), order: 2 },
+      { imageUrl: '', order: 1 },
+      { imageUrl: '', order: 2 },
     ],
     heartCount: 22,
-    createdAt: '2025-07-27T07:14:36.744Z',
+    createdAt: '2025-07-27T07:14:36Z',
   },
   {
     id: 2,
-    user: 'Juno',
-    rating: 4,
+    movieSeatInfo: {
+      movieTitle: '범죄도시4',
+      theaterName: '남양주현대아울렛 스페이스원',
+      auditoriumName: '1관',
+      seatNumber: 'E10',
+    },
+    hashtags: [
+      { hashTagId: 4, hashTagName: '화질굿' },
+      { hashTagId: 5, hashTagName: '대형스크린' },
+    ],
     content: '화질도 좋고 화면 크기도 압도적입니다.',
-    likes: 10,
-    tags: ['화질굿', '대형스크린'],
-    movieTitle: '범죄도시4',
-    seatInfo: ['E10'],
-    cinemaName: '남양주현대아울렛 스페이스원 (1관)',
-    imageUrls: [getRandomImage(82, 82)],
+    rating: 4,
+    user: {
+      userId: 102,
+      nickname: '냠냠이',
+      profileImageUrl: '',
+    },
+    imageInfo: [{ imageUrl: '', order: 1 }],
+    heartCount: 10,
+    createdAt: '2025-07-27T07:14:36Z',
   },
   {
     id: 3,
-    user: 'Leets',
-    rating: 5,
-    content: 'IMAX 사운드는 정말 감동적이에요. 앉은 좌석도 시야 확보 최고였습니다.',
-    likes: 22,
-    tags: ['음향최고', '시야좋음', '자녀와'],
-    movieTitle: '명탐정 코난',
-    seatInfo: ['F6, F12'],
-    cinemaName: '남양주현대아울렛 스페이스원 (1관)',
+    movieSeatInfo: {
+      movieTitle: '드래곤 길들이기',
+      theaterName: '남양주현대아울렛 스페이스원',
+      auditoriumName: '2관',
+      seatNumber: 'A1',
+    },
+    hashtags: [
+      { hashTagId: 6, hashTagName: '음질만족' },
+      { hashTagId: 7, hashTagName: '출입구근처' },
+    ],
+    content: '사운드도 좋고 스크린도 컸는데 문이랑 가까워서 외부 소음이 조금 거슬렸어요 ㅎㅎ',
+    rating: 3.5,
+    user: {
+      userId: 103,
+      nickname: '김씨잇',
+      profileImageUrl: '',
+    },
+    imageInfo: [
+      { imageUrl: '', order: 1 },
+      { imageUrl: '', order: 2 },
+    ],
+    heartCount: 34,
+    createdAt: '2025-07-27T07:14:36Z',
   },
   {
     id: 4,
-    user: '김씨잇',
-    rating: 3.5,
+    movieSeatInfo: {
+      movieTitle: '드래곤 길들이기',
+      theaterName: '남양주현대아울렛 스페이스원',
+      auditoriumName: '2관',
+      seatNumber: 'A1',
+    },
+    hashtags: [
+      { hashTagId: 6, hashTagName: '음질만족' },
+      { hashTagId: 7, hashTagName: '출입구근처' },
+    ],
     content: '사운드도 좋고 스크린도 컸는데 문이랑 가까워서 외부 소음이 조금 거슬렸어요 ㅎㅎ',
-    likes: 34,
-    tags: ['음질만족', '출입구근처'],
-    movieTitle: '드래곤 길들이기',
-    seatInfo: ['A1'],
-    cinemaName: '남양주현대아울렛 스페이스원 (1관)',
-    imageUrls: [getRandomImage(82, 82), getRandomImage(82, 82)],
+    rating: 3.5,
+    user: {
+      userId: 103,
+      nickname: '김씨잇',
+      profileImageUrl: '',
+    },
+    imageInfo: [
+      { imageUrl: '', order: 1 },
+      { imageUrl: '', order: 2 },
+    ],
+    heartCount: 34,
+    createdAt: '2025-07-27T07:14:36Z',
   },
   {
     id: 5,
-    user: '박리츠',
-    rating: 2.5,
+    movieSeatInfo: {
+      movieTitle: '위키드',
+      theaterName: '남양주현대아울렛 스페이스원',
+      auditoriumName: '1관',
+      seatNumber: 'D4',
+    },
+    hashtags: [
+      { hashTagId: 8, hashTagName: '주변산만' },
+      { hashTagId: 9, hashTagName: '잡음있음' },
+    ],
     content:
-      '단차가 낮은 건지 앞사람 행동이 너무 거슬려요ㅜㅜ 그리고 상영관에서 냄새가 너무 마니 남!!! 뮤지컬 영화인데 잡음이 거슬렸어요',
-    likes: 7,
-    tags: ['주변산만', '잡음있음'],
-    movieTitle: '위키드',
-    seatInfo: ['D4'],
-    cinemaName: '남양주현대아울렛 스페이스원 (1관)',
+      '단차가 낮은 건지 앞사람 행동이 너무 거슬려요ㅜㅜ 그리고 상영관에서 냄새가 너무 마니 남!!!',
+    rating: 2.5,
+    user: {
+      userId: 104,
+      nickname: '박리츠',
+      profileImageUrl: '',
+    },
+    imageInfo: [],
+    heartCount: 7,
+    createdAt: '2025-07-27T07:14:36Z',
   },
+];
+/*
   {
     id: 6,
     user: 'Mina',
@@ -138,4 +192,4 @@ export const cinemaReviewsMock: Review[] = [
     seatInfo: ['D4'],
     cinemaName: '남양주현대아울렛 스페이스원 (2관)',
   },
-];
+];*/

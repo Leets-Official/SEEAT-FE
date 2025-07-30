@@ -1,14 +1,16 @@
 import { HomeHeader, ReviewCard, BestCinemaCard, BottomNavigation, Image } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
-import { cinemaReviewsMock, bestCinemas, getRandomImage } from '@/__mocks';
+import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
 
   //좋아요 순으로 정렬
-  const popularReviews = [...cinemaReviewsMock].sort((a, b) => b.likes - a.likes).slice(0, 3);
+  const popularReviews = [...reviewSummaryMock]
+    .sort((a, b) => b.heartCount - a.heartCount)
+    .slice(0, 3);
 
   const handleGoToPopular = () => {
     navigate('/review/popular');
@@ -63,10 +65,10 @@ const HomePage = () => {
               <ReviewCard
                 key={review.id}
                 imageUrl={getRandomImage(82, 82)}
-                tags={review.tags}
-                title={review.cinemaName}
+                tags={review.hashtags.map((tag) => tag.hashTagName)}
+                title={review.movieSeatInfo.theaterName}
                 description={review.content}
-                likeCount={review.likes}
+                likeCount={review.heartCount}
                 onClick={() => navigate(`/review/${review.id}`)}
               />
             ))}

@@ -1,5 +1,6 @@
 import { bestCinemas } from './bestCinemaData';
 import { getRandomImage } from './mockImage';
-import { cinemaReviewsMock } from './cinemaDetail';
+import { reviewDetailMock } from './reviewDetailMock';
+import { reviewSummaryMock } from './reviewSummaryMock';
 
-export { bestCinemas, getRandomImage, cinemaReviewsMock };
+export { bestCinemas, getRandomImage, reviewSummaryMock, reviewDetailMock };

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, Badge, ReviewCard } from '@/components';
 import { StarSmall, ArrowRight } from '@/assets';
-import { getRandomImage, cinemaReviewsMock } from '@/__mocks';
+import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaInfoMap } from '@/constants/theaterInfo';
 
 const CinemaDetailPage = () => {
@@ -9,7 +9,9 @@ const CinemaDetailPage = () => {
   const navigate = useNavigate();
   const decodeCinemaName = decodeURIComponent(cinemaName ?? '');
   const imgUrl = getRandomImage(246, 142);
-  const reviews = cinemaReviewsMock.filter((review) => review.cinemaName === decodeCinemaName);
+  const reviews = reviewSummaryMock.filter(
+    (review) => review.movieSeatInfo.theaterName === decodeCinemaName,
+  );
   const reviewCount = reviews.length;
   const rating =
     reviews.length === 0
@@ -91,10 +93,10 @@ const CinemaDetailPage = () => {
               <ReviewCard
                 key={review.id}
                 imageUrl={getRandomImage(82, 82)}
-                tags={review.tags}
+                tags={review.hashtags.map((h) => h.hashTagName)}
                 title={decodeCinemaName}
                 description={review.content}
-                likeCount={review.likes}
+                likeCount={review.heartCount}
                 onClick={() => navigate(`/review/${review.id}`)}
               />
             ))}

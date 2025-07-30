@@ -32,7 +32,10 @@ export default function TheaterListPage() {
       <div className="flex justify-center px-5 pt-5">
         <div className="w-[375px]">
           <ToggleTab
-            options={['IMAX', 'Dolby Cinema']}
+            options={[
+              { label: 'IMAX', value: 'IMAX' },
+              { label: 'Dolby Cinema', value: 'Dolby Cinema' },
+            ]}
             selected={selectedTab}
             onSelect={(option) => {
               setSelectedTab(option as 'IMAX' | 'Dolby Cinema');

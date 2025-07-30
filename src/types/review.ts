@@ -16,6 +16,7 @@ export interface ReviewSummary {
 }
 
 export interface ReviewDetail {
+  id: number;
   movieSeatInfo: MovieSeatInfo;
   hashtags: Hashtag[];
   content: string;

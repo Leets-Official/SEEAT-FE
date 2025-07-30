@@ -16,6 +16,7 @@ import HomeHeader from '@/components/common/Header/HomeHeader';
 import RatingCard from '@/components/review/RatingCard';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
+import StarRating from './review/StarRating';
 
 export {
   InputField,
@@ -36,4 +37,5 @@ export {
   RatingCard,
   SeatItem,
   SeatMap,
+  StarRating,
 };

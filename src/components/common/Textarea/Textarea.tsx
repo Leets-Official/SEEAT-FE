@@ -1,12 +1,8 @@
 import { cn } from '@/utils/cn';
 import React, { useState } from 'react';
 
-<<<<<<< HEAD
-interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'value'> {
-=======
 interface TextareaProps
   extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'value'> {
->>>>>>> 3ef9a58065f58eef91c9ba508522f10f20288fe1
   title: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -18,12 +14,8 @@ interface TextareaProps
   placeholderColorType?: 'gray' | 'white';
   width?: string;
   height?: string;
-<<<<<<< HEAD
-  showValidationMessage?: boolean; 
-=======
   showValidationMessage?: boolean;
-  className?: string;
->>>>>>> 3ef9a58065f58eef91c9ba508522f10f20288fe1
+  className?: string; 
 }
 
 const Textarea = ({
@@ -33,10 +25,10 @@ const Textarea = ({
   onValueChange,
   placeholder = '메시지를 입력해요',
   maxLength = 1000,
-  minLength = 0,    
+  minLength = 0,
   focus = false,
   placeholderColorType = 'gray',
-  width = 'w-full', 
+  width = 'w-full',
   height = 'h-[120px]',
   showValidationMessage = true,
   className,
@@ -57,9 +49,7 @@ const Textarea = ({
 
   return (
     <div className={cn(width, 'space-y-1', className)}>
-      <label className="text-caption-2 inline-block h-[20px] text-gray-300">
-        {title} <span className="text-red-500">*</span>
-      </label>
+      <label className="text-base text-gray-200">{title}</label>
 
       <div className={cn('relative rounded-lg p-4', borderClass, backgroundClass)}>
         <textarea
@@ -88,7 +78,7 @@ const Textarea = ({
             <p className="text-caption-3 h-[20px] text-gray-400">{minLength}자 이상 입력해주세요</p>
           )}
           {showEmptyWarning && (
-            <p className="text-caption-3 text-yellow-figma h-[20px]">내용을 입력해주세요</p>
+            <p className="text-caption-3 h-[20px] text-yellow-figma">내용을 입력해주세요</p>
           )}
         </div>
       )}

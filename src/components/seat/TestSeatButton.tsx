@@ -1,5 +1,6 @@
 import { useModalStore } from '@/store';
 import { ConfirmModal, SeatPickerModal } from '@/components';
+import SeatFocusModal from '../common/Modal/SeatModal/SeatFocusModal';
 
 export const TestSeatModalButton = () => {
   const { openModal, modalType, closeModal } = useModalStore();
@@ -12,6 +13,10 @@ export const TestSeatModalButton = () => {
     openModal('confirm');
   };
 
+  const handleOpenFocus = () => {
+    openModal('seatFocus');
+  };
+
   return (
     <>
       <button onClick={handleOpen} className="bg-primary rounded px-4 py-2 text-white">
@@ -20,6 +25,10 @@ export const TestSeatModalButton = () => {
 
       <button onClick={handleOpenConfirm} className="bg-primary rounded px-4 py-2 text-white">
         confirm 모달 열기
+      </button>
+
+      <button onClick={handleOpenFocus} className="bg-primary rounded px-4 py-2 text-white">
+        Focus 모달 열기
       </button>
 
       {modalType === 'seatPicker' && (
@@ -33,6 +42,14 @@ export const TestSeatModalButton = () => {
           subtitle="등록한 후기는 마이페이지에서 확인할 수 있어요."
           confirmText="등록하기"
           cancelText="취소"
+        />
+      )}
+
+      {modalType === 'seatFocus' && (
+        <SeatFocusModal
+          auditoriumId="13018"
+          theaterName="CGV 강남"
+          selectedSeatNumbers={['K20', 'K21']}
         />
       )}
     </>

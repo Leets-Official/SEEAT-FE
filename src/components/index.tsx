@@ -14,7 +14,7 @@ import Header from '@/components/common/Header/Header';
 import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
-import SeatPickerModal from '@/components/common/Modal/SeatPickerModal';
+import SeatPickerModal from '@/components/common/Modal/SeatModal/SeatPickerModal';
 import ConfirmModal from '@/components/common/Modal/ConfirmModal';
 
 export {

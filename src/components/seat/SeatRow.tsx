@@ -5,9 +5,11 @@ import { getSeatLabel } from '@/utils/getSeatLabel';
 interface SeatRowProps {
   rowSeats: (Seat | null)[];
   onSeatClick?: (seatId: string) => void;
+  focusedSeatIds?: string[];
+  focusedRef?: React.RefObject<HTMLDivElement>;
 }
 
-const SeatRow = ({ rowSeats, onSeatClick }: SeatRowProps) => {
+const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: SeatRowProps) => {
   return (
     <div className="flex gap-1">
       {rowSeats.map((seat, idx) =>
@@ -22,6 +24,8 @@ const SeatRow = ({ rowSeats, onSeatClick }: SeatRowProps) => {
             onClick={onSeatClick}
             row={seat.row}
             column={seat.column}
+            isFocused={focusedSeatIds.includes(seat.seatId)}
+            ref={focusedSeatIds?.includes(seat.seatId) ? focusedRef : undefined}
           />
         ) : (
           <div key={idx} className="pointer-events-none invisible">

@@ -4,9 +4,10 @@ import { CloseIcon } from '@/assets';
 import ScreenBar from '@/components/seat/ScreenBar';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import type { CinemaFormat } from '@/types/onboarding';
 
 interface SeatPickerModalProps {
-  theaterType: 'IMAX' | 'Dolby Cinema';
+  theaterType: CinemaFormat;
   theaterName: string;
   auditoriumId: string;
 }

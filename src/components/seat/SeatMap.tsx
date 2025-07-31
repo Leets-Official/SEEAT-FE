@@ -1,21 +1,28 @@
 import SeatRow from './SeatRow';
-import { mockSeats } from '@/__mocks/mockSeat';
+import { getMockSeats } from '@/__mocks/mockSeat';
 import type { Seat } from '@/types/seat';
+import { useRef } from 'react';
 
 interface SeatMapProps {
   auditoriumId?: string;
   onSeatClick?: (seatId: string) => void;
-  isMock?: boolean;
+  focusedSeatIds?: string[]; // type : seatFocus모달 일 때
+  isMock?: boolean; // 목데이터용
+  type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
-const SeatMap = ({ onSeatClick }: SeatMapProps) => {
+const SeatMap = ({ onSeatClick, focusedSeatIds = [], type = 'seatPicker' }: SeatMapProps) => {
   const seatRows: Record<string, Seat[]> = {};
+  const focusedRef = useRef<HTMLDivElement>(null!);
 
+  const mockSeats = getMockSeats(type, focusedSeatIds);
   // row별로 묶기
   mockSeats.forEach((seat) => {
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
     seatRows[seat.row].push(seat);
   });
+
+  console.log('focusedSeatIds:', focusedSeatIds);
 
   return (
     <div className="flex flex-col gap-1">
@@ -35,7 +42,15 @@ const SeatMap = ({ onSeatClick }: SeatMapProps) => {
             filledRow[index] = seat;
           });
 
-          return <SeatRow key={row} rowSeats={filledRow} onSeatClick={onSeatClick} />;
+          return (
+            <SeatRow
+              key={row}
+              rowSeats={filledRow}
+              onSeatClick={onSeatClick}
+              focusedSeatIds={focusedSeatIds}
+              focusedRef={focusedRef}
+            />
+          );
         })}
     </div>
   );

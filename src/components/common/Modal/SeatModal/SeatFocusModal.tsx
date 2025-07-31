@@ -3,6 +3,7 @@ import { CloseIcon } from '@/assets';
 import { useModalStore } from '@/store/modalStore';
 import SeatMap from '@/components/seat/SeatMap';
 import ScreenBar from '@/components/seat/ScreenBar';
+import { getSeatLabel } from '@/utils/getSeatLabel';
 
 interface SeatFocusModalProps {
   auditoriumId: string;
@@ -20,14 +21,24 @@ const SeatFocusModal = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  const seatIds = selectedSeatNumbers.map((num) => `${auditoriumId}${num}`);
+  const seatIds = selectedSeatNumbers.map((num) => getSeatLabel(auditoriumId, num));
 
   useEffect(() => {
     const container = containerRef.current;
     const target = container?.querySelector('[data-seat-focus="true"]') as HTMLDivElement;
+
     if (container && target) {
-      const top = target.offsetTop - container.offsetTop - 100;
-      container.scrollTo({ top, behavior: 'smooth' });
+      const containerRect = container.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const scrollTop = container.scrollTop + (targetRect.top - containerRect.top) - 100;
+      const scrollLeft = container.scrollLeft + (targetRect.left - containerRect.left) - 50;
+
+      container.scrollTo({
+        top: scrollTop,
+        left: scrollLeft,
+        behavior: 'smooth',
+      });
     }
   }, []);
 

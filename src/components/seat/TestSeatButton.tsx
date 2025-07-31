@@ -49,7 +49,7 @@ export const TestSeatModalButton = () => {
         <SeatFocusModal
           auditoriumId="13018"
           theaterName="CGV 강남"
-          selectedSeatNumbers={['K20', 'K21']}
+          selectedSeatNumbers={['C08', 'C09']}
         />
       )}
     </>

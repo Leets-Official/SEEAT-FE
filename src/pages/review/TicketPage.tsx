@@ -5,20 +5,27 @@ import { useEffect } from 'react';
 
 export const TicketUploadStep = () => {
   const { setInitialized } = useReviewStore();
-
-  useEffect(() => {
-    // 리뷰 작성 시작 시 상태 초기화
-    setInitialized();
-  }, [setInitialized]);
   const navigate = useNavigate();
 
   const handleNext = () => {
     navigate('/review/info');
   };
 
+  useEffect(() => {
+    // 리뷰 작성 시작 시 상태 초기화
+    setInitialized();
+  }, [setInitialized]);
+
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 py-5">
-      <Header title="" showLike={false} showBookmark={false} />
+    <div className="flex min-h-screen flex-col bg-gray-900 pt-11 pb-5">
+      <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
+        <Header
+          title=""
+          onBackClick={() => navigate('/home')}
+          showLike={false}
+          showBookmark={false}
+        />
+      </div>
       {/* 상단 */}
       <div className="flex flex-col gap-6 px-5 pt-4">
         <div className="w-full max-w-[430px] text-left">

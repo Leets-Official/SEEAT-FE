@@ -33,7 +33,7 @@ const RatingStep = () => {
     >
       {/* 점수 출력 */}
       <p className="mb-3 text-center text-[40px] font-extrabold text-white">
-        {rating > 0 ? `${rating.toFixed(1)}점` : '- 점'}
+        {rating > 0 ? `${rating.toFixed(1)}점` : '0 점'}
       </p>
 
       {/* 별점 선택 영역 */}

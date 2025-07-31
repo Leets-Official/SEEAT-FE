@@ -1,3 +1,5 @@
 import { cinemaData } from '@/constants/cinema';
 import { tagSections } from '@/constants/reviewTags';
-export { cinemaData, tagSections };
+import { cinemaInfoMap } from './theaterInfo';
+
+export { cinemaData, tagSections, cinemaInfoMap };

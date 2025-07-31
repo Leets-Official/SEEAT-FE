@@ -1,6 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-
-import Home from '@/pages/home';
 import Signup from '@/pages/signup';
 import SplashPage from '@/pages/splash/SplashPage';
 import MyPage from '@/pages/my/MyPage';
@@ -20,6 +18,11 @@ import { TicketUploadStep } from '@/pages/review/TicketPage';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
+import HomePage from '@/pages/home/HomePage';
+import TheaterListPage from '@/pages/home/TheatersList';
+import TheaterDetailPage from '@/pages/home/TheaterDetail';
+import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
+import ReviewDetailPage from '@/pages/home/ReviewDetail';
 import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
 import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
@@ -32,9 +35,32 @@ const router = createBrowserRouter([
     element: <SplashPage />,
   },
   {
-    path: '/home',
-    element: <Home />,
+    path: '/login',
+    element: <Signup />,
   },
+  //홈
+  {
+    path: '/home',
+    element: <HomePage />,
+  },
+  {
+    path: '/theaters',
+    element: <TheaterListPage />,
+  },
+  {
+    path: '/theaters/:auditoriumId',
+    element: <TheaterDetailPage />,
+  },
+  {
+    path: '/theaters/:auditoriumId/reviews',
+    element: <TheaterReviewListPage />,
+  },
+  {
+    path: '/review/:reviewId',
+    element: <ReviewDetailPage />,
+  },
+
+  //리뷰
   {
     path: '/login',
     element: <Signup />,
@@ -76,7 +102,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/my',
-    element: <MyPage />, 
+    element: <MyPage />,
   },
   {
     path: '/my/reviews',

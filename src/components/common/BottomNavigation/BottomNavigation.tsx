@@ -28,7 +28,7 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 flex h-[59px] w-full items-center justify-around rounded-t-lg border-t border-r border-l border-gray-800 bg-gray-950">
+    <nav className="fixed right-0 bottom-0 left-0 mx-auto flex h-[59px] w-full max-w-[430px] items-center justify-around rounded-t-lg border-t border-r border-l border-gray-800 bg-gray-950">
       {items.map((item, index) => (
         <BottomNavigationItem
           key={index}

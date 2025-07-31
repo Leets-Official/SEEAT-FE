@@ -20,9 +20,11 @@ export default function ReviewStepLayout({
   disabled = false,
 }: ReviewStepLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 py-5">
+    <div className="flex min-h-screen flex-col bg-gray-900 pt-11 pb-5">
       {/* 하단 버튼 여백 고려 */}
-      <Header title="" showBack onBackClick={onClickBack} showLike={false} showBookmark={false} />
+      <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
+        <Header title="" showBack onBackClick={onClickBack} showLike={false} showBookmark={false} />
+      </div>
       <div className={`flex flex-col gap-6 px-5 ${title ? 'pt-4' : ''}`}>
         {title && (
           <div className="w-full max-w-[430px] text-left">

@@ -13,14 +13,17 @@ import HeaderBasic from '@/components/common/Header/HeaderBasic';
 import InputField from '@/components/common/Input/Input';
 import Textarea from '@/components/common/Textarea/Textarea';
 import SearchInput from '@/components/common/SearchInput/SearchInput';
-
 import ReviewStepLayout from '@/components/review/ReviewLayout';
 import TagSection from '@/components/review/TagSection';
+import Modal from '@/components/common/Modal/Modal';
+import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
 
 import BaseModal from '@/components/common/Modal/BaseModal';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
+import StarRating from './review/StarRating';
+import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
 import SeatPickerModal from '@/components/common/Modal/SeatModal/SeatPickerModal';
 import ConfirmModal from '@/components/common/Modal/ConfirmModal';
 import SeatFocusModal from '@/components/common/Modal/SeatModal/SeatFocusModal';
@@ -46,12 +49,16 @@ export {
   SearchInput,
   ReviewStepLayout,
   TagSection,
+  Modal,
+  RatingCard,
   BaseModal,
   SeatItem,
   SeatMap,
+  StarRating,
+  ProfileImageWithFallback,
+  AccordionSection,
   SeatPickerModal,
   ConfirmModal,
   SeatFocusModal,
   SeatWriteModal,
-  AccordionSection,
 };

@@ -69,9 +69,9 @@ export default function ReviewTextForm() {
         <div className="flex flex-col gap-1 pt-6">
           <Textarea
             title="주제"
+            required
             placeholder="관람 경험을 자유롭게 적어주세요. (예: 사운드 중심 좌석으로 돌비 효과를 제대로 느낄 수 있어서 좋았어요!)"
             minLength={30}
-            placeholderColorType="gray"
             value={text}
             onChange={setText}
             width="w-full"

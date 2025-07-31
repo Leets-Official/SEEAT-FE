@@ -1,10 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-<<<<<<< HEAD
-import MyPage from '@/pages/my';
-=======
-
-import Home from '@/pages/home';
->>>>>>> e51211c8801821c5cdcfc5257df07f53f2d63d34
 import Signup from '@/pages/signup';
 import SplashPage from '@/pages/splash/SplashPage';
 import MyPage from '@/pages/my/MyPage';
@@ -108,7 +102,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/my',
-    element: <MyPage />, 
+    element: <MyPage />,
   },
   {
     path: '/my/reviews',

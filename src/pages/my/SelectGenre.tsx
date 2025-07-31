@@ -5,13 +5,13 @@ import { MoreVerticalIcon } from '@/assets';
 import type { GenreType } from '@/types/onboarding';
 
 const GENRES: GenreType[] = [
-  '액션', '로맨스', 'SF', '공포', '코미디', '다큐', '애니메이션'
+  '액션', '로맨스', 'SF', '호러', '코미디', '다큐', '애니메이션'
 ];
 const MAX_SELECTABLE_GENRES = 3;
 
 export default function SelectGenre() {
   const navigate = useNavigate();
-  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>(['SF', '공포', '로맨스']);
+  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>(['SF', '호러', '로맨스']);
 
   const handleGenreClick = (genre: GenreType) => { 
     setSelectedGenres((prevSelected) => {

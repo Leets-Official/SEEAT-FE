@@ -16,7 +16,7 @@ const DOLBY_CINEMA_THEATERS: CinemaType[] = [
 
 const THEATERS_BY_FORMAT: Record<CinemaFormat, CinemaType[]> = {
   'IMAX': IMAX_THEATERS,
-  'Dolby Cinema': DOLBY_CINEMA_THEATERS,
+  'Dolby': DOLBY_CINEMA_THEATERS,
 };
 
 const MAX_SELECTABLE_THEATERS = 2;
@@ -24,7 +24,7 @@ const MAX_SELECTABLE_THEATERS = 2;
 export default function CinemaChoice() {
   const navigate = useNavigate();
   const [selectedTheaters, setSelectedTheaters] = useState<CinemaType[]>([]);
-  const [activeFormat, setActiveFormat] = useState<CinemaFormat>('Dolby Cinema');
+  const [activeFormat, setActiveFormat] = useState<CinemaFormat>('Dolby');
 
   const handleTheaterClick = (theater: CinemaType) => {
     setSelectedTheaters((prevSelected) => {
@@ -65,11 +65,13 @@ export default function CinemaChoice() {
         <h2 className="text-title-2 text-white mb-2">자주 가는 영화관을 선택해주세요</h2>
         <p className="text-caption-2 text-red-300 mb-6">최대 {MAX_SELECTABLE_THEATERS}개까지 선택할 수 있어요.</p>
 
-        {/* 특별관 선택 토글 */}
         <ToggleTab
-          options={['IMAX', 'Dolby Cinema']}
+          options={[
+            { label: 'IMAX', value: 'IMAX' },
+            { label: 'Dolby Cinema', value: 'Dolby' },
+          ]}
           selected={activeFormat}
-          onSelect={handleFormatSelect}
+          onSelect={(selectedValue) => handleFormatSelect(selectedValue)}
         />
 
         {/* 영화관 목록 */}

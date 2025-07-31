@@ -10,7 +10,7 @@ export default function MySettingPage() {
   const { openModal } = useModalStore();
 
   const handleLogout = () => {
-    openModal({
+    openModal('confirm',{
       title: '로그아웃 하시겠습니까?',
       subtitle: '현재 계정에서 로그아웃됩니다.',
       confirmText: '로그아웃',
@@ -22,7 +22,7 @@ export default function MySettingPage() {
   };
 
   const handleWithdrawal = () => {
-    openModal({
+    openModal('confirm',{
       title: '정말로 회원탈퇴 하시겠습니까?',
       subtitle: '회원탈퇴 시 모든 정보가 삭제됩니다.',
       subWarningText: '탈퇴 후에는 복구가 불가능합니다.',

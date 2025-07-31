@@ -1,65 +1,54 @@
-import React, { useState } from 'react';
-import {
-  ChevronIcon,
-  HeartFilledIcon,
-  HeartOutlineIcon,
-  BookmarkFilledIcon,
-  BookmarkOutlineIcon,
-} from '@/assets';
+import React from 'react';
+import { GearIcon, KebabIcon, SEEATLogo } from '@/assets';
+import { BackButton } from './BackButton';
+import { DetailButton } from './DetailButton';
 
 interface HeaderProps {
-  title: string;
-  showBack?: boolean;
+  leftSection?: 'BACK' | 'LOGO' | 'NONE';
+  rightSection?: 'SETTING' | 'DETAIL' | 'KEBAB' | 'NONE';
   onBackClick?: () => void;
-  showLike?: boolean;
-  showBookmark?: boolean;
+  onSettingsClick?: () => void;
+  onDetailClick?: () => void;
+  onKebabClick?: () => void;
+  children?: React.ReactNode;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  title,
-  showBack = true,
+const Header: React.FC<HeaderProps> = ({
+  leftSection = 'BACK',
+  rightSection = 'NONE',
   onBackClick,
-  showLike = true,
-  showBookmark = true,
+  onSettingsClick,
+  onDetailClick,
+  onKebabClick,
+  children,
 }) => {
-  const [liked, setLiked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-
   return (
-    <div className="mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-5">
+    <header className="mx-auto flex h-[44px] w-full items-center justify-between px-5">
+      {/* 왼쪽 섹션 + 타이틀 */}
       <div className="flex items-center gap-2">
-        {showBack && (
-          <button onClick={onBackClick}>
-            <ChevronIcon className="h-5 w-5 text-white" />
-          </button>
-        )}
-        <span className="text-title-3">{title}</span>
+        {leftSection === 'BACK' && <BackButton onClick={onBackClick} />}
+        {leftSection === 'LOGO' && <SEEATLogo className="h-6 w-20" />}
+        {leftSection === 'NONE' && <div className="w-6" />}
+        {children && <span className="text-title-3">{children}</span>}
       </div>
 
-      {(showLike || showBookmark) && (
-        <div className="flex items-center gap-4">
-          {showLike && (
-            <button onClick={() => setLiked((prev) => !prev)}>
-              {liked ? (
-                <HeartFilledIcon className="h-5 w-5 text-white" />
-              ) : (
-                <HeartOutlineIcon className="h-5 w-5 text-white" />
-              )}
-            </button>
-          )}
-
-          {showBookmark && (
-            <button onClick={() => setBookmarked((prev) => !prev)}>
-              {bookmarked ? (
-                <BookmarkFilledIcon className="h-5 w-5 text-white" />
-              ) : (
-                <BookmarkOutlineIcon className="h-5 w-5 text-white" />
-              )}
-            </button>
-          )}
-        </div>
-      )}
-    </div>
+      {/* 오른쪽 섹션 */}
+      <div className="flex items-center gap-4">
+        {rightSection === 'SETTING' && (
+          <button onClick={onSettingsClick}>
+            <GearIcon className="h-6 w-6" />
+          </button>
+        )}
+        {rightSection === 'DETAIL' && <DetailButton onKebabClick={onDetailClick} />}
+        {rightSection === 'NONE' && <div className="w-6" />}
+        {rightSection === 'KEBAB' && (
+          <button onClick={onKebabClick}>
+            <KebabIcon className="h-6 w-6" />
+          </button>
+        )}
+      </div>
+    </header>
   );
 };
 
+export default Header;

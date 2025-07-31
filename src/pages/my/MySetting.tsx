@@ -1,12 +1,10 @@
 import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
-import { ConfirmModal, HeaderBasic } from '@/components';
-import { useNavigate } from 'react-router-dom';
+import { ConfirmModal, Header } from '@/components';
 import { useModalStore } from '@/store/modalStore';
 
 export default function MySettingPage() {
   const userEmail = 'ihatemonday@gmail.com';
   const appVersion = '1.0.0';
-  const navigate = useNavigate();
   const { openModal, modalType, closeModal } = useModalStore();
 
   const handleLogout = () => {
@@ -17,17 +15,10 @@ export default function MySettingPage() {
     openModal('withdrawalConfirm');
   };
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="min-h-screen">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        <HeaderBasic onBackClick={handleGoBack}>
-          <h1 className="text-title-3">설정</h1>
-        </HeaderBasic>
-
+        <Header leftSection="BACK">설정</Header>
         <main className="mx-auto mt-6 flex w-[335px] flex-col divide-y divide-gray-800">
           <div className="flex h-[56px] w-full items-center justify-between">
             <span className="text-title-3 text-white">계정</span>

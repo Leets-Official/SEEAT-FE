@@ -7,9 +7,7 @@ import Image from '@/components/common/Image/Image';
 import ToggleTab from '@/components/common/ToggleTab';
 import LevelCard from './common/LevelCard/LeveCard';
 import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
-import { Header } from '@/components/common/Header/Header';
-import HomeHeader from '@/components/common/Header/HomeHeader';
-import HeaderBasic from '@/components/common/Header/HeaderBasic';
+import Header from '@/components/common/Header/Header';
 import InputField from '@/components/common/Input/Input';
 import Textarea from '@/components/common/Textarea/Textarea';
 import SearchInput from '@/components/common/SearchInput/SearchInput';
@@ -41,8 +39,6 @@ export {
   LevelCard,
   ImagePreviewItem,
   Header,
-  HomeHeader,
-  HeaderBasic,
   InputField,
   Textarea,
   SearchInput,

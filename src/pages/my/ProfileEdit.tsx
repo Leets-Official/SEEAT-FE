@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import {Button} from '@/components';
-import{ChevronIcon, MyProfileEditIcon, PencilIcon, MoreVerticalIcon} from '@/assets';
+import { Button, Header } from '@/components';
+import { ChevronIcon, MyProfileEditIcon, PencilIcon, KebabIcon } from '@/assets';
 
 export default function ProfileEdit() {
   const navigate = useNavigate();
@@ -12,22 +12,14 @@ export default function ProfileEdit() {
   const handleNavigateToGenreSelect = () => {
     navigate('/my/select-genre');
   };
-    const handleNavigateToCinemaChoice = () => {
+  const handleNavigateToCinemaChoice = () => {
     navigate('/my/cinema-choice');
   };
 
   return (
-    <div className="flex h-screen flex-col  font-suit text-white">
+    <div className="font-suit flex h-screen flex-col text-white">
       {/* Header */}
-      <header className="flex flex-shrink-0 items-center justify-between px-4 py-3">
-        <button onClick={handleBackClick} aria-label="뒤로가기">
-          <ChevronIcon className="h-6 w-6" />
-        </button>
-        <button aria-label="더보기">
-          <MoreVerticalIcon className="h-6 w-6" />
-        </button>
-      </header>
-
+      <Header leftSection="BACK" rightSection="KEBAB"></Header>
       {/* Main Content */}
       <main className="flex-grow overflow-y-auto px-4">
         {/* 프로필 정보 섹션 */}
@@ -61,7 +53,10 @@ export default function ProfileEdit() {
           </button>
 
           {/* 즐겨찾는 영화관 섹션 */}
-          <button onClick={handleNavigateToCinemaChoice} className="flex w-full items-start justify-between text-left">
+          <button
+            onClick={handleNavigateToCinemaChoice}
+            className="flex w-full items-start justify-between text-left"
+          >
             <div>
               <h2 className="text-title-3 text-white">즐겨찾는 영화관</h2>
               <div className="text-caption-2 mt-2 space-y-2 text-red-300">
@@ -76,7 +71,14 @@ export default function ProfileEdit() {
 
       {/* Footer */}
       <footer className="flex-shrink-0 bg-gray-900 px-4 py-3">
-        <Button variant="primary" color="red" size="lg" rounded="lg" className="w-full" fontType="title-3">
+        <Button
+          variant="primary"
+          color="red"
+          size="lg"
+          rounded="lg"
+          className="w-full"
+          fontType="title-3"
+        >
           저장하기
         </Button>
       </footer>

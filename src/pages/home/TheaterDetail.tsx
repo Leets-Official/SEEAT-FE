@@ -19,6 +19,12 @@ const CinemaDetailPage = () => {
       : cinema.theaterName
     : '영화관 정보 없음';
 
+  const infoList = [
+    { label: '스크린', value: cinema?.screenSize },
+    { label: '영사 포맷', value: '정보 없음' }, //스웨거에 없는 것 같습니다...
+    { label: '음향', value: cinema?.soundType },
+  ];
+
   const reviews = reviewSummaryMock.filter(
     (review) =>
       review.movieSeatInfo.theaterName === cinema?.theaterName &&
@@ -62,25 +68,14 @@ const CinemaDetailPage = () => {
 
         {/*상세 정보*/}
         <div className="flex flex-col gap-y-3 pt-5">
-          <div className="flex items-center gap-4">
-            <Badge type="info" className="h-7 w-[85px] justify-center">
-              스크린
-            </Badge>
-            <span className="text-caption-2 text-white">{cinema?.screenSize || '정보 없음'}</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Badge type="info" className="h-7 w-[85px] justify-center">
-              영사 포맷
-            </Badge>
-            {/*!!스웨거에서 영사 포맷을 받고 있지 않는 것 같아서 우선 하드코딩 해뒀습니다!!*/}
-            <span className="text-caption-2 text-white">정보 없음</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Badge type="info" className="h-7 w-[85px] justify-center">
-              음향
-            </Badge>
-            <span className="text-caption-2 text-white">{cinema?.soundType || '정보 없음'}</span>
-          </div>
+          {infoList.map(({ label, value }) => (
+            <div key={label} className="flex items-center gap-4">
+              <Badge type="info" className="h-7 w-[85px] justify-center">
+                {label}
+              </Badge>
+              <span className="text-caption-2 text-white">{value || '정보 없음'}</span>
+            </div>
+          ))}
         </div>
 
         {/*후기*/}

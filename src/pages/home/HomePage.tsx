@@ -41,9 +41,7 @@ const HomePage = () => {
         <div className="mt-12">
           <div className="mb-2 flex items-center justify-between">
             <p className="text-title-3">인기 있는 후기</p>
-            <button onClick={handleGoToPopular}>
-              <ArrowRight className="h-5 w-5 text-gray-500" />
-            </button>
+            <ArrowRight className="h-5 w-5 cursor-pointer text-white" onClick={handleGoToPopular} />
           </div>
 
           <div className="flex flex-col gap-3">

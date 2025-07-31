@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, HeaderBasic, ToggleTab } from '@/components';
 import { MoreVerticalIcon } from '@/assets';

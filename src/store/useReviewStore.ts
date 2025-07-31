@@ -81,12 +81,28 @@ export const useReviewStore = create<ReviewState>((set) => ({
   toggleTag: (type, tag) =>
     set((state) => {
       const current = state.tags[type];
-      const updated = current.includes(tag) ? current.filter((t) => t !== tag) : [...current, tag];
-      return {
-        tags: {
-          ...state.tags,
-          [type]: updated,
-        },
-      };
+      const isSelected = current.includes(tag);
+
+      const totalSelected =
+        state.tags.sound.length + state.tags.sound.length + state.tags.companion.length;
+
+      if (isSelected) {
+        return {
+          tags: {
+            ...state.tags,
+            [type]: current.filter((t) => t !== tag),
+          },
+        };
+      }
+      if (totalSelected < 5) {
+        return {
+          tags: {
+            ...state.tags,
+            [type]: [...current, tag],
+          },
+        };
+      }
+
+      return {};
     }),
 }));

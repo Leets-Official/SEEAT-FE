@@ -4,6 +4,7 @@ import { Button, Header } from '@/components';
 
 interface ReviewStepLayoutProps {
   title?: string;
+  description?: string;
   children: ReactNode;
   onClickNext: () => void;
   onClickBack: () => void;
@@ -13,6 +14,7 @@ interface ReviewStepLayoutProps {
 
 export default function ReviewStepLayout({
   title,
+  description,
   children,
   onClickNext,
   onClickBack,
@@ -29,6 +31,7 @@ export default function ReviewStepLayout({
         {title && (
           <div className="w-full max-w-[430px] text-left">
             <h2 className="text-title-2 text-white">{title}</h2>
+            {description && <p className="text-caption-3 pt-1 text-red-300">{description}</p>}
           </div>
         )}
 

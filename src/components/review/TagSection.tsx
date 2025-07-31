@@ -27,7 +27,7 @@ export default function TagSection({
             onClick={() => onChange(option)}
             variant="secondary-assistive"
             color="gray"
-            size="sm"
+            size="xs"
             rounded="md"
             selected={selected.includes(option)}
           >

@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({
   children,
 }) => {
   return (
-    <header className="mx-auto flex h-[44px] w-full items-center justify-between px-5">
+    <header className="fixed top-0 right-0 left-0 z-50 mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between bg-gray-900 px-5 py-8">
       {/* 왼쪽 섹션 + 타이틀 */}
       <div className="flex items-center gap-2">
         {leftSection === 'BACK' && <BackButton onClick={onBackClick} />}

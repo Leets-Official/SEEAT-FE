@@ -32,7 +32,6 @@ export default function ReviewTextForm() {
       <ReviewStepLayout
         title="자세한 후기를 남겨주세요"
         onClickNext={handleSubmit}
-        onClickBack={() => navigate('/review/tag')}
         nextLabel="등록하기"
         disabled={!isValid}
       >

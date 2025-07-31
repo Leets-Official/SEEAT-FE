@@ -23,11 +23,9 @@ export default function MyFeedbackPage() {
           의견 보내기
         </Header>
 
-        <main className="flex flex-grow flex-col pt-6 pb-4">
+        <main className="flex flex-grow flex-col px-2 pt-[88px] pb-4">
           <div className="flex w-full flex-col gap-2">
-            <label className="text-caption-2 text-gray-300">
-              SEEAT에게 하고 싶은 말을 보내주세요
-            </label>
+            <label className="text-body-2 text-gray-300">SEEAT에게 하고 싶은 말을 보내주세요</label>
 
             {/* textarea와 글자수 카운터를 감싸는 컨테이너 */}
             <div className="relative w-full">

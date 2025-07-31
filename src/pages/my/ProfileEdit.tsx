@@ -17,7 +17,7 @@ export default function ProfileEdit() {
       {/* Header */}
       <Header leftSection="BACK" rightSection="KEBAB" />
       {/* Main Content */}
-      <main className="flex-grow overflow-y-auto px-4">
+      <main className="flex-grow overflow-y-auto px-4 pt-[68px]">
         {/* 프로필 정보 섹션 */}
         <section className="mt-4 flex flex-col items-center rounded-xl bg-gray-800/30 px-4 py-6">
           <button className="mb-6" aria-label="프로필 사진 변경">

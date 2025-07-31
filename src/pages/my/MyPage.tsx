@@ -48,7 +48,7 @@ const MyPage: React.FC = () => {
       <div className="min-h-screen">
         <Header leftSection="LOGO" rightSection="SETTING" />
 
-        <main className="mt-2 flex flex-col gap-4 px-4 pb-[83px]">
+        <main className="mt-2 flex flex-col gap-4 px-4 pt-[68px] pb-[83px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">

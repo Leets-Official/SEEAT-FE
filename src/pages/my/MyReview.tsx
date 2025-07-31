@@ -9,7 +9,7 @@ export default function MyReviewPage() {
           나의 후기
         </Header>
 
-        <main className="flex flex-col gap-y-3 py-4">
+        <main className="flex flex-col gap-y-3 py-4 pt-[88px]">
           {mockMyReviews.map((review) => (
             <ReviewCard
               key={review.id}

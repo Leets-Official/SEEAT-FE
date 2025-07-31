@@ -51,7 +51,7 @@ export default function CinemaChoice() {
         onKebabClick={() => console.log('케밥버튼 클릭')}
       />
 
-      <main className="flex-grow pt-4">
+      <main className="flex-grow pt-[48px]">
         <h2 className="text-title-2 mb-2 text-white">자주 가는 영화관을 선택해주세요</h2>
         <p className="text-caption-2 mb-6 text-red-300">
           최대 {MAX_SELECTABLE_THEATERS}개까지 선택할 수 있어요.

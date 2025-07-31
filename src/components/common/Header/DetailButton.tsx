@@ -18,14 +18,14 @@ export const DetailButton: React.FC<DetailButtonProps> = ({ onKebabClick }) => {
   return (
     <div className="flex items-center gap-4">
       <button onClick={() => setLiked((prev) => !prev)}>
-        {liked ? <HeartFilledIcon className="h-5 w-5" /> : <HeartOutlineIcon className="h-5 w-5" />}
+        {liked ? <HeartOutlineIcon className="h-5 w-5" /> : <HeartFilledIcon className="h-5 w-5" />}
       </button>
 
       <button onClick={() => setBookmarked((prev) => !prev)}>
         {bookmarked ? (
-          <BookmarkFilledIcon className="h-5 w-5" />
-        ) : (
           <BookmarkOutlineIcon className="h-5 w-5" />
+        ) : (
+          <BookmarkFilledIcon className="h-5 w-5" />
         )}
       </button>
 

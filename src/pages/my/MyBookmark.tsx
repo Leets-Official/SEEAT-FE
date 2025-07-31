@@ -14,7 +14,7 @@ const MyBookmarkPage = () => {
         </Header>
 
         {/* 리뷰 목록 */}
-        <main className="flex flex-col gap-y-3 py-4">
+        <main className="flex flex-col gap-y-3 py-4 pt-[68px]">
           {mockMyReviews.map((review) => (
             <ReviewCard
               key={review.id}

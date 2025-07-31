@@ -1,25 +1,10 @@
 import { cn } from '@/utils/cn';
-import { HeartOn } from '@/assets';
-import { Badge } from '@/components';
-import ThumbnailFallback from './ThumbnailFallback';
+import { HeartOn, StarSmall, BarIcon } from '@/assets';
+import { Badge, ThumbnailFallback } from '@/components';
+import type { ReviewCardProps } from './ReviewCard.types';
 
-interface ReviewCardProps {
-  imageUrl: string;
-  tags: string[];
-  title: string;
-  description?: string;
-  likeCount: number;
-  onClick?: () => void;
-}
-
-export default function ReviewCard({
-  imageUrl,
-  tags,
-  title,
-  description,
-  likeCount,
-  onClick,
-}: ReviewCardProps) {
+export default function ReviewCard(props: ReviewCardProps) {
+  const { imageUrl, tags, title, likeCount, onClick } = props;
   return (
     <div
       onClick={onClick}
@@ -54,8 +39,18 @@ export default function ReviewCard({
         {/*제목*/}
         <div className="text-title-4 truncate">{title}</div>
 
-        {/*내용*/}
-        {description && <div className="text-caption-3 truncate text-gray-500">{description}</div>}
+        {'description' in props ? (
+          <div className="text-caption-3 truncate text-gray-500">{props.description}</div>
+        ) : (
+          <div className="text-caption-2 flex items-center gap-2 text-gray-500">
+            <span>{props.date}</span>
+            <BarIcon className="h-3" />
+            <span className="flex items-center gap-1">
+              <StarSmall className="h-4 w-4 text-red-300" />
+              {props.rating.toFixed(1)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -23,6 +23,8 @@ import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import StarRating from './review/StarRating';
 import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
+import ThumbnailFallback from './common/ReviewCard/ThumbnailFallback';
+
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 
 export {
@@ -50,4 +52,5 @@ export {
   StarRating,
   ProfileImageWithFallback,
   AccordionSection,
+  ThumbnailFallback,
 };

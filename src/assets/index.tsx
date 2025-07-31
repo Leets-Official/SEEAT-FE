@@ -34,6 +34,7 @@ import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import DefaultThumbnail from '@/assets/icons/default_thumbnail.svg?react';
+import BarIcon from '@/assets/icons/bar_icon.svg?react';
 
 export {
   MoreVerticalIcon,
@@ -72,4 +73,5 @@ export {
   DefaultProfile,
   CheckIcon,
   DefaultThumbnail,
+  BarIcon,
 };

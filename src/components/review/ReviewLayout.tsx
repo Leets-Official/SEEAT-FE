@@ -6,7 +6,6 @@ interface ReviewStepLayoutProps {
   title?: string;
   children: ReactNode;
   onClickNext: () => void;
-  onClickBack: () => void;
   nextLabel?: string;
   disabled?: boolean;
 }
@@ -15,7 +14,6 @@ export default function ReviewStepLayout({
   title,
   children,
   onClickNext,
-  onClickBack,
   nextLabel = '다음',
   disabled = false,
 }: ReviewStepLayoutProps) {
@@ -23,7 +21,7 @@ export default function ReviewStepLayout({
     <div className="flex min-h-screen flex-col bg-gray-900 pt-11 pb-5">
       {/* 하단 버튼 여백 고려 */}
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
-        <Header title="" showBack onBackClick={onClickBack} showLike={false} showBookmark={false} />
+        <Header leftSection="BACK" />
       </div>
       <div className={`flex flex-col gap-6 px-5 ${title ? 'pt-4' : ''}`}>
         {title && (

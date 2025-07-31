@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-// [수정됨] HomeHeader 대신 Header를 import 합니다.
 import { Header, BottomNavigation, LevelCard } from '@/components';
 import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
-import React from 'react';
 
 interface User {
   name: string;
@@ -46,14 +44,9 @@ const MyPage: React.FC = () => {
   // };
 
   return (
-    <div className="relative mx-auto w-full max-w-md text-white">
+    <div className="relative mx-auto w-full max-w-md">
       <div className="min-h-screen">
-        {/*
-          [수정됨] HomeHeader를 새로운 Header 컴포넌트로 교체합니다.
-          새로운 Header는 'title'을 표시하고, '뒤로가기' 버튼을 기본으로 가집니다.
-          '좋아요', '북마크' 아이콘은 필요 없으므로 false로 설정합니다.
-        */}
-        <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
+        <Header leftSection="LOGO" rightSection="SETTING" />
 
         <main className="mt-2 flex flex-col gap-4 px-4 pb-[83px]">
           {/* 프로필 카드 */}
@@ -121,7 +114,7 @@ const MyPage: React.FC = () => {
         </main>
       </div>
 
-      <div className="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2">
         <BottomNavigation />
       </div>
     </div>

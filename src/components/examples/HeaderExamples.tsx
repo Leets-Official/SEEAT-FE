@@ -1,24 +1,50 @@
-import HomeHeader from "@/components/common/Header/HomeHeader";
-import { Header } from '@/components/common/Header/Header';
+import { Header } from '@/components';
 
 export default function HeaderTest() {
   return (
-    <div className="min-h-screen bg-gray-950 p-4 flex flex-col gap-12">
-      <h1 className="text-title-2 text-white mb-4">Header & HomeHeader 테스트</h1>
+    <div className="flex min-h-screen flex-col gap-12 p-4">
+      <h1 className="text-title-2 mb-4 text-white">Header 예제</h1>
 
-      {/* HomeHeader Section */}
-      <div className="border border-gray-800 rounded-md p-4">
-        <p className="text-caption-1 text-gray-400 mb-2">HomeHeader (메인 화면용)</p>
-        <HomeHeader onSettingsClick={() => alert("⚙️ 설정 클릭")} />
+      {/* Header Section - BACK + 타이틀 + DETAIL */}
+      <div className="rounded-m border border-gray-800 p-4">
+        <p className="text-caption-1 mb-2 text-gray-400">
+          Header (뒤로가기 + 타이틀 + Detail 버튼들)
+        </p>
+        <Header
+          leftSection="BACK"
+          rightSection="DETAIL"
+          onBackClick={() => alert('🔙 뒤로가기 클릭')}
+          onDetailClick={() => alert('🍔 케밥 클릭')}
+        >
+          타이틀
+        </Header>
       </div>
 
-      {/* Header Section */}
-      <div className="border border-gray-800 rounded-md p-4">
-        <p className="text-caption-1 text-gray-400 mb-2">Header (뒤로가기 + 타이틀 + 하트/북마크)</p>
+      {/* Header Section - LOGO + 타이틀 + SETTING */}
+      <div className="rounded-m border border-gray-800 p-4">
+        <p className="text-caption-1 mb-2 text-gray-400">Header (로고 + 타이틀 + 설정)</p>
         <Header
-          title="타이틀"
-          onBackClick={() => alert("🔙 뒤로가기 클릭")}
-        />
+          leftSection="LOGO"
+          rightSection="SETTING"
+          onSettingsClick={() => alert('⚙️ 설정 클릭')}
+        >
+          타이틀
+        </Header>
+      </div>
+
+      {/* Header Section - BACK + 타이틀 + KEBAB */}
+      <div className="rounded-m border border-gray-800 p-4">
+        <p className="text-caption-1 mb-2 text-gray-400">
+          Header (뒤로가기 + 타이틀 + 케밥 버튼만)
+        </p>
+        <Header
+          leftSection="BACK"
+          rightSection="KEBAB"
+          onBackClick={() => alert('🔙 뒤로가기 클릭')}
+          onKebabClick={() => alert('🍔 케밥 클릭')}
+        >
+          타이틀
+        </Header>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { HomeHeader, ReviewCard, BestCinemaCard, BottomNavigation, Image } from '@/components';
+import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
 import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <div className="flex min-h-screen flex-col py-5">
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
-        <HomeHeader />
+        <Header leftSection="LOGO" rightSection="SETTING" />
       </div>
       {/* 이미지?*/}
       <div className="mx-auto w-full max-w-[430px] bg-gray-700 pt-6">

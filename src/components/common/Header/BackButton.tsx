@@ -9,7 +9,11 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
   const nav = useNavigate();
 
   const handleClick = () => {
-    nav(-1);
+    if (onClick) {
+      onClick();
+    } else {
+      nav(-1);
+    }
   };
 
   return (

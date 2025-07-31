@@ -19,12 +19,7 @@ export const TicketUploadStep = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 pt-11 pb-5">
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
-        <Header
-          title=""
-          onBackClick={() => navigate('/home')}
-          showLike={false}
-          showBookmark={false}
-        />
+        <Header leftSection="BACK" onBackClick={() => navigate('/home')} />
       </div>
       {/* 상단 */}
       <div className="flex flex-col gap-6 px-5 pt-4">

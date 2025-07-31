@@ -1,13 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
-import { ChevronIcon, MyProfileEditIcon, PencilIcon, KebabIcon } from '@/assets';
+import { MyProfileEditIcon, PencilIcon } from '@/assets';
 
 export default function ProfileEdit() {
   const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    window.history.back();
-  };
 
   const handleNavigateToGenreSelect = () => {
     navigate('/my/select-genre');
@@ -19,7 +15,7 @@ export default function ProfileEdit() {
   return (
     <div className="font-suit flex h-screen flex-col text-white">
       {/* Header */}
-      <Header leftSection="BACK" rightSection="KEBAB"></Header>
+      <Header leftSection="BACK" rightSection="KEBAB" />
       {/* Main Content */}
       <main className="flex-grow overflow-y-auto px-4">
         {/* 프로필 정보 섹션 */}

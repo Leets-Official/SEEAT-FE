@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Header, Badge, RatingCard, ProfileImageWithFallback } from '@/components';
 import { reviewDetailMock } from '@/__mocks/reviewDetailMock';
@@ -9,7 +9,6 @@ import 'swiper/css/pagination';
 
 const ReviewDetailPage = () => {
   const { reviewId } = useParams<{ reviewId: string }>();
-  const navigate = useNavigate();
   //사진 슬라이드 시 현재 사진 위치...
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -26,7 +25,7 @@ const ReviewDetailPage = () => {
   return (
     <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pb-5">
       <div className="fixed top-0 right-0 left-0 z-50">
-        <Header title="" showBack onBackClick={() => navigate(-1)} />
+        <Header leftSection="BACK" rightSection="DETAIL" />
       </div>
       <div className="w-full">
         {/*이미지 있을 때*/}

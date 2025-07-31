@@ -1,23 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-import {ReviewCard, HeaderBasic} from '@/components'
-import { MoreVerticalIcon } from '@/assets';
+import { ReviewCard, Header } from '@/components';
 import { mockMyReviews } from '@/__mocks/mockReviews';
 
 const MyBookmarkPage = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className=" text-white">
+    <div>
       <div className="w-full px-4">
-        {/* 헤더 */}
-        <HeaderBasic onBackClick={() => navigate(-1)}>
-          <div className="flex flex-1 items-center justify-between">
-            <h1 className="text-title-3">북마크</h1>
-            <button onClick={() => console.log('더보기 버튼 클릭')}>
-              <MoreVerticalIcon className="h-6 w-6" />
-            </button>
-          </div>
-        </HeaderBasic>
+        <Header
+          leftSection="BACK"
+          rightSection="KEBAB"
+          onKebabClick={() => console.log('케밥버튼 클릭')}
+        >
+          북마크
+        </Header>
 
         {/* 리뷰 목록 */}
         <main className="flex flex-col gap-y-3 py-4">

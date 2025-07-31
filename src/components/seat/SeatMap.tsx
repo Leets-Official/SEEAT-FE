@@ -6,12 +6,18 @@ import { useRef } from 'react';
 interface SeatMapProps {
   auditoriumId?: string;
   onSeatClick?: (seatId: string) => void;
-  focusedSeatIds?: string[]; // type : seatFocus모달 일 때
+  focusedSeatIds?: string[]; // seatFocus용
+  selectedSeatNames?: string[]; // seatWrite 용
   isMock?: boolean; // 목데이터용
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
-const SeatMap = ({ onSeatClick, focusedSeatIds = [], type = 'seatPicker' }: SeatMapProps) => {
+const SeatMap = ({
+  onSeatClick,
+  focusedSeatIds = [],
+  selectedSeatNames = [],
+  type = 'seatPicker',
+}: SeatMapProps) => {
   const seatRows: Record<string, Seat[]> = {};
   const focusedRef = useRef<HTMLDivElement>(null!);
 
@@ -21,8 +27,6 @@ const SeatMap = ({ onSeatClick, focusedSeatIds = [], type = 'seatPicker' }: Seat
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
     seatRows[seat.row].push(seat);
   });
-
-  console.log('focusedSeatIds:', focusedSeatIds);
 
   return (
     <div className="flex flex-col gap-1">
@@ -35,8 +39,8 @@ const SeatMap = ({ onSeatClick, focusedSeatIds = [], type = 'seatPicker' }: Seat
           const min = seats[0].column;
           const max = seats[seats.length - 1].column;
 
-          // 공백 포함해서 채우기
           const filledRow: (Seat | null)[] = Array(max - min + 1).fill(null);
+
           seats.forEach((seat) => {
             const index = seat.column - min;
             filledRow[index] = seat;
@@ -48,7 +52,9 @@ const SeatMap = ({ onSeatClick, focusedSeatIds = [], type = 'seatPicker' }: Seat
               rowSeats={filledRow}
               onSeatClick={onSeatClick}
               focusedSeatIds={focusedSeatIds}
+              selectedSeatNames={selectedSeatNames}
               focusedRef={focusedRef}
+              type={type}
             />
           );
         })}

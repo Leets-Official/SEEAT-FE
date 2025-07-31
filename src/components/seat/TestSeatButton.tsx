@@ -1,6 +1,7 @@
 import { useModalStore } from '@/store';
 import { ConfirmModal, SeatPickerModal } from '@/components';
 import SeatFocusModal from '../common/Modal/SeatModal/SeatFocusModal';
+import SeatWriteModal from '../common/Modal/SeatModal/SeatWriteModal';
 
 export const TestSeatModalButton = () => {
   const { openModal, modalType, closeModal } = useModalStore();
@@ -16,6 +17,9 @@ export const TestSeatModalButton = () => {
   const handleOpenFocus = () => {
     openModal('seatFocus');
   };
+  const handleOpenWrite = () => {
+    openModal('seatWrite');
+  };
 
   return (
     <>
@@ -29,6 +33,10 @@ export const TestSeatModalButton = () => {
 
       <button onClick={handleOpenFocus} className="bg-primary rounded px-4 py-2 text-white">
         Focus 모달 열기
+      </button>
+
+      <button onClick={handleOpenWrite} className="bg-primary rounded px-4 py-2 text-white">
+        write 모달 열기
       </button>
 
       {modalType === 'seatPicker' && (
@@ -49,9 +57,10 @@ export const TestSeatModalButton = () => {
         <SeatFocusModal
           auditoriumId="13018"
           theaterName="CGV 강남"
-          selectedSeatNumbers={['C08', 'C09']}
+          selectedSeatNumbers={['N08', 'N09']}
         />
       )}
+      {modalType === 'seatWrite' && <SeatWriteModal auditoriumId="13018" theaterName="CGV 강남" />}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import type { CinemaFormat } from '@/types/onboarding';
 import SeatFocusModal from './SeatFocusModal';
 import SeatPickerModal from './SeatPickerModal';
-// import SeatWriteModal from './SeatWriteModal';
+import SeatWriteModal from './SeatWriteModal';
 
 /*
  * seatFocus: 리뷰 상세 조회 > 좌석 정보 클릭 시
@@ -43,8 +43,8 @@ const SeatModal = ({
           theaterName={theaterName ?? ''}
         />
       );
-    // case 'seatWrite':
-    //   return <SeatWriteModal auditoriumId={auditoriumId} theaterName={theaterName ?? ''} />;
+    case 'seatWrite':
+      return <SeatWriteModal auditoriumId={auditoriumId} theaterName={theaterName ?? ''} />;
     default:
       return null;
   }

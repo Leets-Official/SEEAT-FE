@@ -54,7 +54,12 @@ const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
           <div className="max-h-[400px] overflow-auto p-4" ref={scrollContainerRef}>
             <div ref={innerRef} className="flex min-w-max flex-col items-center">
               <ScreenBar />
-              <SeatMap auditoriumId={auditoriumId} isMock onSeatClick={handleSeatClick} />
+              <SeatMap
+                type="seatPicker"
+                auditoriumId={auditoriumId}
+                isMock
+                onSeatClick={handleSeatClick}
+              />
             </div>
           </div>
         </div>

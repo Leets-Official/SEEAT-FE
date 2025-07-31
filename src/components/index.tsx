@@ -16,6 +16,8 @@ import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import SeatPickerModal from '@/components/common/Modal/SeatModal/SeatPickerModal';
 import ConfirmModal from '@/components/common/Modal/ConfirmModal';
+import SeatFocusModal from '@/components/common/Modal/SeatModal/SeatFocusModal';
+import SeatWriteModal from '@/components/common/Modal/SeatModal/SeatWriteModal';
 
 export {
   InputField,
@@ -36,4 +38,6 @@ export {
   SeatMap,
   SeatPickerModal,
   ConfirmModal,
+  SeatFocusModal,
+  SeatWriteModal,
 };

@@ -5,6 +5,9 @@ import type { SeatItemProps } from '@/types/seat';
 
 interface Props extends SeatItemProps {
   className?: string;
+  isFocused?: boolean; // seatFocus용 prop
+  isSelected?: boolean; // seatWrite용 prop
+  mode?: 'seatPicker' | 'seatFocus' | 'seatWrite';
 }
 
 const SeatItem = forwardRef<HTMLDivElement, Props>(
@@ -17,17 +20,23 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
       isWheelchair = false,
       onClick,
       isFocused = false,
+      isSelected = false,
+      mode = 'seatPicker',
       className,
     },
     ref,
   ) => {
     const [selected, setSelected] = useState(false);
+    const isWrite = mode === 'seatWrite';
+    const isPicker = mode === 'seatPicker';
 
-    const bgColor = isFocused ? 'bg-red-400' : getSeatColor({ hasReview, score, isWheelchair });
+    const isActive = isFocused || (isWrite && isSelected) || (isPicker && selected);
+
+    const bgColor = isActive ? 'bg-red-400' : getSeatColor({ hasReview, score, isWheelchair });
 
     const handleClick = () => {
-      if (isFocused) return;
-      setSelected((prev) => !prev);
+      if (mode === 'seatFocus') return; // focus 모달은 클릭 비활성
+      if (isPicker) setSelected((prev) => !prev); // picker는 로컬 상태 관리
       onClick?.(seatId);
     };
 
@@ -45,8 +54,8 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
           'text-caption-4 flex h-6 w-[40px] items-center justify-center rounded-t-[8px] rounded-b-[2px] px-3 py-4 transition-colors',
           bgColor,
           textColor,
-          !isFocused && 'cursor-pointer',
-          selected && !isFocused && 'ring-1 ring-white',
+          mode !== 'seatFocus' && 'cursor-pointer',
+          selected && mode !== 'seatFocus' && 'ring-1 ring-white',
           className,
         )}
         onClick={handleClick}

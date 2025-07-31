@@ -6,11 +6,19 @@ interface SeatRowProps {
   rowSeats: (Seat | null)[];
   onSeatClick?: (seatId: string) => void;
   focusedSeatIds?: string[];
+  selectedSeatNames?: string[];
   focusedRef?: React.RefObject<HTMLDivElement>;
+  type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
-const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: SeatRowProps) => {
-  console.log('focus ID: ', focusedSeatIds);
+const SeatRow = ({
+  rowSeats,
+  onSeatClick,
+  focusedSeatIds = [],
+  selectedSeatNames = [],
+  focusedRef,
+  type = 'seatPicker',
+}: SeatRowProps) => {
   return (
     <div className="flex gap-1">
       {rowSeats.map((seat, idx) =>
@@ -18,6 +26,7 @@ const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: Sea
           <SeatItem
             key={seat.seatId}
             seatId={seat.seatId}
+            mode={type}
             seatLabel={getSeatLabel(seat.row, seat.column)}
             hasReview={seat.hasReview}
             score={seat.score}
@@ -25,8 +34,11 @@ const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: Sea
             onClick={onSeatClick}
             row={seat.row}
             column={seat.column}
-            isFocused={focusedSeatIds.includes(seat?.seatId ?? '')}
-            ref={focusedSeatIds?.includes(seat.seatId) ? focusedRef : undefined}
+            isFocused={type === 'seatFocus' && focusedSeatIds.includes(seat.seatId)}
+            isSelected={type === 'seatWrite' && selectedSeatNames.includes(seat.seatId)}
+            ref={
+              type === 'seatFocus' && focusedSeatIds.includes(seat.seatId) ? focusedRef : undefined
+            }
           />
         ) : (
           <div key={idx} className="pointer-events-none invisible">

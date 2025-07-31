@@ -1,14 +1,19 @@
 import { create } from 'zustand';
 
+interface CinemaInfo {
+  name: string;
+  hall: string;
+}
+
 interface ReviewState {
   movieTitle: string;
-  cinema: string;
+  cinema: CinemaInfo | null;
   seats: string[];
   text: string;
   rating: number;
   setRating: (value: number) => void;
   setTitle: (title: string) => void;
-  setCinema: (cinema: string) => void;
+  setCinema: (cinema: CinemaInfo) => void;
   addSeat: (seat: string) => void;
   removeSeat: (seat: string) => void;
   setText: (text: string) => void;
@@ -26,7 +31,7 @@ interface ReviewState {
 
 export const useReviewStore = create<ReviewState>((set) => ({
   movieTitle: '',
-  cinema: '',
+  cinema: null,
   seats: [],
   text: '',
   rating: 0,
@@ -45,7 +50,7 @@ export const useReviewStore = create<ReviewState>((set) => ({
   reset: () =>
     set({
       movieTitle: '',
-      cinema: '',
+      cinema: null,
       seats: [],
       rating: 0,
       text: '',

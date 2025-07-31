@@ -13,15 +13,16 @@ import HeaderBasic from '@/components/common/Header/HeaderBasic';
 import InputField from '@/components/common/Input/Input';
 import Textarea from '@/components/common/Textarea/Textarea';
 import SearchInput from '@/components/common/SearchInput/SearchInput';
-
 import ReviewStepLayout from '@/components/review/ReviewLayout';
 import TagSection from '@/components/review/TagSection';
+import Modal from '@/components/common/Modal/Modal';
+import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
 
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
-
-export { default as Modal } from './common/Modal/Modal';
+import StarRating from './review/StarRating';
+import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 
 export {
@@ -42,7 +43,11 @@ export {
   SearchInput,
   ReviewStepLayout,
   TagSection,
-  AccordionSection,
+  Modal,
+  RatingCard,
   SeatItem,
   SeatMap,
+  StarRating,
+  ProfileImageWithFallback,
+  AccordionSection,
 };

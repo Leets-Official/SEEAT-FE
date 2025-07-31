@@ -24,6 +24,6 @@ export const tagSections: TagSectionConfig[] = [
     key: 'companion',
     title: '동반인',
     required: false,
-    options: ['#혼자', '#친구', '#연인', '#형제자매', '#부모님', '#자녀와', '#형제자매와'],
+    options: ['#혼자왔어요', '#친구와함께', '#연인과', '#형제자매와', '#부모님과', '#자녀와'],
   },
 ];

@@ -49,7 +49,7 @@ export default function ReviewCard({
       <div className="flex flex-col overflow-hidden">
         {/*태그*/}
         <div className="flex gap-[10px] py-[4px]">
-          {tags.map((tag, i) => (
+          {tags.slice(0, 3).map((tag, i) => (
             <Badge key={i} type="tag" size="sm">
               {tag}
             </Badge>

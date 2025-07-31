@@ -33,7 +33,7 @@ import HeaderLogo from '@/assets/icons/header_logo.svg?react';
 import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
-import TicketAlt from '@/assets/icons/ticket_alt.gif';
+import TicketAlt from '@/assets/gif/ticket_alt.gif';
 
 export {
   MoreVerticalIcon,

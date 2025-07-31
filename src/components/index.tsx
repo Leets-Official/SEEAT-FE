@@ -17,6 +17,7 @@ import RatingCard from '@/components/review/RatingCard';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import StarRating from './review/StarRating';
+import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
 
 export {
   InputField,
@@ -38,4 +39,5 @@ export {
   SeatItem,
   SeatMap,
   StarRating,
+  ProfileImageWithFallback,
 };

@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Header, Badge, RatingCard } from '@/components';
-import { DefaultProfile } from '@/assets';
+import { Header, Badge, RatingCard, ProfileImageWithFallback } from '@/components';
 import { reviewDetailMock } from '@/__mocks/reviewDetailMock';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -73,9 +72,11 @@ const ReviewDetailPage = () => {
 
         {/*유저 정보, 추후 API 연결 시 프로필 사진 받아와서 조건부로...*/}
         <div className="mt-3 flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-gray-500 bg-gray-950">
-            <DefaultProfile className="h-5 w-5" />
-          </div>
+          <ProfileImageWithFallback
+            src={review.user.profileImageUrl}
+            size={32}
+            className="border border-gray-500 bg-gray-950"
+          />
           <span className="text-body-1 text-white">{review.user.nickname}</span>
         </div>
         {/*상단 정보*/}

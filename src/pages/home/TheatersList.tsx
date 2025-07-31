@@ -52,7 +52,6 @@ export default function TheaterListPage() {
           {Object.entries(cinemas).map(([theaterName, halls]) => {
             const isSelected = selectedCinema === theaterName;
             const isMulti = halls.length > 1;
-
             return (
               <div key={theaterName} className="w-full px-5">
                 <Button

@@ -15,7 +15,6 @@ import Textarea from '@/components/common/Textarea/Textarea';
 import SearchInput from '@/components/common/SearchInput/SearchInput';
 import ReviewStepLayout from '@/components/review/ReviewLayout';
 import TagSection from '@/components/review/TagSection';
-import Modal from '@/components/common/Modal/Modal';
 import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
 
@@ -49,7 +48,6 @@ export {
   SearchInput,
   ReviewStepLayout,
   TagSection,
-  Modal,
   RatingCard,
   BaseModal,
   SeatItem,

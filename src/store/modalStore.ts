@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 
-export type ModalType = 'confirm' | 'seatPicker' | 'action' | 'seatFocus' | 'seatWrite' | null;
+export type ModalType =
+  | 'confirm'
+  | 'seatPicker'
+  | 'action'
+  | 'seatFocus'
+  | 'seatWrite'
+  | 'logoutConfirm' // 로그아웃 모달
+  | 'withdrawalConfirm' // 회원탈퇴 모달
+  | null;
 
 interface ModalStore {
   modalType: ModalType;

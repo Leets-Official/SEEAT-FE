@@ -37,8 +37,8 @@ const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
       <div className="absolute inset-0 bg-gray-800/20" onClick={closeModal} />
 
       {/* 모달 */}
-      <div className="relative z-10 flex h-full items-center justify-center">
-        <div className="relative w-[350px] rounded-lg bg-gray-950 px-2 py-3">
+      <div className="relative z-10 flex h-full items-center justify-center p-3">
+        <div className="relative w-full max-w-md rounded-lg bg-gray-950 px-2 py-3 md:max-h-3/4 md:max-w-2xl lg:max-h-4/5 lg:max-w-5xl">
           {/* 헤더 */}
           <div className="mb-1 flex items-center justify-between px-2">
             <div className="text-title-3">좌석의 후기를 볼 수 있어요</div>

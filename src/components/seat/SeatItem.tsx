@@ -23,7 +23,15 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
   ) => {
     const [selected, setSelected] = useState(false);
 
-    const bgColor = isFocused ? 'bg-red-400' : getSeatColor({ hasReview, score, isWheelchair });
+    // const bgColor = isFocused ? 'bg-red-400' : getSeatColor({ hasReview, score, isWheelchair });
+    const bgColor = isFocused
+      ? 'bg-red-400'
+      : getSeatColor({
+          hasReview,
+          score,
+          isWheelchair,
+          disableHover: isFocused, // ← 포커스 모드일 땐 hover 제거
+        });
 
     const handleClick = () => {
       if (isFocused) return;
@@ -41,11 +49,11 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         className={cn(
-          'text-caption-4 flex h-6 w-[40px] cursor-pointer items-center justify-center rounded-t-[8px] rounded-b-[2px] px-3 py-4 transition-colors',
+          'text-caption-4 flex h-6 w-[40px] items-center justify-center rounded-t-[8px] rounded-b-[2px] px-3 py-4 transition-colors',
           bgColor,
           textColor,
           !isFocused && 'cursor-pointer',
-          !isFocused && selected && 'ring-1 ring-white',
+          selected && !isFocused && 'ring-1 ring-white',
           className,
         )}
         onClick={handleClick}

@@ -10,6 +10,7 @@ interface SeatRowProps {
 }
 
 const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: SeatRowProps) => {
+  console.log('focus ID: ', focusedSeatIds);
   return (
     <div className="flex gap-1">
       {rowSeats.map((seat, idx) =>
@@ -24,7 +25,7 @@ const SeatRow = ({ rowSeats, onSeatClick, focusedSeatIds = [], focusedRef }: Sea
             onClick={onSeatClick}
             row={seat.row}
             column={seat.column}
-            isFocused={focusedSeatIds.includes(seat.seatId)}
+            isFocused={focusedSeatIds.includes(seat?.seatId ?? '')}
             ref={focusedSeatIds?.includes(seat.seatId) ? focusedRef : undefined}
           />
         ) : (

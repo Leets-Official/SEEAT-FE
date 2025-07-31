@@ -1,35 +1,9 @@
-// src/pages/search/ReviewSearchResultPage.tsx
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import {SearchInput, ReviewCard, HeaderBasic} from '@/components'
-import {FilterIcon} from '@/assets'
-const mockSearchResults = [
-  {
-    id: 1,
-    imageUrl: 'https://picsum.photos/200/200?random=1',
-    likeCount: 24,
-    tags: ['태그', '태그', '태그'],
-    title: '남양주현대아울렛 스페이스원',
-    description: '리뷰 내용 앞줄을 조금 보여주는걸로 어쩌구 저쩌구',
-  },
-  {
-    id: 2,
-    imageUrl: 'https://picsum.photos/200/200?random=2',
-    likeCount: 18,
-    tags: ['핫플', '카페', '맛집'],
-    title: '성수동 어느 멋진 카페',
-    description: '커피가 정말 맛있고 분위기가 좋아요. 추천합니다!',
-  },
-  {
-    id: 3,
-    imageUrl: 'https://picsum.photos/200/200?random=3',
-    likeCount: 55,
-    tags: ['가족과함께', '쇼핑'],
-    title: '스타필드 하남',
-    description: '주말에 시간 보내기 좋은 곳. 맛집도 많고 쇼핑할 것도 많아요.',
-  },
-];
+import { SearchInput, ReviewCard, HeaderBasic } from '@/components';
+import { FilterIcon } from '@/assets';
+import { mockMyReviews } from '@/__mocks/mockReviews';
 
 export default function ReviewSearchResultPage() {
   const navigate = useNavigate();
@@ -60,7 +34,7 @@ export default function ReviewSearchResultPage() {
         </div>
 
         <main className="flex flex-col gap-y-2">
-          {mockSearchResults.map((result) => (
+          {mockMyReviews.map((result) => (
             <ReviewCard
               key={result.id}
               imageUrl={result.imageUrl}

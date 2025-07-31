@@ -1,29 +1,10 @@
-import { useNavigate } from 'react-router-dom'; 
-import {ReviewCard, HeaderBasic} from '@/components'
+import { useNavigate } from 'react-router-dom';
+import { ReviewCard, HeaderBasic } from '@/components';
 import { MoreVerticalIcon } from '@/assets';
-
-
-const mockMyReviews = [
-  {
-    id: 1,
-    imageUrl: '/placeholder.png', // 실제 이미지 경로로 교체 필요
-    tags: ['태그', '태그', '태그'],
-    title: '남양주현대아울렛 스페이스원',
-    description: '리뷰 내용 앞줄을 조금 보여주는걸로 어쩌구 저쩌구',
-    likeCount: 24,
-  },
-  {
-    id: 7,
-    imageUrl: '/placeholder.png',
-    tags: ['#태그', '#태그', '#태그'],
-    title: '남양주현대아울렛 스페이스원',
-    description: '리뷰 내용 앞줄을 조금 보여주는걸로 어쩌구 저쩌구',
-    likeCount: 24,
-  },
-];
+import { mockMyReviews } from '@/__mocks/mockReviews';
 
 export default function MyReviewPage() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
     <div className="text-white">

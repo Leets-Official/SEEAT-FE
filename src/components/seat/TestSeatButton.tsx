@@ -4,7 +4,7 @@ import SeatFocusModal from '../common/Modal/SeatModal/SeatFocusModal';
 import SeatWriteModal from '../common/Modal/SeatModal/SeatWriteModal';
 
 export const TestSeatModalButton = () => {
-  const { openModal, modalType, closeModal } = useModalStore();
+  const { openModal, modalType } = useModalStore();
 
   const handleOpen = () => {
     openModal('seatPicker');
@@ -57,7 +57,7 @@ export const TestSeatModalButton = () => {
         <SeatFocusModal
           auditoriumId="13018"
           theaterName="CGV 강남"
-          selectedSeatNumbers={['N08', 'N09']}
+          selectedSeatNumbers={['K21', 'K22']}
         />
       )}
       {modalType === 'seatWrite' && <SeatWriteModal auditoriumId="13018" theaterName="CGV 강남" />}

@@ -28,6 +28,7 @@ import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
 import SeatReviewPage from '@/pages/seat';
+import PopularReviewPage from '@/pages/home/PopularReview';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: '/review/:reviewId',
     element: <ReviewDetailPage />,
+  },
+  {
+    path: '/review/popular',
+    element: <PopularReviewPage />,
   },
 
   //리뷰

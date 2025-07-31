@@ -13,7 +13,7 @@ export default function ReviewTextForm() {
   const { images, addImages, removeImage } = useImgUpload(5);
   const navigate = useNavigate();
 
-  const isValid = text.trim().length >= MIN_TEXT_LENGTH;
+  const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal } = useModalStore();
   const handleSubmit = () => {
     if (!text.trim()) return;
@@ -74,7 +74,9 @@ export default function ReviewTextForm() {
           label="제목"
           placeholder="후기의 제목을 적어주세요"
           value={reviewTitle}
-          onChange={setReviewTitle}
+          onChange={(value) => {
+            if (value.length <= 20) setReviewTitle(value);
+          }}
         />
         <div className="text-caption-2 pt-8 text-white">
           후기 내용 <span className="text-red-400">*</span>

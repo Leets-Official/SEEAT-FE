@@ -43,7 +43,6 @@ export default function MovieInfoForm() {
     <ReviewStepLayout
       title="관람하신 영화의 정보를 알려주세요"
       onClickNext={handleNext}
-      onClickBack={() => navigate('/review')}
       disabled={!isFormValid}
     >
       <div className="flex flex-col gap-5 px-1 py-5">

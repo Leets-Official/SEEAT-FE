@@ -23,7 +23,6 @@ export default function ReviewTagsPage() {
   return (
     <ReviewStepLayout
       title="상영관의 어떤 점이 좋았나요?"
-      onClickBack={() => navigate('/review/rating')}
       onClickNext={handleNext}
       disabled={!canProceed}
     >

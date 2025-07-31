@@ -33,6 +33,7 @@ import HeaderLogo from '@/assets/icons/header_logo.svg?react';
 import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
+import DefaultThumbnail from '@/assets/icons/default_thumbnail.svg?react';
 
 export {
   MoreVerticalIcon,
@@ -70,4 +71,5 @@ export {
   GearIcon,
   DefaultProfile,
   CheckIcon,
+  DefaultThumbnail,
 };

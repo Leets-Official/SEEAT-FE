@@ -1,6 +1,7 @@
 import { cn } from '@/utils/cn';
 import { HeartOn } from '@/assets';
-import { Badge, Image } from '@/components';
+import { Badge } from '@/components';
+import ThumbnailFallback from './ThumbnailFallback';
 
 interface ReviewCardProps {
   imageUrl: string;
@@ -30,13 +31,7 @@ export default function ReviewCard({
     >
       {/*썸네일*/}
       <div className="relative h-[82px] w-[82px] shrink-0">
-        <Image
-          src={imageUrl}
-          alt={title}
-          aspectRatio="h-[82px] w-[82px]"
-          rounded="rounded-lg"
-          className="bg-gray-600"
-        />
+        <ThumbnailFallback src={imageUrl} size={82} />
         <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] pr-[6px] pl-1 text-white">
           <span>
             <HeartOn className="h-4 w-4" />
@@ -49,7 +44,7 @@ export default function ReviewCard({
       <div className="flex flex-col overflow-hidden">
         {/*태그*/}
         <div className="flex gap-[10px] py-[4px]">
-          {tags.slice(0, 3).map((tag, i) => (
+          {tags.slice(0, 2).map((tag, i) => (
             <Badge key={i} type="tag" size="sm">
               {tag}
             </Badge>

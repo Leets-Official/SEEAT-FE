@@ -1,4 +1,4 @@
-import KakaoIcon from '@/assets/kakao-icon.svg?react';
+import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
 import { HeaderBasic } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useModalStore } from '@/store/modalStore';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { HeaderBasic } from '@/components';
 import { LevelCharacter1, LevelCharacter2, LevelCharacter3, LevelCharacter4 } from '@/assets';
 

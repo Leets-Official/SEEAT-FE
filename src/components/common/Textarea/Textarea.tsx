@@ -1,72 +1,87 @@
 import { cn } from '@/utils/cn';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-interface TextareaProps {
+interface TextareaProps
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'value'> {
   title: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   placeholder?: string;
+  maxLength?: number;
   minLength?: number;
   focus?: boolean;
   placeholderColorType?: 'gray' | 'white';
-  value?: string;
-  onChange?: (value: string) => void;
   width?: string;
   height?: string;
+  showValidationMessage?: boolean;
+  className?: string; 
 }
 
 const Textarea = ({
   title,
-  placeholder = '메시지를 입력해요',
-  minLength = 20,
-  focus = false,
-  placeholderColorType = 'gray',
   value,
   onChange,
-  width = 'w-[335px]',
+  onValueChange,
+  placeholder = '메시지를 입력해요',
+  maxLength = 1000,
+  minLength = 0,
+  focus = false,
+  placeholderColorType = 'gray',
+  width = 'w-full',
   height = 'h-[120px]',
+  showValidationMessage = true,
+  className,
+  ...props
 }: TextareaProps) => {
-  const [internalText, setInternalText] = useState('');
-  const displayText = value !== undefined ? value : internalText;
-  const setTextValue = onChange ?? setInternalText;
+  const [internalValue, setInternalValue] = useState('');
+  const displayValue = value !== undefined ? value : internalValue;
+  const handleChange = onChange ?? onValueChange ?? setInternalValue;
 
   const borderClass = cn('border', focus ? 'border-gray-400' : 'border-gray-800');
-
   const backgroundClass = cn(focus ? 'bg-[rgba(66,66,66,0.3)]' : 'bg-black');
-
   const placeholderClass =
     placeholderColorType === 'white' ? 'placeholder:text-white' : 'placeholder:text-gray-400';
 
-  const showMinLengthWarning = displayText.length < minLength;
-  const showEmptyWarning = displayText.length === 0;
+  const showMinLengthWarning =
+    showValidationMessage && minLength > 0 && displayValue.length < minLength;
+  const showEmptyWarning = showValidationMessage && displayValue.length === 0;
 
   return (
-    <div className={cn(width, 'space-y-1')}>
-      <label className="text-caption-2 inline-block h-[20px] text-gray-300">
-        {title} <span className="text-red-500">*</span>
-      </label>
+    <div className={cn(width, 'space-y-1', className)}>
+      <label className="text-base text-gray-200">{title}</label>
 
-      <div className={cn('rounded-lg p-4', width, 'min-h-[120px]', borderClass, backgroundClass)}>
+      <div className={cn('relative rounded-lg p-4', borderClass, backgroundClass)}>
         <textarea
+          {...props}
+          value={displayValue}
           placeholder={placeholder}
-          value={displayText}
-          onChange={(e) => setTextValue(e.target.value)}
+          maxLength={maxLength}
+          onChange={(e) => handleChange(e.target.value)}
           className={cn(
-            'h-[120px] w-full resize-none bg-transparent',
-            'text-body-2 text-white',
+            'w-full resize-none bg-transparent outline-none text-white',
             height,
-            placeholderClass,
-            'outline-none',
+            placeholderClass
           )}
         />
+
+        {maxLength && (
+          <div className="absolute bottom-3 right-4 text-sm text-gray-500">
+            {displayValue.length}/{maxLength}
+          </div>
+        )}
       </div>
 
-      <div className="mt-1 flex flex-col gap-0.5">
-        {showMinLengthWarning && (
-          <p className="text-caption-3 h-[20px] text-gray-400">{minLength}자 이상 입력해주세요</p>
-        )}
-        {showEmptyWarning && (
-          <p className="text-caption-3 text-yellow-figma h-[20px]">내용을 입력해주세요</p>
-        )}
-      </div>
+      {showValidationMessage && (
+        <div className="mt-1 flex flex-col gap-0.5">
+          {showMinLengthWarning && (
+            <p className="text-caption-3 h-[20px] text-gray-400">{minLength}자 이상 입력해주세요</p>
+          )}
+          {showEmptyWarning && (
+            <p className="text-caption-3 h-[20px] text-yellow-figma">내용을 입력해주세요</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -27,6 +27,7 @@
     "paths": {
       "@/*": ["src/*"]
     }
+    
   },
   "include": ["src", "src/routes/routes.tsx"]
 }

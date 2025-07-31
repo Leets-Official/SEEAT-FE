@@ -15,7 +15,7 @@ interface HeaderProps {
   showBookmark?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({
+export const Header: React.FC<HeaderProps> = ({
   title,
   showBack = true,
   onBackClick,
@@ -35,6 +35,7 @@ const Header: React.FC<HeaderProps> = ({
         )}
         <span className="text-title-3">{title}</span>
       </div>
+
       {(showLike || showBookmark) && (
         <div className="flex items-center gap-4">
           {showLike && (
@@ -62,4 +63,3 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export default Header;

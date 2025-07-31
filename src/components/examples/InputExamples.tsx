@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InputField from "../common/Input/Input";
 
-export default function Example() {
+export default function InputExamples() {
   const [v1, setV1] = useState("");
   const [v2, setV2] = useState("");
   const [v3, setV3] = useState("");
@@ -27,7 +27,6 @@ export default function Example() {
           value={v2}
           onChange={setV2}
           showBackground
-          focus={true}
           placeholder="메세지를 입력해요"
           placeholderColorType="gray"
         />
@@ -40,7 +39,6 @@ export default function Example() {
           value={v3}
           onChange={setV3}
           showBackground
-          focus={true}
           placeholder="메세지를 입력해요"
           placeholderColorType="white"
         />
@@ -59,3 +57,5 @@ export default function Example() {
     </div>
   );
 }
+
+

@@ -27,16 +27,18 @@ export default function ReviewTagsPage() {
       onClickNext={handleNext}
       disabled={!canProceed}
     >
-      {tagSections.map(({ key, title, required, options }) => (
-        <TagSection
-          key={key}
-          title={title}
-          options={options}
-          required={required}
-          selected={tags[key]}
-          onChange={(value) => toggleTag(key, value)}
-        />
-      ))}
+      <div className="flex flex-col overflow-y-auto pb-[88px]">
+        {tagSections.map(({ key, title, required, options }) => (
+          <TagSection
+            key={key}
+            title={title}
+            options={options}
+            required={required}
+            selected={tags[key]}
+            onChange={(value) => toggleTag(key, value)}
+          />
+        ))}
+      </div>
     </ReviewStepLayout>
   );
 }

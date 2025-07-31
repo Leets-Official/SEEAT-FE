@@ -25,7 +25,7 @@ export default function ReviewStepLayout({
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
         <Header title="" showBack onBackClick={onClickBack} showLike={false} showBookmark={false} />
       </div>
-      <div className={`flex flex-col gap-6 px-5 ${title ? 'pt-4' : ''}`}>
+      <div className={`flex flex-col gap-6 overflow-y-auto px-5 pb-[100px] ${title ? 'pt-4' : ''}`}>
         {title && (
           <div className="w-full max-w-[430px] text-left">
             <h2 className="text-title-2 text-white">{title}</h2>

@@ -18,7 +18,7 @@ export default function TagSection({
   return (
     <section className="mb-6">
       <h2 className="text-caption-2 mb-3">
-        {title} {required && <span className="text-red-500">*</span>}
+        {title} {required && <span className="text-red-400">*</span>}
       </h2>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => (

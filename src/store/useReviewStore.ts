@@ -6,6 +6,8 @@ interface CinemaInfo {
 }
 
 interface ReviewState {
+  reviewTitle: string; //후기 제목
+  setReviewTitle: (title: string) => void;
   movieTitle: string;
   cinema: CinemaInfo | null;
   seats: string[];
@@ -30,6 +32,8 @@ interface ReviewState {
 }
 
 export const useReviewStore = create<ReviewState>((set) => ({
+  reviewTitle: '',
+  setReviewTitle: (title) => set({ reviewTitle: title }),
   movieTitle: '',
   cinema: null,
   seats: [],
@@ -50,6 +54,7 @@ export const useReviewStore = create<ReviewState>((set) => ({
   reset: () =>
     set({
       movieTitle: '',
+      reviewTitle: '',
       cinema: null,
       seats: [],
       rating: 0,

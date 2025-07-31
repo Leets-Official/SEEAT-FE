@@ -42,7 +42,7 @@ export default function InputField({
       <div
         className={cn(
           // 공통 스타일 클래스를 통합합니다.
-          'flex h-[48px] w-[335px] items-center rounded-lg border px-3',
+          'flex h-[48px] w-full items-center rounded-lg border px-3',
           // isFocused 상태에 따라 스타일을 동적으로 변경합니다.
           isFocused ? 'border-gray-400 bg-gray-800' : 'border-gray-800 bg-black',
           'bg-transparent',

@@ -240,9 +240,6 @@
   .text-gray-700 {
     color: var(--color-gray-700);
   }
-  .text-gray-500 {
-    color: var(--color-gray-500);
-  }
 
   .text-yellow-warn {
     color: var(--color-yellow-warn);
@@ -274,7 +271,6 @@
   .bg-gray-950 {
     background-color: var(--color-gray-950);
   }
-
   .bg-seat1-default {
     background-color: var(--color-seat1-default);
   }
@@ -314,9 +310,6 @@
   }
   .border-gray-400 {
     border-color: var(--color-gray-400);
-  }
-  .border-gray-500 {
-    border-color: var(--color-gray-500);
   }
   .border-gray-500 {
     border-color: var(--color-gray-500);

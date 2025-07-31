@@ -1,3 +1,5 @@
+// src/components/common/Header/HomeHeader.tsx
+
 import React from 'react';
 import { HeaderLogo, GearIcon } from '@/assets';
 

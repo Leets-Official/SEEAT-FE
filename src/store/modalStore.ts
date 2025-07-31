@@ -1,40 +1,29 @@
 import { create } from 'zustand';
-
-type BaseModalProps = {
-  title?: string;
-  subtitle?: string;
-  subWarningText?: string;
-  cancelText?: string;
-  confirmText?: string;
-  onCancel?: () => void;
-  onConfirm?: () => void;
-};
+import type { ConfirmModalProps, SeatPickerModalProps } from '@/components/common/Modal/Modal.types';
 
 type ModalPropsMap = {
-  confirm: BaseModalProps;
-  custom: BaseModalProps;
-  seatPicker: {
-    theaterType: 'IMAX' | 'Dolby Cinema';
-    theaterName: string;
-    auditoriumId: string;
-  };
+  confirm: ConfirmModalProps;
+  seatPicker: SeatPickerModalProps;
 };
 
 type ModalType = keyof ModalPropsMap;
-type ModalProps<T extends ModalType = ModalType> = ModalPropsMap[T];
 
-interface ModalState<T extends ModalType = ModalType> {
+interface ModalState {
   isOpen: boolean;
-  modalType: T | null;
-  modalProps: T extends ModalType ? ModalProps<T> : never;
-  openModal: <K extends ModalType>(type: K, props: ModalProps<K>) => void;
+  modalType: ModalType | null;
+  modalProps: ModalPropsMap[ModalType] | null;
+  openModal: <T extends ModalType>(type: T, props: ModalPropsMap[T]) => void;
   closeModal: () => void;
 }
 
 export const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
   modalType: null,
-  modalProps: {} as any,
-  openModal: (type, props) => set({ isOpen: true, modalType: type, modalProps: props }),
-  closeModal: () => set({ isOpen: false, modalType: null, modalProps: {} as any }),
+  modalProps: null,
+  openModal: (type, props) => {
+    set({ isOpen: true, modalType: type, modalProps: props });
+  },
+  closeModal: () => {
+    set({ isOpen: false, modalType: null, modalProps: null });
+  },
 }));

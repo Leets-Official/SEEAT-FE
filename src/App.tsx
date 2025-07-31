@@ -4,6 +4,7 @@ import { Modal } from '@/components';
 import ToastProvider from './components/common/Toast/ToastProvider';
 
 function App() {
+  console.log('App 렌더됨');
   return (
     <ToastProvider>
       <RouterProvider router={router} />

@@ -10,12 +10,7 @@ export default function HeaderTest() {
         <p className="text-caption-1 mb-2 text-gray-400">
           Header (뒤로가기 + 타이틀 + Detail 버튼들)
         </p>
-        <Header
-          leftSection="BACK"
-          rightSection="DETAIL"
-          onBackClick={() => alert('🔙 뒤로가기 클릭')}
-          onDetailClick={() => alert('🍔 케밥 클릭')}
-        >
+        <Header leftSection="BACK" rightSection="DETAIL" onDetailClick={() => alert('케밥 클릭')}>
           타이틀
         </Header>
       </div>
@@ -26,7 +21,7 @@ export default function HeaderTest() {
         <Header
           leftSection="LOGO"
           rightSection="SETTING"
-          onSettingsClick={() => alert('⚙️ 설정 클릭')}
+          onSettingsClick={() => alert(' 설정 클릭')}
         >
           타이틀
         </Header>
@@ -37,12 +32,7 @@ export default function HeaderTest() {
         <p className="text-caption-1 mb-2 text-gray-400">
           Header (뒤로가기 + 타이틀 + 케밥 버튼만)
         </p>
-        <Header
-          leftSection="BACK"
-          rightSection="KEBAB"
-          onBackClick={() => alert('🔙 뒤로가기 클릭')}
-          onKebabClick={() => alert('🍔 케밥 클릭')}
-        >
+        <Header leftSection="BACK" rightSection="KEBAB" onKebabClick={() => alert('케밥 클릭')}>
           타이틀
         </Header>
       </div>

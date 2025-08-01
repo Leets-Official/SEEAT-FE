@@ -15,7 +15,10 @@ interface MenuItem {
   name: string;
   path: string;
 }
-
+const currentUserStatus = {
+    reviewCount: 5,
+    likeCount: 12, 
+};
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -87,8 +90,12 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 레벨 카드  */}
-          <LevelCard userLevel={user.level} userProgress={user.progress} />
+           <LevelCard 
+            userLevel={user.level} 
+            userProgress={user.progress} 
+            currentReviewCount={currentUserStatus.reviewCount}
+            currentLikeCount={currentUserStatus.likeCount}
+          />
 
           {/* 메뉴 리스트 */}
           <section>

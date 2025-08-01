@@ -12,13 +12,20 @@ export const tagSections: TagSectionConfig[] = [
     key: 'sound',
     title: '음향',
     required: true,
-    options: ['#음향최고', '#음향아쉬움', '#소리선명', '#음질만족', '#돌비사운드굿', '#잡음있음'],
+    options: ['#음향최고', '#음질깨끗', '#몰입감좋음', '#서라운드좋음', '#소리선명', '#현장감있음'],
   },
   {
     key: 'environment',
     title: '관람 환경',
     required: true,
-    options: ['#좌석편함', '#시야좋음', '#청결상태굿', '#주변산만', '#출입구근처', '#조용함'],
+    options: [
+      '#좌석편함',
+      '#시야탁트임',
+      '#쾌적한환경',
+      '#입출입편리',
+      '#청결유지잘됨',
+      '#분위기좋음',
+    ],
   },
   {
     key: 'companion',

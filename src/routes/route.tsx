@@ -27,7 +27,7 @@ import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
 import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
-import SeatReviewPage from '@/pages/seat';
+import SeatReviewPage from '@/pages/home/SeatReviewPage';
 import PopularReviewPage from '@/pages/home/PopularReview';
 
 const router = createBrowserRouter([
@@ -51,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: '/theaters/:auditoriumId',
     element: <TheaterDetailPage />,
+  },
+  {
+    path: '/reviews/:seatId',
+    element: <SeatReviewPage />,
   },
   {
     path: '/theaters/:auditoriumId/reviews',

@@ -28,7 +28,7 @@ export default function ReviewCard(props: ReviewCardProps) {
       {/*텍스트*/}
       <div className="flex flex-col overflow-hidden">
         {/*태그*/}
-        <div className="flex gap-[10px] py-[4px]">
+        <div className="flex gap-[10px] pb-1">
           {tags.slice(0, 2).map((tag, i) => (
             <Badge key={i} type="tag" size="sm">
               {tag}
@@ -42,7 +42,7 @@ export default function ReviewCard(props: ReviewCardProps) {
         {'description' in props ? (
           <div className="text-caption-3 truncate text-gray-500">{props.description}</div>
         ) : (
-          <div className="text-caption-2 flex items-center gap-2 text-gray-500">
+          <div className="text-caption-2 flex items-center gap-2 pt-1 text-gray-500">
             <span>{props.date}</span>
             <BarIcon className="h-3" />
             <span className="flex items-center gap-1">

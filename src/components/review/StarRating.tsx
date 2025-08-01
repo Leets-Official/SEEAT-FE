@@ -13,7 +13,7 @@ const StarRating = ({ rating, color = 'white' }: StarRatingProps) => {
   const colorClass = color === 'red' ? 'fill-red-300 text-red-300' : 'fill-white text-white';
 
   return (
-    <div className="flex gap-1">
+    <div className="flex">
       {Array(full)
         .fill(0)
         .map((_, idx) => (

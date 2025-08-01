@@ -1,7 +1,8 @@
-import { Button, Header } from '@/components';
+import { Button, Header, Image } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useReviewStore } from '@/store';
 import { useEffect } from 'react';
+import { TicketAlt } from '@/assets';
 
 export const TicketUploadStep = () => {
   const { setInitialized } = useReviewStore();
@@ -36,7 +37,12 @@ export const TicketUploadStep = () => {
 
         {/* 로고 or 티켓 영역 자리 (임시 checker 배경) */}
         <div className="flex justify-center pt-15">
-          <div className="h-[149px] w-[160px] flex-shrink-0 bg-gray-700 bg-[url('/checker.png')] bg-cover bg-center" />
+          <Image
+            src={TicketAlt} // public/assets 경로에 있는 경우
+            alt="티켓 캐릭터"
+            className="w-full object-contain"
+            aspectRatio=""
+          />
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import ReviewCard from '@/components/common/ReviewCard/ReviewCard';
 import Badge from '@/components/common/Badge/Badge';
 import Image from '@/components/common/Image/Image';
 import ToggleTab from '@/components/common/ToggleTab';
-import LevelCard from './common/LevelCard/LeveCard';
+import LevelCard from './common/LevelCard/LevelCard';
 import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
 import { Header } from '@/components/common/Header/Header';
 import HomeHeader from '@/components/common/Header/HomeHeader';
@@ -18,14 +18,15 @@ import TagSection from '@/components/review/TagSection';
 import Modal from '@/components/common/Modal/Modal';
 import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
-
+import LevelInfoCard from './common/LevelCard/LevelInfoCard';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import StarRating from './review/StarRating';
 import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
-
+export { default as MyLevelCard } from './common/LevelCard/MyLevelCard';
 export {
+  LevelInfoCard,
   Button,
   BottomNavigation,
   BestCinemaCard,

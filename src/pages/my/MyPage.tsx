@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-// [수정됨] HomeHeader 대신 Header를 import 합니다.
 import { Header, BottomNavigation, LevelCard } from '@/components';
 import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
 import React from 'react';
@@ -38,21 +37,10 @@ const MyPage: React.FC = () => {
     navigate('/my/profile-edit');
   };
 
-  // 참고: '설정' 페이지로 이동하는 기능은 이제 Header가 아닌
-  // 다른 UI 요소(예: 프로필 수정 버튼 옆)에 연결하거나,
-  // Header 컴포넌트 자체를 더 유연하게 만들어야 합니다.
-  // const handleSettingsClick = () => {
-  //   navigate('/my/settings');
-  // };
-
   return (
     <div className="relative mx-auto w-full max-w-md text-white">
       <div className="min-h-screen">
-        {/*
-          [수정됨] HomeHeader를 새로운 Header 컴포넌트로 교체합니다.
-          새로운 Header는 'title'을 표시하고, '뒤로가기' 버튼을 기본으로 가집니다.
-          '좋아요', '북마크' 아이콘은 필요 없으므로 false로 설정합니다.
-        */}
+        
         <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
 
         <main className="mt-2 flex flex-col gap-4 px-4 pb-[83px]">
@@ -99,7 +87,7 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 레벨 카드 (컴포넌트로 분리) */}
+          {/* 레벨 카드  */}
           <LevelCard userLevel={user.level} userProgress={user.progress} />
 
           {/* 메뉴 리스트 */}

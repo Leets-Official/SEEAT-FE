@@ -23,10 +23,10 @@ export const getTheaters = async ({ type, page = 1, size = 10 }: GetTheatersPara
       throw new Error('Theater content is missing in response');
     }
 
-    console.log('✅ 영화관 목록 응답:', content);
+    console.log('영화관 목록 응답:', content);
     return content;
   } catch (e) {
-    console.error('❌ 영화관 목록 호출 실패:', e);
+    console.error('영화관 목록 호출 실패:', e);
     throw e;
   }
 };

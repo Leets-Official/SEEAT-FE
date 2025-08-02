@@ -69,7 +69,7 @@ export default function ReviewTextForm() {
         </div>
 
         {/* 텍스트 입력 */}
-        <div className="flex flex-col gap-1 pt-6">
+        <div className="flex flex-col gap-12 pt-6">
           <InputField
             label="제목"
             placeholder="후기의 제목을 적어주세요"
@@ -78,9 +78,7 @@ export default function ReviewTextForm() {
               if (value.length <= 20) setReviewTitle(value);
             }}
           />
-          <div className="text-caption-2 pt-8 text-white">
-            후기 내용 <span className="text-red-400">*</span>
-          </div>
+
           <Textarea
             title="후기 내용"
             required

@@ -17,7 +17,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
   };
 
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} className="cursor-pointer">
       <ChevronIcon className="h-6 w-6" />
     </button>
   );

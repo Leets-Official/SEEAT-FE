@@ -36,7 +36,7 @@ export default function InputField({
   return (
     <div className={cn('flex flex-col gap-1', className)}>
       <label className="text-caption-2 h-[20px] text-gray-300">
-        {label} <span className="text-red-500">*</span>
+        {label} <span className="text-red-400">*</span>
       </label>
 
       <div

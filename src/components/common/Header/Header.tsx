@@ -35,14 +35,14 @@ const Header: React.FC<HeaderProps> = ({
       {/* 오른쪽 섹션 */}
       <div className="flex items-center gap-4">
         {rightSection === 'SETTING' && (
-          <button onClick={onSettingsClick}>
+          <button onClick={onSettingsClick} className="cursor-pointer">
             <GearIcon className="h-6 w-6" />
           </button>
         )}
         {rightSection === 'DETAIL' && <DetailButton onKebabClick={onDetailClick} />}
         {rightSection === 'NONE' && <div className="w-6" />}
         {rightSection === 'KEBAB' && (
-          <button onClick={onKebabClick}>
+          <button onClick={onKebabClick} className="cursor-pointer">
             <KebabIcon className="h-6 w-6" />
           </button>
         )}

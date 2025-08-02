@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
-import { Button, ToggleTab, Header } from '@/components';
-import { theaterData } from '@/types/onboarding';
+import { Button, ToggleTab, Header, ProgressBar } from '@/components';
 import type { CinemaType, CinemaFormat } from '@/types/onboarding';
-import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import type { Theater } from '@/types/theater';
+import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
 
 const OnboardingTheaterPage = () => {
   const navigate = useNavigate();
@@ -12,8 +12,11 @@ const OnboardingTheaterPage = () => {
 
   const [selectedTab, setSelectedTab] = useState<CinemaFormat>('IMAX');
 
+  const { data: theaters } = useTheatersQuery({ type: selectedTab, page: 1, size: 10 });
+
   const handleToggleTab = (tab: string) => {
     const format = tab as CinemaFormat;
+    if (format === selectedTab) return;
     setSelectedTab(format);
     setCinemaFormat(format);
   };
@@ -58,20 +61,22 @@ const OnboardingTheaterPage = () => {
         <div className="h-3" />
 
         <div className="mb-20 flex flex-col gap-3">
-          {theaterData[selectedTab].map((theater) => {
-            const isSelected = selectedCinemas.includes(theater);
-            return (
-              <Button
-                key={theater}
-                onClick={() => toggleTheater(theater)}
-                variant="secondary-assistive"
-                selected={isSelected}
-                className="w-full rounded-md px-4 py-3 text-left"
-              >
-                {theater}
-              </Button>
-            );
-          })}
+          {Array.isArray(theaters) &&
+            theaters.map((theater: Theater) => {
+              const isSelected = selectedCinemas.includes(theater.theaterName);
+              console.log('theaters: ', Array.isArray(theaters));
+              return (
+                <Button
+                  key={theater.theaterName}
+                  onClick={() => toggleTheater(theater.theaterName)}
+                  variant="secondary-assistive"
+                  selected={isSelected}
+                  className="w-full rounded-md px-4 py-3 text-left"
+                >
+                  {theater.theaterName}
+                </Button>
+              );
+            })}
         </div>
       </div>
 

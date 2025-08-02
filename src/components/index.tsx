@@ -25,6 +25,7 @@ import SeatPickerModal from '@/components/common/Modal/SeatModal/SeatPickerModal
 import ConfirmModal from '@/components/common/Modal/ConfirmModal';
 import SeatFocusModal from '@/components/common/Modal/SeatModal/SeatFocusModal';
 import SeatWriteModal from '@/components/common/Modal/SeatModal/SeatWriteModal';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 
@@ -55,4 +56,5 @@ export {
   ConfirmModal,
   SeatFocusModal,
   SeatWriteModal,
+  ProgressBar,
 };

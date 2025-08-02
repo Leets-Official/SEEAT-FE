@@ -45,15 +45,16 @@ export default function ReviewTagsPage() {
           {} as Record<TagKey, string[]>,
         );
 
-        const parsed: TagSectionConfig[] = Object.entries(grouped).map(([key, options]) => {
-          const typedKey = key as TagKey;
-          return {
-            key: typedKey,
-            title: TAG_TYPE_TITLE_MAP[typedKey],
-            required: REQUIRED_TAG_KEYS.includes(typedKey),
-            options,
-          };
-        });
+        const ORDERED_KEYS: TagKey[] = ['음향', '관람환경', '동반인'];
+
+        const parsed: TagSectionConfig[] = ORDERED_KEYS.filter((key) => grouped[key]).map(
+          (key) => ({
+            key,
+            title: TAG_TYPE_TITLE_MAP[key],
+            required: REQUIRED_TAG_KEYS.includes(key),
+            options: grouped[key],
+          }),
+        );
         setTagSections(parsed);
       } catch (error) {
         console.error('해시태그 불러오기 실패:', error);

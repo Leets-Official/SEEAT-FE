@@ -33,6 +33,8 @@ import HeaderLogo from '@/assets/icons/header_logo.svg?react';
 import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
+import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
+import NaverIcon from '@/assets/icons/naver_icon.svg?react';
 
 export {
   MoreVerticalIcon,
@@ -70,4 +72,6 @@ export {
   GearIcon,
   DefaultProfile,
   CheckIcon,
+  KakaoIcon,
+  NaverIcon,
 };

@@ -24,7 +24,6 @@ export default function ReviewTagsPage() {
     <ReviewStepLayout
       title="관람하신 상영관은 어땠나요?"
       description="최대 5개까지 선택할 수 있어요."
-      onClickBack={() => navigate('/review/rating')}
       onClickNext={handleNext}
       disabled={!canProceed}
     >

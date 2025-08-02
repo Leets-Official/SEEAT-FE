@@ -33,15 +33,10 @@ const OnboardingTheaterPage = () => {
     navigate('/signup/complete');
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-[375px] bg-gray-900 pb-32 text-white">
+    <div className="relative mx-auto min-h-screen w-full max-w-[375px] pb-32">
       {/* 상단 헤더 */}
-      <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
-
+      <Header leftSection="BACK" />
       {/* 진행도 바 */}
       <ProgressBar currentStep={3} totalSteps={3} />
 

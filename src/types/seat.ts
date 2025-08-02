@@ -10,4 +10,5 @@ export interface Seat {
 export interface SeatItemProps extends Seat {
   seatLabel: string;
   onClick?: (seatId: string) => void;
+  isFocused?: boolean;
 }

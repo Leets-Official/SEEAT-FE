@@ -1,27 +1,49 @@
-import type { Seat } from '../../src/types/seat';
+import type { Seat } from '@/types/seat';
 
-export const mockSeats: Seat[] = [];
+type SeatModalType = 'seatFocus' | 'seatPicker' | 'seatWrite';
 
-const rows = 'ABCDEFGHIJKLMNOP'.split(''); // A ~ P
-const columns = Array.from({ length: 23 }, (_, i) => i + 5); // 5 ~ 27
+const rows = 'ABCDEFGHIJKLMNOP'.split('');
+const columns = Array.from({ length: 23 }, (_, i) => i + 5);
 
-rows.forEach((row) => {
-  columns.forEach((col) => {
-    const shouldExist = Math.random() < 0.7;
-    if (!shouldExist) return;
+export const getMockSeats = (
+  type: SeatModalType = 'seatPicker',
+  focusedSeatIds: string[] = [],
+): Seat[] => {
+  const seats: Seat[] = [];
 
-    const hasReview = Math.random() < 0.3;
-    const isWheelchair = row === 'A' && col >= 10 && col <= 13;
+  rows.forEach((row) => {
+    columns.forEach((col) => {
+      const shouldExist = Math.random() < 0.7;
+      if (!shouldExist) return;
 
-    const seat: Seat = {
-      seatId: `13018${row}${col}`,
-      row,
-      column: col,
-      hasReview,
-      score: hasReview ? parseFloat((Math.random() * 5).toFixed(1)) : undefined,
-      isWheelchair,
-    };
+      const seatId = `13018${row}${col}`;
+      const isFocused = focusedSeatIds.includes(seatId);
 
-    mockSeats.push(seat);
+      let hasReview = false;
+      let score: number | undefined = undefined;
+      let isWheelchair = false;
+
+      if (type === 'seatPicker') {
+        hasReview = Math.random() < 0.3;
+        score = hasReview ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
+        isWheelchair = row === 'A' && col >= 10 && col <= 13;
+      }
+
+      if (type === 'seatFocus') {
+        hasReview = isFocused;
+        score = isFocused ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
+      }
+
+      seats.push({
+        seatId,
+        row,
+        column: col,
+        hasReview,
+        score,
+        isWheelchair,
+      });
+    });
   });
-});
+
+  return seats;
+};

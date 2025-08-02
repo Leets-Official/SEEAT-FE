@@ -43,7 +43,6 @@ export default function MovieInfoForm() {
     <ReviewStepLayout
       title="관람하신 영화의 정보를 알려주세요"
       onClickNext={handleNext}
-      onClickBack={() => navigate('/review')}
       disabled={!isFormValid}
     >
       <div className="flex flex-col gap-5 px-1 py-5">
@@ -68,7 +67,8 @@ export default function MovieInfoForm() {
           placeholder="관람하신 영화관을 선택해주세요"
           onClickPlus={() => navigate('/review/info/cinema')}
         />
-
+      </div>
+      <div className="flex flex-col gap-2">
         {/*추후 좌석 페이지 연결 시 readOnly 속성 추가*/}
         <InputField
           label="좌석"

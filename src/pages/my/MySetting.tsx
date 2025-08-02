@@ -1,76 +1,71 @@
 import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
-import { HeaderBasic } from '@/components';
-import { useNavigate } from 'react-router-dom';
+import { ConfirmModal, Header } from '@/components';
 import { useModalStore } from '@/store/modalStore';
 
 export default function MySettingPage() {
   const userEmail = 'ihatemonday@gmail.com';
   const appVersion = '1.0.0';
-  const navigate = useNavigate();
-  const { openModal } = useModalStore();
+  const { openModal, modalType, closeModal } = useModalStore();
 
   const handleLogout = () => {
-    openModal('confirm',{
-      title: '로그아웃 하시겠습니까?',
-      subtitle: '현재 계정에서 로그아웃됩니다.',
-      confirmText: '로그아웃',
-      cancelText: '취소',
-      onConfirm: () => {
-      console.log('로그아웃 처리');
-      },
-    });
+    openModal('logoutConfirm');
   };
 
   const handleWithdrawal = () => {
-    openModal('confirm',{
-      title: '정말로 회원탈퇴 하시겠습니까?',
-      subtitle: '회원탈퇴 시 모든 정보가 삭제됩니다.',
-      subWarningText: '탈퇴 후에는 복구가 불가능합니다.',
-      confirmText: '회원탈퇴',
-      cancelText: '취소',
-      onConfirm: () => {
-      console.log('회원탈퇴 처리');
-      },
-    });
-  };
-
-  const handleGoBack = () => {
-    navigate(-1);
+    openModal('withdrawalConfirm');
   };
 
   return (
-    <div className="min-h-screen text-white">
-      <div className="mx-auto w-full max-w-[400px] px-4">
-        <HeaderBasic onBackClick={handleGoBack}>
-          <h1 className="text-title-3">설정</h1>
-        </HeaderBasic>
+    <div className="min-h-screen">
+      <Header leftSection="BACK">설정</Header>
+      <main className="mx-auto flex flex-col divide-y divide-gray-800 px-6 pt-[78px]">
+        <div className="flex h-[56px] w-full items-center justify-between">
+          <span className="text-title-3 text-white">계정</span>
+          <div className="flex items-center gap-x-2 text-gray-400">
+            <KakaoIcon className="h-5 w-5" />
+            <span className="text-body-1">{userEmail}</span>
+          </div>
+        </div>
+        <div className="flex h-[56px] w-full items-center justify-between">
+          <span className="text-title-3 text-white">버전 정보</span>
+          <span className="text-body-1 text-gray-400">{appVersion}</span>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="text-title-3 flex h-[56px] w-full items-center text-left text-white"
+        >
+          로그아웃
+        </button>
+        <button
+          onClick={handleWithdrawal}
+          className="text-title-3 flex h-[56px] w-full items-center text-left text-red-400"
+        >
+          회원탈퇴
+        </button>
+      </main>
 
-        <main className="mt-6 w-[335px] mx-auto flex flex-col divide-y divide-gray-800">
-          <div className="flex w-full h-[56px] items-center justify-between">
-            <span className="text-title-3 text-white">계정</span>
-            <div className="flex items-center gap-x-2 text-gray-400">
-              <KakaoIcon className="h-5 w-5" />
-              <span className="text-body-1">{userEmail}</span>
-            </div>
-          </div>
-          <div className="flex w-full h-[56px] items-center justify-between">
-            <span className="text-title-3 text-white">버전 정보</span>
-            <span className="text-body-1 text-gray-400">{appVersion}</span>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="w-full h-[56px] flex items-center text-left text-title-3 text-white"
-          >
-            로그아웃
-          </button>
-          <button
-            onClick={handleWithdrawal}
-            className="w-full h-[56px] flex items-center text-left text-title-3 text-red-400"
-          >
-            회원탈퇴
-          </button>
-        </main>
-      </div>
+      {modalType === 'logoutConfirm' && (
+        <ConfirmModal
+          title="로그아웃하시겠어요?"
+          confirmText="취소"
+          cancelText="로그아웃하기"
+          reverseButton
+        />
+      )}
+
+      {modalType === 'withdrawalConfirm' && (
+        <ConfirmModal
+          title="탈퇴하시겠어요?"
+          subWarningText="탈퇴하면 7일 후 다시 가입할 수 있어요."
+          cancelText="탈퇴하기"
+          confirmText="취소"
+          reverseButton
+          onConfirm={() => {
+            console.log('회원탈퇴 처리');
+            closeModal();
+          }}
+        />
+      )}
     </div>
   );
 }

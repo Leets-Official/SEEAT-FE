@@ -15,6 +15,11 @@ interface MenuItem {
   path: string;
 }
 
+const currentUserStatus = {
+  reviewCount: 5,
+  likeCount: 12,
+};
+
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -36,17 +41,17 @@ const MyPage: React.FC = () => {
     navigate('/my/profile-edit');
   };
 
-  // 참고: '설정' 페이지로 이동하는 기능은 이제 Header가 아닌
-  // 다른 UI 요소(예: 프로필 수정 버튼 옆)에 연결하거나,
-  // Header 컴포넌트 자체를 더 유연하게 만들어야 합니다.
-  // const handleSettingsClick = () => {
-  //   navigate('/my/settings');
-  // };
-
   return (
     <div className="relative mx-auto w-full max-w-md">
       <div className="min-h-screen">
-        <Header leftSection="LOGO" rightSection="SETTING" />
+        {/* Header - 병합 결과 */}
+        <Header
+          title="마이페이지"
+          showBack={false}
+          showLike={false}
+          showBookmark={false}
+          rightSection="SETTING"
+        />
 
         <main className="mt-2 flex flex-col gap-4 px-4 pt-[68px] pb-[83px]">
           {/* 프로필 카드 */}
@@ -92,8 +97,13 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 레벨 카드 (컴포넌트로 분리) */}
-          <LevelCard userLevel={user.level} userProgress={user.progress} />
+          {/* 레벨 카드 */}
+          <LevelCard
+            userLevel={user.level}
+            userProgress={user.progress}
+            currentReviewCount={currentUserStatus.reviewCount}
+            currentLikeCount={currentUserStatus.likeCount}
+          />
 
           {/* 메뉴 리스트 */}
           <section>
@@ -114,6 +124,7 @@ const MyPage: React.FC = () => {
         </main>
       </div>
 
+      {/* 하단 내비게이션 */}
       <div className="fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2">
         <BottomNavigation />
       </div>

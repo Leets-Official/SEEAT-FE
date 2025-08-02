@@ -39,7 +39,7 @@ api.interceptors.response.use(
       return Promise.reject(apiError);
     }
 
-    return res.data;
+    return response;
   },
   (error) => {
     const status = error.response?.status;

@@ -1,24 +1,73 @@
 import { ReviewStepLayout, TagSection } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useReviewStore } from '@/store';
-import { useEffect } from 'react';
-import { tagSections } from '@/constants';
+import { useEffect, useState } from 'react';
+import type { Hashtag } from '@/types/hashtag';
+import { getHashtags } from '@/api/hashtag/hashtag';
+import {
+  TAG_TYPE_TITLE_MAP,
+  REQUIRED_TAG_KEYS,
+  type TagKey,
+  type TagSectionConfig,
+} from '@/constants';
 
 export default function ReviewTagsPage() {
-  const { isInitialized, tags, toggleTag } = useReviewStore();
   const navigate = useNavigate();
+  const { isInitialized, tags, toggleTag } = useReviewStore();
+  const [tagSections, setTagSections] = useState<TagSectionConfig[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  //초기 진입 조건 확인
   useEffect(() => {
     if (!isInitialized) {
       navigate('/review');
     }
   }, [isInitialized, navigate]);
 
-  const canProceed = tags.sound.length > 0 && tags.environment.length > 0;
+  //해시태그 API
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const data: Hashtag[] = await getHashtags();
+
+        const grouped = data.reduce<Record<TagKey, string[]>>(
+          (acc, tag) => {
+            const key = tag.hashTagType as TagKey;
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(`#${tag.hashTagName}`);
+            return acc;
+          },
+          {} as Record<TagKey, string[]>,
+        );
+
+        const parsed: TagSectionConfig[] = Object.entries(grouped).map(([key, options]) => {
+          const typedKey = key as TagKey;
+          return {
+            key: typedKey,
+            title: TAG_TYPE_TITLE_MAP[typedKey],
+            required: REQUIRED_TAG_KEYS.includes(typedKey),
+            options,
+          };
+        });
+        setTagSections(parsed);
+      } catch (error) {
+        console.error('해시태그 불러오기 실패:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchTags();
+  }, []);
+
+  const canProceed = REQUIRED_TAG_KEYS.every((key) => tags[key].length > 0);
 
   const handleNext = () => {
     navigate('/review/form');
   };
+
+  if (isLoading) {
+    return <div>태그 불러오는 중</div>;
+  }
 
   return (
     <ReviewStepLayout

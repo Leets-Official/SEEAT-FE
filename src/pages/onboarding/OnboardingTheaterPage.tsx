@@ -5,6 +5,7 @@ import { Button, ToggleTab, Header, ProgressBar } from '@/components';
 import type { CinemaType, CinemaFormat } from '@/types/onboarding';
 import type { Theater } from '@/types/theater';
 import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
+import TheaterList from '@/components/common/Theater/TheaterList';
 
 const OnboardingTheaterPage = () => {
   const navigate = useNavigate();
@@ -60,24 +61,7 @@ const OnboardingTheaterPage = () => {
 
         <div className="h-3" />
 
-        <div className="mb-20 flex flex-col gap-3">
-          {Array.isArray(theaters) &&
-            theaters.map((theater: Theater) => {
-              const isSelected = selectedCinemas.includes(theater.theaterName);
-              console.log('theaters: ', Array.isArray(theaters));
-              return (
-                <Button
-                  key={theater.theaterName}
-                  onClick={() => toggleTheater(theater.theaterName)}
-                  variant="secondary-assistive"
-                  selected={isSelected}
-                  className="w-full rounded-md px-4 py-3 text-left"
-                >
-                  {theater.theaterName}
-                </Button>
-              );
-            })}
-        </div>
+        <TheaterList data={theaters ?? []} selected={selectedCinemas} onSelect={toggleTheater} />
       </div>
 
       {/* 하단 버튼 */}

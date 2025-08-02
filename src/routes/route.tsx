@@ -28,8 +28,12 @@ import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
 import SeatReviewPage from '@/pages/seat';
-
+import TagReviewNumber from '@/components/common/TagReviewNumber/TagReviewNumber';
 const router = createBrowserRouter([
+     {
+    path: '/Tag',
+    element: <TagReviewNumber iconType="sound" title="사운드" count={42} />,
+  },
   {
     path: '/',
     element: <SplashPage />,

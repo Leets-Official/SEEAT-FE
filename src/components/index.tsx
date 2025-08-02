@@ -18,7 +18,6 @@ import TagSection from '@/components/review/TagSection';
 import Modal from '@/components/common/Modal/Modal';
 import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
-
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import StarRating from './review/StarRating';

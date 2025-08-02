@@ -34,8 +34,14 @@ import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
+import SoundIcon from '@/assets/icons/sound.svg?react';
+import EnvironmentIcon from '@/assets/icons/environment.svg?react';
+import CompanionIcon from '@/assets/icons/companion.svg?react';
 
 export {
+  SoundIcon,
+  EnvironmentIcon,
+  CompanionIcon,
   MoreVerticalIcon,
   CheckSquareOffIcon,
   CheckSquareOnIcon,

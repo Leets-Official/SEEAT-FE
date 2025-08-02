@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn';
-import { HeartOn, StarSmall, BarIcon } from '@/assets';
+import { StarSmall, BarIcon, HeartOutlineIcon } from '@/assets';
 import { Badge, ThumbnailFallback } from '@/components';
 import type { ReviewCardProps } from './ReviewCard.types';
 
@@ -19,7 +19,7 @@ export default function ReviewCard(props: ReviewCardProps) {
         <ThumbnailFallback src={imageUrl} size={82} />
         <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] pr-[6px] pl-1 text-white">
           <span>
-            <HeartOn className="h-4 w-4" />
+            <HeartOutlineIcon className="h-4 w-4" />
           </span>
           <span>{likeCount}</span>
         </div>

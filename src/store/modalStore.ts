@@ -1,29 +1,23 @@
 import { create } from 'zustand';
-import type { ConfirmModalProps, SeatPickerModalProps } from '@/components/common/Modal/Modal.types';
 
-type ModalPropsMap = {
-  confirm: ConfirmModalProps;
-  seatPicker: SeatPickerModalProps;
-};
+export type ModalType =
+  | 'confirm'
+  | 'seatPicker'
+  | 'action'
+  | 'seatFocus'
+  | 'seatWrite'
+  | 'logoutConfirm' // 로그아웃 모달
+  | 'withdrawalConfirm' // 회원탈퇴 모달
+  | null;
 
-type ModalType = keyof ModalPropsMap;
-
-interface ModalState {
-  isOpen: boolean;
-  modalType: ModalType | null;
-  modalProps: ModalPropsMap[ModalType] | null;
-  openModal: <T extends ModalType>(type: T, props: ModalPropsMap[T]) => void;
+interface ModalStore {
+  modalType: ModalType;
+  openModal: (type: Exclude<ModalType, null>) => void;
   closeModal: () => void;
 }
 
-export const useModalStore = create<ModalState>((set) => ({
-  isOpen: false,
+export const useModalStore = create<ModalStore>((set) => ({
   modalType: null,
-  modalProps: null,
-  openModal: (type, props) => {
-    set({ isOpen: true, modalType: type, modalProps: props });
-  },
-  closeModal: () => {
-    set({ isOpen: false, modalType: null, modalProps: null });
-  },
+  openModal: (type) => set({ modalType: type }),
+  closeModal: () => set({ modalType: null }),
 }));

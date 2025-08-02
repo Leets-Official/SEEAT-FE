@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import { SearchInput, ReviewCard, HeaderBasic } from '@/components';
+import { SearchInput, ReviewCard } from '@/components';
 import { FilterIcon } from '@/assets';
 import { mockMyReviews } from '@/__mocks/mockReviews';
 
@@ -13,13 +13,7 @@ export default function ReviewSearchResultPage() {
   return (
     <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        <HeaderBasic>
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder="검색어를 입력해주세요"
-          />
-        </HeaderBasic>
+        <SearchInput value={search} onChange={setSearch} placeholder="검색어를 입력해주세요" />
 
         <div className="my-3 flex justify-start">
           <button
@@ -28,7 +22,7 @@ export default function ReviewSearchResultPage() {
           >
             <FilterIcon className="h-5 w-5 text-gray-400" />
             {isFiltered && (
-              <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />
+              <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500" />
             )}
           </button>
         </div>

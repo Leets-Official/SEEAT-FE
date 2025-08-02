@@ -28,7 +28,6 @@ const RatingStep = () => {
     <ReviewStepLayout
       title="관람했던 상영관은 어땠나요?"
       onClickNext={handleNext}
-      onClickBack={() => navigate('/review/info')}
       disabled={rating === 0}
     >
       {/* 점수 출력 */}

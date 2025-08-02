@@ -27,7 +27,6 @@ export default function CinemaSelect() {
   return (
     <ReviewStepLayout
       onClickNext={handleNext}
-      onClickBack={() => navigate('/review/info')}
       disabled={!selectedCinema || (cinemas[selectedCinema]?.length > 1 && !selectedHall)}
       nextLabel="선택 완료"
     >

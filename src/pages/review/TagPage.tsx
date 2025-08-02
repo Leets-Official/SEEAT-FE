@@ -16,6 +16,11 @@ export default function ReviewTagsPage() {
   const { isInitialized, tags, toggleTag } = useReviewStore();
   const [tagSections, setTagSections] = useState<TagSectionConfig[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const canProceed = REQUIRED_TAG_KEYS.every((key) => tags[key].length > 0);
+
+  const handleNext = () => {
+    navigate('/review/form');
+  };
 
   //초기 진입 조건 확인
   useEffect(() => {
@@ -59,16 +64,6 @@ export default function ReviewTagsPage() {
     fetchTags();
   }, []);
 
-  const canProceed = REQUIRED_TAG_KEYS.every((key) => tags[key].length > 0);
-
-  const handleNext = () => {
-    navigate('/review/form');
-  };
-
-  if (isLoading) {
-    return <div>태그 불러오는 중</div>;
-  }
-
   return (
     <ReviewStepLayout
       title="관람하신 상영관은 어땠나요?"
@@ -78,16 +73,20 @@ export default function ReviewTagsPage() {
       disabled={!canProceed}
     >
       <div className="flex flex-col overflow-y-auto pb-[88px]">
-        {tagSections.map(({ key, title, required, options }) => (
-          <TagSection
-            key={key}
-            title={title}
-            options={options}
-            required={required}
-            selected={tags[key]}
-            onChange={(value) => toggleTag(key, value)}
-          />
-        ))}
+        {isLoading ? (
+          <div className="text-caption-2">태그 불러오는 중</div>
+        ) : (
+          tagSections.map(({ key, title, required, options }) => (
+            <TagSection
+              key={key}
+              title={title}
+              options={options}
+              required={required}
+              selected={tags[key]}
+              onChange={(value) => toggleTag(key, value)}
+            />
+          ))
+        )}
       </div>
     </ReviewStepLayout>
   );

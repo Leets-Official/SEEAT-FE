@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import { ReviewStepLayout, Textarea, ImagePreviewItem, ConfirmModal } from '@/components';
+import {
+  ReviewStepLayout,
+  Textarea,
+  ImagePreviewItem,
+  ConfirmModal,
+  InputField,
+} from '@/components';
 import { PlusIcon } from '@/assets';
 import { useReviewStore, useModalStore } from '@/store';
 import { useNavigate } from 'react-router-dom';
@@ -9,18 +15,16 @@ const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
-  const { text, setText } = useReviewStore();
+  const { text, setText, reviewTitle, setReviewTitle, isInitialized } = useReviewStore();
   const { images, addImages, removeImage } = useImgUpload(5);
+  const navigate = useNavigate();
 
-  const isValid = text.trim().length >= MIN_TEXT_LENGTH;
+  const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal, modalType, closeModal } = useModalStore();
   const handleSubmit = () => {
     if (!text.trim()) return;
     openModal('confirm');
   };
-  const { isInitialized } = useReviewStore();
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!isInitialized) {
       navigate('/review');
@@ -66,6 +70,17 @@ export default function ReviewTextForm() {
 
         {/* 텍스트 입력 */}
         <div className="flex flex-col gap-1 pt-6">
+          <InputField
+            label="제목"
+            placeholder="후기의 제목을 적어주세요"
+            value={reviewTitle}
+            onChange={(value) => {
+              if (value.length <= 20) setReviewTitle(value);
+            }}
+          />
+          <div className="text-caption-2 pt-8 text-white">
+            후기 내용 <span className="text-red-400">*</span>
+          </div>
           <Textarea
             title="후기 내용"
             required

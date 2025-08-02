@@ -1,9 +1,10 @@
 import { create } from 'zustand';
-import type { GenreType, CinemaType, CinemaFormat } from '@/types/onboarding';
+import { genreMap, type GenreEnType, type GenreType } from '@/types/movieGenre';
+import type { CinemaType, CinemaFormat } from '@/types/onboarding';
 
 interface OnboardingState {
   nickname: string;
-  selectedGenres: GenreType[];
+  selectedGenres: GenreEnType[];
   selectedCinemas: CinemaType[];
   cinemaFormat: CinemaFormat;
   setNickname: (name: string) => void;
@@ -12,11 +13,11 @@ interface OnboardingState {
   setCinemaFormat: (format: CinemaFormat) => void;
   genre: GenreType[];
   setGenre: (genres: GenreType[]) => void;
-  setSelectedCinemas: (cinemas: CinemaType[]) => void; 
+  setSelectedGenres: (genres: GenreEnType[]) => void;
+  setSelectedCinemas: (cinemas: CinemaType[]) => void;
 }
 
 export const useOnboardingStore = create<OnboardingState>((set, get) => ({
-
   genre: [],
   setGenre: (genres) => set({ genre: genres }),
 
@@ -29,12 +30,15 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
 
   toggleGenre: (genre) => {
     const genres = get().selectedGenres;
-    const updated = genres.includes(genre)
-      ? genres.filter((g) => g !== genre)
+    const genreEn = genreMap[genre]; // 한글 → 영어로 변환
+
+    const updated = genres.includes(genreEn)
+      ? genres.filter((g) => g !== genreEn)
       : genres.length < 3
-        ? [...genres, genre]
+        ? [...genres, genreEn]
         : genres;
     set({ selectedGenres: updated });
+    console.log('장르: ', updated);
   },
 
   toggleCinema: (cinema) => {
@@ -46,6 +50,8 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
         : cinemas;
     set({ selectedCinemas: updated });
   },
+
+  setSelectedGenres: (genres) => set({ selectedGenres: genres }),
 
   setCinemaFormat: (format) => set({ cinemaFormat: format }),
 

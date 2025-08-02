@@ -3,12 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
 import Input from '@/components/common/Input/Input';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import { useOnboardingStore } from '@/store/useOnboardingStore';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
+  const setNickname = useOnboardingStore((state) => state.setNickname);
+
   const handleNext = () => {
+    setNickname(input);
+    console.log('닉네임: ', input);
     navigate('/onboarding/genre');
   };
 

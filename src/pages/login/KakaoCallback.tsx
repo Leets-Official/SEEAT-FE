@@ -10,7 +10,6 @@ const KakaoCallback = () => {
     const tempKey = params.get('tempKey');
 
     if (tempKey) {
-      // 전역 상태나 localStorage에 저장
       localStorage.setItem('tempKey', tempKey);
       navigate('/onboarding/nickname');
     } else {

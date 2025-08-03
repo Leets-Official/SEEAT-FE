@@ -1,7 +1,7 @@
 import { Header, ReviewCard } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchPopularReviews } from '@/api/popular';
+import { fetchPopularReviews } from '@/api/home/popularReview';
 import type { PopularReview } from '@/types/review';
 
 const PopularReviewPage = () => {
@@ -12,7 +12,7 @@ const PopularReviewPage = () => {
     const loadPopular = async () => {
       try {
         const data = await fetchPopularReviews(1, 10);
-        setPopularReviews(data.content);
+        setPopularReviews(data);
       } catch (error) {
         console.error('불러오기 실패', error);
       }

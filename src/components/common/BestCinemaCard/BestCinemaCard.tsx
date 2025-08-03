@@ -47,7 +47,9 @@ export default function BestCinemaCard({
         <div className="text-caption-1 truncate">{title}</div>
         <div className="flex items-center">
           <StarSmall className="h-4 w-4" />
-          <span className="text-caption-3 ml-1 text-white">{rating.toFixed(1)}</span>
+          <span className="text-caption-3 ml-1 text-white">
+            {typeof rating === 'number' ? rating.toFixed(1) : '평점 없음'}
+          </span>
           <span className="text-caption-3 ml-3 text-gray-500">후기</span>
           <span className="text-caption-1 ml-1 text-red-300">{reviewCount}</span>
         </div>

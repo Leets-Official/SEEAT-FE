@@ -1,30 +1,46 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
-import { bestCinemas, getRandomImage } from '@/__mocks';
+import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 import { useEffect, useState } from 'react';
-import { fetchPopularReviews } from '@/api/popular';
+import { fetchPopularReviews } from '@/api/home/popularReview';
 import type { PopularReview } from '@/types/review';
+import type { BestCinema } from '@/types/bestCinema';
+import { getBestCinemas } from '@/api/home/bestCinemas';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
   const [popularReviews, setPopularReviews] = useState<PopularReview[]>([]);
+  const [bestCinemaList, setBestCinemaList] = useState<BestCinema[]>([]);
 
   const handleGoToPopular = () => {
     navigate('/review/popular');
   };
+
   useEffect(() => {
     const loadPopular = async () => {
       try {
         const data = await fetchPopularReviews(1, 4);
-        setPopularReviews(data.content);
+        setPopularReviews(data);
       } catch (error) {
         console.error('불러오기 실패', error);
       }
     };
     loadPopular();
+  }, []);
+
+  useEffect(() => {
+    const loadBestCinemas = async () => {
+      try {
+        const data = await getBestCinemas();
+        setBestCinemaList(data);
+      } catch (error) {
+        console.error('불러오기 실패', error);
+      }
+    };
+    loadBestCinemas();
   }, []);
 
   return (
@@ -79,17 +95,18 @@ const HomePage = () => {
             </div>
 
             <div className="grid w-full grid-cols-2 gap-x-2 gap-y-3">
-              {bestCinemas.map((cinema) => (
-                <BestCinemaCard
-                  key={cinema.rank}
-                  rank={cinema.rank}
-                  imageUrl={cinema.imageUrl}
-                  title={cinema.auditoriumName}
-                  rating={cinema.avgRating}
-                  reviewCount={cinema.reviewCount}
-                  onClick={() => navigate(`/theaters/${cinema.auditoriumId}`)}
-                />
-              ))}
+              {Array.isArray(bestCinemaList) &&
+                bestCinemaList.map((cinema, idx) => (
+                  <BestCinemaCard
+                    key={cinema.auditoriumId}
+                    rank={idx + 1}
+                    imageUrl={getRandomImage()} //추후 이미지 추가되면 교체
+                    title={cinema.auditoriumName}
+                    rating={cinema.avgRating}
+                    reviewCount={cinema.reviewCount}
+                    onClick={() => navigate(`/theaters/${cinema.auditoriumId}`)}
+                  />
+                ))}
             </div>
           </div>
         </div>

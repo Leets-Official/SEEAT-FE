@@ -1,16 +1,27 @@
 import SeatRow from './SeatRow';
-import { mockSeats } from '@/__mocks/mockSeat';
+import { getMockSeats } from '@/__mocks/mockSeat';
 import type { Seat } from '@/types/seat';
+import { useRef } from 'react';
 
 interface SeatMapProps {
   auditoriumId?: string;
   onSeatClick?: (seatId: string) => void;
-  isMock?: boolean;
+  focusedSeatIds?: string[]; // seatFocus용
+  selectedSeatNames?: string[]; // seatWrite 용
+  isMock?: boolean; // 목데이터용
+  type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
-const SeatMap = ({ onSeatClick }: SeatMapProps) => {
+const SeatMap = ({
+  onSeatClick,
+  focusedSeatIds = [],
+  selectedSeatNames = [],
+  type = 'seatPicker',
+}: SeatMapProps) => {
   const seatRows: Record<string, Seat[]> = {};
+  const focusedRef = useRef<HTMLDivElement>(null!);
 
+  const mockSeats = getMockSeats(type, focusedSeatIds);
   // row별로 묶기
   mockSeats.forEach((seat) => {
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
@@ -28,14 +39,24 @@ const SeatMap = ({ onSeatClick }: SeatMapProps) => {
           const min = seats[0].column;
           const max = seats[seats.length - 1].column;
 
-          // 공백 포함해서 채우기
           const filledRow: (Seat | null)[] = Array(max - min + 1).fill(null);
+
           seats.forEach((seat) => {
             const index = seat.column - min;
             filledRow[index] = seat;
           });
 
-          return <SeatRow key={row} rowSeats={filledRow} onSeatClick={onSeatClick} />;
+          return (
+            <SeatRow
+              key={row}
+              rowSeats={filledRow}
+              onSeatClick={onSeatClick}
+              focusedSeatIds={focusedSeatIds}
+              selectedSeatNames={selectedSeatNames}
+              focusedRef={focusedRef}
+              type={type}
+            />
+          );
         })}
     </div>
   );

@@ -1,15 +1,20 @@
 import { Fragment, useState } from 'react';
 import { cn } from '@/utils/cn';
 import { useFilter } from '@/contexts/FilterContext';
-// [수정됨] HeaderBasic을 Header로 변경
 import { Header, AccordionSection, FilterCheckbox } from '@/components';
 
 const sortOptions = ['가장 인기있는 순', '평점순', '최신순'];
 const cinemaOptions = {
   IMAX: ['용산아이파크몰', '왕심리', '천호'],
   'Dolby Cinema': [
-    '코에스점', '남양주현대아울렌스페이스원', '하른스타필드점', '안성스타필드점',
-    '수원AK플라자점', '송도점', '대전신세계 아트애드사인스점', '대구신세계점',
+    '코에스점',
+    '남양주현대아울렌스페이스원',
+    '하른스타필드점',
+    '안성스타필드점',
+    '수원AK플라자점',
+    '송도점',
+    '대전신세계 아트애드사인스점',
+    '대구신세계점',
   ],
 };
 const soundOptions = ['Dolby Atmos', 'DTS:X'];
@@ -25,18 +30,18 @@ export default function ReviewFilter() {
   const { setIsFiltered } = useFilter();
 
   const toggleSection = (sectionName: string) => {
-    setOpenSections(prev =>
+    setOpenSections((prev) =>
       prev.includes(sectionName)
-        ? prev.filter(name => name !== sectionName)
-        : [...prev, sectionName]
+        ? prev.filter((name) => name !== sectionName)
+        : [...prev, sectionName],
     );
   };
 
   const handleCheckboxChange = (
     setter: React.Dispatch<React.SetStateAction<Record<string, boolean>>>,
-    option: string
+    option: string,
   ) => {
-    setter(prev => {
+    setter((prev) => {
       const updated = { ...prev, [option]: !prev[option] };
       setIsFiltered(true);
       return updated;
@@ -46,20 +51,19 @@ export default function ReviewFilter() {
   return (
     <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        {/* [수정됨] HeaderBasic을 Header로 변경하고 title 프롭스 사용 */}
-        <Header title="필터" />
+        <Header leftSection="BACK">필터</Header>
 
         {/* 정렬 */}
         <section className="py-4">
-          <h2 className="mb-3 text-title-3">정렬</h2>
+          <h2 className="text-title-3 mb-3">정렬</h2>
           <div className="flex w-full items-center">
             {sortOptions.map((option, index) => (
               <Fragment key={option}>
                 <button
                   onClick={() => setActiveSort(option)}
                   className={cn(
-                    'flex-1 text-center text-title-4',
-                    activeSort === option ? 'font-bold text-red-400' : 'text-gray-300'
+                    'text-title-4 flex-1 text-center',
+                    activeSort === option ? 'font-bold text-red-400' : 'text-gray-300',
                   )}
                 >
                   {option}
@@ -72,7 +76,7 @@ export default function ReviewFilter() {
 
         {/* 영화관 */}
         <div className="py-4">
-          <h2 className="mb-2 text-title-3">영화관</h2>
+          <h2 className="text-title-3 mb-2">영화관</h2>
           <div className="flex flex-col pl-4">
             {Object.entries(cinemaOptions).map(([cinema, branches]) => (
               <AccordionSection
@@ -82,7 +86,7 @@ export default function ReviewFilter() {
                 onToggle={() => toggleSection(cinema)}
               >
                 <div className="flex flex-col gap-y-3 pl-2">
-                  {branches.map(branch => (
+                  {branches.map((branch) => (
                     <FilterCheckbox
                       key={branch}
                       option={branch}
@@ -103,8 +107,8 @@ export default function ReviewFilter() {
             isOpen={openSections.includes('음향')}
             onToggle={() => toggleSection('음향')}
           >
-            <div className="flex flex-col gap-y-3 pl-4 pt-4">
-              {soundOptions.map(option => (
+            <div className="flex flex-col gap-y-3 pt-4 pl-4">
+              {soundOptions.map((option) => (
                 <FilterCheckbox
                   key={option}
                   option={option}
@@ -123,8 +127,8 @@ export default function ReviewFilter() {
             isOpen={openSections.includes('관람 환경')}
             onToggle={() => toggleSection('관람 환경')}
           >
-            <div className="flex flex-col gap-y-3 pl-4 pt-4">
-              {environmentOptions.map(option => (
+            <div className="flex flex-col gap-y-3 pt-4 pl-4">
+              {environmentOptions.map((option) => (
                 <FilterCheckbox
                   key={option}
                   option={option}

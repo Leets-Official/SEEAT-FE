@@ -9,7 +9,6 @@ interface InputProps {
   placeholder?: string;
   helperText?: string;
   helperSubText?: string;
-  showBackground?: boolean;
   placeholderColorType?: 'gray' | 'white';
   onClickPlus?: () => void;
   readOnly?: boolean;
@@ -23,7 +22,6 @@ export default function InputField({
   placeholder = '메시지를 입력하세요',
   helperText,
   helperSubText,
-  showBackground = false,
   placeholderColorType = 'gray',
   onClickPlus,
   readOnly = false,
@@ -38,16 +36,16 @@ export default function InputField({
   return (
     <div className={cn('flex flex-col gap-1', className)}>
       <label className="text-caption-2 h-[20px] text-gray-300">
-        {label} <span className="text-red-500">*</span>
+        {label} <span className="text-red-400">*</span>
       </label>
 
       <div
         className={cn(
           // 공통 스타일 클래스를 통합합니다.
-          'flex h-[48px] w-[335px] items-center rounded-lg border px-3',
+          'flex h-[48px] w-full items-center rounded-lg border px-3',
           // isFocused 상태에 따라 스타일을 동적으로 변경합니다.
           isFocused ? 'border-gray-400 bg-gray-800' : 'border-gray-800 bg-black',
-          showBackground && 'bg-gray-800/30',
+          'bg-transparent',
         )}
       >
         <input
@@ -60,7 +58,7 @@ export default function InputField({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className={cn(
-            'text-body-2 flex-1 bg-transparent text-white placeholder:transition-all',
+            'text-body-2 flex-1 placeholder:transition-all',
             placeholderColorClass,
             'focus:ring-0 focus:outline-none',
           )}

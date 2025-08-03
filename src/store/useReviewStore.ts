@@ -22,13 +22,9 @@ interface ReviewState {
   isInitialized: boolean;
   setInitialized: () => void;
   reset: () => void;
-  tags: {
-    sound: string[];
-    environment: string[];
-    companion: string[];
-  };
-  setTags: (type: 'sound' | 'environment' | 'companion', tags: string[]) => void;
-  toggleTag: (type: 'sound' | 'environment' | 'companion', tag: string) => void;
+  tags: Record<string, string[]>;
+  setTags: (type: '음향' | '관람환경' | '동반인', tags: string[]) => void;
+  toggleTag: (type: '음향' | '관람환경' | '동반인', tag: string) => void;
 }
 
 export const useReviewStore = create<ReviewState>((set) => ({
@@ -67,9 +63,9 @@ export const useReviewStore = create<ReviewState>((set) => ({
       isInitialized: false,
     }),
   tags: {
-    sound: [],
-    environment: [],
-    companion: [],
+    음향: [],
+    관람환경: [],
+    동반인: [],
   },
   setTags: (type, tags) =>
     set((state) => ({
@@ -80,11 +76,10 @@ export const useReviewStore = create<ReviewState>((set) => ({
     })),
   toggleTag: (type, tag) =>
     set((state) => {
-      const current = state.tags[type];
+      const current = state.tags[type] ?? [];
       const isSelected = current.includes(tag);
 
-      const totalSelected =
-        state.tags.sound.length + state.tags.sound.length + state.tags.companion.length;
+      const totalSelected = Object.values(state.tags).flat().length;
 
       if (isSelected) {
         return {

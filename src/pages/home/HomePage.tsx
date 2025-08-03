@@ -63,7 +63,7 @@ const HomePage = () => {
                   key={review.reviewId}
                   imageUrl={review.thumbnailUrl}
                   tags={review.hashtags}
-                  title={review.theaterName}
+                  title={review.title}
                   description={review.content}
                   likeCount={review.heartCount}
                   onClick={() => navigate(`/review/${review.reviewId}`)}

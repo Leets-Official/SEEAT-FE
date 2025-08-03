@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { Button, ToggleTab, Header, ProgressBar } from '@/components';
-import type { CinemaType, CinemaFormat } from '@/types/onboarding';
-import type { Theater } from '@/types/theater';
+import type { CinemaFormat } from '@/types/onboarding';
 import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
 import TheaterList from '@/components/common/Theater/TheaterList';
 
@@ -22,13 +21,13 @@ const OnboardingTheaterPage = () => {
     setCinemaFormat(format);
   };
 
-  const toggleTheater = (theater: CinemaType) => {
-    const isSelected = selectedCinemas.includes(theater);
+  const toggleTheater = (auditoriumId: string) => {
+    const isSelected = selectedCinemas.includes(auditoriumId);
     if (isSelected) {
-      setSelectedCinemas(selectedCinemas.filter((t) => t !== theater));
+      setSelectedCinemas(selectedCinemas.filter((id) => id !== auditoriumId));
     } else {
       if (selectedCinemas.length >= 2) return;
-      setSelectedCinemas([...selectedCinemas, theater]);
+      setSelectedCinemas([...selectedCinemas, auditoriumId]);
     }
   };
 
@@ -46,7 +45,7 @@ const OnboardingTheaterPage = () => {
 
       {/* 콘텐츠 영역 */}
       <div className="mt-6 px-6">
-        <h1 className="text-title-2 mb-1 text-white">자주 가는 영화관을 선택해주세요</h1>
+        <h1 className="text-title-2 mb-1">자주 가는 영화관을 선택해주세요</h1>
         <p className="text-caption-2 mb-6 text-red-300">최대 2개까지 선택할 수 있어요.</p>
 
         <ToggleTab

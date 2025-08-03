@@ -5,7 +5,7 @@ import type { Theater } from '@/types/theater';
 interface Props {
   data: Theater[];
   selected: string[];
-  onSelect: (theaterName: string) => void;
+  onSelect: (auditoriumId: string) => void;
 }
 
 const TheaterList = ({ data, selected, onSelect }: Props) => {
@@ -18,10 +18,13 @@ const TheaterList = ({ data, selected, onSelect }: Props) => {
     return acc;
   }, {});
 
+  const isAuditoriumSelected = (id: string) => selected.includes(id);
+
   return (
     <div className="flex flex-col gap-3">
       {Object.entries(grouped).map(([theaterName, auditoriums]) => {
         const isSelected = selected.includes(theaterName);
+
         const isExpanded = expandedTheater === theaterName;
 
         return (
@@ -39,16 +42,21 @@ const TheaterList = ({ data, selected, onSelect }: Props) => {
             {/* 하위 관 목록 */}
             {isExpanded && (
               <div className="mt-2 flex flex-wrap gap-2 px-1">
-                {auditoriums.map((auditorium) => (
-                  <Button
-                    key={auditorium.auditoriumId}
-                    onClick={() => onSelect(auditorium.theaterName)}
-                    variant="secondary-assistive"
-                    size="md"
-                  >
-                    {auditorium.auditoriumName}
-                  </Button>
-                ))}
+                {auditoriums.map((auditorium) => {
+                  const isSelected = isAuditoriumSelected(auditorium.auditoriumId);
+
+                  return (
+                    <Button
+                      key={auditorium.auditoriumId}
+                      onClick={() => onSelect(auditorium.auditoriumId)}
+                      selected={isSelected}
+                      variant="secondary-assistive"
+                      size="md"
+                    >
+                      {auditorium.auditoriumName}
+                    </Button>
+                  );
+                })}
               </div>
             )}
           </div>

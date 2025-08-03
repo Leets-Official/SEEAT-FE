@@ -5,7 +5,8 @@ import type { CinemaType, CinemaFormat } from '@/types/onboarding';
 interface OnboardingState {
   nickname: string;
   selectedGenres: GenreEnType[];
-  selectedCinemas: CinemaType[];
+  // selectedCinemas: CinemaType[];
+  selectedCinemas: string[];
   cinemaFormat: CinemaFormat;
   setNickname: (name: string) => void;
   toggleGenre: (genre: GenreType) => void;

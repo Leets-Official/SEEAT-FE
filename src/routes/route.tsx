@@ -29,6 +29,7 @@ import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
 import SeatReviewPage from '@/pages/home/SeatReviewPage';
 import PopularReviewPage from '@/pages/home/PopularReview';
+import LevelPage from '@/pages/my/Level';
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
   {
     path: '/my/cinema-choice',
     element: <CinemaChoice />,
+  },
+  {
+    path: '/my/level',
+    element: <LevelPage />,
   },
   {
     path: '/seat',

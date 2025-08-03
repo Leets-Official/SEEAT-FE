@@ -1,16 +1,13 @@
-import { KakaoIcon, NaverIcon } from '@/assets';
-import LogoIcon from '@/assets/icons/seeat_logo.svg?react';
+import { KakaoIcon, NaverIcon, SEEATLogo } from '@/assets';
 
 const LoginPage = () => {
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   const handleKakaoLogin = () => {
-    console.log('카카오 로그인');
     window.location.href = `${BASE_URL}/oauth2/authorization/kakao`;
   };
 
   const handleNaverLogin = () => {
-    console.log('네이버 로그인');
     window.location.href = `${BASE_URL}/oauth2/authorization/naver`;
   };
 
@@ -21,7 +18,7 @@ const LoginPage = () => {
         <h1 className="text-center text-white">그래픽,,들어갈 자리,,</h1>
 
         {/* SEEAT 로고 */}
-        <LogoIcon className="mt-[30px] mb-10 h-auto w-[106px]" />
+        <SEEATLogo className="mt-[30px] mb-10 h-auto w-[106px]" />
       </div>
 
       {/* 소셜 로그인 버튼 */}

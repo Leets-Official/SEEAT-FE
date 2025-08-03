@@ -2,6 +2,7 @@ import api from '@/api/api';
 import type { ApiResponse } from '@/types/api-response';
 import type { GenreEnType } from '@/types/movieGenre';
 
+// 회원가입
 export interface RegisterPayload {
   nickname: string;
   genres: GenreEnType[];
@@ -19,3 +20,5 @@ export const postRegister = async (
   });
   return response.data;
 };
+
+// 로그아웃

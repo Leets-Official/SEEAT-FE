@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { postRegister } from '@/api/user/register.api';
-import type { RegisterPayload } from '@/api/user/register.api';
+import { postRegister } from '@/api/user/users.api';
+import type { RegisterPayload } from '@/api/user/users.api';
 import type { ApiError, ApiResponse } from '@/types/api-response';
 
 export const useRegisterMutation = () => {

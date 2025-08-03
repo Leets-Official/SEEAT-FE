@@ -29,6 +29,7 @@ import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
 import SeatReviewPage from '@/pages/seat';
 import KakaoCallback from '@/pages/login/KakaoCallback';
+import SignupComplete from '@/pages/onboarding/SignupComplete';
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
   {
     path: '/onboarding/theater',
     element: <OnboardingTheaterPage />,
+  },
+  {
+    path: '/signup/complete',
+    element: <SignupComplete />,
   },
 
   //리뷰

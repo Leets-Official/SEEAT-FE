@@ -8,7 +8,7 @@ export interface RegisterPayload {
 }
 
 export const postRegister = async (data: RegisterPayload, tempUserKey: string) => {
-  const response = await api.post('/api/v1/users', data, {
+  const response = await api.post('/users', data, {
     headers: {
       'Temp-User-Key': tempUserKey,
     },

@@ -5,14 +5,17 @@ import { Button, ToggleTab, Header, ProgressBar } from '@/components';
 import type { CinemaFormat } from '@/types/onboarding';
 import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
 import TheaterList from '@/components/common/Theater/TheaterList';
+import { useRegisterMutation } from '@/hooks/mutations/useRegisterMutation';
 
 const OnboardingTheaterPage = () => {
   const navigate = useNavigate();
-  const { selectedCinemas, setSelectedCinemas, setCinemaFormat } = useOnboardingStore();
+  const { nickname, selectedGenres, selectedCinemas, setSelectedCinemas, setCinemaFormat } =
+    useOnboardingStore();
 
   const [selectedTab, setSelectedTab] = useState<CinemaFormat>('IMAX');
 
   const { data: theaters } = useTheatersQuery({ type: selectedTab, page: 1, size: 10 });
+  const { mutate } = useRegisterMutation();
 
   const handleToggleTab = (tab: string) => {
     const format = tab as CinemaFormat;
@@ -33,7 +36,32 @@ const OnboardingTheaterPage = () => {
 
   const handleNext = () => {
     if (selectedCinemas.length === 0) return;
-    navigate('/signup/complete');
+
+    const tempUserKey = localStorage.getItem('tempKey');
+    console.log('데이터: ', nickname, selectedGenres, selectedCinemas);
+    if (!tempUserKey) {
+      console.error('임시 유저 키가 없습니다.');
+      return;
+    }
+
+    mutate(
+      {
+        data: {
+          nickname,
+          genres: selectedGenres,
+          auditoriumId: selectedCinemas,
+        },
+        tempUserKey,
+      },
+      {
+        onSuccess: () => {
+          navigate('/signup/complete');
+        },
+        onError: (error: any) => {
+          console.error('회원가입 실패', error);
+        },
+      },
+    );
   };
 
   return (

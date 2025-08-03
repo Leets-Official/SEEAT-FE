@@ -16,14 +16,14 @@ const ReviewDetailPage = () => {
   //경로 직접 입력되는 경우 대비
   if (!review) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-900 text-white">
+      <div className="flex min-h-screen items-center justify-center">
         <p>리뷰를 찾을 수 없습니다.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pb-5">
+    <div className="flex min-h-screen flex-col pb-5">
       <Header leftSection="BACK" rightSection="DETAIL" />
       <div className="pt-[48px]">
         <div className="w-full">

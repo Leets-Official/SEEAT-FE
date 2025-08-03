@@ -45,13 +45,7 @@ const MyPage: React.FC = () => {
     <div className="relative mx-auto w-full max-w-md">
       <div className="min-h-screen">
         {/* Header - 병합 결과 */}
-        <Header
-          title="마이페이지"
-          showBack={false}
-          showLike={false}
-          showBookmark={false}
-          rightSection="SETTING"
-        />
+        <Header rightSection="SETTING">마이페이지</Header>
 
         <main className="mt-2 flex flex-col gap-4 px-4 pt-[68px] pb-[83px]">
           {/* 프로필 카드 */}

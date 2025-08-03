@@ -1,24 +1,10 @@
 import { cn } from '@/utils/cn';
-import { HeartOutlineIcon } from '@/assets';
-import { Badge, Image } from '@/components';
+import { StarSmall, BarIcon, HeartOutlineIcon } from '@/assets';
+import { Badge, ThumbnailFallback } from '@/components';
+import type { ReviewCardProps } from './ReviewCard.types';
 
-interface ReviewCardProps {
-  imageUrl: string;
-  tags: string[];
-  title: string;
-  description?: string;
-  likeCount: number;
-  onClick?: () => void;
-}
-
-export default function ReviewCard({
-  imageUrl,
-  tags,
-  title,
-  description,
-  likeCount,
-  onClick,
-}: ReviewCardProps) {
+export default function ReviewCard(props: ReviewCardProps) {
+  const { imageUrl, tags, title, likeCount, onClick } = props;
   return (
     <div
       onClick={onClick}
@@ -30,13 +16,7 @@ export default function ReviewCard({
     >
       {/*썸네일*/}
       <div className="relative h-[82px] w-[82px] shrink-0">
-        <Image
-          src={imageUrl}
-          alt={title}
-          aspectRatio="h-[82px] w-[82px]"
-          rounded="rounded-lg"
-          className="bg-gray-600"
-        />
+        <ThumbnailFallback src={imageUrl} size={82} />
         <div className="text-caption-3 absolute right-1 bottom-1 flex items-center gap-1 rounded-full border border-gray-500 bg-[rgba(66,66,66,0.3)] pr-[6px] pl-1 text-white">
           <span>
             <HeartOutlineIcon className="h-4 w-4" />
@@ -48,8 +28,8 @@ export default function ReviewCard({
       {/*텍스트*/}
       <div className="flex flex-col overflow-hidden">
         {/*태그*/}
-        <div className="flex gap-[10px] py-[4px]">
-          {tags.slice(0, 3).map((tag, i) => (
+        <div className="flex gap-[10px] pb-1">
+          {tags.slice(0, 2).map((tag, i) => (
             <Badge key={i} type="tag" size="sm">
               {tag}
             </Badge>
@@ -59,8 +39,18 @@ export default function ReviewCard({
         {/*제목*/}
         <div className="text-title-4 truncate">{title}</div>
 
-        {/*내용*/}
-        {description && <div className="text-caption-3 truncate text-gray-500">{description}</div>}
+        {'description' in props ? (
+          <div className="text-caption-3 truncate text-gray-500">{props.description}</div>
+        ) : (
+          <div className="text-caption-2 flex items-center gap-2 pt-1 text-gray-500">
+            <span>{props.date}</span>
+            <BarIcon className="h-3" />
+            <span className="flex items-center gap-1">
+              <StarSmall className="h-4 w-4 text-red-300" />
+              {props.rating.toFixed(1)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

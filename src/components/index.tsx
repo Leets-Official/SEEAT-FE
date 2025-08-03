@@ -21,6 +21,7 @@ import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
 import StarRating from './review/StarRating';
 import ProfileImageWithFallback from './common/ProfileImage/ProfileImageWithFallback';
+import ThumbnailFallback from './common/ReviewCard/ThumbnailFallback';
 import SeatPickerModal from '@/components/common/Modal/SeatModal/SeatPickerModal';
 import ConfirmModal from '@/components/common/Modal/ConfirmModal';
 import SeatFocusModal from '@/components/common/Modal/SeatModal/SeatFocusModal';
@@ -53,6 +54,7 @@ export {
   StarRating,
   ProfileImageWithFallback,
   AccordionSection,
+  ThumbnailFallback,
   SeatPickerModal,
   ConfirmModal,
   SeatFocusModal,

@@ -18,7 +18,7 @@ export default function TheaterListPage() {
   const cinemas = groupCinemasByTheater(selectedTab);
 
   return (
-    <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11">
+    <div className="flex min-h-screen flex-col pt-11">
       <Header leftSection="BACK" onBackClick={() => navigate('/home')}>
         영화관 리스트
       </Header>

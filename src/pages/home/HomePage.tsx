@@ -1,20 +1,31 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
-import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
-import { getTopReviewByLikes } from '@/utils/reviewUtils';
+import { bestCinemas, getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
+import { useEffect, useState } from 'react';
+import { fetchPopularReviews } from '@/api/popular';
+import type { PopularReview } from '@/types/review';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
-
-  //좋아요 순으로 정렬
-  const popularReviews = getTopReviewByLikes(reviewSummaryMock, 3);
+  const [popularReviews, setPopularReviews] = useState<PopularReview[]>([]);
 
   const handleGoToPopular = () => {
     navigate('/review/popular');
   };
+  useEffect(() => {
+    const loadPopular = async () => {
+      try {
+        const data = await fetchPopularReviews(1, 4);
+        setPopularReviews(data.content);
+      } catch (error) {
+        console.error('불러오기 실패', error);
+      }
+    };
+    loadPopular();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col py-5">
@@ -49,13 +60,13 @@ const HomePage = () => {
             <div className="flex flex-col gap-3">
               {popularReviews.map((review) => (
                 <ReviewCard
-                  key={review.id}
-                  imageUrl={getRandomImage(82, 82)}
-                  tags={review.hashtags.map((tag) => tag.hashTagName)}
-                  title={review.movieSeatInfo.theaterName}
+                  key={review.reviewId}
+                  imageUrl={review.thumbnailUrl}
+                  tags={review.hashtags}
+                  title={review.theaterName}
                   description={review.content}
                   likeCount={review.heartCount}
-                  onClick={() => navigate(`/review/${review.id}`)}
+                  onClick={() => navigate(`/review/${review.reviewId}`)}
                 />
               ))}
             </div>

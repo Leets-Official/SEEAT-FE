@@ -27,8 +27,8 @@ import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
 import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
 import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
 import SeatTest from '@/pages/seat/SeatTest';
-import SeatReviewPage from '@/pages/home/SeatReviewPage';
 import PopularReviewPage from '@/pages/home/PopularReview';
+import SeatReviewPage from '@/pages/seat';
 import LevelPage from '@/pages/my/Level';
 
 const router = createBrowserRouter([

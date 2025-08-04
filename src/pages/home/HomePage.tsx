@@ -34,7 +34,7 @@ const HomePage = () => {
   useEffect(() => {
     const loadBestCinemas = async () => {
       try {
-        const data = await getBestCinemas();
+        const data = await getBestCinemas(1, 4);
         setBestCinemaList(data);
       } catch (error) {
         console.error('불러오기 실패', error);

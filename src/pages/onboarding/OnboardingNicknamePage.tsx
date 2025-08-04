@@ -1,15 +1,30 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
 import Input from '@/components/common/Input/Input';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { GalleryProfileIcon } from '@/assets';
+import { useImgUpload } from '@/hooks';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
   const setNickname = useOnboardingStore((state) => state.setNickname);
+
+  const { images, addImages, removeImage, resetImages, isMax } = useImgUpload(1);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleClickGallery = () => {
+    if (isMax) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    addImages(e.target.files);
+  };
 
   const handleNext = () => {
     setNickname(input);
@@ -29,11 +44,15 @@ const OnboardingNicknamePage = () => {
         {/* 타이틀 */}
         <h1 className="text-title-2 mb-10">프로필을 만들어주세요</h1>
 
-        {/* 프로필 이미지 (예시용 박스) */}
         <div className="mb-10 flex justify-center">
-          <div className="flex h-36 w-36 items-center justify-center rounded-full bg-gray-100 text-sm text-black">
-            갤러리 아이콘
-          </div>
+          <GalleryProfileIcon className="cursor-pointer" onClick={handleClickGallery} />
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleChangeFile}
+          />
         </div>
 
         {/* 닉네임 입력 */}

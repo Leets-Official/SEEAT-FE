@@ -6,6 +6,7 @@ import Badge from '@/components/common/Badge/Badge';
 import Image from '@/components/common/Image/Image';
 import ToggleTab from '@/components/common/ToggleTab';
 import LevelCard from './common/LevelCard/LevelCard';
+import LevelInfoCard from './common/LevelCard/LevelInfoCard';
 import ImagePreviewItem from './common/ImagePreview/ImagePreviewItem';
 import Header from '@/components/common/Header/Header';
 import InputField from '@/components/common/Input/Input';
@@ -15,7 +16,6 @@ import ReviewStepLayout from '@/components/review/ReviewLayout';
 import TagSection from '@/components/review/TagSection';
 import RatingCard from '@/components/review/RatingCard';
 import AccordionSection from '@/components/common/ReviewFilter/AccordionSection';
-import LevelInfoCard from './common/LevelCard/LevelInfoCard';
 import BaseModal from '@/components/common/Modal/BaseModal';
 import SeatItem from '@/components/seat/SeatItem';
 import SeatMap from '@/components/seat/SeatMap';
@@ -62,4 +62,3 @@ export {
   SeatWriteModal,
   ProgressBar,
 };
-

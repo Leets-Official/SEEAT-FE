@@ -6,6 +6,7 @@ import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { GalleryProfileIcon } from '@/assets';
 import { useImgUpload } from '@/hooks';
+import { useS3UploadFlow } from '@/hooks/useS3UploadFlow';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
@@ -13,25 +14,48 @@ const OnboardingNicknamePage = () => {
 
   const setNickname = useOnboardingStore((state) => state.setNickname);
 
-  const { images, addImages, removeImage, previewUrls, isMax } = useImgUpload(1);
+  const { addImages, previewUrls, selectedFiles } = useImgUpload(1);
+  const setProfileImageFileName = useOnboardingStore((state) => state.setProfileImageFilename);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClickGallery = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''; // <-- 반드시 비워주기
+      fileInputRef.current.value = '';
       fileInputRef.current.click();
     }
   };
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
     addImages(e.target.files);
+
+    if (files && files.length > 0) {
+      const file = files[0];
+      setProfileImageFileName(file.name);
+      console.log('저장된 이미지 파일: ', file.name);
+    }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setNickname(input);
     console.log('닉네임: ', input);
-    navigate('/onboarding/genre');
+    if (selectedFiles.length > 0) {
+      try {
+        const result = await useS3UploadFlow(selectedFiles);
+        const imageUrl = result[0]?.url;
+
+        if (imageUrl) {
+          setProfileImageFileName(imageUrl);
+          console.log('프로필 이미지 URL:', imageUrl);
+          navigate('/onboarding/genre');
+        } else {
+          console.error('이미지 업로드 실패');
+        }
+      } catch (e) {
+        console.error('이미지 업로드 중 에러 발생', e);
+      }
+    }
   };
 
   return (
@@ -73,13 +97,7 @@ const OnboardingNicknamePage = () => {
 
         {/* 닉네임 입력 */}
         <div className="mb-2">
-          <Input
-            label=""
-            value={input}
-            onChange={setInput}
-            placeholder="닉네임을 입력해주세요"
-            placeholderColorType="gray"
-          />
+          <Input label="" value={input} onChange={setInput} placeholder="닉네임을 입력해주세요" />
         </div>
 
         <p className="text-caption-3 ml-1 text-gray-500">10자 이내로 작성해주세요.</p>

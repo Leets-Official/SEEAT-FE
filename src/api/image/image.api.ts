@@ -1,14 +1,15 @@
 import axios from 'axios';
 import api from '@/api/api';
 import type { ApiResponse } from '@/types/api-response';
+import type { PresignedUrlInfo } from '@/types/image';
 
 /**
  * presigned URL 발급
  * @param fileNames 업로드할 파일 이름 배열
  * @returns presigned URL 문자열 배열
  */
-const getPresignedUrls = async (fileNames: string[]): Promise<string[]> => {
-  const res = await api.get<ApiResponse<string[]>>('/images/upload-url', {
+const getPresignedUrls = async (fileNames: string[]): Promise<PresignedUrlInfo[]> => {
+  const res = await api.get<ApiResponse<PresignedUrlInfo[]>>('/images/upload-url', {
     params: { file: fileNames },
     paramsSerializer: { indexes: null },
   });

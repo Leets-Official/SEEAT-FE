@@ -49,5 +49,6 @@ export function useImgUpload(maxCount: number = 5) {
     removeImage,
     resetImages,
     isMax,
+    selectedFiles: images,
   };
 }

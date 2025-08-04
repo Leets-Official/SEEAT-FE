@@ -1,26 +1,32 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
-import { genreOptions } from '@/types/onboarding';
-import type { GenreType } from '@/types/onboarding';
+import type { GenreType } from '@/types/movieGenre';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import { useOnboardingStore } from '@/store/useOnboardingStore';
+import { genreMap, genreOptions } from '@/types/movieGenre';
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
-  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>([]);
+  const { setSelectedGenres } = useOnboardingStore();
+
+  const [localSelectedGenres, setLocalSelectedGenres] = useState<GenreType[]>([]);
 
   const toggleGenre = (genre: GenreType) => {
-    const isSelected = selectedGenres.includes(genre);
+    const isSelected = localSelectedGenres.includes(genre);
     if (isSelected) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
+      setLocalSelectedGenres(localSelectedGenres.filter((g) => g !== genre));
     } else {
-      if (selectedGenres.length >= 5) return;
-      setSelectedGenres([...selectedGenres, genre]);
+      if (localSelectedGenres.length >= 5) return;
+      setLocalSelectedGenres([...localSelectedGenres, genre]);
     }
   };
 
   const handleNext = () => {
-    if (selectedGenres.length === 0) return;
+    if (localSelectedGenres.length === 0) return;
+    const genreEnList = localSelectedGenres.map((g) => genreMap[g]);
+    setSelectedGenres(genreEnList); // 영어 저장
+    console.log('장르: ', genreEnList);
     navigate('/onboarding/theater');
   };
 
@@ -40,8 +46,8 @@ const OnboardingGenrePage = () => {
 
         {/* 장르 선택 버튼 */}
         <div className="mb-20 flex flex-wrap gap-3">
-          {genreOptions.map((genre) => {
-            const isSelected = selectedGenres.includes(genre);
+          {genreOptions.map((genre: GenreType) => {
+            const isSelected = localSelectedGenres.includes(genre);
             return (
               <Button
                 key={genre}
@@ -62,7 +68,7 @@ const OnboardingGenrePage = () => {
       <div className="fixed bottom-8 left-1/2 w-full max-w-[375px] -translate-x-1/2 px-6">
         <Button
           onClick={handleNext}
-          disabled={selectedGenres.length === 0}
+          disabled={localSelectedGenres.length === 0}
           variant="primary"
           color="red"
           size="lg"

@@ -2,9 +2,10 @@ import type { ApiError, ApiResponse } from '@/types/api-response';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_PATH = '/api/v1';
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${BASE_URL}${BASE_PATH}`,
   timeout: 7000,
   headers: {
     'Content-Type': 'application/json',

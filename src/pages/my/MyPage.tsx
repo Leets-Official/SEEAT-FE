@@ -3,9 +3,8 @@ import { Header, BottomNavigation, LevelCard } from '@/components';
 import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
 import { useState, useEffect } from 'react';
 import type { UserProfile } from '@/types/user';
-
-import api from '@/api/api';
 import type { ApiError } from '@/types/api-response';
+import { getUserProfile } from '@/api/profile/profile.api';
 
 interface MenuItem {
   name: string;
@@ -24,15 +23,13 @@ const MyPage: React.FC = () => {
 
     const fetchUserProfile = async () => {
       try {
-        const response = await api.get<UserProfile>('/profile');
+        const data = await getUserProfile();
 
         if (isMounted) {
-          setUser(response.data);
+          setUser(data);
         }
       } catch (err) {
         const apiError = err as ApiError;
-        console.error('프로필 로딩 에러:', apiError);
-
         if (isMounted) {
           setError(apiError.message);
         }
@@ -60,17 +57,9 @@ const MyPage: React.FC = () => {
     navigate('/my/profile-edit');
   };
 
-<<<<<<< HEAD
   if (isLoading) {
     return <div>프로필 불러오는 중</div>;
   }
-=======
-  return (
-    <div className="relative mx-auto w-full max-w-md">
-      <div className="min-h-screen">
-        {/* Header - 병합 결과 */}
-        <Header rightSection="SETTING">마이페이지</Header>
->>>>>>> 92aeb3f3605ce2777f17f10dd6f0e265415deca8
 
   if (error) {
     return <div>프로필 불러오기 실패: {error}</div>;
@@ -85,7 +74,8 @@ const MyPage: React.FC = () => {
       <div className="min-h-screen">
         <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
 
-        <main className="mt-2 flex flex-col gap-4 px-4 pb-[83px]">
+        {/* [핵심 수정] 아래 main 태그의 className에 pt-[56px]를 추가하고 mt-2를 제거했습니다. */}
+        <main className="pt-[63px] flex flex-col gap-4 px-4 pb-[83px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
@@ -115,7 +105,7 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">선호 장르</span>
                 </div>
                 <div className="flex flex-wrap gap-x-3">
-                  {user.preferredGenres.map((genre) => (
+                  {(user.preferredGenres || []).map((genre) => (
                     <span key={genre} className="text-caption-2">
                       {genre}
                     </span>
@@ -127,7 +117,7 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {user.favoriteTheaters.map((theater) => (
+                  {(user.favoriteTheaters || []).map((theater) => (
                     <span key={theater} className="text-caption-2 text-gray-500">
                       {theater}
                     </span>

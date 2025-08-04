@@ -18,12 +18,12 @@ export default function TheaterListPage() {
   const cinemas = groupCinemasByTheater(selectedTab);
 
   return (
-    <div className="flex min-h-screen flex-col pt-11">
+    <div className="flex min-h-screen flex-col pt-16">
       <Header leftSection="BACK" onBackClick={() => navigate('/home')}>
         영화관 리스트
       </Header>
       {/* 탭 */}
-      <div className="flex justify-center px-5">
+      <div className="flex justify-center px-5 pt-4">
         <div className="w-[375px]">
           <ToggleTab
             options={[

@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header
       className={cn(
-        'fixed top-0 right-0 left-0 z-50 mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between bg-gray-900 px-5 py-8',
+        'fixed top-0 right-0 left-0 z-50 mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-5',
         className,
       )}
     >

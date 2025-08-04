@@ -17,10 +17,10 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col py-5">
-      <Header leftSection="LOGO" rightSection="SETTING" />
+    <div className="flex min-h-screen flex-col">
+      <Header leftSection="LOGO" rightSection="SETTING" className="bg-gray-900" />
       {/* 이미지?*/}
-      <div className="pt-[48px]">
+      <div className="pt-[44px]">
         <div className="mx-auto w-full max-w-[430px] bg-gray-700 pt-6">
           <Image src={imgUrl} aspectRatio="aspect-[375/210]" className="w-full" />
         </div>

@@ -1,58 +1,80 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
-import { Button, ToggleTab, Header } from '@/components';
-import { theaterData } from '@/types/onboarding';
-import type { CinemaType, CinemaFormat } from '@/types/onboarding';
-import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import { Button, ToggleTab, Header, ProgressBar } from '@/components';
+import type { CinemaFormat } from '@/types/onboarding';
+import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
+import TheaterList from '@/components/common/Theater/TheaterList';
+import { useRegisterMutation } from '@/hooks/mutations/useRegisterMutation';
 
 const OnboardingTheaterPage = () => {
   const navigate = useNavigate();
-  const {
-    selectedCinemas,
-    setSelectedCinemas,
-    setCinemaFormat,
-  } = useOnboardingStore();
+  const { nickname, selectedGenres, selectedCinemas, setSelectedCinemas, setCinemaFormat } =
+    useOnboardingStore();
 
   const [selectedTab, setSelectedTab] = useState<CinemaFormat>('IMAX');
 
+  const { data: theaters } = useTheatersQuery({ type: selectedTab, page: 1, size: 10 });
+  const { mutate } = useRegisterMutation();
+
   const handleToggleTab = (tab: string) => {
     const format = tab as CinemaFormat;
+    if (format === selectedTab) return;
     setSelectedTab(format);
     setCinemaFormat(format);
   };
 
-  const toggleTheater = (theater: CinemaType) => {
-    const isSelected = selectedCinemas.includes(theater);
+  const toggleTheater = (auditoriumId: string) => {
+    const isSelected = selectedCinemas.includes(auditoriumId);
     if (isSelected) {
-      setSelectedCinemas(selectedCinemas.filter((t) => t !== theater));
+      setSelectedCinemas(selectedCinemas.filter((id) => id !== auditoriumId));
     } else {
       if (selectedCinemas.length >= 2) return;
-      setSelectedCinemas([...selectedCinemas, theater]);
+      setSelectedCinemas([...selectedCinemas, auditoriumId]);
     }
   };
 
   const handleNext = () => {
     if (selectedCinemas.length === 0) return;
-    navigate('/signup/complete');
-  };
 
-  const handleBack = () => {
-    navigate(-1);
+    const tempUserKey = localStorage.getItem('tempKey');
+    console.log('데이터: ', nickname, selectedGenres, selectedCinemas);
+    if (!tempUserKey) {
+      console.error('임시 유저 키가 없습니다.');
+      return;
+    }
+
+    mutate(
+      {
+        data: {
+          nickname,
+          genres: selectedGenres,
+          auditoriumId: selectedCinemas,
+        },
+        tempUserKey,
+      },
+      {
+        onSuccess: () => {
+          navigate('/signup/complete');
+        },
+        onError: (error: any) => {
+          console.error('회원가입 실패', error);
+        },
+      },
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white w-full max-w-[375px] mx-auto relative pb-32">
+    <div className="relative mx-auto min-h-screen w-full max-w-[375px] pb-32">
       {/* 상단 헤더 */}
-      <Header title="" onBackClick={handleBack} showLike={false} showBookmark={false} />
-
+      <Header leftSection="BACK" />
       {/* 진행도 바 */}
       <ProgressBar currentStep={3} totalSteps={3} />
 
       {/* 콘텐츠 영역 */}
-      <div className="px-6 mt-6">
-        <h1 className="text-title-2 text-white mb-1">자주 가는 영화관을 선택해주세요</h1>
-        <p className="text-caption-2 text-red-300 mb-6">최대 2개까지 선택할 수 있어요.</p>
+      <div className="mt-6 px-6">
+        <h1 className="text-title-2 mb-1">자주 가는 영화관을 선택해주세요</h1>
+        <p className="text-caption-2 mb-6 text-red-300">최대 2개까지 선택할 수 있어요.</p>
 
         <ToggleTab
           options={[
@@ -61,31 +83,16 @@ const OnboardingTheaterPage = () => {
           ]}
           selected={selectedTab}
           onSelect={handleToggleTab}
-          className="w-full mb-4"
+          className="mb-4 w-full"
         />
 
         <div className="h-3" />
 
-        <div className="flex flex-col gap-3 mb-20">
-          {theaterData[selectedTab].map((theater) => {
-            const isSelected = selectedCinemas.includes(theater);
-            return (
-              <Button
-                key={theater}
-                onClick={() => toggleTheater(theater)}
-                variant="secondary-assistive"
-                selected={isSelected}
-                className="w-full px-4 py-3 text-left rounded-md"
-              >
-                {theater}
-              </Button>
-            );
-          })}
-        </div>
+        <TheaterList data={theaters ?? []} selected={selectedCinemas} onSelect={toggleTheater} />
       </div>
 
       {/* 하단 버튼 */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-[375px] px-6">
+      <div className="fixed bottom-8 left-1/2 w-full max-w-[375px] -translate-x-1/2 px-6">
         <Button
           onClick={handleNext}
           disabled={selectedCinemas.length === 0}
@@ -95,7 +102,7 @@ const OnboardingTheaterPage = () => {
           fontType="title-3"
           className="w-full"
         >
-          시작하기
+          선택완료
         </Button>
       </div>
     </div>

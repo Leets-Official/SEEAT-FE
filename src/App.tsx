@@ -1,15 +1,16 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router-dom';
+import { queryClient } from './libs/queryClient';
 import router from '@/routes/route';
-import { Modal } from '@/components';
 import ToastProvider from './components/common/Toast/ToastProvider';
 
 function App() {
-  console.log('App 렌더됨');
   return (
-    <ToastProvider>
-      <RouterProvider router={router} />
-      <Modal />
-    </ToastProvider>
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </QueryClientProvider>
   );
 }
 

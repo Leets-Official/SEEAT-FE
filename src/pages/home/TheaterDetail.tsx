@@ -35,17 +35,9 @@ const CinemaDetailPage = () => {
   const rating = cinema?.averageReview.toFixed?.(1);
 
   return (
-    <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">
-      <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
-        <Header
-          title=""
-          showBack
-          onBackClick={() => navigate(-1)}
-          showBookmark={false}
-          showLike={false}
-        />
-      </div>
-      <div className="w-full px-5 pt-5">
+    <div className="flex min-h-screen flex-col pt-11 pb-5">
+      <Header leftSection="BACK" />
+      <div className="w-full px-5 pt-[48px]">
         {/*영화관(상영관) 이름*/}
         <div className="text-title-2 text-left text-white">{title}</div>
         <div className="mt-2 flex items-center">

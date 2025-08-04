@@ -6,7 +6,7 @@ const SeatReviewPage = () => {
 
   return (
     <div>
-      <Header title="" showBookmark={false} showLike={false} />
+      <Header leftSection="BACK" />
     </div>
   );
 };

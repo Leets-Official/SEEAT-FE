@@ -1,19 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeaderBasic, Button } from '@/components';
-import { MoreVerticalIcon } from '@/assets';
-import type { GenreType } from '@/types/onboarding';
+import { Header, Button } from '@/components';
+import type { GenreType } from '@/types/movieGenre';
 
-const GENRES: GenreType[] = [
-  '액션', '로맨스', 'SF', '호러', '코미디', '다큐', '애니메이션'
-];
+const GENRES: GenreType[] = ['액션', '로맨스', 'SF', '호러', '코미디', '다큐', '애니메이션'];
 const MAX_SELECTABLE_GENRES = 3;
 
 export default function SelectGenre() {
   const navigate = useNavigate();
   const [selectedGenres, setSelectedGenres] = useState<GenreType[]>(['SF', '호러', '로맨스']);
 
-  const handleGenreClick = (genre: GenreType) => { 
+  const handleGenreClick = (genre: GenreType) => {
     setSelectedGenres((prevSelected) => {
       const isAlreadySelected = prevSelected.includes(genre);
       if (isAlreadySelected) {
@@ -32,21 +29,17 @@ export default function SelectGenre() {
   };
 
   return (
-    <div className="flex h-screen flex-col  p-4">
-      <HeaderBasic onBackClick={() => navigate(-1)}>
-        <div className="flex-1 flex justify-end">
-          <button onClick={() => console.log('More button clicked')}>
-            <MoreVerticalIcon className="w-6 h-6" />
-          </button>
-        </div>
-      </HeaderBasic>
+    <div className="flex h-screen flex-col p-4">
+      <Header leftSection="BACK" rightSection="KEBAB" />
 
       <main className="flex-grow pt-4">
-        <h2 className="text-title-2 text-white mb-2">좋아하는 장르를 선택해주세요</h2>
+        <h2 className="text-title-2 mb-2 text-white">좋아하는 장르를 선택해주세요</h2>
 
-        <p className="text-caption-2 text-red-300 mb-6">최대 {MAX_SELECTABLE_GENRES}개까지 선택할 수 있어요.</p>
+        <p className="text-caption-2 mb-6 text-red-300">
+          최대 {MAX_SELECTABLE_GENRES}개까지 선택할 수 있어요.
+        </p>
 
-        <div className="w-[317px] h-[164px] flex flex-wrap content-start gap-2">
+        <div className="flex h-[164px] w-[317px] flex-wrap content-start gap-2">
           {GENRES.map((genre) => (
             <Button
               key={genre}

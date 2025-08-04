@@ -10,9 +10,13 @@ export const reviewDetailMock: ReviewDetail[] = [
       seatNumber: 'F6, F12',
     },
     hashtags: [
-      { hashTagId: 1, hashTagName: '음향최고' },
-      { hashTagId: 2, hashTagName: '시야좋음' },
-      { hashTagId: 3, hashTagName: '자녀와' },
+      {
+        hashTagId: 1,
+        hashTagName: '음향최고',
+        hashTagType: '음향',
+      },
+      { hashTagId: 2, hashTagName: '시야좋음', hashTagType: '관람환경' },
+      { hashTagId: 3, hashTagName: '자녀와', hashTagType: '동반인' },
     ],
     content: 'IMAX 사운드는 정말 감동적이에요. 앉은 좌석도 시야 확보 최고였습니다.',
     rating: 5,
@@ -37,8 +41,8 @@ export const reviewDetailMock: ReviewDetail[] = [
       seatNumber: 'E10',
     },
     hashtags: [
-      { hashTagId: 4, hashTagName: '화질굿' },
-      { hashTagId: 5, hashTagName: '대형스크린' },
+      { hashTagId: 4, hashTagName: '화질굿', hashTagType: '관람환경' },
+      { hashTagId: 5, hashTagName: '대형스크린', hashTagType: '관람환경' },
     ],
     content: '화질도 좋고 화면 크기도 압도적입니다.',
     rating: 4,
@@ -60,8 +64,8 @@ export const reviewDetailMock: ReviewDetail[] = [
       seatNumber: 'A1',
     },
     hashtags: [
-      { hashTagId: 6, hashTagName: '음질만족' },
-      { hashTagId: 7, hashTagName: '출입구근처' },
+      { hashTagId: 6, hashTagName: '음질만족', hashTagType: '음향' },
+      { hashTagId: 7, hashTagName: '출입구근처', hashTagType: '관람환경' },
     ],
     content: '사운드도 좋고 스크린도 컸는데 문이랑 가까워서 외부 소음이 조금 거슬렸어요 ㅎㅎ',
     rating: 3.5,
@@ -86,8 +90,8 @@ export const reviewDetailMock: ReviewDetail[] = [
       seatNumber: 'A1',
     },
     hashtags: [
-      { hashTagId: 6, hashTagName: '음질만족' },
-      { hashTagId: 7, hashTagName: '출입구근처' },
+      { hashTagId: 6, hashTagName: '음질만족', hashTagType: '음향' },
+      { hashTagId: 7, hashTagName: '출입구근처', hashTagType: '관람환경' },
     ],
     content: '사운드도 좋고 스크린도 컸는데 문이랑 가까워서 외부 소음이 조금 거슬렸어요 ㅎㅎ',
     rating: 3.5,
@@ -112,8 +116,8 @@ export const reviewDetailMock: ReviewDetail[] = [
       seatNumber: 'D4',
     },
     hashtags: [
-      { hashTagId: 8, hashTagName: '주변산만' },
-      { hashTagId: 9, hashTagName: '잡음있음' },
+      { hashTagId: 8, hashTagName: '주변산만', hashTagType: '관람환경' },
+      { hashTagId: 9, hashTagName: '잡음있음', hashTagType: '음향' },
     ],
     content:
       '단차가 낮은 건지 앞사람 행동이 너무 거슬려요ㅜㅜ 그리고 상영관에서 냄새가 너무 마니 남!!!',

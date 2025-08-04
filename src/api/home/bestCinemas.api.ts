@@ -3,7 +3,7 @@ import type { BestCinema } from '@/types/bestCinema';
 import type { ApiResponse } from '@/types/api-response';
 
 export const getBestCinemas = async (page: number, size: number): Promise<BestCinema[]> => {
-  const res = await api.get<ApiResponse<{ content: BestCinema[] }>>('/api/v1/home/auditoriums', {
+  const res = await api.get<ApiResponse<{ content: BestCinema[] }>>('/home/auditoriums', {
     params: { page, size },
   });
 

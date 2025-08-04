@@ -13,10 +13,11 @@ const SeatReviewPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!seatId) return;
     const load = async () => {
-      if (!seatId) return;
       try {
         const res = await getSeatReview({ seatId, page: 1, size: 10 });
+        console.log('res', res);
         setSeatData(res.content[0]);
       } catch (error) {
         const apiError = error as ApiError;
@@ -27,6 +28,10 @@ const SeatReviewPage = () => {
     };
     load();
   }, [seatId]);
+
+  if (!seatId) {
+    return <div>좌석 ID가 없습니다.</div>;
+  }
 
   const theaterName = seatData?.theaterName || '';
   const seatLabel = seatData?.seatName || '';
@@ -40,10 +45,13 @@ const SeatReviewPage = () => {
         <Header onBackClick={() => navigate('')} className="bg-gray-900" />
       </div>
       <div className="mx-auto w-full max-w-[430px] space-y-3 px-5 pt-5">
+        {!loading && !seatData && (
+          <div className="text-gray-500">데이터를 불러오지 못했습니다.</div>
+        )}
         {loading ? (
           <div className="text-caption-3">불러오는 중...</div>
         ) : (
-          <>
+          <div>
             <div className="flex items-center space-x-2">
               <div className="text-title-1 text-white">{seatLabel}</div>
               <span className="text-body-1 text-gray-500">{theaterName}</span>
@@ -73,7 +81,7 @@ const SeatReviewPage = () => {
                 ))}
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

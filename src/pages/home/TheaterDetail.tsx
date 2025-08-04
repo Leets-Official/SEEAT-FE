@@ -36,7 +36,7 @@ const CinemaDetailPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
-      <Header leftSection="BACK" />
+      <Header leftSection="BACK" className="bg-gray-900" />
       <div className="w-full px-5 pt-5">
         {/*영화관(상영관) 이름*/}
         <div className="text-title-2 text-left text-white">{title}</div>

@@ -5,7 +5,7 @@ export default function MyReviewPage() {
   return (
     <div>
       <div className="w-full px-4">
-        <Header leftSection="BACK" rightSection="KEBAB">
+        <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900">
           나의 후기
         </Header>
 

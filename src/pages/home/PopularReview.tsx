@@ -9,7 +9,9 @@ const PopularReviewPage = () => {
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
       <div className="fixed top-0 right-0 left-0 z-50">
-        <Header onBackClick={() => navigate(-1)}>인기 있는 후기</Header>
+        <Header onBackClick={() => navigate(-1)} className="bg-gray-900">
+          인기 있는 후기
+        </Header>
       </div>
       <div className="mx-auto w-full space-y-3 px-5 pt-5">
         {top10Reviews.map((review) => (

@@ -30,7 +30,7 @@ export default function SelectGenre() {
 
   return (
     <div className="flex h-screen flex-col p-4">
-      <Header leftSection="BACK" rightSection="KEBAB" />
+      <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900" />
 
       <main className="flex-grow pt-4">
         <h2 className="text-title-2 mb-2 text-white">좋아하는 장르를 선택해주세요</h2>

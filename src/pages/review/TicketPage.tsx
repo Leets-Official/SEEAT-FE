@@ -19,7 +19,7 @@ export const TicketUploadStep = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-900 pt-11 pb-5">
-      <Header leftSection="BACK" onBackClick={() => navigate('/home')} />
+      <Header leftSection="BACK" onBackClick={() => navigate('/home')} className="bg-gray-900" />
       {/* 상단 */}
       <div className="flex flex-col gap-6 px-5 pt-4">
         <div className="w-full max-w-[430px] text-left">

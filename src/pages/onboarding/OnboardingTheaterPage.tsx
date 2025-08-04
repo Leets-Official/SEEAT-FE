@@ -36,7 +36,7 @@ const OnboardingTheaterPage = () => {
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-[375px] pb-32">
       {/* 상단 헤더 */}
-      <Header leftSection="BACK" />
+      <Header leftSection="BACK" className="bg-gray-900" />
       {/* 진행도 바 */}
       <ProgressBar currentStep={3} totalSteps={3} />
 

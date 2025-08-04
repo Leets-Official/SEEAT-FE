@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Signup from '@/pages/signup';
+import Signup from '@/pages/login/LoginPage';
 import SplashPage from '@/pages/splash/SplashPage';
 import MyPage from '@/pages/my/MyPage';
 import MySettingPage from '@/pages/my/MySetting';
@@ -30,6 +30,8 @@ import SeatTest from '@/pages/seat/SeatTest';
 import PopularReviewPage from '@/pages/home/PopularReview';
 import SeatReviewPage from '@/pages/seat';
 import LevelPage from '@/pages/my/Level';
+import KakaoCallback from '@/pages/login/KakaoCallback';
+import SignupComplete from '@/pages/onboarding/SignupComplete';
 
 const router = createBrowserRouter([
   {
@@ -70,10 +72,13 @@ const router = createBrowserRouter([
     element: <PopularReviewPage />,
   },
 
-  //리뷰
   {
     path: '/login',
     element: <Signup />,
+  },
+  {
+    path: '/extra-info',
+    element: <KakaoCallback />,
   },
   {
     path: '/onboarding/nickname',
@@ -87,6 +92,12 @@ const router = createBrowserRouter([
     path: '/onboarding/theater',
     element: <OnboardingTheaterPage />,
   },
+  {
+    path: '/signup/complete',
+    element: <SignupComplete />,
+  },
+
+  //리뷰
   {
     path: '/review',
     children: [

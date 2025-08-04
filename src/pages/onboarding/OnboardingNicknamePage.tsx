@@ -3,19 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Header } from '@/components';
 import Input from '@/components/common/Input/Input';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
+import { useOnboardingStore } from '@/store/useOnboardingStore';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
+  const setNickname = useOnboardingStore((state) => state.setNickname);
+
   const handleNext = () => {
+    setNickname(input);
+    console.log('닉네임: ', input);
     navigate('/onboarding/genre');
   };
 
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-[375px] bg-gray-900 pb-32 text-white">
       {/* 상단 헤더 */}
-      <Header leftSection="BACK" />
+      <Header leftSection="BACK" onBackClick={() => navigate('/login')} />
       {/* 진행도 바 */}
       <ProgressBar currentStep={1} totalSteps={3} />
 

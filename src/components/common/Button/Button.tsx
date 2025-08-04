@@ -23,7 +23,7 @@ export default function Button({
     <button
       disabled={disabled}
       className={cn(
-        'inline-flex items-center justify-center',
+        'inline-flex cursor-pointer items-center justify-center',
         BUTTON_BASE,
         fontClass,
         typeof BUTTON_VARIANT[variant] === 'string'

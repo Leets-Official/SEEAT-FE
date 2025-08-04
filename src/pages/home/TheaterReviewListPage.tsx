@@ -24,7 +24,11 @@ const TheaterReviewListPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
-      <Header leftSection="BACK" onBackClick={() => navigate('/theaters')} />
+      <Header
+        leftSection="BACK"
+        onBackClick={() => navigate('/theaters')}
+        className="bg-gray-900"
+      />
       <div className="mx-auto w-full max-w-[430px] space-y-3 px-5 pt-5">
         {selectedReviews.length === 0 ? (
           <p className="text-center text-gray-400">아직 등록된 후기가 없습니다.</p>

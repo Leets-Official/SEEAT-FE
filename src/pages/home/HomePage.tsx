@@ -8,6 +8,7 @@ import { fetchPopularReviews } from '@/api/home/popularReview.api';
 import type { PopularReview } from '@/types/review';
 import type { BestCinema } from '@/types/bestCinema';
 import { getBestCinemas } from '@/api/home/bestCinemas.api';
+import type { ApiError } from '@/types/api-response';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const HomePage = () => {
         const data = await fetchPopularReviews(1, 4);
         setPopularReviews(data);
       } catch (error) {
-        console.error('불러오기 실패', error);
+        const apiError = error as ApiError;
+        console.error('불러오기 실패:', apiError.message, apiError.error);
       }
     };
     loadPopular();
@@ -37,7 +39,8 @@ const HomePage = () => {
         const data = await getBestCinemas(1, 4);
         setBestCinemaList(data);
       } catch (error) {
-        console.error('불러오기 실패', error);
+        const apiError = error as ApiError;
+        console.error('불러오기 실패:', apiError.message, apiError.error);
       }
     };
     loadBestCinemas();

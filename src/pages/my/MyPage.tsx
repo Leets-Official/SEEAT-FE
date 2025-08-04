@@ -1,35 +1,51 @@
 import { useNavigate } from 'react-router-dom';
 import { Header, BottomNavigation, LevelCard } from '@/components';
 import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
-
-interface User {
-  name: string;
-  level: number;
-  progress: number;
-  preferredGenres: string[];
-  favoriteTheaters: string[];
-}
+import { useState, useEffect } from 'react';
+import type { UserProfile } from '@/types/user';
+import type { ApiError } from '@/types/api-response';
+import { getUserProfile } from '@/api/profile/profile.api';
 
 interface MenuItem {
   name: string;
   path: string;
 }
 
-const currentUserStatus = {
-  reviewCount: 5,
-  likeCount: 12,
-};
-
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const user: User = {
-    name: '김씨잇',
-    level: 3,
-    progress: 60,
-    preferredGenres: ['호러', 'SF', '로맨스'],
-    favoriteTheaters: ['남양주현대아울렛 스페이스원', '용산아이파크몰 (용아맥)'],
-  };
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchUserProfile = async () => {
+      try {
+        const data = await getUserProfile();
+
+        if (isMounted) {
+          setUser(data);
+        }
+      } catch (err) {
+        const apiError = err as ApiError;
+        if (isMounted) {
+          setError(apiError.message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchUserProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const menuItems: MenuItem[] = [
     { name: '나의 후기', path: '/my/reviews' },
@@ -40,22 +56,47 @@ const MyPage: React.FC = () => {
   const handleProfileEditClick = () => {
     navigate('/my/profile-edit');
   };
+  
+  const handleSettingsClick = () => {
+    navigate('/my/settings');
+  };
+
+  if (isLoading) {
+    return <div>프로필 불러오는 중</div>;
+  }
+
+  if (error) {
+    return <div>프로필 불러오기 실패: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>사용자 정보를 찾을 수 없습니다.</div>;
+  }
 
   return (
-    <div className="relative mx-auto w-full max-w-md">
+    <div className="relative mx-auto w-full max-w-md text-white">
       <div className="min-h-screen">
-        {/* Header - 병합 결과 */}
-        <Header rightSection="SETTING" className="bg-gray-900">
-          마이페이지
-        </Header>
+        <Header
+          leftSection="LOGO"
+          rightSection="SETTING"
+          onSettingsClick={handleSettingsClick}
+        />
 
-        <main className="mt-2 flex flex-col gap-4 px-4 pt-[68px] pb-[83px]">
+        <main className="flex flex-col gap-4 px-4 pb-[83px] pt-[63px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <MyProfileIcon className="h-16 w-16" />
-                <span className="text-title-2">{user.name}</span>
+                {user.profileImageUrl ? (
+                  <img
+                    src={user.profileImageUrl}
+                    alt={`${user.nickname}의 프로필`}
+                    className="h-20 w-20 rounded-full object-cover"
+                  />
+                ) : (
+                  <MyProfileIcon className="h-20 w-20" />
+                )}
+                <span className="text-title-2">{user.nickname}</span>
               </div>
               <button
                 onClick={handleProfileEditClick}
@@ -71,7 +112,7 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">선호 장르</span>
                 </div>
                 <div className="flex flex-wrap gap-x-3">
-                  {user.preferredGenres.map((genre) => (
+                  {(user.preferredGenres || []).map((genre) => (
                     <span key={genre} className="text-caption-2">
                       {genre}
                     </span>
@@ -83,7 +124,7 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {user.favoriteTheaters.map((theater) => (
+                  {(user.favoriteTheaters || []).map((theater) => (
                     <span key={theater} className="text-caption-2 text-gray-500">
                       {theater}
                     </span>
@@ -93,12 +134,12 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 레벨 카드 */}
+          {/* LevelCard api연결전 필수 props 임시값(0)전달 빌드 에러임시 */}
           <LevelCard
             userLevel={user.level}
             userProgress={user.progress}
-            currentReviewCount={currentUserStatus.reviewCount}
-            currentLikeCount={currentUserStatus.likeCount}
+            currentReviewCount={0}
+            currentLikeCount={0}
           />
 
           {/* 메뉴 리스트 */}
@@ -120,8 +161,7 @@ const MyPage: React.FC = () => {
         </main>
       </div>
 
-      {/* 하단 내비게이션 */}
-      <div className="fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2">
+      <div className="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2">
         <BottomNavigation />
       </div>
     </div>

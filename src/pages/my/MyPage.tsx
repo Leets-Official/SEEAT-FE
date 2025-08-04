@@ -1,35 +1,54 @@
 import { useNavigate } from 'react-router-dom';
 import { Header, BottomNavigation, LevelCard } from '@/components';
 import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
+import { useState, useEffect } from 'react';
+import type { UserProfile } from '@/types/user';
 
-interface User {
-  name: string;
-  level: number;
-  progress: number;
-  preferredGenres: string[];
-  favoriteTheaters: string[];
-}
+import api from '@/api/api';
+import type { ApiError } from '@/types/api-response';
 
 interface MenuItem {
   name: string;
   path: string;
 }
 
-const currentUserStatus = {
-  reviewCount: 5,
-  likeCount: 12,
-};
-
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const user: User = {
-    name: '김씨잇',
-    level: 3,
-    progress: 60,
-    preferredGenres: ['호러', 'SF', '로맨스'],
-    favoriteTheaters: ['남양주현대아울렛 스페이스원', '용산아이파크몰 (용아맥)'],
-  };
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get<UserProfile>('/profile');
+
+        if (isMounted) {
+          setUser(response.data);
+        }
+      } catch (err) {
+        const apiError = err as ApiError;
+        console.error('프로필 로딩 에러:', apiError);
+
+        if (isMounted) {
+          setError(apiError.message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchUserProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const menuItems: MenuItem[] = [
     { name: '나의 후기', path: '/my/reviews' },
@@ -41,25 +60,38 @@ const MyPage: React.FC = () => {
     navigate('/my/profile-edit');
   };
 
-  return (
-    <div className="relative mx-auto w-full max-w-md">
-      <div className="min-h-screen">
-        {/* Header - 병합 결과 */}
-        <Header
-          title="마이페이지"
-          showBack={false}
-          showLike={false}
-          showBookmark={false}
-          rightSection="SETTING"
-        />
+  if (isLoading) {
+    return <div>프로필 불러오는 중</div>;
+  }
 
-        <main className="mt-2 flex flex-col gap-4 px-4 pt-[68px] pb-[83px]">
+  if (error) {
+    return <div>프로필 불러오기 실패: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>사용자 정보를 찾을 수 없습니다.</div>;
+  }
+
+  return (
+    <div className="relative mx-auto w-full max-w-md text-white">
+      <div className="min-h-screen">
+        <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
+
+        <main className="mt-2 flex flex-col gap-4 px-4 pb-[83px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <MyProfileIcon className="h-16 w-16" />
-                <span className="text-title-2">{user.name}</span>
+                {user.profileImageUrl ? (
+                  <img
+                    src={user.profileImageUrl}
+                    alt={`${user.nickname}의 프로필`}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
+                ) : (
+                  <MyProfileIcon className="h-16 w-16" />
+                )}
+                <span className="text-title-2">{user.nickname}</span>
               </div>
               <button
                 onClick={handleProfileEditClick}
@@ -98,12 +130,7 @@ const MyPage: React.FC = () => {
           </section>
 
           {/* 레벨 카드 */}
-          <LevelCard
-            userLevel={user.level}
-            userProgress={user.progress}
-            currentReviewCount={currentUserStatus.reviewCount}
-            currentLikeCount={currentUserStatus.likeCount}
-          />
+          <LevelCard userLevel={user.level} userProgress={user.progress} />
 
           {/* 메뉴 리스트 */}
           <section>
@@ -124,8 +151,7 @@ const MyPage: React.FC = () => {
         </main>
       </div>
 
-      {/* 하단 내비게이션 */}
-      <div className="fixed bottom-0 left-1/2 w-full max-w-md -translate-x-1/2">
+      <div className="fixed bottom-0 w-full max-w-md left-1/2 -translate-x-1/2">
         <BottomNavigation />
       </div>
     </div>

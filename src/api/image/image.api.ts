@@ -35,4 +35,4 @@ const uploadToS3 = async (url: string, file: File): Promise<void> => {
   });
 };
 
-export default { getPresignedUrls, uploadToS3 };
+export { getPresignedUrls, uploadToS3 };

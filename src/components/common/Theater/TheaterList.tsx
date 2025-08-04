@@ -6,9 +6,10 @@ interface Props {
   data: Theater[];
   selected: string[];
   onSelect: (auditoriumId: string) => void;
+  onAuditoriumClick?: (auditoriumId: string) => void; // 클릭 prop 추가
 }
 
-const TheaterList = ({ data, selected, onSelect }: Props) => {
+const TheaterList = ({ data, selected, onSelect, onAuditoriumClick }: Props) => {
   const [expandedTheater, setExpandedTheater] = useState<string | null>(null);
 
   // theaterName 기준으로 그룹화
@@ -48,7 +49,13 @@ const TheaterList = ({ data, selected, onSelect }: Props) => {
                   return (
                     <Button
                       key={auditorium.auditoriumId}
-                      onClick={() => onSelect(auditorium.auditoriumId)}
+                      onClick={() => {
+                        if (onAuditoriumClick) {
+                          onAuditoriumClick(auditorium.auditoriumId); // 페이지 이동
+                        } else {
+                          onSelect(auditorium.auditoriumId); // 선택만
+                        }
+                      }}
                       selected={isSelected}
                       variant="secondary-assistive"
                       size="md"

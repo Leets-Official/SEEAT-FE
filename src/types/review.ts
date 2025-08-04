@@ -49,3 +49,29 @@ export interface PopularReviewResponse {
   page: number;
   size: number;
 }
+
+export interface ReviewUser {
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+}
+
+export interface ReviewItem {
+  reviewId: number;
+  thumbnailUrl: string;
+  hashtags: Hashtag[];
+  title: string;
+  content: string;
+  user: ReviewUser;
+  heartCount: number;
+  createdAt: string;
+  rating: number;
+}
+
+export interface SeatReviewBlock {
+  theaterName: string;
+  seatName: string;
+  reviewCount: number;
+  averageRating: number;
+  reviews: ReviewItem[];
+}

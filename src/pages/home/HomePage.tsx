@@ -4,10 +4,10 @@ import { ArrowRight, PlusIcon } from '@/assets';
 import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 import { useEffect, useState } from 'react';
-import { fetchPopularReviews } from '@/api/home/popularReview';
+import { fetchPopularReviews } from '@/api/home/popularReview.api';
 import type { PopularReview } from '@/types/review';
 import type { BestCinema } from '@/types/bestCinema';
-import { getBestCinemas } from '@/api/home/bestCinemas';
+import { getBestCinemas } from '@/api/home/bestCinemas.api';
 
 const HomePage = () => {
   const navigate = useNavigate();

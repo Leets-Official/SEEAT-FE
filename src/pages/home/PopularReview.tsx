@@ -1,7 +1,7 @@
 import { Header, ReviewCard } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchPopularReviews } from '@/api/home/popularReview';
+import { fetchPopularReviews } from '@/api/home/popularReview.api';
 import type { PopularReview } from '@/types/review';
 
 const PopularReviewPage = () => {

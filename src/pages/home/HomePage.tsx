@@ -1,20 +1,50 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, PlusIcon } from '@/assets';
-import { reviewSummaryMock, bestCinemas, getRandomImage } from '@/__mocks';
-import { getTopReviewByLikes } from '@/utils/reviewUtils';
+import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
+import { useEffect, useState } from 'react';
+import { fetchPopularReviews } from '@/api/home/popularReview.api';
+import type { PopularReview } from '@/types/review';
+import type { BestCinema } from '@/types/bestCinema';
+import { getBestCinemas } from '@/api/home/bestCinemas.api';
+import type { ApiError } from '@/types/api-response';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(375, 210);
-
-  //좋아요 순으로 정렬
-  const popularReviews = getTopReviewByLikes(reviewSummaryMock, 3);
+  const [popularReviews, setPopularReviews] = useState<PopularReview[]>([]);
+  const [bestCinemaList, setBestCinemaList] = useState<BestCinema[]>([]);
 
   const handleGoToPopular = () => {
     navigate('/review/popular');
   };
+
+  useEffect(() => {
+    const loadPopular = async () => {
+      try {
+        const data = await fetchPopularReviews(1, 4);
+        setPopularReviews(data);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('불러오기 실패:', apiError.message, apiError.error);
+      }
+    };
+    loadPopular();
+  }, []);
+
+  useEffect(() => {
+    const loadBestCinemas = async () => {
+      try {
+        const data = await getBestCinemas(1, 4);
+        setBestCinemaList(data);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('불러오기 실패:', apiError.message, apiError.error);
+      }
+    };
+    loadBestCinemas();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col py-5">
@@ -49,13 +79,13 @@ const HomePage = () => {
             <div className="flex flex-col gap-3">
               {popularReviews.map((review) => (
                 <ReviewCard
-                  key={review.id}
-                  imageUrl={getRandomImage(82, 82)}
-                  tags={review.hashtags.map((tag) => tag.hashTagName)}
-                  title={review.movieSeatInfo.theaterName}
+                  key={review.reviewId}
+                  imageUrl={review.thumbnailUrl}
+                  tags={review.hashtags}
+                  title={review.title}
                   description={review.content}
                   likeCount={review.heartCount}
-                  onClick={() => navigate(`/review/${review.id}`)}
+                  onClick={() => navigate(`/review/${review.reviewId}`)}
                 />
               ))}
             </div>
@@ -68,17 +98,18 @@ const HomePage = () => {
             </div>
 
             <div className="grid w-full grid-cols-2 gap-x-2 gap-y-3">
-              {bestCinemas.map((cinema) => (
-                <BestCinemaCard
-                  key={cinema.rank}
-                  rank={cinema.rank}
-                  imageUrl={cinema.imageUrl}
-                  title={cinema.auditoriumName}
-                  rating={cinema.avgRating}
-                  reviewCount={cinema.reviewCount}
-                  onClick={() => navigate(`/theaters/${cinema.auditoriumId}`)}
-                />
-              ))}
+              {Array.isArray(bestCinemaList) &&
+                bestCinemaList.map((cinema, idx) => (
+                  <BestCinemaCard
+                    key={cinema.auditoriumId}
+                    rank={idx + 1}
+                    imageUrl={getRandomImage()} //추후 이미지 추가되면 교체
+                    title={cinema.auditoriumName}
+                    rating={cinema.avgRating}
+                    reviewCount={cinema.reviewCount}
+                    onClick={() => navigate(`/theaters/${cinema.auditoriumId}`)}
+                  />
+                ))}
             </div>
           </div>
         </div>

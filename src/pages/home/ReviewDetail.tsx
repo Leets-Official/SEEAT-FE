@@ -1,25 +1,44 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header, Badge, RatingCard, ProfileImageWithFallback } from '@/components';
-import { reviewDetailMock } from '@/__mocks/reviewDetailMock';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { getReviewDetail } from '@/api/review/getReviewDetail.api';
+import type { ReviewDetail } from '@/types/review';
+import type { ApiError } from '@/types/api-response';
 
 const ReviewDetailPage = () => {
   const { reviewId } = useParams<{ reviewId: string }>();
+  const [review, setReview] = useState<ReviewDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+
   //사진 슬라이드 시 현재 사진 위치...
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const review = reviewDetailMock.find((r) => r.id === Number(reviewId));
-  //경로 직접 입력되는 경우 대비
+  useEffect(() => {
+    if (!reviewId) return;
+    const fetchReview = async () => {
+      try {
+        const data = await getReviewDetail(Number(reviewId));
+        setReview(data);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('불러오기 실패:', apiError.message, apiError.error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReview();
+  }, [reviewId]);
+
+  if (loading) {
+    return <div className="flex items-center justify-center">불러오는 중</div>;
+  }
+
   if (!review) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p>리뷰를 찾을 수 없습니다.</p>
-      </div>
-    );
+    return <div className="flex items-center justify-center">해당 리뷰를 찾을 수 없습니다.</div>;
   }
 
   return (
@@ -66,7 +85,7 @@ const ReviewDetailPage = () => {
         </div>
 
         <div className="w-full px-5 pt-5">
-          <div className="text-title-2 text-left text-white">{`${review.movieSeatInfo.theaterName} (${review.movieSeatInfo.auditoriumName})`}</div>
+          <div className="text-title-2 text-left text-white">{review.title}</div>
 
           {/*유저 정보, 추후 API 연결 시 프로필 사진 받아와서 조건부로...*/}
           <div className="mt-3 flex items-center gap-2">
@@ -83,13 +102,21 @@ const ReviewDetailPage = () => {
               <Badge type="info" className="h-7 w-[85px] justify-center">
                 관람 영화
               </Badge>
-              <span className="text-caption-2 text-white">{review.movieSeatInfo.movieTitle}</span>
+              <span className="text-caption-2 text-white">{review.movieTitle}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge type="info" className="h-7 w-[85px] justify-center">
+                상영관
+              </Badge>
+              <span className="text-caption-2 text-white">{review.auditoriumName}</span>
             </div>
             <div className="flex items-center gap-2">
               <Badge type="info" className="h-7 w-[85px] justify-center">
                 좌석 정보
               </Badge>
-              <span className="text-caption-2 text-white">{review.movieSeatInfo.seatNumber}</span>
+              <span className="text-caption-2 text-white">
+                {review.seatInfo.map((seat) => seat.seatNumber).join(', ')}
+              </span>
             </div>
           </div>
 

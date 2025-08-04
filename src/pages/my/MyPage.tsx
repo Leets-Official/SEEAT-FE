@@ -56,6 +56,10 @@ const MyPage: React.FC = () => {
   const handleProfileEditClick = () => {
     navigate('/my/profile-edit');
   };
+  
+  const handleSettingsClick = () => {
+    navigate('/my/settings');
+  };
 
   if (isLoading) {
     return <div>프로필 불러오는 중</div>;
@@ -72,9 +76,13 @@ const MyPage: React.FC = () => {
   return (
     <div className="relative mx-auto w-full max-w-md text-white">
       <div className="min-h-screen">
-        <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
+        <Header
+          leftSection="LOGO"
+          rightSection="SETTING"
+          onSettingsClick={handleSettingsClick}
+        />
 
-        <main className="pt-[63px] flex flex-col gap-4 px-4 pb-[83px]">
+        <main className="flex flex-col gap-4 px-4 pb-[83px] pt-[63px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
@@ -126,14 +134,19 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* 레벨 카드 */}
-          <LevelCard userLevel={user.level} userProgress={user.progress} />
+          {/* LevelCard api연결전 필수 props 임시값(0)전달 빌드 에러임시 */}
+          <LevelCard
+            userLevel={user.level}
+            userProgress={user.progress}
+            currentReviewCount={0}
+            currentLikeCount={0}
+          />
 
           {/* 메뉴 리스트 */}
           <section>
             <ul className="flex flex-col">
               {menuItems.map((item) => (
-                <li key={item.name}>  
+                <li key={item.name}>
                   <button
                     onClick={() => navigate(item.path)}
                     className="flex w-full items-center justify-between px-2 py-4 text-left"

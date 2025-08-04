@@ -76,7 +76,7 @@ const SeatReviewPage = () => {
                     rating={review.rating}
                     date={review.createdAt}
                     likeCount={review.heartCount}
-                    onClick={() => navigate(`review/${review.reviewId}`)}
+                    onClick={() => navigate(`/review/${review.reviewId}`)}
                   />
                 ))}
               </div>

@@ -4,13 +4,14 @@ import type { User } from './user';
 import type { ReviewImage } from './image';
 
 export interface ReviewSummary {
-  id: number;
-  user: User;
+  reviewId: number;
+  thumbnailUrl: string;
   movieSeatInfo: MovieSeatInfo;
   hashtags: Hashtag[];
+  title: string;
   content: string;
+  user: User;
   rating: number;
-  imageInfo: ReviewImage[];
   heartCount: number;
   createdAt: string;
 }

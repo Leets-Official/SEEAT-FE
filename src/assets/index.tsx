@@ -34,6 +34,10 @@ import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import DefaultThumbnail from '@/assets/icons/default_thumbnail.svg?react';
 import BarIcon from '@/assets/icons/bar_icon.svg?react';
+import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
+import NaverIcon from '@/assets/icons/naver_icon.svg?react';
+
+//gif
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
 
 export {
@@ -74,4 +78,6 @@ export {
   DefaultThumbnail,
   BarIcon,
   TicketAlt,
+  KakaoIcon,
+  NaverIcon,
 };

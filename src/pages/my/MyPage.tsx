@@ -60,9 +60,17 @@ const MyPage: React.FC = () => {
     navigate('/my/profile-edit');
   };
 
+<<<<<<< HEAD
   if (isLoading) {
     return <div>프로필 불러오는 중</div>;
   }
+=======
+  return (
+    <div className="relative mx-auto w-full max-w-md">
+      <div className="min-h-screen">
+        {/* Header - 병합 결과 */}
+        <Header rightSection="SETTING">마이페이지</Header>
+>>>>>>> 92aeb3f3605ce2777f17f10dd6f0e265415deca8
 
   if (error) {
     return <div>프로필 불러오기 실패: {error}</div>;

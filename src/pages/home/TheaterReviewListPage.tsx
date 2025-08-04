@@ -23,7 +23,7 @@ const TheaterReviewListPage = () => {
   );
 
   return (
-    <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">
+    <div className="flex min-h-screen flex-col pt-11 pb-5">
       <Header leftSection="BACK" onBackClick={() => navigate('/theaters')} />
       <div className="mx-auto w-full max-w-[430px] space-y-3 px-5 pt-5">
         {selectedReviews.length === 0 ? (

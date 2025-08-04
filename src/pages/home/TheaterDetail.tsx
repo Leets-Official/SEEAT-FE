@@ -35,7 +35,7 @@ const CinemaDetailPage = () => {
   const rating = cinema?.averageReview.toFixed?.(1);
 
   return (
-    <div className="flex min-h-screen max-w-[430px] flex-col bg-gray-900 pt-11 pb-5">
+    <div className="flex min-h-screen flex-col pt-11 pb-5">
       <Header leftSection="BACK" />
       <div className="w-full px-5 pt-[48px]">
         {/*영화관(상영관) 이름*/}

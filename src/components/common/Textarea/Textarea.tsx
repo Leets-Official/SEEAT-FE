@@ -15,7 +15,7 @@ interface TextareaProps
   height?: string;
   showEmptyWarning?: boolean;
   showMinLengthWarning?: boolean;
-  required?: boolean;
+  required?: boolean; // 필수 입력인 경우 * 추가
   className?: string;
 }
 

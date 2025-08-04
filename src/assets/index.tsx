@@ -32,19 +32,17 @@ import SEEATLogo from '@/assets/icons/seeat_logo.svg?react';
 import GearIcon from '@/assets/icons/icon_gear.svg?react';
 import DefaultProfile from '@/assets/icons/default_profile.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
+import DefaultThumbnail from '@/assets/icons/default_thumbnail.svg?react';
+import BarIcon from '@/assets/icons/bar_icon.svg?react';
+import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
+import NaverIcon from '@/assets/icons/naver_icon.svg?react';
+import SoundIcon from '@/assets/icons/sound.svg?react';
+import EnvironmentIcon from '@/assets/icons/environment.svg?react';
+import CompanionIcon from '@/assets/icons/companion.svg?react';
+
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
 
 export {
-  KebabIcon,
-  CheckSquareOffIcon,
-  CheckSquareOnIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-  EditIcon,
-  ChevronRightIcon,
-  MyProfileIcon,
-  MyProfileEditIcon,
-  PencilIcon,
   HomeIcon,
   SearchIcon,
   MyIcon,
@@ -55,19 +53,36 @@ export {
   BookmarkFilledIcon,
   BookmarkOutlineIcon,
   PlusIcon,
+  KebabIcon,
+  EditIcon,
+  ChevronRightIcon,
+  MyProfileIcon,
+  MyProfileEditIcon,
+  PencilIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CheckSquareOnIcon,
+  CheckSquareOffIcon,
   FilterIcon,
   LevelCharacter1,
   LevelCharacter2,
   LevelCharacter3,
   LevelCharacter4,
   StarFill,
-  StarLine,
   StarHalf,
+  StarLine,
   ArrowRight,
   StarSmall,
   SEEATLogo,
   GearIcon,
   DefaultProfile,
   CheckIcon,
+  DefaultThumbnail,
+  BarIcon,
+  KakaoIcon,
+  NaverIcon,
+  SoundIcon,
+  EnvironmentIcon,
+  CompanionIcon,
   TicketAlt,
 };

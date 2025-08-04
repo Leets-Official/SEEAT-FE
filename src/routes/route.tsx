@@ -1,6 +1,35 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Signup from '@/pages/signup';
+
 import SplashPage from '@/pages/splash/SplashPage';
+import Signup from '@/pages/login/LoginPage';
+import KakaoCallback from '@/pages/login/KakaoCallback';
+
+import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
+import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
+import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
+import SignupComplete from '@/pages/onboarding/SignupComplete';
+
+import HomePage from '@/pages/home/HomePage';
+import TheaterListPage from '@/pages/home/TheatersList';
+import TheaterDetailPage from '@/pages/home/TheaterDetail';
+import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
+import ReviewDetailPage from '@/pages/home/ReviewDetail';
+import PopularReviewPage from '@/pages/home/PopularReview';
+
+import SeatTest from '@/pages/seat/SeatTest';
+import SeatReviewPage from '@/pages/seat';
+
+import { TicketUploadStep } from '@/pages/review/TicketPage';
+import MovieInfoForm from '@/pages/review/MovieInfoStep';
+import CinemaSelect from '@/pages/review/CinemaSelect';
+import RatingStep from '@/pages/review/RatingStep';
+import ReviewTagsPage from '@/pages/review/TagPage';
+import ReviewTextForm from '@/pages/review/ReviewContent';
+
+import Search from '@/pages/search/ReviewSearch';
+import ReviewSearchResult from '@/pages/search/ReviewSearchResult';
+import ReviewFilter from '@/pages/search/ReviewFilter';
+
 import MyPage from '@/pages/my/MyPage';
 import MySettingPage from '@/pages/my/MySetting';
 import ProfileEdit from '@/pages/my/ProfileEdit';
@@ -9,25 +38,6 @@ import CinemaChoice from '@/pages/my/CinemaChoice';
 import MyReviewPage from '@/pages/my/MyReview';
 import MyBookmarkPage from '@/pages/my/MyBookmark';
 import MyFeedbackPage from '@/pages/my/MyFeedback';
-import Search from '@/pages/search/ReviewSearch';
-import ReviewSearchResult from '@/pages/search/ReviewSearchResult';
-import ReviewFilter from '@/pages/search/ReviewFilter';
-import MovieInfoForm from '@/pages/review/MovieInfoStep';
-import CinemaSelect from '@/pages/review/CinemaSelect';
-import { TicketUploadStep } from '@/pages/review/TicketPage';
-import RatingStep from '@/pages/review/RatingStep';
-import ReviewTagsPage from '@/pages/review/TagPage';
-import ReviewTextForm from '@/pages/review/ReviewContent';
-import HomePage from '@/pages/home/HomePage';
-import TheaterListPage from '@/pages/home/TheatersList';
-import TheaterDetailPage from '@/pages/home/TheaterDetail';
-import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
-import ReviewDetailPage from '@/pages/home/ReviewDetail';
-import OnboardingNicknamePage from '@/pages/onboarding/OnboardingNicknamePage';
-import OnboardingGenrePage from '@/pages/onboarding/OnboardingGenrePage';
-import OnboardingTheaterPage from '@/pages/onboarding/OnboardingTheaterPage';
-import SeatTest from '@/pages/seat/SeatTest';
-import SeatReviewPage from '@/pages/seat';
 import LevelPage from '@/pages/my/Level';
 
 const router = createBrowserRouter([
@@ -39,7 +49,26 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Signup />,
   },
-  //홈
+  {
+    path: '/extra-info',
+    element: <KakaoCallback />,
+  },
+  {
+    path: '/onboarding/nickname',
+    element: <OnboardingNicknamePage />,
+  },
+  {
+    path: '/onboarding/genre',
+    element: <OnboardingGenrePage />,
+  },
+  {
+    path: '/onboarding/theater',
+    element: <OnboardingTheaterPage />,
+  },
+  {
+    path: '/signup/complete',
+    element: <SignupComplete />,
+  },
   {
     path: '/home',
     element: <HomePage />,
@@ -60,33 +89,49 @@ const router = createBrowserRouter([
     path: '/review/:reviewId',
     element: <ReviewDetailPage />,
   },
-
-  //리뷰
   {
-    path: '/login',
-    element: <Signup />,
+    path: '/review/popular',
+    element: <PopularReviewPage />,
   },
   {
-    path: '/onboarding/nickname',
-    element: <OnboardingNicknamePage />,
+    path: '/reviews/:seatId',
+    element: <SeatReviewPage />,
   },
   {
-    path: '/onboarding/genre',
-    element: <OnboardingGenrePage />,
+    path: '/seat',
+    element: <SeatTest />,
   },
   {
-    path: '/onboarding/theater',
-    element: <OnboardingTheaterPage />,
+    path: '/seat/review/:seatId',
+    element: <SeatReviewPage />,
   },
   {
     path: '/review',
     children: [
-      { index: true, element: <TicketUploadStep /> },
-      { path: 'info', element: <MovieInfoForm /> },
-      { path: 'info/cinema', element: <CinemaSelect /> },
-      { path: 'rating', element: <RatingStep /> },
-      { path: 'tag', element: <ReviewTagsPage /> },
-      { path: 'form', element: <ReviewTextForm /> },
+      {
+        index: true,
+        element: <TicketUploadStep />,
+      },
+      {
+        path: 'info',
+        element: <MovieInfoForm />,
+      },
+      {
+        path: 'info/cinema',
+        element: <CinemaSelect />,
+      },
+      {
+        path: 'rating',
+        element: <RatingStep />,
+      },
+      {
+        path: 'tag',
+        element: <ReviewTagsPage />,
+      },
+      {
+        path: 'form',
+        element: <ReviewTextForm />,
+      },
     ],
   },
   {
@@ -137,14 +182,7 @@ const router = createBrowserRouter([
     path: '/my/level',
     element: <LevelPage />,
   },
-  {
-    path: '/seat',
-    element: <SeatTest />,
-  },
-  {
-    path: '/seat/review/:seatId',
-    element: <SeatReviewPage />,
-  },
 ]);
 
 export default router;
+

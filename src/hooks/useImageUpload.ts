@@ -6,12 +6,24 @@ export function useImgUpload(maxCount: number = 5) {
 
   const addImages = (files: FileList | null) => {
     if (!files) return;
+    const selected = Array.from(files).slice(0, maxCount);
 
-    const selected = Array.from(files).slice(0, maxCount - images.length);
-    const newPreviews = selected.map((file) => URL.createObjectURL(file));
+    // 기존 이미지가 1장 제한일 경우 덮어쓰기
+    if (maxCount === 1) {
+      // 기존 preview 해제
+      previewUrls.forEach((url) => URL.revokeObjectURL(url));
 
-    setImages((prev) => [...prev, ...selected]);
-    setPreviewUrls((prev) => [...prev, ...newPreviews]);
+      const newPreviewUrls = selected.map((file) => URL.createObjectURL(file));
+      setImages(selected);
+      setPreviewUrls(newPreviewUrls);
+    } else {
+      const selectableCount = maxCount - images.length;
+      const sliced = selected.slice(0, selectableCount);
+      const newPreviewUrls = sliced.map((file) => URL.createObjectURL(file));
+
+      setImages((prev) => [...prev, ...sliced]);
+      setPreviewUrls((prev) => [...prev, ...newPreviewUrls]);
+    }
   };
 
   const removeImage = (index: number) => {

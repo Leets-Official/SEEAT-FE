@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Header } from '@/components';
+import { Button, Header, ImagePreviewItem } from '@/components';
 import Input from '@/components/common/Input/Input';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
@@ -13,13 +13,15 @@ const OnboardingNicknamePage = () => {
 
   const setNickname = useOnboardingStore((state) => state.setNickname);
 
-  const { images, addImages, removeImage, resetImages, isMax } = useImgUpload(1);
+  const { images, addImages, removeImage, previewUrls, isMax } = useImgUpload(1);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClickGallery = () => {
-    if (isMax) return;
-    fileInputRef.current?.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // <-- 반드시 비워주기
+      fileInputRef.current.click();
+    }
   };
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +47,7 @@ const OnboardingNicknamePage = () => {
         <h1 className="text-title-2 mb-10">프로필을 만들어주세요</h1>
 
         <div className="mb-10 flex justify-center">
-          <GalleryProfileIcon className="cursor-pointer" onClick={handleClickGallery} />
+          {/* 파일 input */}
           <input
             ref={fileInputRef}
             type="file"
@@ -53,6 +55,20 @@ const OnboardingNicknamePage = () => {
             className="hidden"
             onChange={handleChangeFile}
           />
+
+          {previewUrls.length === 0 ? (
+            <div onClick={handleClickGallery}>
+              <GalleryProfileIcon className="cursor-pointer" />
+            </div>
+          ) : (
+            <ImagePreviewItem
+              previewUrl={previewUrls[0]}
+              index={0}
+              rounded="full"
+              size={100}
+              onClick={handleClickGallery}
+            />
+          )}
         </div>
 
         {/* 닉네임 입력 */}

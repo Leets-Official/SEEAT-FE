@@ -12,6 +12,6 @@ export interface ReviewCreateRequest {
 }
 
 export const postReview = async (data: ReviewCreateRequest) => {
-  const res = await api.post<ApiResponse<null>>('/api/v1/reviews', data);
+  const res = await api.post<ApiResponse<{ reviewId: number }>>('/reviews', data);
   return res.data.data;
 };

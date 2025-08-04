@@ -74,7 +74,6 @@ const MyPage: React.FC = () => {
       <div className="min-h-screen">
         <Header title="마이페이지" showBack={false} showLike={false} showBookmark={false} />
 
-        {/* [핵심 수정] 아래 main 태그의 className에 pt-[56px]를 추가하고 mt-2를 제거했습니다. */}
         <main className="pt-[63px] flex flex-col gap-4 px-4 pb-[83px]">
           {/* 프로필 카드 */}
           <section className="rounded-lg bg-gray-800/30 p-4">
@@ -84,10 +83,10 @@ const MyPage: React.FC = () => {
                   <img
                     src={user.profileImageUrl}
                     alt={`${user.nickname}의 프로필`}
-                    className="h-16 w-16 rounded-full object-cover"
+                    className="h-20 w-20 rounded-full object-cover"
                   />
                 ) : (
-                  <MyProfileIcon className="h-16 w-16" />
+                  <MyProfileIcon className="h-20 w-20" />
                 )}
                 <span className="text-title-2">{user.nickname}</span>
               </div>
@@ -134,7 +133,7 @@ const MyPage: React.FC = () => {
           <section>
             <ul className="flex flex-col">
               {menuItems.map((item) => (
-                <li key={item.name}>
+                <li key={item.name}>  
                   <button
                     onClick={() => navigate(item.path)}
                     className="flex w-full items-center justify-between px-2 py-4 text-left"

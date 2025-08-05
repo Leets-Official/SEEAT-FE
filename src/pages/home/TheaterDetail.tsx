@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Header, Image, Badge, ReviewCard, TagCardList } from '@/components';
+import { Header, Image, ReviewCard, TagCardList } from '@/components';
 import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaData } from '@/constants';
@@ -19,12 +19,6 @@ const CinemaDetailPage = () => {
       ? `${cinema.theaterName} (${cinema.auditoriumName})`
       : cinema.theaterName
     : '영화관 정보 없음';
-
-  const infoList = [
-    { label: '스크린', value: cinema?.screenSize },
-    { label: '영사 포맷', value: '정보 없음' }, //스웨거에 없는 것 같습니다...
-    { label: '음향', value: cinema?.soundType },
-  ];
 
   const reviews = reviewSummaryMock.filter(
     (review) =>

@@ -8,8 +8,8 @@ export interface Level {
   CharacterComponent: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 export const LEVEL_DATA: Level[] = [
-  { id: 1, title: '레벨1 캐릭터이름', CharacterComponent: LevelCharacter1 },
-  { id: 2, title: '레벨2 캐릭터이름', CharacterComponent: LevelCharacter2 },
-  { id: 3, title: '레벨3 캐릭터이름', CharacterComponent: LevelCharacter3 },
-  { id: 4, title: '레벨4 캐릭터이름', CharacterComponent: LevelCharacter4 },
+  { id: 1, title: '옥수수 인턴 코니', CharacterComponent: LevelCharacter1 },
+  { id: 2, title: '영화관 탐험가 코니', CharacterComponent: LevelCharacter2 },
+  { id: 3, title: '영화관 평론가 코니', CharacterComponent: LevelCharacter3 },
+  { id: 4, title: '전설의 팝콘 코니', CharacterComponent: LevelCharacter4 },
 ];

@@ -15,7 +15,7 @@ const CinemaTypeButton = ({ tab, className, children }: CinemaTypeButtonProps) =
     <button
       onClick={() => navigate(`/theaters?tab=${tab}`)}
       className={cn(
-        'rounded-m flex h-[132px] w-[163px] flex-col items-center bg-gray-950 px-3 py-5',
+        'rounded-m flex h-[132px] w-[163px] flex-col items-center border border-gray-800 bg-gray-950 px-3 py-5',
         className,
       )}
     >

@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Header, Image, Badge, ReviewCard } from '@/components';
-import { StarSmall, ArrowRight } from '@/assets';
+import { Header, Image, ReviewCard, TagCardList } from '@/components';
+import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaData } from '@/constants';
+import tagList from '@/constants/taglist';
 
 const CinemaDetailPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
@@ -18,12 +19,6 @@ const CinemaDetailPage = () => {
       ? `${cinema.theaterName} (${cinema.auditoriumName})`
       : cinema.theaterName
     : '영화관 정보 없음';
-
-  const infoList = [
-    { label: '스크린', value: cinema?.screenSize },
-    { label: '영사 포맷', value: '정보 없음' }, //스웨거에 없는 것 같습니다...
-    { label: '음향', value: cinema?.soundType },
-  ];
 
   const reviews = reviewSummaryMock.filter(
     (review) =>
@@ -58,17 +53,17 @@ const CinemaDetailPage = () => {
           </div>
         </div>
 
-        {/*상세 정보*/}
-        <div className="flex flex-col gap-y-3 pt-5">
-          {infoList.map(({ label, value }) => (
-            <div key={label} className="flex items-center gap-4">
-              <Badge type="info" className="h-7 w-[85px] justify-center">
-                {label}
-              </Badge>
-              <span className="text-caption-2 text-white">{value || '정보 없음'}</span>
-            </div>
-          ))}
+        {/*AI 후기 요약*/}
+        <div className="mt-5 flex flex-col rounded-lg border border-gray-500 px-4 py-3">
+          <div className="text-caption-1 flex items-center gap-1 text-red-300">
+            <SmileIcon />
+            <span>AI 후기 요약</span>
+          </div>
+          <div className="text-caption-2 mt-1 text-gray-300">어쩌고저쩌고 후기 내용</div>
         </div>
+
+        {/*많이 사용된 태그*/}
+        <TagCardList tags={tagList} />
 
         {/*후기*/}
         <div className="mt-9">

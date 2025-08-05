@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, Badge, ReviewCard } from '@/components';
-import { StarSmall, ArrowRight } from '@/assets';
+import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaData } from '@/constants';
 
@@ -56,6 +56,15 @@ const CinemaDetailPage = () => {
           <div className="justify-center px-16 py-[34px]">
             <Image src={imgUrl} aspectRatio="aspect-[246/142]" />
           </div>
+        </div>
+
+        {/*AI 후기 요약*/}
+        <div className="mt-5 flex flex-col rounded-lg border border-gray-500 px-4 py-3">
+          <div className="text-caption-1 flex items-center gap-1 text-red-300">
+            <SmileIcon />
+            <span>AI 후기 요약</span>
+          </div>
+          <div className="text-caption-2 mt-1 text-gray-300">어쩌고저쩌고 후기 내용</div>
         </div>
 
         {/*상세 정보*/}

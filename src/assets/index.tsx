@@ -39,7 +39,7 @@ import NaverIcon from '@/assets/icons/naver_icon.svg?react';
 import SoundIcon from '@/assets/icons/sound.svg?react';
 import EnvironmentIcon from '@/assets/icons/environment.svg?react';
 import CompanionIcon from '@/assets/icons/companion.svg?react';
-
+import SmileIcon from '@/assets/icons/smile.svg?react';
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
 
 export {
@@ -85,4 +85,5 @@ export {
   EnvironmentIcon,
   CompanionIcon,
   TicketAlt,
+  SmileIcon,
 };

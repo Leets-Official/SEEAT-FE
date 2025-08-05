@@ -1,26 +1,24 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, ReviewCard, TagCardList } from '@/components';
 import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
-import { getRandomImage, reviewSummaryMock } from '@/__mocks';
-import { cinemaData } from '@/constants';
 import { useEffect, useState } from 'react';
 import { getTheatersDetail } from '@/api/theater/theater.api';
 import type { GetTheatersDetailResponse } from '@/api/theater/theater.api';
 import type { ApiError } from '@/types/api-response';
-
+import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
+import type { ReviewSummary } from '@/types/review';
 import tagList from '@/constants/taglist';
 
 const CinemaDetailPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();
-  const imgUrl = getRandomImage(246, 142);
 
   const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
+  const [reviews, setReviews] = useState<ReviewSummary[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!auditoriumId) return;
-
     const fetchTheatersDetail = async () => {
       try {
         const res = await getTheatersDetail(auditoriumId);
@@ -35,21 +33,41 @@ const CinemaDetailPage = () => {
     fetchTheatersDetail();
   }, [auditoriumId]);
 
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchReviews = async () => {
+      try {
+        const res = await getAuditoriumReviews({
+          auditoriumId,
+          page: 1,
+          size: 3,
+          sort: 'likes',
+        });
+        setReviews(res.content);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('리뷰 불러오기 실패', apiError.error, apiError.message);
+      }
+    };
+    fetchReviews();
+  }, [auditoriumId]);
+
   const title = cinema?.theaterName
     ? cinema.auditoriumName
       ? `${cinema.theaterName} (${cinema.auditoriumName})`
       : cinema.theaterName
     : '영화관 정보 없음';
 
-  const reviews = reviewSummaryMock.filter(
-    (review) =>
-      review.movieSeatInfo.theaterName === cinema?.theaterName &&
-      review.movieSeatInfo.auditoriumName === cinema?.auditoriumName,
-  );
   const reviewCount = cinema?.reviewCount;
-
   const rating = cinema?.averageReview.toFixed?.(1);
 
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        상영관 정보를 불러오는 중입니다...
+      </div>
+    );
+  }
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
       <Header leftSection="BACK" className="bg-gray-900" />
@@ -97,13 +115,13 @@ const CinemaDetailPage = () => {
           <div className="flex flex-col gap-3">
             {reviews.slice(0, 3).map((review) => (
               <ReviewCard
-                key={review.id}
-                imageUrl={getRandomImage(82, 82)}
+                key={review.reviewId}
+                imageUrl={review.thumbnailUrl}
                 tags={review.hashtags.map((h) => h.hashTagName)}
-                title={title}
+                title={review.title}
                 description={review.content}
                 likeCount={review.heartCount}
-                onClick={() => navigate(`/review/${review.id}`)}
+                onClick={() => navigate(`/review/${review.reviewId}`)}
               />
             ))}
           </div>

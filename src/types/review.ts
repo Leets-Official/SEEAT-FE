@@ -26,3 +26,26 @@ export interface ReviewDetail {
   heartCount: number;
   createdAt: string;
 }
+
+export interface PopularReview {
+  reviewId: number;
+  thumbnailUrl: string;
+  hashtags: string[];
+  movieTitle: string;
+  theaterName: string;
+  title: string;
+  content: string;
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+  heartCount: number;
+  originalCreatedAt: string;
+  createdAt: string;
+}
+
+export interface PopularReviewResponse {
+  content: PopularReview[];
+  hasNext: boolean;
+  page: number;
+  size: number;
+}

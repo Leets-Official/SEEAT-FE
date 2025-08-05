@@ -1,9 +1,7 @@
-export interface BestCinema {
+export type BestCinema = {
   auditoriumId: string;
   auditoriumName: string;
   avgRating: number;
   reviewCount: number;
   score: number;
-  imageUrl: string;
-  rank: number;
-}
+};

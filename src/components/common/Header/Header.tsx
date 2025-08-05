@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/utils/cn';
 import { GearIcon, KebabIcon, SEEATLogo } from '@/assets';
 import { BackButton } from './BackButton';
 import { DetailButton } from './DetailButton';
@@ -11,6 +12,7 @@ interface HeaderProps {
   onDetailClick?: () => void;
   onKebabClick?: () => void;
   children?: React.ReactNode;
+  className?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -21,9 +23,15 @@ const Header: React.FC<HeaderProps> = ({
   onDetailClick,
   onKebabClick,
   children,
+  className,
 }) => {
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between bg-gray-900 px-5 py-8">
+    <header
+      className={cn(
+        'fixed top-0 right-0 left-0 z-50 mx-auto flex h-[44px] w-full max-w-[430px] items-center justify-between px-5',
+        className,
+      )}
+    >
       {/* 왼쪽 섹션 + 타이틀 */}
       <div className="flex items-center gap-2">
         {leftSection === 'BACK' && <BackButton onClick={onBackClick} />}

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useReviewStore } from '@/store';
 import { useEffect, useState } from 'react';
 import type { Hashtag } from '@/types/hashtag';
-import { getHashtags } from '@/api/hashtag/hashtag';
+import { getHashtags } from '@/api/hashtag/hashtag.api';
 import {
   TAG_TYPE_TITLE_MAP,
   REQUIRED_TAG_KEYS,

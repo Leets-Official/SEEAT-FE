@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Header, BottomNavigation, LevelCard } from '@/components';
-import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
+import { Header, BottomNavigation, LevelCard, ProfileImageWithFallback } from '@/components';
+import { EditIcon, ChevronRightIcon } from '@/assets';
 import { useState, useEffect } from 'react';
-import type { UserProfile } from '@/types/user';
+import type { UserProfile } from '@/types/user'; // Swagger 명세에 맞게 수정된 타입을 import 합니다.
 import type { ApiError } from '@/types/api-response';
 import { getUserProfile } from '@/api/profile/profile.api';
 
@@ -87,15 +87,12 @@ const MyPage: React.FC = () => {
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                {user.profileImageUrl ? (
-                  <img
-                    src={user.profileImageUrl}
-                    alt={`${user.nickname}의 프로필`}
-                    className="h-20 w-20 rounded-full object-cover"
-                  />
-                ) : (
-                  <MyProfileIcon className="h-20 w-20" />
-                )}
+                <ProfileImageWithFallback
+                  // [수정 1] API 응답에 맞는 키 'imageUrl' 사용
+                  src={user.imageUrl}
+                  alt={`${user.nickname}의 프로필`}
+                  className="h-20 w-20 shrink-0"
+                />
                 <span className="text-title-2">{user.nickname}</span>
               </div>
               <button
@@ -105,14 +102,16 @@ const MyPage: React.FC = () => {
               >
                 <EditIcon className="h-5 w-5" />
               </button>
-            </div>
+             </div>
+
             <div className="mt-4 flex flex-col gap-3">
               <div className="flex items-center gap-4">
                 <div className="flex h-[28px] w-[103px] shrink-0 items-center justify-center rounded-md bg-gray-800">
                   <span className="text-caption-1 text-white">선호 장르</span>
                 </div>
                 <div className="flex flex-wrap gap-x-3">
-                  {(user.preferredGenres || []).map((genre) => (
+                  {/* [수정 2] API 응답에 맞는 키 'genres' 사용 */}
+                  {(user.genres || []).map((genre) => (
                     <span key={genre} className="text-caption-2">
                       {genre}
                     </span>
@@ -124,9 +123,10 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {(user.favoriteTheaters || []).map((theater) => (
-                    <span key={theater} className="text-caption-2 text-gray-500">
-                      {theater}
+                  {/* [수정 3] 'auditoriums' 배열을 순회하며, 객체의 'id'를 key로, 'theaterName'을 내용으로 표시 */}
+                  {(user.auditoriums || []).map((auditorium) => (
+                    <span key={auditorium.id} className="text-caption-2 text-gray-500">
+                      {auditorium.theaterName}
                     </span>
                   ))}
                 </div>
@@ -134,10 +134,10 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* LevelCard api연결전 필수 props 임시값(0)전달 빌드 에러임시 */}
+          {/* [수정 4] LevelCard의 props가 user 객체에 없을 경우를 대비하여 기본값 설정 */}
           <LevelCard
-            userLevel={user.level}
-            userProgress={user.progress}
+            userLevel={user.level || 1}
+            userProgress={user.progress || 0}
             currentReviewCount={0}
             currentLikeCount={0}
           />

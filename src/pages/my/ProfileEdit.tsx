@@ -1,24 +1,72 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Button, Header } from '@/components';
 import { MyProfileEditIcon, PencilIcon } from '@/assets';
+import { updateUserProfile } from '@/api/user/userEdit.api';
+import { useToastStore } from '@/store';
+import { useUserProfileQuery } from '@/hooks/queries/useUserProfileQuery';
 
 export default function ProfileEdit() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { show: showToast } = useToastStore();
+  const { data: user, isLoading } = useUserProfileQuery();
+  const [nickname, setNickname] = useState('');
+  const [genres, setGenres] = useState<string[]>([]);
+  const [auditoriums, setAuditoriums] = useState<string[]>([]);
 
+  useEffect(() => {
+  if (!user) return;
+
+  // location.state가 있을 경우 우선 적용 (빈 배열도 감지)
+  const state = location.state;
+
+  setNickname(state?.nickname ?? user.nickname);
+
+  setGenres(
+    Array.isArray(state?.genres) && state.genres.length > 0
+      ? state.genres
+      : user.genres
+  );
+
+  setAuditoriums(
+    Array.isArray(state?.auditoriums) && state.auditoriums.length > 0
+      ? state.auditoriums
+      : user.auditoriums
+  );
+}, [user, location.state]);
   const handleNavigateToGenreSelect = () => {
-    navigate('/my/select-genre');
+    navigate('/my/select-genre', { state: { nickname, auditoriums } });
   };
+
   const handleNavigateToCinemaChoice = () => {
-    navigate('/my/cinema-choice');
+    navigate('/my/cinema-choice', { state: { nickname, genres } });
   };
+
+  const handleSave = async () => {
+  try {
+    const payload = {
+      nickname,
+      genres,
+      auditoriums,
+    };
+
+    console.log('🔥 update payload:', payload);
+
+    await updateUserProfile(payload);
+    showToast('프로필이 저장되었습니다.', 3000);
+    navigate('/my');
+  } catch (error) {
+    showToast('저장에 실패했습니다.', 3000);
+    console.error('❌ update error', error);
+  }
+};
+
 
   return (
     <div className="font-suit flex h-screen flex-col text-white">
-      {/* Header */}
       <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900" />
-      {/* Main Content */}
-      <main className="flex-grow overflow-y-auto px-4 pt-[68px]">
-        {/* 프로필 정보 섹션 */}
+      <main className="flex-grow overflow-y-auto px-4 pt-[49px]">
         <section className="mt-4 flex flex-col items-center rounded-xl bg-gray-800/30 px-4 py-6">
           <button className="mb-6" aria-label="프로필 사진 변경">
             <MyProfileEditIcon className="h-20 w-20" />
@@ -30,43 +78,37 @@ export default function ProfileEdit() {
             <input
               id="nickname"
               type="text"
-              defaultValue="김씨잇"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               className="mt-2 h-[46px] w-full rounded-md border border-gray-800 bg-gray-900 px-4 py-3 text-white placeholder-gray-500 focus:outline-none"
             />
           </div>
         </section>
 
-        <div className="mx-auto mt-10 flex h-[168px] w-[330px] flex-col justify-around">
-          <button
-            onClick={handleNavigateToGenreSelect}
-            className="flex w-full items-start justify-between text-left"
-          >
+        <div className="mx-auto mt-2 flex h-[168px] w-[330px] flex-col justify-around gap-y-2">
+          <button onClick={handleNavigateToGenreSelect} className="flex w-full justify-between text-left">
             <div>
               <h2 className="text-title-3 text-white">선호 장르</h2>
-              <p className="text-caption-2 mt-2 text-red-300">호러, SF, 로맨스</p>
+              <p className="text-caption-2 mt-2 text-red-300">{genres.join(', ')}</p>
             </div>
-            <PencilIcon className="h-6 w-6 flex-shrink-0" />
+            <PencilIcon className="h-6 w-6" />
           </button>
 
-          {/* 즐겨찾는 영화관 섹션 */}
-          <button
-            onClick={handleNavigateToCinemaChoice}
-            className="flex w-full items-start justify-between text-left"
-          >
+          <button onClick={handleNavigateToCinemaChoice} className="flex w-full justify-between text-left">
             <div>
               <h2 className="text-title-3 text-white">즐겨찾는 영화관</h2>
               <div className="text-caption-2 mt-2 space-y-2 text-red-300">
-                <p>남양주현대아울렛 스페이스원</p>
-                <p>용산아이파크몰 (용아맥)</p>
+                {auditoriums.map((a: string) => (
+                  <p key={a}>{a}</p>
+                ))}
               </div>
             </div>
-            <PencilIcon className="h-6 w-6 flex-shrink-0" />
+            <PencilIcon className="h-6 w-6" />
           </button>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="flex-shrink-0 bg-gray-900 px-4 py-3">
+      <footer className="bg-gray-900 px-4 py-3">
         <Button
           variant="primary"
           color="red"
@@ -74,6 +116,8 @@ export default function ProfileEdit() {
           rounded="lg"
           className="w-full"
           fontType="title-3"
+          onClick={handleSave}
+          disabled={isLoading}
         >
           저장하기
         </Button>

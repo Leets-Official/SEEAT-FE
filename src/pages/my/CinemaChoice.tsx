@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, Header, ToggleTab } from '@/components';
 import type { CinemaFormat, CinemaType } from '@/types/onboarding';
 
@@ -15,6 +15,7 @@ const MAX_SELECTABLE_THEATERS = 2;
 
 export default function CinemaChoice() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedTheaters, setSelectedTheaters] = useState<CinemaType[]>([]);
   const [activeFormat, setActiveFormat] = useState<CinemaFormat>('Dolby');
 
@@ -32,8 +33,13 @@ export default function CinemaChoice() {
   };
 
   const handleConfirmSelection = () => {
-    console.log('선택된 영화관:', selectedTheaters);
-    navigate(-1);
+    navigate('/my/profile-edit', {
+      state: {
+        auditoriums: selectedTheaters,
+        nickname: location.state?.nickname,
+        genres: location.state?.genres,
+      },
+    });
   };
 
   const handleFormatSelect = (format: string) => {
@@ -67,7 +73,6 @@ export default function CinemaChoice() {
           onSelect={(selectedValue) => handleFormatSelect(selectedValue)}
         />
 
-        {/* 영화관 목록 */}
         <div className="mt-4 flex flex-col gap-y-3">
           {currentTheaters.map((theater) => (
             <Button

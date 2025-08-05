@@ -10,6 +10,7 @@ import type { ReviewSummary } from '@/types/review';
 import { getTheaterTags } from '@/api/hashtag/hashtag.api';
 import type { Hashtag } from '@/types/hashtag';
 import tagList from '@/constants/taglist';
+//추후 태그 타입 들어오면 수정하기
 
 const CinemaDetailPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();

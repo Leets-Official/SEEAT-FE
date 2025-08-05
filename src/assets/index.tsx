@@ -41,6 +41,8 @@ import EnvironmentIcon from '@/assets/icons/environment.svg?react';
 import CompanionIcon from '@/assets/icons/companion.svg?react';
 import SmileIcon from '@/assets/icons/smile.svg?react';
 import GalleryProfileIcon from '@/assets/icons/file_select.svg?react';
+import DolbyImage from '@/assets/icons/dolby_image.svg?react';
+import ImaxImage from '@/assets/icons/imax_image.svg?react';
 
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
 
@@ -89,4 +91,6 @@ export {
   TicketAlt,
   SmileIcon,
   GalleryProfileIcon,
+  DolbyImage,
+  ImaxImage,
 };

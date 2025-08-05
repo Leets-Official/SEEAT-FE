@@ -1,6 +1,6 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, PlusIcon } from '@/assets';
+import { ArrowRight, DolbyImage, ImaxImage, PlusIcon } from '@/assets';
 import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 import { useEffect, useState } from 'react';
@@ -61,8 +61,12 @@ const HomePage = () => {
               <p className="text-title-3">영화관 리스트</p>
             </div>
             <div className="flex justify-center gap-3">
-              <CinemaTypeButton label="IMAX" tab="imax" />
-              <CinemaTypeButton label="Dolby Cinema" tab="dolby" />
+              <CinemaTypeButton tab="imax">
+                <ImaxImage />
+              </CinemaTypeButton>
+              <CinemaTypeButton tab="dolby">
+                <DolbyImage />
+              </CinemaTypeButton>
             </div>
           </div>
 

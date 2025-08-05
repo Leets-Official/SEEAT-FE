@@ -20,7 +20,7 @@ const TagCardList = ({ tags, maxVisible = 4 }: TagCardListProps) => {
 
   return (
     <div className="mt-5">
-      <div className="flex flex-col gap-3">
+      <div className="flex max-w-[430px] flex-col gap-3">
         {visibleTags.map((tag, index) => (
           <TagReviewNumber
             key={index}

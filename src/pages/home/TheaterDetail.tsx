@@ -101,9 +101,9 @@ const CinemaDetailPage = () => {
     );
   }
   return (
-    <div className="flex min-h-screen flex-col pt-11 pb-5">
+    <div className="flex min-h-screen max-w-[430px] flex-col pt-11 pb-5">
       <Header leftSection="BACK" className="bg-gray-900" />
-      <div className="w-full px-5 pt-5">
+      <div className="mx-auto w-full max-w-[430px] px-5 pt-5">
         {/*영화관(상영관) 이름*/}
         <div className="text-title-2 text-left text-white">{title}</div>
         <div className="mt-2 flex items-center">
@@ -112,14 +112,14 @@ const CinemaDetailPage = () => {
           <span className="text-caption-3 mr-1 pt-[2px] text-gray-500">후기</span>
           <span className="text-caption-1 pt-[2px] text-white">{reviewCount}</span>
         </div>
-        <div className="my-5 w-[335px] border-t border-gray-800" />
+        <div className="my-5 w-full border-t border-gray-800" />
         <div className="text-title-3 text-white">좌석 배치도</div>
         <div className="text-caption-3 pt-1 text-red-300">
           배치도를 클릭하여 각 좌석의 후기를 볼 수 있어요
         </div>
         {/*배치도 사진 들어갈 부분*/}
         <div className="pt-3">
-          <div className="justify-center bg-gray-950">
+          <div className="max-w-[430px] justify-center bg-gray-950">
             <Image src={cinema?.imageUrl} className="w-full" />
           </div>
         </div>

@@ -3,6 +3,11 @@ import { Header, Image, ReviewCard, TagCardList } from '@/components';
 import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaData } from '@/constants';
+import { useEffect, useState } from 'react';
+import { getTheatersDetail } from '@/api/theater/theater.api';
+import type { GetTheatersDetailResponse } from '@/api/theater/theater.api';
+import type { ApiError } from '@/types/api-response';
+
 import tagList from '@/constants/taglist';
 
 const CinemaDetailPage = () => {
@@ -10,9 +15,25 @@ const CinemaDetailPage = () => {
   const navigate = useNavigate();
   const imgUrl = getRandomImage(246, 142);
 
-  const cinema = Object.values(cinemaData)
-    .flat()
-    .find((c) => c.auditoriumId === auditoriumId);
+  const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+
+    const fetchTheatersDetail = async () => {
+      try {
+        const res = await getTheatersDetail(auditoriumId);
+        setCinema(res);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('상영관 정보 불러오기 실패:', apiError.error, apiError.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTheatersDetail();
+  }, [auditoriumId]);
 
   const title = cinema?.theaterName
     ? cinema.auditoriumName
@@ -48,8 +69,8 @@ const CinemaDetailPage = () => {
         </div>
         {/*배치도 사진 들어갈 부분*/}
         <div className="pt-3">
-          <div className="justify-center px-16 py-[34px]">
-            <Image src={imgUrl} aspectRatio="aspect-[246/142]" />
+          <div className="justify-center bg-gray-950">
+            <Image src={cinema?.imageUrl} className="w-full" />
           </div>
         </div>
 

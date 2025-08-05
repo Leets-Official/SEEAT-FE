@@ -37,4 +37,22 @@ const getTheaters = async ({
 // 평점/개수 포함된 좌석 배치도 조회
 
 // 상영관 상세 조회
-export { getTheaters };
+export interface GetTheatersDetailResponse {
+  theaterName: string;
+  auditoriumId: string;
+  auditoriumName: string;
+  imageUrl: string;
+  screenSize: string | null;
+  soundType: string | null;
+  reviewCount: number;
+  averageReview: number;
+}
+
+const getTheatersDetail = async (auditoriumId: string): Promise<GetTheatersDetailResponse> => {
+  const res = await api.get<ApiResponse<GetTheatersDetailResponse>>(
+    `/theaters/auditorium/${auditoriumId}`,
+  );
+  return res.data.data;
+};
+
+export { getTheaters, getTheatersDetail };

@@ -16,6 +16,7 @@ export const getSeatReview = async ({
   seatId,
   page,
   size,
+  sort = 'latest',
 }: {
   seatId: string;
   page: number;
@@ -26,7 +27,7 @@ export const getSeatReview = async ({
     params: {
       page,
       size,
-      sort: 'latest',
+      sort,
     },
   });
   return response.data.data;

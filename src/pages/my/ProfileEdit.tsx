@@ -15,7 +15,7 @@ export default function ProfileEdit() {
   return (
     <div className="font-suit flex h-screen flex-col text-white">
       {/* Header */}
-      <Header leftSection="BACK" rightSection="KEBAB" />
+      <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900" />
       {/* Main Content */}
       <main className="flex-grow overflow-y-auto px-4 pt-[68px]">
         {/* 프로필 정보 섹션 */}

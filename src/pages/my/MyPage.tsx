@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Header, BottomNavigation, LevelCard, ProfileImageWithFallback } from '@/components';
 import { EditIcon, ChevronRightIcon } from '@/assets';
 import { useState, useEffect } from 'react';
-import type { UserProfile } from '@/types/user'; // Swagger 명세에 맞게 수정된 타입을 import 합니다.
+import type { UserProfile } from '@/types/user';
 import type { ApiError } from '@/types/api-response';
 import { getUserProfile } from '@/api/profile/profile.api';
 
@@ -88,7 +88,6 @@ const MyPage: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <ProfileImageWithFallback
-                  // [수정 1] API 응답에 맞는 키 'imageUrl' 사용
                   src={user.imageUrl}
                   alt={`${user.nickname}의 프로필`}
                   className="h-20 w-20 shrink-0"
@@ -123,7 +122,6 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {/* [수정 3] 'auditoriums' 배열을 순회하며, 객체의 'id'를 key로, 'theaterName'을 내용으로 표시 */}
                   {(user.auditoriums || []).map((auditorium) => (
                     <span key={auditorium.id} className="text-caption-2 text-gray-500">
                       {auditorium.theaterName}
@@ -134,7 +132,6 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* [수정 4] LevelCard의 props가 user 객체에 없을 경우를 대비하여 기본값 설정 */}
           <LevelCard
             userLevel={user.level || 1}
             userProgress={user.progress || 0}

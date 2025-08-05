@@ -9,6 +9,7 @@ const MyBookmarkPage = () => {
           leftSection="BACK"
           rightSection="KEBAB"
           onKebabClick={() => console.log('케밥버튼 클릭')}
+          className="bg-gray-900"
         >
           북마크
         </Header>

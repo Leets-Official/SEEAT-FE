@@ -49,6 +49,7 @@ export default function CinemaChoice() {
         leftSection="BACK"
         rightSection="KEBAB"
         onKebabClick={() => console.log('케밥버튼 클릭')}
+        className="bg-gray-900"
       />
 
       <main className="flex-grow pt-[48px]">

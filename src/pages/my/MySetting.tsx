@@ -46,7 +46,9 @@ export default function MySettingPage() {
 
   return (
     <div className="min-h-screen">
-      <Header leftSection="BACK">설정</Header>
+      <Header leftSection="BACK" className="bg-gray-900">
+        설정
+      </Header>
       <main className="mx-auto flex flex-col divide-y divide-gray-800 px-6 pt-[78px]">
         <div className="flex h-[56px] w-full items-center justify-between">
           <span className="text-title-3 text-white">계정</span>

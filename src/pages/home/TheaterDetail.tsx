@@ -2,8 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Image, ReviewCard, TagCardList } from '@/components';
 import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { useEffect, useState } from 'react';
-import { getTheatersDetail } from '@/api/theater/theater.api';
-import type { GetTheatersDetailResponse } from '@/api/theater/theater.api';
+import { getTheatersDetail, getTheaterSummary } from '@/api/theater/theater.api';
+import type { GetTheatersDetailResponse, TheaterSummaryResponse } from '@/api/theater/theater.api';
 import type { ApiError } from '@/types/api-response';
 import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import type { ReviewSummary } from '@/types/review';
@@ -15,6 +15,7 @@ const CinemaDetailPage = () => {
 
   const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
   const [reviews, setReviews] = useState<ReviewSummary[]>([]);
+  const [summary, setSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -50,6 +51,20 @@ const CinemaDetailPage = () => {
       }
     };
     fetchReviews();
+  }, [auditoriumId]);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchSummary = async () => {
+      try {
+        const res: TheaterSummaryResponse = await getTheaterSummary(auditoriumId);
+        setSummary(res.summary);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('요약 불러오기 실패', apiError.error, apiError.message);
+      }
+    };
+    fetchSummary();
   }, [auditoriumId]);
 
   const title = cinema?.theaterName
@@ -93,12 +108,12 @@ const CinemaDetailPage = () => {
         </div>
 
         {/*AI 후기 요약*/}
-        <div className="mt-5 flex flex-col rounded-lg border border-gray-500 px-4 py-3">
+        <div className="mt-5 mb-10 flex flex-col rounded-lg border border-gray-500 px-4 py-3">
           <div className="text-caption-1 flex items-center gap-1 text-red-300">
             <SmileIcon />
             <span>AI 후기 요약</span>
           </div>
-          <div className="text-caption-2 mt-1 text-gray-300">어쩌고저쩌고 후기 내용</div>
+          <div className="text-caption-2 mt-1 text-gray-300">{summary}</div>
         </div>
 
         {/*많이 사용된 태그*/}

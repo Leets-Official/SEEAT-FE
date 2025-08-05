@@ -55,4 +55,16 @@ const getTheatersDetail = async (auditoriumId: string): Promise<GetTheatersDetai
   return res.data.data;
 };
 
-export { getTheaters, getTheatersDetail };
+//AI 요약 리뷰
+export interface TheaterSummaryResponse {
+  auditoriumId: string;
+  auditoriumName: string;
+  summary: string;
+}
+
+const getTheaterSummary = async (auditoriumId: string): Promise<TheaterSummaryResponse> => {
+  const res = await api.get<ApiResponse<TheaterSummaryResponse>>(`/summary/${auditoriumId}`);
+  return res.data.data;
+};
+
+export { getTheaters, getTheatersDetail, getTheaterSummary };

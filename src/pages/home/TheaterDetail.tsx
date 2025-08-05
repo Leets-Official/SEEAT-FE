@@ -68,19 +68,8 @@ const CinemaDetailPage = () => {
           <div className="text-caption-2 mt-1 text-gray-300">어쩌고저쩌고 후기 내용</div>
         </div>
 
+        {/*많이 사용된 태그*/}
         <TagCardList tags={tagList} />
-
-        {/*상세 정보*/}
-        <div className="flex flex-col gap-y-3 pt-5">
-          {infoList.map(({ label, value }) => (
-            <div key={label} className="flex items-center gap-4">
-              <Badge type="info" className="h-7 w-[85px] justify-center">
-                {label}
-              </Badge>
-              <span className="text-caption-2 text-white">{value || '정보 없음'}</span>
-            </div>
-          ))}
-        </div>
 
         {/*후기*/}
         <div className="mt-9">

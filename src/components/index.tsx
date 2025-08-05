@@ -30,7 +30,6 @@ import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import TagReviewNumber from './common/TagReviewNumber/TagReviewNumber';
 import TagCardList from './common/TagReviewNumber/TagCardList';
 import TheaterList from './common/Theater/TheaterList';
-
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 export { default as MyLevelCard } from './common/LevelCard/MyLevelCard';
 

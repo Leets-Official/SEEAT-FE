@@ -7,6 +7,8 @@ import type { GetTheatersDetailResponse, TheaterSummaryResponse } from '@/api/th
 import type { ApiError } from '@/types/api-response';
 import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import type { ReviewSummary } from '@/types/review';
+import { getTheaterTags } from '@/api/hashtag/hashtag.api';
+import type { Hashtag } from '@/types/hashtag';
 import tagList from '@/constants/taglist';
 
 const CinemaDetailPage = () => {
@@ -16,6 +18,7 @@ const CinemaDetailPage = () => {
   const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
   const [reviews, setReviews] = useState<ReviewSummary[]>([]);
   const [summary, setSummary] = useState<string | null>(null);
+  const [hashtags, setHashtags] = useState<Hashtag[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -65,6 +68,20 @@ const CinemaDetailPage = () => {
       }
     };
     fetchSummary();
+  }, [auditoriumId]);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchTags = async () => {
+      try {
+        const res = await getTheaterTags(auditoriumId);
+        setHashtags(res);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('해시태그 불러오기 실패:', apiError.error, apiError.message);
+      }
+    };
+    fetchTags();
   }, [auditoriumId]);
 
   const title = cinema?.theaterName

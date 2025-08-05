@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Header, Image, Badge, ReviewCard } from '@/components';
+import { Header, Image, Badge, ReviewCard, TagCardList } from '@/components';
 import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
 import { getRandomImage, reviewSummaryMock } from '@/__mocks';
 import { cinemaData } from '@/constants';
+import tagList from '@/constants/taglist';
 
 const CinemaDetailPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
@@ -66,6 +67,8 @@ const CinemaDetailPage = () => {
           </div>
           <div className="text-caption-2 mt-1 text-gray-300">어쩌고저쩌고 후기 내용</div>
         </div>
+
+        <TagCardList tags={tagList} />
 
         {/*상세 정보*/}
         <div className="flex flex-col gap-y-3 pt-5">

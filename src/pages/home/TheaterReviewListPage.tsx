@@ -1,15 +1,20 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, ReviewCard } from '@/components';
 import type { ReviewSummary } from '@/types/review';
-import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
+import {
+  type AuditoriumReviewSort,
+  getAuditoriumReviews,
+} from '@/api/review/getAuditoriumReviews.api';
 import { useState, useEffect } from 'react';
 import type { ApiError } from '@/types/api-response';
+import SortDropdown from '@/components/common/DropDown/SortDropdown';
 const TheaterReviewListPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();
 
   const [reviews, setReviews] = useState<ReviewSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedSort, setSelectedSort] = useState<AuditoriumReviewSort>('latest');
 
   useEffect(() => {
     if (!auditoriumId) return;
@@ -19,7 +24,7 @@ const TheaterReviewListPage = () => {
           auditoriumId,
           page: 1,
           size: 10,
-          sort: 'latest',
+          sort: selectedSort,
         });
         setReviews(res.content);
       } catch (error) {
@@ -30,7 +35,7 @@ const TheaterReviewListPage = () => {
       }
     };
     fetchReviews();
-  }, [auditoriumId]);
+  }, [auditoriumId, selectedSort]);
 
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
@@ -40,6 +45,13 @@ const TheaterReviewListPage = () => {
         className="bg-gray-900"
       />
       <div className="mx-auto w-full max-w-[430px] space-y-3 px-5 pt-5">
+        <div className="flex justify-end">
+          <SortDropdown
+            selected={selectedSort}
+            onChange={(value) => setSelectedSort(value as AuditoriumReviewSort)}
+          />
+        </div>
+
         {loading ? (
           <div>불러오는 중...</div>
         ) : reviews.length === 0 ? (

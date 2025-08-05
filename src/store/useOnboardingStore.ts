@@ -3,16 +3,17 @@ import { genreMap, type GenreEnType, type GenreType } from '@/types/movieGenre';
 import type { CinemaType, CinemaFormat } from '@/types/onboarding';
 
 interface OnboardingState {
+  profileImageFilename: string;
   nickname: string;
+  genre: GenreType[];
   selectedGenres: GenreEnType[];
-  // selectedCinemas: CinemaType[];
   selectedCinemas: string[];
   cinemaFormat: CinemaFormat;
   setNickname: (name: string) => void;
   toggleGenre: (genre: GenreType) => void;
   toggleCinema: (cinema: CinemaType) => void;
   setCinemaFormat: (format: CinemaFormat) => void;
-  genre: GenreType[];
+  setProfileImageFilename: (filename: string) => void;
   setGenre: (genres: GenreType[]) => void;
   setSelectedGenres: (genres: GenreEnType[]) => void;
   setSelectedCinemas: (cinemas: CinemaType[]) => void;
@@ -26,6 +27,9 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
   selectedGenres: [],
   selectedCinemas: [],
   cinemaFormat: 'IMAX',
+
+  profileImageFilename: '',
+  setProfileImageFilename: (filename) => set({ profileImageFilename: filename }),
 
   setNickname: (name) => set({ nickname: name }),
 
@@ -56,5 +60,5 @@ export const useOnboardingStore = create<OnboardingState>((set, get) => ({
 
   setCinemaFormat: (format) => set({ cinemaFormat: format }),
 
-  setSelectedCinemas: (cinemas) => set({ selectedCinemas: cinemas }), // ✅ 추가
+  setSelectedCinemas: (cinemas) => set({ selectedCinemas: cinemas }),
 }));

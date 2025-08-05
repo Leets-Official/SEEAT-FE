@@ -27,7 +27,7 @@ import ConfirmModal from '@/components/common/Modal/ConfirmModal';
 import SeatFocusModal from '@/components/common/Modal/SeatModal/SeatFocusModal';
 import SeatWriteModal from '@/components/common/Modal/SeatModal/SeatWriteModal';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
-
+import TheaterList from './common/Theater/TheaterList';
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 export { default as MyLevelCard } from './common/LevelCard/MyLevelCard';
 
@@ -61,4 +61,5 @@ export {
   SeatFocusModal,
   SeatWriteModal,
   ProgressBar,
+  TheaterList,
 };

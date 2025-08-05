@@ -60,7 +60,7 @@ const HomePage = () => {
             <div className="mb-2 flex items-center justify-between">
               <p className="text-title-3">영화관 리스트</p>
             </div>
-            <div className="flex justify-center gap-3">
+            <div className="mt-3 flex justify-center gap-4">
               <CinemaTypeButton tab="imax">
                 <ImaxImage />
               </CinemaTypeButton>

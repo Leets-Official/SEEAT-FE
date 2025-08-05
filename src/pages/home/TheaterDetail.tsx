@@ -8,8 +8,7 @@ import type { ApiError } from '@/types/api-response';
 import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import type { ReviewSummary } from '@/types/review';
 import { getTheaterTags } from '@/api/hashtag/hashtag.api';
-import type { Hashtag } from '@/types/hashtag';
-import tagList from '@/constants/taglist';
+import type { TheaterHashtag } from '@/api/hashtag/hashtag.api';
 //추후 태그 타입 들어오면 수정하기
 
 const CinemaDetailPage = () => {
@@ -19,7 +18,7 @@ const CinemaDetailPage = () => {
   const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
   const [reviews, setReviews] = useState<ReviewSummary[]>([]);
   const [summary, setSummary] = useState<string | null>(null);
-  const [hashtags, setHashtags] = useState<Hashtag[]>([]);
+  const [hashtags, setHashtags] = useState<TheaterHashtag[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -135,7 +134,13 @@ const CinemaDetailPage = () => {
         </div>
 
         {/*많이 사용된 태그*/}
-        <TagCardList tags={tagList} />
+        <TagCardList
+          tags={hashtags.map(({ hashTagName, count }) => ({
+            iconType: 'environment',
+            title: hashTagName,
+            count,
+          }))}
+        />
 
         {/*후기*/}
         <div className="mt-9">

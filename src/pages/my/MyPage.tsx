@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Header, BottomNavigation, LevelCard, ProfileImageWithFallback } from '@/components';
 import { EditIcon, ChevronRightIcon } from '@/assets';
 import { useState, useEffect } from 'react';
-import type { UserProfile } from '@/types/user';
+import type { UserProfile, Auditorium } from '@/types/user';
 import type { ApiError } from '@/types/api-response';
 import { getUserProfile } from '@/api/profile/profile.api';
 
@@ -20,13 +20,11 @@ const MyPage: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
-
     const fetchUserProfile = async () => {
       try {
-        const data = await getUserProfile();
-
+        const userData = await getUserProfile();
         if (isMounted) {
-          setUser(data);
+          setUser(userData);
         }
       } catch (err) {
         const apiError = err as ApiError;
@@ -39,9 +37,7 @@ const MyPage: React.FC = () => {
         }
       }
     };
-
     fetchUserProfile();
-
     return () => {
       isMounted = false;
     };
@@ -109,20 +105,19 @@ const MyPage: React.FC = () => {
                   <span className="text-caption-1 text-white">선호 장르</span>
                 </div>
                 <div className="flex flex-wrap gap-x-3">
-                  {/* [수정 2] API 응답에 맞는 키 'genres' 사용 */}
-                  {(user.genres || []).map((genre) => (
+                  {(user.genres || []).map((genre: string) => (
                     <span key={genre} className="text-caption-2">
                       {genre}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="flex h-[28px] w-[103px] shrink-0 items-center justify-center rounded-md bg-gray-800">
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {(user.auditoriums || []).map((auditorium) => (
+                  {(user.auditoriums || []).map((auditorium: Auditorium) => (
                     <span key={auditorium.id} className="text-caption-2 text-gray-500">
                       {auditorium.theaterName}
                     </span>
@@ -133,10 +128,9 @@ const MyPage: React.FC = () => {
           </section>
 
           <LevelCard
-            userLevel={user.level || 1}
-            userProgress={user.progress || 0}
-            currentReviewCount={0}
-            currentLikeCount={0}
+            userProgress={user.levelExp}
+            currentReviewCount={user.reviewCount}
+            currentLikeCount={user.likeCount}
           />
 
           {/* 메뉴 리스트 */}

@@ -1,10 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, ReviewCard } from '@/components';
 import type { ReviewSummary } from '@/types/review';
-import {
-  type AuditoriumReviewSort,
-  getAuditoriumReviews,
-} from '@/api/review/getAuditoriumReviews.api';
+import { type ReviewSort, getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import { useState, useEffect } from 'react';
 import type { ApiError } from '@/types/api-response';
 import SortDropdown from '@/components/common/DropDown/SortDropdown';
@@ -14,7 +11,7 @@ const TheaterReviewListPage = () => {
 
   const [reviews, setReviews] = useState<ReviewSummary[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedSort, setSelectedSort] = useState<AuditoriumReviewSort>('latest');
+  const [selectedSort, setSelectedSort] = useState<ReviewSort>('latest');
 
   useEffect(() => {
     if (!auditoriumId) return;
@@ -48,7 +45,7 @@ const TheaterReviewListPage = () => {
         <div className="flex justify-end">
           <SortDropdown
             selected={selectedSort}
-            onChange={(value) => setSelectedSort(value as AuditoriumReviewSort)}
+            onChange={(value) => setSelectedSort(value as ReviewSort)}
           />
         </div>
 

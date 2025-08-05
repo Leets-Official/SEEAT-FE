@@ -26,7 +26,7 @@ const SortDropdown = ({ selected, onChange }: SortDropdownProps) => {
       </button>
 
       {open && (
-        <div className="absolute right-0 z-10 mt-2 w-20 rounded-lg border border-gray-700 bg-gray-950 py-2">
+        <div className="absolute right-0 z-10 mt-1 w-20 rounded-lg border border-gray-700 bg-gray-950 py-2">
           {SORT_OPTIONS.map((option) => (
             <button
               key={option.value}

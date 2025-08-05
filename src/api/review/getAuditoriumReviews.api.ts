@@ -1,11 +1,11 @@
 import api from '../api';
 import type { ReviewSummary } from '@/types/review';
-export type AuditoriumReviewSort = 'latest' | 'likes' | 'ratingDesc' | 'ratingAsc';
+export type ReviewSort = 'latest' | 'likes' | 'ratingDesc' | 'ratingAsc';
 export interface getAuditoriumReviewsParams {
   auditoriumId: string;
   page?: number;
   size?: number;
-  sort?: AuditoriumReviewSort;
+  sort?: ReviewSort;
 }
 
 export interface getAuditoriumReviewsResponse {

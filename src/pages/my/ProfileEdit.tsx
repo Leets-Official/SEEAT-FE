@@ -6,6 +6,7 @@ import { updateUserProfile } from '@/api/user/userEdit.api';
 import { useToastStore } from '@/store';
 import { useUserProfileQuery } from '@/hooks/queries/useUserProfileQuery';
 
+
 export default function ProfileEdit() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +19,6 @@ export default function ProfileEdit() {
   useEffect(() => {
   if (!user) return;
 
-  // location.state가 있을 경우 우선 적용 (빈 배열도 감지)
   const state = location.state;
 
   setNickname(state?.nickname ?? user.nickname);
@@ -44,24 +44,19 @@ export default function ProfileEdit() {
   };
 
   const handleSave = async () => {
-  try {
-    const payload = {
-      nickname,
-      genres,
-      auditoriums,
-    };
-
-    console.log('🔥 update payload:', payload);
-
-    await updateUserProfile(payload);
-    showToast('프로필이 저장되었습니다.', 3000);
-    navigate('/my');
-  } catch (error) {
-    showToast('저장에 실패했습니다.', 3000);
-    console.error('❌ update error', error);
-  }
-};
-
+    try {
+      await updateUserProfile({
+        nickname,
+        genres,
+        auditoriums,
+      });
+      showToast('프로필이 저장되었습니다.', 3000);
+      navigate('/my');
+    } catch (error) {
+      showToast('저장에 실패했습니다.', 3000);
+      console.error(error);
+    }
+  };
 
   return (
     <div className="font-suit flex h-screen flex-col text-white">

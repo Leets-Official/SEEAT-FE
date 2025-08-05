@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
+import {KakaoIcon} from '@/assets';
 import { ConfirmModal, Header } from '@/components';
 import { useModalStore } from '@/store/modalStore';
 import { useToastStore } from '@/store';

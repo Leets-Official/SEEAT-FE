@@ -1,21 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '@/api/api';
-
-interface UserProfile {
-  email: string;
-  nickname: string;
-  imageUrl: string | null;
-}
-
-const fetchUserProfile = async (): Promise<UserProfile> => {
-  const res = await api.get('/api/v1/profile');
-  return res.data.data;
-};
+import { getUserProfile } from '@/api/profile/profile.api';
+import type { UserProfile } from '@/types/user';
 
 export const useUserProfileQuery = () => {
-  return useQuery({
+  return useQuery<UserProfile>({
     queryKey: ['userProfile'],
-    queryFn: fetchUserProfile,
+    queryFn: getUserProfile,
     staleTime: 1000 * 60 * 5, // 5분 캐시
   });
 };

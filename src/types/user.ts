@@ -6,6 +6,7 @@ export interface User {
 
 export interface UserProfile extends User {
   level: number;
+  email: string;
   progress: number;
   preferredGenres: string[];
   favoriteTheaters: string[];

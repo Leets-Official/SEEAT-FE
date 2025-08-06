@@ -5,6 +5,7 @@ import { type ReviewSort, getAuditoriumReviews } from '@/api/review/getAuditoriu
 import { useState, useEffect } from 'react';
 import type { ApiError } from '@/types/api-response';
 import SortDropdown from '@/components/common/DropDown/SortDropdown';
+
 const TheaterReviewListPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();

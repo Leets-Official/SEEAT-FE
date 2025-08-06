@@ -13,8 +13,7 @@ export type GenreType =
   | '역사'
   | '뮤지컬'
   | '애니메이션'
-  | '드라마'
-  | '다큐';
+  | '드라마';
 
 export const genreOptions: GenreType[] = [
   '액션',
@@ -32,7 +31,6 @@ export const genreOptions: GenreType[] = [
   '뮤지컬',
   '애니메이션',
   '드라마',
-  '다큐',
 ];
 
 export type GenreEnType =
@@ -50,8 +48,7 @@ export type GenreEnType =
   | 'HISTORY'
   | 'MUSICAL'
   | 'ANIMATION'
-  | 'DRAMA'
-  | 'DOCUMENTARY';
+  | 'DRAMA';
 
 export const genreMap: Record<GenreType, GenreEnType> = {
   액션: 'ACTION',
@@ -69,5 +66,4 @@ export const genreMap: Record<GenreType, GenreEnType> = {
   뮤지컬: 'MUSICAL',
   애니메이션: 'ANIMATION',
   드라마: 'DRAMA',
-  다큐: 'DOCUMENTARY',
 };

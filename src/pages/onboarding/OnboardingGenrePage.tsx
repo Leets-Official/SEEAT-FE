@@ -5,12 +5,16 @@ import type { GenreType } from '@/types/movieGenre';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { genreMap, genreOptions } from '@/types/movieGenre';
+import { useModalStore } from '@/store';
+import ActionModal from '@/components/common/Modal/ActionModal';
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
   const { setSelectedGenres } = useOnboardingStore();
 
   const [localSelectedGenres, setLocalSelectedGenres] = useState<GenreType[]>([]);
+
+  const { openModal, modalType } = useModalStore();
 
   const toggleGenre = (genre: GenreType) => {
     const isSelected = localSelectedGenres.includes(genre);
@@ -33,7 +37,8 @@ const OnboardingGenrePage = () => {
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-[375px] bg-gray-900 pb-32 text-white">
       {/* 상단 헤더 */}
-      <Header leftSection="BACK" className="bg-gray-900" />
+      {/* <Header leftSection="BACK" className="bg-gray-900" /> */}
+      <Header rightSection="DETAIL" onDetailClick={() => openModal('action')} />
 
       {/* 진행도 바 */}
       <ProgressBar currentStep={2} totalSteps={3} />
@@ -78,6 +83,12 @@ const OnboardingGenrePage = () => {
           다음
         </Button>
       </div>
+      {modalType === 'action' && (
+        <ActionModal
+          onEdit={() => console.log('수정하기 클릭')}
+          onDelete={() => console.log('삭제하기 클릭')}
+        />
+      )}
     </div>
   );
 };

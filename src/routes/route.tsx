@@ -16,8 +16,6 @@ import TheaterReviewListPage from '@/pages/home/TheaterReviewListPage';
 import ReviewDetailPage from '@/pages/home/ReviewDetail';
 import PopularReviewPage from '@/pages/home/PopularReview';
 
-import SeatTest from '@/pages/seat/SeatTest';
-
 import { TicketUploadStep } from '@/pages/review/TicketPage';
 import MovieInfoForm from '@/pages/review/MovieInfoStep';
 import CinemaSelect from '@/pages/review/CinemaSelect';
@@ -91,10 +89,6 @@ const router = createBrowserRouter([
   {
     path: '/review/popular',
     element: <PopularReviewPage />,
-  },
-  {
-    path: '/seat',
-    element: <SeatTest />,
   },
   {
     path: '/seat/review/:seatId',

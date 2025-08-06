@@ -45,6 +45,7 @@ import DolbyImage from '@/assets/icons/dolby_image.svg?react';
 import ImaxImage from '@/assets/icons/imax_image.svg?react';
 import HomeBanner from '@/assets/icons/home_banner.png';
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
+import RunningGIF from '@/assets/gif/running_alt.gif';
 
 export {
   HomeIcon,
@@ -94,4 +95,5 @@ export {
   DolbyImage,
   ImaxImage,
   HomeBanner,
+  RunningGIF,
 };

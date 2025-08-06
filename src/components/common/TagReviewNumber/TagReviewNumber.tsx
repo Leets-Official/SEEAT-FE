@@ -3,10 +3,10 @@ import React from 'react';
 import { SoundIcon, CompanionIcon, EnvironmentIcon } from '@/assets';
 
 const iconComponents = {
-  sound: SoundIcon,
-  environment: CompanionIcon,
-  companion: EnvironmentIcon,
-};
+  음향: SoundIcon,
+  동반인: CompanionIcon,
+  관람환경: EnvironmentIcon,
+} as const;
 
 interface TagReviewNumberProps {
   iconType: keyof typeof iconComponents;

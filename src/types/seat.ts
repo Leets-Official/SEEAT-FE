@@ -1,14 +1,18 @@
+export type ReviewType = 'REVIEWED' | 'NO_REVIEW' | 'LOW_RATED' | 'HIGH_RATED';
+
 export interface Seat {
   seatId: string;
   row: string;
   column: number;
-  hasReview: boolean;
-  score?: number;
-  isWheelchair: boolean;
+}
+export interface ReviewedSeat extends Seat {
+  totalReviews?: number;
+  averageRating?: number;
+  isWheelchair?: boolean;
+  type?: ReviewType;
 }
 
-export interface SeatItemProps extends Seat {
+export interface SeatItemProps extends ReviewedSeat {
   seatLabel: string;
   onClick?: (seatId: string) => void;
-  isFocused?: boolean;
 }

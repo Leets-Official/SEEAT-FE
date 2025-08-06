@@ -32,6 +32,7 @@ import TagCardList from './common/TagReviewNumber/TagCardList';
 import TheaterList from './common/Theater/TheaterList';
 export { default as FilterCheckbox } from '@/components/common/ReviewFilter/FilterCheckbox';
 export { default as MyLevelCard } from './common/LevelCard/MyLevelCard';
+import Loading from '@/components/common/Loading/Loading';
 
 export {
   LevelInfoCard,
@@ -66,4 +67,5 @@ export {
   TagReviewNumber,
   TagCardList,
   TheaterList,
+  Loading,
 };

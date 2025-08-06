@@ -43,6 +43,7 @@ import SmileIcon from '@/assets/icons/smile.svg?react';
 import GalleryProfileIcon from '@/assets/icons/file_select.svg?react';
 
 import TicketAlt from '@/assets/gif/ticket_alt.gif';
+import RunningGIF from '@/assets/gif/running_alt.gif';
 
 export {
   HomeIcon,
@@ -89,4 +90,5 @@ export {
   TicketAlt,
   SmileIcon,
   GalleryProfileIcon,
+  RunningGIF,
 };

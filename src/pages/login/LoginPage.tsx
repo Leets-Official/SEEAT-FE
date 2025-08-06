@@ -1,4 +1,4 @@
-import { KakaoIcon, NaverIcon, SEEATLogo } from '@/assets';
+import { KakaoIcon, NaverIcon, RunningGIF, SEEATLogo } from '@/assets';
 
 const LoginPage = () => {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -14,11 +14,11 @@ const LoginPage = () => {
   return (
     <div className="relative h-screen w-full">
       {/* 중앙 그래픽 자리 */}
-      <div className="flex h-full flex-col items-center justify-center">
-        <h1 className="text-center text-white">그래픽,,들어갈 자리,,</h1>
+      <div className="flex h-full flex-col items-center justify-start pt-[180px]">
+        <img src={RunningGIF} alt="러닝 팝콘" className="mb-4 h-auto w-[385px]" />
 
         {/* SEEAT 로고 */}
-        <SEEATLogo className="mt-[30px] mb-10 h-auto w-[106px]" />
+        <SEEATLogo className="mb-10" />
       </div>
 
       {/* 소셜 로그인 버튼 */}
@@ -27,7 +27,7 @@ const LoginPage = () => {
           {/* 카카오 로그인 */}
           <button
             onClick={handleKakaoLogin}
-            className="bg-kakao text-title-3 rounded-m flex h-12 w-full cursor-pointer items-center justify-center gap-2 py-6 text-gray-950"
+            className="bg-kakao text-title-3 rounded-m flex h-12 w-full cursor-pointer items-center justify-center gap-2 py-6.5 text-gray-950"
           >
             <KakaoIcon className="h-6 w-6" />
             카카오로 시작하기
@@ -36,7 +36,7 @@ const LoginPage = () => {
           {/* 네이버 로그인 */}
           <button
             onClick={handleNaverLogin}
-            className="bg-naver rounded-m text-title-3 flex h-12 cursor-pointer items-center justify-center gap-2 py-6"
+            className="bg-naver rounded-m text-title-3 flex h-12 cursor-pointer items-center justify-center gap-2 py-6.5"
           >
             <NaverIcon className="h-6 w-6" />
             네이버로 시작하기

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
-import { Button, ToggleTab, Header, ProgressBar, TheaterList } from '@/components';
+import { Button, ToggleTab, Header, ProgressBar } from '@/components';
 import type { CinemaFormat } from '@/types/onboarding';
 import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
+import TheaterList from '@/components/common/Theater/TheaterList';
 import { useRegisterMutation } from '@/hooks/mutations/useRegisterMutation';
 
 const OnboardingTheaterPage = () => {

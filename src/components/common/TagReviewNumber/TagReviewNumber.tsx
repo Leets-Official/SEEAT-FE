@@ -6,7 +6,7 @@ const iconComponents = {
   음향: SoundIcon,
   동반인: CompanionIcon,
   관람환경: EnvironmentIcon,
-};
+} as const;
 
 interface TagReviewNumberProps {
   iconType: keyof typeof iconComponents;

@@ -110,6 +110,12 @@ const ReviewDetailPage = () => {
           </div>
           <div className="flex items-center gap-2">
             <Badge type="info" className="h-7 w-[85px] justify-center">
+              상영관
+            </Badge>
+            <span className="text-caption-2 text-white">{review.movieSeatInfo.seatNumber}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge type="info" className="h-7 w-[85px] justify-center">
               좌석 정보
             </Badge>
             <span className="text-caption-2 text-white">{review.movieSeatInfo.seatNumber}</span>

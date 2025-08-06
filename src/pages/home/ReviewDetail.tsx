@@ -142,7 +142,7 @@ const ReviewDetailPage = () => {
         </div>
 
         <div className="w-full px-5 pt-5">
-          <div className="text-title-2 text-left text-white">{review.auditoriumName}</div>
+          <div className="text-title-2 text-left text-white">{review.title}</div>
 
           {/*유저 정보, 추후 API 연결 시 프로필 사진 받아와서 조건부로...*/}
           <div className="mt-3 flex items-center gap-2">

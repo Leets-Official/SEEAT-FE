@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, Header, ToggleTab } from '@/components';
 import type { CinemaFormat, CinemaType } from '@/types/onboarding';
+import { THEATER_ID_MAP } from '@/constants/theater';
 
 const IMAX_THEATERS: CinemaType[] = ['CGV 용산', '메가박스 성수'];
 const DOLBY_CINEMA_THEATERS: CinemaType[] = ['CGV 강남', '롯데시네마 홍대', '메가박스 코엑스'];
@@ -16,6 +17,7 @@ const MAX_SELECTABLE_THEATERS = 2;
 export default function CinemaChoice() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [selectedTheaters, setSelectedTheaters] = useState<CinemaType[]>([]);
   const [activeFormat, setActiveFormat] = useState<CinemaFormat>('Dolby');
 
@@ -33,9 +35,10 @@ export default function CinemaChoice() {
   };
 
   const handleConfirmSelection = () => {
+    const auditoriumIds = selectedTheaters.map((name) => THEATER_ID_MAP[name]);
     navigate('/my/profile-edit', {
       state: {
-        auditoriums: selectedTheaters,
+        auditoriums: auditoriumIds,
         nickname: location.state?.nickname,
         genres: location.state?.genres,
       },
@@ -43,8 +46,7 @@ export default function CinemaChoice() {
   };
 
   const handleFormatSelect = (format: string) => {
-    setActiveFormat(format as CinemaFormat);
-    setSelectedTheaters([]);
+    setActiveFormat(format as CinemaFormat); // ✅ 선택만 바꾸고, 선택 목록 유지
   };
 
   const currentTheaters = THEATERS_BY_FORMAT[activeFormat];
@@ -70,7 +72,7 @@ export default function CinemaChoice() {
             { label: 'Dolby Cinema', value: 'Dolby' },
           ]}
           selected={activeFormat}
-          onSelect={(selectedValue) => handleFormatSelect(selectedValue)}
+          onSelect={handleFormatSelect}
         />
 
         <div className="mt-4 flex flex-col gap-y-3">

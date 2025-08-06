@@ -4,13 +4,14 @@ import type { User } from './user';
 import type { ReviewImage } from './image';
 
 export interface ReviewSummary {
-  id: number;
-  user: User;
+  reviewId: number;
+  thumbnailUrl: string;
   movieSeatInfo: MovieSeatInfo;
   hashtags: Hashtag[];
+  title: string;
   content: string;
+  user: User;
   rating: number;
-  imageInfo: ReviewImage[];
   heartCount: number;
   createdAt: string;
 }
@@ -48,4 +49,30 @@ export interface PopularReviewResponse {
   hasNext: boolean;
   page: number;
   size: number;
+}
+
+export interface ReviewUser {
+  userId: number;
+  nickname: string;
+  profileImageUrl: string;
+}
+
+export interface ReviewItem {
+  reviewId: number;
+  thumbnailUrl: string;
+  hashtags: Hashtag[];
+  title: string;
+  content: string;
+  user: ReviewUser;
+  heartCount: number;
+  createdAt: string;
+  rating: number;
+}
+
+export interface SeatReviewBlock {
+  theaterName: string;
+  seatName: string;
+  reviewCount: number;
+  averageRating: number;
+  reviews: ReviewItem[];
 }

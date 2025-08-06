@@ -1,6 +1,4 @@
-import type { ReviewSummary } from '@/types/review';
-
-export const reviewSummaryMock: ReviewSummary[] = [
+export const reviewSummaryMock = [
   {
     id: 1,
     movieSeatInfo: {

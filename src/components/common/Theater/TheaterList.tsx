@@ -19,56 +19,61 @@ const TheaterList = ({ data, selected, onSelect, onAuditoriumClick }: Props) => 
     return acc;
   }, {});
 
+  const isTheaterSelected = (theaterName: string): boolean => {
+    const auditoriums = grouped[theaterName];
+    return auditoriums.some((a) => selected.includes(a.auditoriumId));
+  };
+
   const isAuditoriumSelected = (id: string) => selected.includes(id);
 
   return (
-    <div className="flex flex-col gap-3">
-      {Object.entries(grouped).map(([theaterName, auditoriums]) => {
-        const isSelected = selected.includes(theaterName);
+    <div className="max-h-[calc(100vh-320px)] overflow-y-auto">
+      <div className="flex flex-col gap-3">
+        {Object.entries(grouped).map(([theaterName, auditoriums]) => {
+          const isExpanded = expandedTheater === theaterName;
 
-        const isExpanded = expandedTheater === theaterName;
+          return (
+            <div key={theaterName}>
+              {/* 상위 영화관 버튼 */}
+              <Button
+                onClick={() => setExpandedTheater(isExpanded ? null : theaterName)}
+                variant="secondary-assistive"
+                selected={isTheaterSelected(theaterName)}
+                className="w-full justify-start px-4 py-3"
+              >
+                {theaterName}
+              </Button>
 
-        return (
-          <div key={theaterName}>
-            {/* 상위 영화관 버튼 */}
-            <Button
-              onClick={() => setExpandedTheater(isExpanded ? null : theaterName)}
-              variant="secondary-assistive"
-              selected={isSelected}
-              className="w-full justify-items-start px-4 py-3"
-            >
-              {theaterName}
-            </Button>
+              {/* 하위 관 목록 */}
+              {isExpanded && (
+                <div className="mt-2 flex flex-wrap justify-end gap-2 px-1">
+                  {auditoriums.map((auditorium) => {
+                    const isSelected = isAuditoriumSelected(auditorium.auditoriumId);
 
-            {/* 하위 관 목록 */}
-            {isExpanded && (
-              <div className="mt-2 flex flex-wrap gap-2 px-1">
-                {auditoriums.map((auditorium) => {
-                  const isSelected = isAuditoriumSelected(auditorium.auditoriumId);
-
-                  return (
-                    <Button
-                      key={auditorium.auditoriumId}
-                      onClick={() => {
-                        if (onAuditoriumClick) {
-                          onAuditoriumClick(auditorium.auditoriumId); // 페이지 이동
-                        } else {
-                          onSelect(auditorium.auditoriumId); // 선택만
-                        }
-                      }}
-                      selected={isSelected}
-                      variant="secondary-assistive"
-                      size="md"
-                    >
-                      {auditorium.auditoriumName}
-                    </Button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        );
-      })}
+                    return (
+                      <Button
+                        key={auditorium.auditoriumId}
+                        onClick={() => {
+                          if (onAuditoriumClick) {
+                            onAuditoriumClick(auditorium.auditoriumId); // 페이지 이동
+                          } else {
+                            onSelect(auditorium.auditoriumId); // 선택만
+                          }
+                        }}
+                        selected={isSelected}
+                        variant="secondary-assistive"
+                        size="md"
+                      >
+                        {auditorium.auditoriumName}
+                      </Button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

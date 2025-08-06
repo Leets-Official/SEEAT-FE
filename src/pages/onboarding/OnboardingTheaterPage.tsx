@@ -84,7 +84,7 @@ const OnboardingTheaterPage = () => {
             ]}
             selected={selectedTab}
             onSelect={handleToggleTab}
-            className="mb-4 w-full"
+            className="mb-12 w-full"
           />
 
           <div className="h-3" />

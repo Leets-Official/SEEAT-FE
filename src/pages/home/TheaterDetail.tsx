@@ -64,7 +64,7 @@ const CinemaDetailPage = () => {
 
         if (!res || !res.summary) {
           console.warn('요약 데이터 없음:', res);
-          setSummary(null); // fallback
+          setSummary(null);
           return;
         }
 

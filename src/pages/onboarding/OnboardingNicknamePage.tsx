@@ -53,7 +53,7 @@ const OnboardingNicknamePage = () => {
       // 2. 닉네임 중복 검사
       const nicknameResult = await checkNicknameDuplicate(input);
       if (nicknameResult.duplicated) {
-        setError(nicknameResult.message);
+        setError('이미 사용 중인 닉네임이에요.');
         return;
       }
 

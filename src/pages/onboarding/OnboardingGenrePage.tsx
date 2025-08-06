@@ -5,9 +5,12 @@ import type { GenreType } from '@/types/movieGenre';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { genreMap, genreOptions } from '@/types/movieGenre';
+import { chunkArray } from '@/utils/chunkArray';
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
+  const chunkedGenres = chunkArray(genreOptions, 4);
+
   const { setSelectedGenres } = useOnboardingStore();
 
   const [localSelectedGenres, setLocalSelectedGenres] = useState<GenreType[]>([]);
@@ -46,22 +49,26 @@ const OnboardingGenrePage = () => {
           <p className="text-caption-2 mb-6 text-red-300">최대 5개까지 추가할 수 있어요.</p>
 
           {/* 장르 선택 버튼 */}
-          <div className="mb-20 flex flex-wrap gap-3">
-            {genreOptions.map((genre: GenreType) => {
-              const isSelected = localSelectedGenres.includes(genre);
-              return (
-                <Button
-                  key={genre}
-                  variant="secondary-assistive"
-                  selected={isSelected}
-                  onClick={() => toggleGenre(genre)}
-                  fontType="body-1"
-                  className="px-4 py-1"
-                >
-                  {genre}
-                </Button>
-              );
-            })}
+          <div className="flex flex-col gap-y-3">
+            {chunkedGenres.map((group, rowIndex) => (
+              <div key={rowIndex} className="flex gap-x-4">
+                {group.map((genre) => {
+                  const isSelected = localSelectedGenres.includes(genre);
+                  return (
+                    <Button
+                      key={genre}
+                      variant="secondary-assistive"
+                      selected={isSelected}
+                      onClick={() => toggleGenre(genre)}
+                      fontType="body-1"
+                      className="px-4 py-1"
+                    >
+                      {genre}
+                    </Button>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
 

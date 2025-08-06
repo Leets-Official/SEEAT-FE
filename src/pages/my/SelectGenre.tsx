@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Header, Button } from '@/components';
 import type { GenreType } from '@/types/movieGenre';
 
-const GENRES: GenreType[] = ['액션', '로맨스', 'SF', '호러', '코미디', '다큐', '애니메이션'];
+const GENRES: GenreType[] = ['액션', '로맨스', 'SF', '호러', '코미디', '애니메이션'];
 const MAX_SELECTABLE_GENRES = 3;
 
 export default function SelectGenre() {

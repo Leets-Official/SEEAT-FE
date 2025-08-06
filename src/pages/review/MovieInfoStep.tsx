@@ -86,7 +86,7 @@ export default function MovieInfoForm() {
           onClose={() => {
             setShowSeatModal(false);
           }}
-          auditoriumId={cinema.id} // theaterId or auditoriumId로 실제 좌석 정보 불러오기
+          auditoriumId={cinema.id}
           theaterName={cinema.name}
         />
       )}

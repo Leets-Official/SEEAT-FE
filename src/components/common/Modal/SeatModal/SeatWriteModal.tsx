@@ -74,13 +74,13 @@ const SeatWriteModal = ({ auditoriumId, theaterName, onClose }: SeatWriteModalPr
 
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-gray-800/20" onClick={() => onClose} />
+      <div className="absolute inset-0 bg-gray-800/20" onClick={() => onClose([])} />
 
       <div className="relative z-10 flex h-full items-center justify-center p-3">
         <div className="relative w-full max-w-md rounded-lg bg-gray-950 px-2 py-3 md:max-h-3/4 md:max-w-2xl lg:max-h-4/5 lg:max-w-5xl">
           <div className="mb-1 flex items-center justify-between px-2">
             <div className="text-title-3">좌석을 선택해주세요</div>
-            <CloseIcon className="cursor-pointer" onClick={() => onClose} />
+            <CloseIcon className="cursor-pointer" onClick={() => onClose([])} />
           </div>
 
           <div className="text-body-2 btn-text-gray-500 mb-4 px-2 text-left">{theaterName}</div>
@@ -97,7 +97,7 @@ const SeatWriteModal = ({ auditoriumId, theaterName, onClose }: SeatWriteModalPr
               />
             </div>
           </div>
-          <div className="px-4" onClick={() => onClose}>
+          <div className="px-4">
             <Button className="mt-5 w-full" disabled={isDisabled} onClick={handleComplete}>
               선택 완료
             </Button>

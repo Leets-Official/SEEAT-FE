@@ -33,6 +33,16 @@ const getTheaters = async ({
 };
 
 // 좌석 배치도 조회
+export interface SeatLayoutInfo {
+  seatId: string;
+  row: string;
+  column: string;
+}
+
+const getSeatLayout = async (auditoriumId: string): Promise<SeatLayoutInfo[]> => {
+  const res = await api.get(`/theaters/seat/${auditoriumId}`);
+  return res.data.data;
+};
 
 // 평점/개수 포함된 좌석 배치도 조회
 export interface SeatRatingInfo {
@@ -80,4 +90,4 @@ const getTheaterSummary = async (auditoriumId: string): Promise<TheaterSummaryRe
   return res.data.data;
 };
 
-export { getTheaters, getTheatersDetail, getTheaterSummary, getSeatRatingMap };
+export { getTheaters, getTheatersDetail, getTheaterSummary, getSeatRatingMap, getSeatLayout };

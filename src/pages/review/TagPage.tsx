@@ -4,12 +4,14 @@ import { useReviewStore } from '@/store';
 import { useEffect, useState } from 'react';
 import type { Hashtag } from '@/types/hashtag';
 import { getHashtags } from '@/api/hashtag/hashtag.api';
-import {
-  TAG_TYPE_TITLE_MAP,
-  REQUIRED_TAG_KEYS,
-  type TagKey,
-  type TagSectionConfig,
-} from '@/constants';
+import { TAG_TYPE_TITLE_MAP, REQUIRED_TAG_KEYS, type TagKey } from '@/constants';
+
+type TagSectionConfig = {
+  key: TagKey;
+  title: string;
+  required: boolean;
+  options: { id: number; label: string }[]; // 수정됨
+};
 
 export default function ReviewTagsPage() {
   const navigate = useNavigate();
@@ -22,27 +24,27 @@ export default function ReviewTagsPage() {
     navigate('/review/form');
   };
 
-  //초기 진입 조건 확인
+  // 초기 진입 조건 확인
   useEffect(() => {
     if (!isInitialized) {
       navigate('/review');
     }
   }, [isInitialized, navigate]);
 
-  //해시태그 API
+  // 해시태그 API
   useEffect(() => {
     const fetchTags = async () => {
       try {
         const data: Hashtag[] = await getHashtags();
 
-        const grouped = data.reduce<Record<TagKey, string[]>>(
+        const grouped = data.reduce<Record<TagKey, { id: number; label: string }[]>>(
           (acc, tag) => {
             const key = tag.hashTagType as TagKey;
             if (!acc[key]) acc[key] = [];
-            acc[key].push(`#${tag.hashTagName}`);
+            acc[key].push({ id: tag.hashTagId, label: `#${tag.hashTagName}` });
             return acc;
           },
-          {} as Record<TagKey, string[]>,
+          {} as Record<TagKey, { id: number; label: string }[]>,
         );
 
         const ORDERED_KEYS: TagKey[] = ['음향', '관람환경', '동반인'];
@@ -83,7 +85,7 @@ export default function ReviewTagsPage() {
               options={options}
               required={required}
               selected={tags[key]}
-              onChange={(value) => toggleTag(key, value)}
+              onChange={(tagId) => toggleTag(key, tagId)}
             />
           ))
         )}

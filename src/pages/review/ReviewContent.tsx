@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   ReviewStepLayout,
   Textarea,
@@ -17,18 +16,8 @@ const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
-  const {
-    text,
-    setText,
-    reviewTitle,
-    setReviewTitle,
-    isInitialized,
-    movieTitle,
-    seats,
-    rating,
-    tags,
-    reset,
-  } = useReviewStore();
+  const { text, setText, reviewTitle, setReviewTitle, movieTitle, seatIds, rating, tags, reset } =
+    useReviewStore();
   const { images, addImages, removeImage, previewUrls } = useImgUpload(5);
   const navigate = useNavigate();
 
@@ -42,13 +31,10 @@ export default function ReviewTextForm() {
 
   const handleConfirmSubmit = async () => {
     try {
-      const hashtagIds: number[] = Object.values(tags)
-        .flat()
-        .map((tag) => parseInt(tag.replace('#', '')))
-        .filter((id) => !isNaN(id));
+      const hashtagIds: number[] = Object.values(tags).flat();
 
       const { reviewId } = await postReview({
-        seatIds: seats,
+        seatIds: seatIds,
         title: reviewTitle,
         movieTitle,
         rating,
@@ -57,19 +43,13 @@ export default function ReviewTextForm() {
         imageUrl: [], //이미지 API 연결 후...
       });
       closeModal();
-      reset();
-      navigate(`review/${reviewId}`);
+      navigate(`/review/${reviewId}`);
+      setTimeout(() => reset(), 0);
     } catch (error) {
       const apiError = error as ApiError;
       console.error('리뷰 등록 실패:', apiError.message, apiError.error);
     }
   };
-
-  useEffect(() => {
-    if (!isInitialized) {
-      navigate('/review');
-    }
-  }, [isInitialized, navigate]);
 
   return (
     <>

@@ -3,9 +3,9 @@ import { Button } from '@/components';
 type TagSectionProps = {
   title: string;
   required?: boolean;
-  options: string[];
-  selected: string[];
-  onChange: (value: string) => void;
+  options: { id: number; label: string }[];
+  selected: number[];
+  onChange: (id: number) => void;
 };
 
 export default function TagSection({
@@ -21,17 +21,17 @@ export default function TagSection({
         {title} {required && <span className="text-red-400">*</span>}
       </h2>
       <div className="flex flex-wrap gap-2">
-        {options.map((option) => (
+        {options.map(({ id, label }) => (
           <Button
-            key={option}
-            onClick={() => onChange(option)}
+            key={id}
+            onClick={() => onChange(id)}
             variant="secondary-assistive"
             color="gray"
             size="xs"
             rounded="md"
-            selected={selected.includes(option)}
+            selected={selected.includes(id)}
           >
-            {option}
+            {label}
           </Button>
         ))}
       </div>

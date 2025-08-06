@@ -32,6 +32,7 @@ export default function CinemaSelect() {
     navigate('/review/info', {
       state: {
         cinema: {
+          id: selected.auditoriumId,
           name: selected.theaterName,
           hall: selected.auditoriumName,
         },

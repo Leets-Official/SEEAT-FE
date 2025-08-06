@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Badge, InputField, ReviewStepLayout } from '@/components';
+import { Badge, InputField, ReviewStepLayout, SeatWriteModal } from '@/components';
 import { useReviewStore } from '@/store';
 
 export default function MovieInfoForm() {
-  const { movieTitle, setTitle, cinema, setCinema, seats, addSeat, removeSeat, isInitialized } =
+  const { movieTitle, setTitle, cinema, setCinema, seats, removeSeat, isInitialized, resetSeats } =
     useReviewStore();
 
-  const [seatInput, setSeatInput] = useState('');
+  const [showSeatModal, setShowSeatModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,18 +22,11 @@ export default function MovieInfoForm() {
   useEffect(() => {
     if (location.state?.cinema) {
       setCinema(location.state.cinema);
+      resetSeats();
     }
-  }, [location.state?.cinema, setCinema]);
+  }, [location.state?.cinema, setCinema, resetSeats]);
 
   const isFormValid = movieTitle.trim() && cinema?.name && seats.length > 0;
-
-  const handleAddSeat = () => {
-    const trimmed = seatInput.trim();
-    if (trimmed && !seats.includes(trimmed)) {
-      addSeat(trimmed);
-      setSeatInput('');
-    }
-  };
 
   const handleNext = () => {
     navigate('/review/rating');
@@ -72,11 +65,12 @@ export default function MovieInfoForm() {
         {/*추후 좌석 페이지 연결 시 readOnly 속성 추가*/}
         <InputField
           label="좌석"
-          value={seatInput}
-          onChange={setSeatInput}
+          value=""
+          onChange={() => {}}
           placeholder="관람하신 좌석을 선택해주세요"
           helperText="좌석을 여러 개 추가할 수 있어요."
-          onClickPlus={handleAddSeat}
+          readOnly
+          onClickPlus={() => setShowSeatModal(true)}
         />
 
         <div className="flex flex-wrap gap-3">
@@ -87,6 +81,15 @@ export default function MovieInfoForm() {
           ))}
         </div>
       </div>
+      {showSeatModal && cinema?.id && (
+        <SeatWriteModal
+          onClose={() => {
+            setShowSeatModal(false);
+          }}
+          auditoriumId={cinema.id} // theaterId or auditoriumId로 실제 좌석 정보 불러오기
+          theaterName={cinema.name}
+        />
+      )}
     </ReviewStepLayout>
   );
 }

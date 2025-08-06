@@ -39,7 +39,13 @@ const SeatModal = ({ type, auditoriumId, theaterName, selectedSeatNumbers }: Sea
         />
       );
     case 'seatWrite':
-      return <SeatWriteModal auditoriumId={auditoriumId} theaterName={theaterName ?? ''} />;
+      return (
+        <SeatWriteModal
+          auditoriumId={auditoriumId}
+          theaterName={theaterName ?? ''}
+          onClose={() => useModalStore.getState().closeModal()}
+        />
+      );
     default:
       return null;
   }

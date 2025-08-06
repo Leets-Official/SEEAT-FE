@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface CinemaInfo {
   name: string;
   hall: string;
+  id: string;
 }
 
 interface ReviewState {
@@ -13,6 +14,10 @@ interface ReviewState {
   seats: string[];
   text: string;
   rating: number;
+  seatIds: string[];
+  resetSeats: () => void;
+  addSeatId: (id: string) => void;
+  removeSeatId: (id: string) => void;
   setRating: (value: number) => void;
   setTitle: (title: string) => void;
   setCinema: (cinema: CinemaInfo) => void;
@@ -22,9 +27,9 @@ interface ReviewState {
   isInitialized: boolean;
   setInitialized: () => void;
   reset: () => void;
-  tags: Record<string, string[]>;
-  setTags: (type: '음향' | '관람환경' | '동반인', tags: string[]) => void;
-  toggleTag: (type: '음향' | '관람환경' | '동반인', tag: string) => void;
+  tags: Record<'음향' | '관람환경' | '동반인', number[]>;
+  setTags: (type: '음향' | '관람환경' | '동반인', tags: number[]) => void;
+  toggleTag: (type: '음향' | '관람환경' | '동반인', tag: number) => void;
 }
 
 export const useReviewStore = create<ReviewState>((set) => ({
@@ -39,6 +44,18 @@ export const useReviewStore = create<ReviewState>((set) => ({
   setInitialized: () => set({ isInitialized: true }),
   setRating: (value) => set({ rating: value }),
   setTitle: (movieTitle) => set({ movieTitle }),
+  seatIds: [],
+  resetSeats: () =>
+    set({
+      seats: [],
+      seatIds: [],
+    }),
+  addSeatId: (id) =>
+    set((state) => (state.seatIds.includes(id) ? state : { seatIds: [...state.seatIds, id] })),
+  removeSeatId: (id) =>
+    set((state) => ({
+      seatIds: state.seatIds.filter((s) => s !== id),
+    })),
   setCinema: (cinema) => set({ cinema }),
   addSeat: (seat) =>
     set((state) => (state.seats.includes(seat) ? state : { seats: [...state.seats, seat] })),
@@ -56,10 +73,11 @@ export const useReviewStore = create<ReviewState>((set) => ({
       rating: 0,
       text: '',
       tags: {
-        sound: [],
-        environment: [],
-        companion: [],
+        음향: [],
+        관람환경: [],
+        동반인: [],
       },
+      seatIds: [],
       isInitialized: false,
     }),
   tags: {
@@ -74,10 +92,10 @@ export const useReviewStore = create<ReviewState>((set) => ({
         [type]: tags,
       },
     })),
-  toggleTag: (type, tag) =>
+  toggleTag: (type, tagId) =>
     set((state) => {
       const current = state.tags[type] ?? [];
-      const isSelected = current.includes(tag);
+      const isSelected = current.includes(tagId);
 
       const totalSelected = Object.values(state.tags).flat().length;
 
@@ -85,7 +103,7 @@ export const useReviewStore = create<ReviewState>((set) => ({
         return {
           tags: {
             ...state.tags,
-            [type]: current.filter((t) => t !== tag),
+            [type]: current.filter((id) => id !== tagId),
           },
         };
       }
@@ -93,7 +111,7 @@ export const useReviewStore = create<ReviewState>((set) => ({
         return {
           tags: {
             ...state.tags,
-            [type]: [...current, tag],
+            [type]: [...current, tagId],
           },
         };
       }

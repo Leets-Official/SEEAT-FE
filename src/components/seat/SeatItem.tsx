@@ -15,13 +15,12 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
     {
       seatId,
       seatLabel,
-      hasReview = false,
-      score,
       isWheelchair = false,
       onClick,
       isFocused = false,
       isSelected = false,
       mode = 'seatPicker',
+      type,
       className,
     },
     ref,
@@ -32,7 +31,9 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
 
     const isActive = isFocused || (isWrite && isSelected) || (isPicker && selected);
 
-    const bgColor = isActive ? 'bg-red-400' : getSeatColor({ hasReview, score, isWheelchair });
+    const bgColor = isActive
+      ? 'bg-red-400'
+      : getSeatColor({ type: type ?? 'NO_REVIEW', isWheelchair });
 
     const handleClick = () => {
       if (mode === 'seatFocus') return; // focus 모달은 클릭 비활성
@@ -42,7 +43,7 @@ const SeatItem = forwardRef<HTMLDivElement, Props>(
 
     const textColor = isFocused
       ? 'text-white'
-      : isWheelchair || (score !== undefined && score <= 1.5)
+      : isWheelchair || type === 'LOW_RATED'
         ? 'text-gray-950'
         : 'text-white';
 

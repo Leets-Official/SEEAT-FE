@@ -1,17 +1,99 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Header, Image, Badge, ReviewCard } from '@/components';
-import { StarSmall, ArrowRight } from '@/assets';
-import { getRandomImage, reviewSummaryMock } from '@/__mocks';
-import { cinemaData } from '@/constants';
+import { Header, Image, ReviewCard, TagCardList } from '@/components';
+import { StarSmall, ArrowRight, SmileIcon } from '@/assets';
+import { useEffect, useState } from 'react';
+import { getTheatersDetail, getTheaterSummary } from '@/api/theater/theater.api';
+import type { GetTheatersDetailResponse, TheaterSummaryResponse } from '@/api/theater/theater.api';
+import type { ApiError } from '@/types/api-response';
+import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
+import type { ReviewSummary } from '@/types/review';
+import { getTheaterTags } from '@/api/hashtag/hashtag.api';
+import type { TheaterHashtag } from '@/api/hashtag/hashtag.api';
+//추후 태그 타입 들어오면 수정하기
 
 const CinemaDetailPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();
-  const imgUrl = getRandomImage(246, 142);
 
-  const cinema = Object.values(cinemaData)
-    .flat()
-    .find((c) => c.auditoriumId === auditoriumId);
+  const [cinema, setCinema] = useState<GetTheatersDetailResponse | null>(null);
+  const [reviews, setReviews] = useState<ReviewSummary[]>([]);
+  const [summary, setSummary] = useState<string | null>(null);
+  const [hashtags, setHashtags] = useState<TheaterHashtag[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchTheatersDetail = async () => {
+      try {
+        const res = await getTheatersDetail(auditoriumId);
+        setCinema(res);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('상영관 정보 불러오기 실패:', apiError.error, apiError.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTheatersDetail();
+  }, [auditoriumId]);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchReviews = async () => {
+      try {
+        const res = await getAuditoriumReviews({
+          auditoriumId,
+          page: 1,
+          size: 3,
+          sort: 'likes',
+        });
+        setReviews(res.content);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('리뷰 불러오기 실패', apiError.error, apiError.message);
+      }
+    };
+    fetchReviews();
+  }, [auditoriumId]);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchSummary = async () => {
+      try {
+        const res: TheaterSummaryResponse = await getTheaterSummary(auditoriumId);
+
+        if (!res || !res.summary) {
+          console.warn('요약 데이터 없음:', res);
+          setSummary(null);
+          return;
+        }
+
+        setSummary(res.summary);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error(
+          '요약 불러오기 실패',
+          apiError.error ?? '오류 없음',
+          apiError.message ?? '메시지 없음',
+        );
+      }
+    };
+    fetchSummary();
+  }, [auditoriumId]);
+
+  useEffect(() => {
+    if (!auditoriumId) return;
+    const fetchTags = async () => {
+      try {
+        const res = await getTheaterTags(auditoriumId);
+        setHashtags(res);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('해시태그 불러오기 실패:', apiError.error, apiError.message);
+      }
+    };
+    fetchTags();
+  }, [auditoriumId]);
 
   const title = cinema?.theaterName
     ? cinema.auditoriumName
@@ -19,25 +101,20 @@ const CinemaDetailPage = () => {
       : cinema.theaterName
     : '영화관 정보 없음';
 
-  const infoList = [
-    { label: '스크린', value: cinema?.screenSize },
-    { label: '영사 포맷', value: '정보 없음' }, //스웨거에 없는 것 같습니다...
-    { label: '음향', value: cinema?.soundType },
-  ];
-
-  const reviews = reviewSummaryMock.filter(
-    (review) =>
-      review.movieSeatInfo.theaterName === cinema?.theaterName &&
-      review.movieSeatInfo.auditoriumName === cinema?.auditoriumName,
-  );
   const reviewCount = cinema?.reviewCount;
-
   const rating = cinema?.averageReview.toFixed?.(1);
 
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        상영관 정보를 불러오는 중입니다...
+      </div>
+    );
+  }
   return (
-    <div className="flex min-h-screen flex-col pt-11 pb-5">
+    <div className="flex min-h-screen max-w-[430px] flex-col pt-11 pb-5">
       <Header leftSection="BACK" className="bg-gray-900" />
-      <div className="w-full px-5 pt-5">
+      <div className="mx-auto w-full max-w-[430px] px-5 pt-5">
         {/*영화관(상영관) 이름*/}
         <div className="text-title-2 text-left text-white">{title}</div>
         <div className="mt-2 flex items-center">
@@ -46,29 +123,35 @@ const CinemaDetailPage = () => {
           <span className="text-caption-3 mr-1 pt-[2px] text-gray-500">후기</span>
           <span className="text-caption-1 pt-[2px] text-white">{reviewCount}</span>
         </div>
-        <div className="my-5 w-[335px] border-t border-gray-800" />
+        <div className="my-5 w-full border-t border-gray-800" />
         <div className="text-title-3 text-white">좌석 배치도</div>
         <div className="text-caption-3 pt-1 text-red-300">
           배치도를 클릭하여 각 좌석의 후기를 볼 수 있어요
         </div>
         {/*배치도 사진 들어갈 부분*/}
         <div className="pt-3">
-          <div className="justify-center px-16 py-[34px]">
-            <Image src={imgUrl} aspectRatio="aspect-[246/142]" />
+          <div className="max-w-[430px] justify-center bg-gray-950">
+            {cinema?.imageUrl && <Image src={cinema.imageUrl} className="w-full" />}
           </div>
         </div>
 
-        {/*상세 정보*/}
-        <div className="flex flex-col gap-y-3 pt-5">
-          {infoList.map(({ label, value }) => (
-            <div key={label} className="flex items-center gap-4">
-              <Badge type="info" className="h-7 w-[85px] justify-center">
-                {label}
-              </Badge>
-              <span className="text-caption-2 text-white">{value || '정보 없음'}</span>
-            </div>
-          ))}
+        {/*AI 후기 요약*/}
+        <div className="mt-5 mb-10 flex flex-col rounded-lg border border-gray-500 px-4 py-3">
+          <div className="text-caption-1 flex items-center gap-1 text-red-300">
+            <SmileIcon />
+            <span>AI 후기 요약</span>
+          </div>
+          <div className="text-caption-2 mt-1 text-gray-300">{summary}</div>
         </div>
+
+        {/*많이 사용된 태그*/}
+        <TagCardList
+          tags={hashtags.map(({ hashType, hashTagName, count }) => ({
+            iconType: hashType as '음향' | '관람환경' | '동반인',
+            title: hashTagName,
+            count,
+          }))}
+        />
 
         {/*후기*/}
         <div className="mt-9">
@@ -81,13 +164,13 @@ const CinemaDetailPage = () => {
           <div className="flex flex-col gap-3">
             {reviews.slice(0, 3).map((review) => (
               <ReviewCard
-                key={review.id}
-                imageUrl={getRandomImage(82, 82)}
+                key={review.reviewId}
+                imageUrl={review.thumbnailUrl}
                 tags={review.hashtags.map((h) => h.hashTagName)}
-                title={title}
+                title={review.title}
                 description={review.content}
                 likeCount={review.heartCount}
-                onClick={() => navigate(`/review/${review.id}`)}
+                onClick={() => navigate(`/review/${review.reviewId}`)}
               />
             ))}
           </div>

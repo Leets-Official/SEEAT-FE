@@ -4,4 +4,5 @@ export type BestCinema = {
   avgRating: number;
   reviewCount: number;
   score: number;
+  image: string;
 };

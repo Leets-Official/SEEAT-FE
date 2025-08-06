@@ -1,4 +1,4 @@
-import type { Seat } from '@/types/seat';
+import type { ReviewedSeat } from '@/types/seat';
 
 type SeatModalType = 'seatFocus' | 'seatPicker' | 'seatWrite';
 
@@ -8,8 +8,8 @@ const columns = Array.from({ length: 23 }, (_, i) => i + 5);
 export const getMockSeats = (
   type: SeatModalType = 'seatPicker',
   focusedSeatIds: string[] = [],
-): Seat[] => {
-  const seats: Seat[] = [];
+): ReviewedSeat[] => {
+  const seats: ReviewedSeat[] = [];
 
   rows.forEach((row) => {
     columns.forEach((col) => {
@@ -20,27 +20,34 @@ export const getMockSeats = (
       const isFocused = focusedSeatIds.includes(seatId);
 
       let hasReview = false;
-      let score: number | undefined = undefined;
+      let averageRating: number | undefined = undefined;
       let isWheelchair = false;
 
       if (type === 'seatPicker') {
         hasReview = Math.random() < 0.3;
-        score = hasReview ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
+        averageRating = hasReview ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
         isWheelchair = row === 'A' && col >= 10 && col <= 13;
       }
 
       if (type === 'seatFocus') {
         hasReview = isFocused;
-        score = isFocused ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
+        averageRating = isFocused ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
+      }
+
+      let reviewType: ReviewedSeat['type'] = 'NO_REVIEW';
+      if (averageRating !== undefined) {
+        if (averageRating >= 4.5) reviewType = 'HIGH_RATED';
+        else if (averageRating <= 1.5) reviewType = 'LOW_RATED';
+        else reviewType = 'REVIEWED';
       }
 
       seats.push({
         seatId,
         row,
         column: col,
-        hasReview,
-        score,
+        averageRating,
         isWheelchair,
+        type: reviewType,
       });
     });
   });

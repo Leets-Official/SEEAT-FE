@@ -35,7 +35,6 @@ const SeatModal = ({ type, auditoriumId, theaterName, selectedSeatNumbers }: Sea
         <SeatPickerModal
           auditoriumId={auditoriumId}
           theaterName={theaterName ?? ''}
-          theaterType={type}
           onClose={() => useModalStore.getState().closeModal()}
         />
       );

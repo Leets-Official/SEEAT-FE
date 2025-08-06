@@ -4,6 +4,7 @@ import { useModalStore } from '@/store/modalStore';
 import ScreenBar from '@/components/seat/ScreenBar';
 import SeatMap from '@/components/seat/SeatMap';
 import { useSelectedSeatsStore } from '@/store';
+import { Button } from '@/components';
 
 interface SeatWriteModalProps {
   auditoriumId: string;
@@ -53,6 +54,9 @@ const SeatWriteModal = ({ auditoriumId, theaterName }: SeatWriteModalProps) => {
                 selectedSeatNames={selectedSeats}
               />
             </div>
+          </div>
+          <div className="px-4" onClick={closeModal}>
+            <Button className="mt-5 w-full">선택 완료</Button>
           </div>
         </div>
       </div>

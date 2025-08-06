@@ -41,19 +41,9 @@ export interface UserProfileUpdateRequest {
   genres?: string[];
   auditoriumIds?: string[];
 }
+
 export interface User {
   userId: number;
   nickname: string;
-<<<<<<< HEAD
   profileImageUrl: string | null;
-}
-
-export interface UserProfile {
-  nickname: string;
-  imageUrl: string | null;
-  genres: string[];
-  auditoriums: string[];
-=======
-  profileImageUrl: string;
->>>>>>> 682b26a74ca1c2aaaec457c7d52ecfc9d3a083ef
 }

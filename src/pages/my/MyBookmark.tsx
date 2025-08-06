@@ -11,7 +11,7 @@ const MyBookmarkPage = () => {
   useEffect(() => {
     const fetchBookmarks = async () => {
       try {
-        const { content } = await getMyBookmarks({ page: 1, size: 10 }); // ✅ 함수명 수정
+        const { content } = await getMyBookmarks({ page: 1, size: 10 }); 
         setBookmarks(content);
       } catch (err: unknown) {
         console.error(err);
@@ -32,7 +32,6 @@ const MyBookmarkPage = () => {
     <div className="w-full px-4">
       <Header
         leftSection="BACK"
-        rightSection="KEBAB"
         onKebabClick={() => console.log('케밥버튼 클릭')}
         className="bg-gray-900"
       >

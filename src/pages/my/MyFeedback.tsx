@@ -31,7 +31,7 @@ export default function MyFeedbackPage() {
   return (
     <div className="flex h-screen flex-col text-white">
       <div className="mx-auto flex w-full max-w-md flex-grow flex-col px-4">
-        <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900">
+        <Header leftSection="BACK" className="bg-gray-900">
           의견 보내기
         </Header>
 

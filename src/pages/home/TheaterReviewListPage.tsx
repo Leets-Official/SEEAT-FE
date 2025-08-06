@@ -4,6 +4,7 @@ import type { ReviewSummary } from '@/types/review';
 import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import { useState, useEffect } from 'react';
 import type { ApiError } from '@/types/api-response';
+
 const TheaterReviewListPage = () => {
   const { auditoriumId } = useParams<{ auditoriumId: string }>();
   const navigate = useNavigate();

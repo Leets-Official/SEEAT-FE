@@ -73,7 +73,7 @@ const OnboardingTheaterPage = () => {
         <ProgressBar currentStep={3} totalSteps={3} />
 
         {/* 콘텐츠 영역 */}
-        <div className="mt-2 px-6">
+        <div className="mt-2 mb-32 px-6">
           <h1 className="text-title-2 mb-1">자주 가는 영화관을 선택해주세요</h1>
           <p className="text-caption-2 mb-6 text-red-300">최대 2개까지 선택할 수 있어요.</p>
 
@@ -89,7 +89,13 @@ const OnboardingTheaterPage = () => {
 
           <div className="h-3" />
 
-          <TheaterList data={theaters ?? []} selected={selectedCinemas} onSelect={toggleTheater} />
+          <div className="max-h-[calc(100vh-320px)] overflow-y-auto">
+            <TheaterList
+              data={theaters ?? []}
+              selected={selectedCinemas}
+              onSelect={toggleTheater}
+            />
+          </div>
         </div>
 
         {/* 하단 버튼 */}

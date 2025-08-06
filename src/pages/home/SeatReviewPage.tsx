@@ -4,19 +4,22 @@ import type { ApiError } from '@/types/api-response';
 import type { SeatReviewBlock } from '@/types/review';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { type ReviewSort } from '@/api/review/getAuditoriumReviews.api';
+import SortDropdown from '@/components/common/DropDown/SortDropdown';
 
 const SeatReviewPage = () => {
   const { seatId } = useParams<{ seatId: string }>();
   const navigate = useNavigate();
 
   const [seatData, setSeatData] = useState<SeatReviewBlock | null>(null);
+  const [sortOption, setSortOption] = useState<ReviewSort>('latest');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!seatId) return;
     const load = async () => {
       try {
-        const res = await getSeatReview({ seatId, page: 1, size: 10 });
+        const res = await getSeatReview({ seatId, page: 1, size: 10, sort: sortOption });
         console.log('res', res);
         setSeatData(res.content[0]);
       } catch (error) {
@@ -27,7 +30,7 @@ const SeatReviewPage = () => {
       }
     };
     load();
-  }, [seatId]);
+  }, [seatId, sortOption]);
 
   if (!seatId) {
     return <div>좌석 ID가 없습니다.</div>;
@@ -62,6 +65,12 @@ const SeatReviewPage = () => {
               <span className="text-title-2 text-gray-500">({reviewCount})</span>
             </div>
             <div className="my-5 border border-gray-800" />
+            <div className="flex justify-end pt-2">
+              <SortDropdown
+                selected={sortOption}
+                onChange={(value) => setSortOption(value as ReviewSort)}
+              />
+            </div>
             {reviews.length === 0 ? (
               <div className="text-gray-500">해당 좌석의 리뷰가 없습니다</div>
             ) : (

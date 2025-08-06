@@ -14,7 +14,10 @@ const BaseModal = ({ children }: BaseModalProps) => {
     return (
       <>
         <div className="fixed inset-0 z-40 bg-gray-800/20" onClick={closeModal} />
-        <div className="absolute top-[22px] right-1 z-50" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="absolute top-[50px] right-[calc((100vw-430px)/2+4px)] z-50"
+          onClick={(e) => e.stopPropagation()}
+        >
           {children}
         </div>
       </>

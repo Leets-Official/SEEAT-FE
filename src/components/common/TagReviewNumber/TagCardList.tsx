@@ -3,7 +3,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@/assets';
 import { TagReviewNumber } from '@/components';
 
 interface TagReview {
-  iconType: 'sound' | 'environment' | 'companion';
+  iconType: '음향' | '관람환경' | '동반인';
   title: string;
   count: number;
 }

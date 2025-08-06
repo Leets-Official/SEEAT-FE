@@ -120,7 +120,7 @@ const CinemaDetailPage = () => {
         {/*배치도 사진 들어갈 부분*/}
         <div className="pt-3">
           <div className="max-w-[430px] justify-center bg-gray-950">
-            <Image src={cinema?.imageUrl} className="w-full" />
+            {cinema?.imageUrl && <Image src={cinema.imageUrl} className="w-full" />}
           </div>
         </div>
 
@@ -135,8 +135,8 @@ const CinemaDetailPage = () => {
 
         {/*많이 사용된 태그*/}
         <TagCardList
-          tags={hashtags.map(({ hashTagName, count }) => ({
-            iconType: 'environment',
+          tags={hashtags.map(({ hashType, hashTagName, count }) => ({
+            iconType: hashType as '음향' | '관람환경' | '동반인',
             title: hashTagName,
             count,
           }))}

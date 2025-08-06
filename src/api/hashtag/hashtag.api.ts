@@ -8,7 +8,7 @@ export const getHashtags = async (): Promise<Hashtag[]> => {
 };
 
 export interface TheaterHashtag {
-  //추후 타입 추가
+  hashType: string;
   hashTagId: number;
   hashTagName: string;
   count: number;

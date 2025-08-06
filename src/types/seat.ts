@@ -9,7 +9,7 @@ export interface ReviewedSeat extends Seat {
   totalReviews?: number;
   averageRating?: number;
   isWheelchair?: boolean;
-  type: ReviewType;
+  type?: ReviewType;
 }
 
 export interface SeatItemProps extends ReviewedSeat {

@@ -1,9 +1,9 @@
 import SeatItem from './SeatItem';
-import type { Seat } from '@/types/seat';
+import type { ReviewedSeat } from '@/types/seat';
 import { getSeatLabel } from '@/utils/getSeatLabel';
 
 interface SeatRowProps {
-  rowSeats: (Seat | null)[];
+  rowSeats: (ReviewedSeat | null)[];
   onSeatClick?: (seatId: string) => void;
   focusedSeatIds?: string[];
   selectedSeatNames?: string[];
@@ -28,8 +28,6 @@ const SeatRow = ({
             seatId={seat.seatId}
             mode={type}
             seatLabel={getSeatLabel(seat.row, seat.column)}
-            hasReview={seat.hasReview}
-            score={seat.score}
             isWheelchair={seat.isWheelchair}
             onClick={onSeatClick}
             row={seat.row}
@@ -42,15 +40,7 @@ const SeatRow = ({
           />
         ) : (
           <div key={idx} className="pointer-events-none invisible">
-            <SeatItem
-              seatId="blank"
-              seatLabel=""
-              hasReview={false}
-              score={undefined}
-              isWheelchair={false}
-              row={''}
-              column={0}
-            />
+            <SeatItem seatId="blank" seatLabel="" isWheelchair={false} row={''} column={0} />
           </div>
         ),
       )}

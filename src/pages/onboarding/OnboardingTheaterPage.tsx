@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
-import { Button, ToggleTab, Header, ProgressBar } from '@/components';
+import { Button, ToggleTab, Header, ProgressBar, TheaterList } from '@/components';
 import type { CinemaFormat } from '@/types/onboarding';
 import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
-import TheaterList from '@/components/common/Theater/TheaterList';
 import { useRegisterMutation } from '@/hooks/mutations/useRegisterMutation';
 
 const OnboardingTheaterPage = () => {
@@ -67,7 +66,7 @@ const OnboardingTheaterPage = () => {
   return (
     <div className="relative mx-auto min-h-screen w-full max-w-[375px] pb-32">
       {/* 상단 헤더 */}
-      <Header leftSection="BACK" />
+      <Header leftSection="BACK" className="bg-gray-900" />
       {/* 진행도 바 */}
       <ProgressBar currentStep={3} totalSteps={3} />
 

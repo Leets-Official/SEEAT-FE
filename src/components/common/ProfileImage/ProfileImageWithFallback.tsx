@@ -3,6 +3,7 @@ import { cn } from '@/utils/cn';
 import { Image } from '@/components'; // 커스텀 Image 컴포넌트 (IntersectionObserver 등 내장)
 import { DefaultProfile } from '@/assets';
 
+
 interface ProfileImageWithFallbackProps {
   src?: string | null;
   alt?: string;

@@ -98,10 +98,7 @@ export const reviewDetailMock = [
       nickname: '김씨잇',
       profileImageUrl: '',
     },
-    imageInfo: [
-      { imageUrl: '', order: 1 },
-      { imageUrl: '', order: 2 },
-    ],
+    imageInfo: [],
     heartCount: 34,
     createdAt: '2025-07-27T07:14:36Z',
   },

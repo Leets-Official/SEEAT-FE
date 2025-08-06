@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SoundIcon, CompanionIcon, EnvironmentIcon} from '@/assets';
+import { SoundIcon, CompanionIcon, EnvironmentIcon } from '@/assets';
 
 const iconComponents = {
   sound: SoundIcon,
@@ -15,28 +15,18 @@ interface TagReviewNumberProps {
   className?: string;
 }
 
-
-const TagReviewNumber: React.FC<TagReviewNumberProps> = ({
-  iconType,
-  title,
-  count,
-  className,
-}) => {
+const TagReviewNumber: React.FC<TagReviewNumberProps> = ({ iconType, title, count, className }) => {
   const IconComponent = iconComponents[iconType];
 
   return (
     <div
-      className={`
-        flex w-[335px] h-[48px] items-center gap-3 rounded-l
-        bg-gray-800/30 p-3
-        ${className}
-      `}
+      className={`flex h-[48px] w-full items-center gap-3 rounded-l bg-gray-800/30 p-3 ${className} `}
     >
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-m bg-gray-800">
+      <div className="rounded-m flex h-8 w-8 flex-shrink-0 items-center justify-center bg-gray-800">
         <IconComponent className="text-red-300" />
       </div>
 
-      <p className="flex-1 truncate text-body-2 text-white">{title}</p>
+      <p className="text-body-2 flex-1 truncate text-white">{title}</p>
       <p className="text-title-4 text-white">{count}</p>
     </div>
   );

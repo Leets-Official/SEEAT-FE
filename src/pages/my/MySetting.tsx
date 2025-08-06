@@ -1,11 +1,40 @@
+import { useNavigate } from 'react-router-dom';
 import KakaoIcon from '@/assets/icons/kakao_icon.svg?react';
 import { ConfirmModal, Header } from '@/components';
 import { useModalStore } from '@/store/modalStore';
+import api from '@/api/api';
 
 export default function MySettingPage() {
   const userEmail = 'ihatemonday@gmail.com';
   const appVersion = '1.0.0';
   const { openModal, modalType, closeModal } = useModalStore();
+  const navigate = useNavigate();
+
+  const logoutUser = async () => {
+    try {
+      await api.post('/api/v1/users/logout');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    } finally {
+      closeModal();
+    }
+  };
+
+  const withdrawUser = async () => {
+    try {
+      await api.delete('/api/v1/profile'); 
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      navigate('/login', { replace: true });
+    } catch (error) {
+      console.error('회원탈퇴 실패:', error);
+    } finally {
+      closeModal();
+    }
+  };
 
   const handleLogout = () => {
     openModal('logoutConfirm');
@@ -17,7 +46,9 @@ export default function MySettingPage() {
 
   return (
     <div className="min-h-screen">
-      <Header leftSection="BACK">설정</Header>
+      <Header leftSection="BACK" className="bg-gray-900">
+        설정
+      </Header>
       <main className="mx-auto flex flex-col divide-y divide-gray-800 px-6 pt-[78px]">
         <div className="flex h-[56px] w-full items-center justify-between">
           <span className="text-title-3 text-white">계정</span>
@@ -50,6 +81,8 @@ export default function MySettingPage() {
           confirmText="취소"
           cancelText="로그아웃하기"
           reverseButton
+          onCancel={logoutUser}
+          onConfirm={closeModal}
         />
       )}
 
@@ -60,10 +93,8 @@ export default function MySettingPage() {
           cancelText="탈퇴하기"
           confirmText="취소"
           reverseButton
-          onConfirm={() => {
-            console.log('회원탈퇴 처리');
-            closeModal();
-          }}
+          onCancel={withdrawUser} 
+          onConfirm={closeModal}
         />
       )}
     </div>

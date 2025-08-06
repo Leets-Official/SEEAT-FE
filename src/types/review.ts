@@ -76,3 +76,14 @@ export interface SeatReviewBlock {
   averageRating: number;
   reviews: ReviewItem[];
 }
+
+export interface BookmarkReviewItem {
+  reviewId: number;
+  thumbnailUrl: string;
+  hashtags: { hashTagId: number; hashTagName: string }[];
+  title: string;
+  content: string;
+  heartCount: number;
+  createdAt: string;
+  rating: number;
+}

@@ -1,6 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Header, Badge, RatingCard, ProfileImageWithFallback, ConfirmModal } from '@/components';
+import {
+  Header,
+  Badge,
+  RatingCard,
+  ProfileImageWithFallback,
+  ConfirmModal,
+  Loading,
+} from '@/components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -70,7 +77,11 @@ const ReviewDetailPage = () => {
   }, [reviewId]);
 
   if (loading) {
-    return <div className="flex items-center justify-center">불러오는 중</div>;
+    return (
+      <div className="flex items-center justify-center">
+        <Loading />
+      </div>
+    );
   }
 
   //경로 직접 입력되는 경우 대비

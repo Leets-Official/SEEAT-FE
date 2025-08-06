@@ -1,4 +1,4 @@
-import type { Seat } from '@/types/seat';
+import type { ReviewedSeat } from '@/types/seat';
 
 type SeatModalType = 'seatFocus' | 'seatPicker' | 'seatWrite';
 
@@ -8,8 +8,8 @@ const columns = Array.from({ length: 23 }, (_, i) => i + 5);
 export const getMockSeats = (
   type: SeatModalType = 'seatPicker',
   focusedSeatIds: string[] = [],
-): Seat[] => {
-  const seats: Seat[] = [];
+): ReviewedSeat[] => {
+  const seats: ReviewedSeat[] = [];
 
   rows.forEach((row) => {
     columns.forEach((col) => {
@@ -34,13 +34,20 @@ export const getMockSeats = (
         averageRating = isFocused ? parseFloat((Math.random() * 5).toFixed(1)) : undefined;
       }
 
+      let reviewType: ReviewedSeat['type'] = 'NO_REVIEW';
+      if (averageRating !== undefined) {
+        if (averageRating >= 4.5) reviewType = 'HIGH_RATED';
+        else if (averageRating <= 1.5) reviewType = 'LOW_RATED';
+        else reviewType = 'REVIEWED';
+      }
+
       seats.push({
         seatId,
         row,
         column: col,
-        hasReview,
         averageRating,
         isWheelchair,
+        type: reviewType,
       });
     });
   });

@@ -36,11 +36,11 @@ export default function MySettingPage() {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
 
-      showToast('회원탈퇴가 완료되었습니다.', 3000);
+      showToast('회원탈퇴가 완료되었습니다.');
       setTimeout(() => navigate('/login', { replace: true }), 100);
     } catch (error) {
       console.error('회원탈퇴 실패:', error);
-      showToast('회원탈퇴에 실패했습니다.', 3000);
+      showToast('회원탈퇴에 실패했습니다.');
     } finally {
       closeModal();
     }

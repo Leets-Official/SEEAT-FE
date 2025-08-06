@@ -61,10 +61,21 @@ const CinemaDetailPage = () => {
     const fetchSummary = async () => {
       try {
         const res: TheaterSummaryResponse = await getTheaterSummary(auditoriumId);
+
+        if (!res || !res.summary) {
+          console.warn('요약 데이터 없음:', res);
+          setSummary(null); // fallback
+          return;
+        }
+
         setSummary(res.summary);
       } catch (error) {
         const apiError = error as ApiError;
-        console.error('요약 불러오기 실패', apiError.error, apiError.message);
+        console.error(
+          '요약 불러오기 실패',
+          apiError.error ?? '오류 없음',
+          apiError.message ?? '메시지 없음',
+        );
       }
     };
     fetchSummary();

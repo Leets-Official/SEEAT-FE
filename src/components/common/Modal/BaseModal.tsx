@@ -9,12 +9,12 @@ const BaseModal = ({ children }: BaseModalProps) => {
   const { modalType, closeModal } = useModalStore();
   const isActionType = modalType === 'action';
 
-  // 액션 시트 모달일 때 위치 조정 - TODO: 구현 시 알맞게 위치 수정
+  // 액션 시트 모달일 때 위치
   if (isActionType) {
     return (
       <>
         <div className="fixed inset-0 z-40 bg-gray-800/20" onClick={closeModal} />
-        <div className="absolute top-[52px] right-4 z-50" onClick={(e) => e.stopPropagation()}>
+        <div className="absolute top-[22px] right-1 z-50" onClick={(e) => e.stopPropagation()}>
           {children}
         </div>
       </>

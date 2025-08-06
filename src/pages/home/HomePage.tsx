@@ -1,7 +1,6 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, DolbyImage, HomeBanner, ImaxImage, PlusIcon } from '@/assets';
-import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 import { useEffect, useState } from 'react';
 import { fetchPopularReviews } from '@/api/home/popularReview.api';

@@ -8,7 +8,7 @@ import { useUserProfileQuery } from '@/hooks/queries/useUserProfileQuery';
 import { THEATER_NAME_MAP } from '@/constants/theater';
 import ImagePreviewItem from '@/components/common/ImagePreview/ImagePreviewItem';
 import { useImgUpload } from '@/hooks/useImageUpload';
-import { useS3UploadFlow } from '@/hooks/useS3UploadFlow';
+import { useS3UploadFlow as uploadS3Flow } from '@/hooks/useS3UploadFlow';
 
 export default function ProfileEdit() {
   const navigate = useNavigate();
@@ -60,9 +60,9 @@ export default function ProfileEdit() {
     try {
       let uploadedImageUrl = imageUrl;
       if (selectedFiles.length > 0) {
-        const results = await useS3UploadFlow(selectedFiles);
-        uploadedImageUrl = results[0].url.split('?')[0]; // ?query 제거된 실제 URL
-      }
+          const results = await uploadS3Flow(selectedFiles);
+          uploadedImageUrl = results[0].url.split('?')[0];
+        }
 
       await updateUserProfile({
         nickname,
@@ -70,10 +70,10 @@ export default function ProfileEdit() {
         auditoriums,
         imageUrl: uploadedImageUrl ?? null,
       });
-      showToast('프로필이 저장되었습니다.', 3000);
+      showToast('프로필이 저장되었습니다.');
       navigate('/my');
     } catch (error) {
-      showToast('저장에 실패했습니다.', 3000);
+      showToast('저장에 실패했습니다.');
       console.error(error);
     }
   };

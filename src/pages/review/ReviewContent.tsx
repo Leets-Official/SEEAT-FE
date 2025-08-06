@@ -16,7 +16,7 @@ const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
   const { text, setText, reviewTitle, setReviewTitle, isInitialized } = useReviewStore();
-  const { images, addImages, removeImage } = useImgUpload(5);
+  const { images, addImages, removeImage, previewUrls } = useImgUpload(5);
   const navigate = useNavigate();
 
   const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
@@ -62,8 +62,13 @@ export default function ReviewTextForm() {
               />
             </label>
             {/* 이미지 미리보기? */}
-            {images.map((image, index) => (
-              <ImagePreviewItem key={index} image={image} index={index} onRemove={removeImage} />
+            {images.map((_, index) => (
+              <ImagePreviewItem
+                key={index}
+                previewUrl={previewUrls[index]}
+                index={index}
+                onRemove={removeImage}
+              />
             ))}
           </div>
         </div>

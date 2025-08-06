@@ -18,6 +18,19 @@ export const postRegister = async (
       'Temp-User-Key': tempUserKey,
     },
   });
+
+  const accessToken = response.headers['authorization'] || response.headers['Authorization'];
+  console.log('accessToken : ', response.headers);
+  console.log(
+    '🔑 Authorization:',
+    response.headers['authorization'] || response.headers['Authorization'],
+  );
+  if (!accessToken) {
+    throw new Error('accessToken이 응답 헤더에 없습니다.');
+  }
+
+  localStorage.setItem('accessToken', accessToken.replace('Bearer ', ''));
+
   return response.data;
 };
 

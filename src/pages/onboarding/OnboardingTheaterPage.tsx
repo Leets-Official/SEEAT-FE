@@ -54,11 +54,11 @@ const OnboardingTheaterPage = () => {
       },
       {
         onSuccess: () => {
+          localStorage.removeItem('tempKey');
           navigate('/signup/complete');
-          // localStorage.setItem('accessToken',)
         },
-        onError: (error: any) => {
-          console.error('회원가입 실패', error);
+        onError: (err) => {
+          console.error('회원가입 실패', err);
         },
       },
     );
@@ -89,29 +89,23 @@ const OnboardingTheaterPage = () => {
 
           <div className="h-3" />
 
-          <div className="max-h-[calc(100vh-320px)] overflow-y-auto">
-            <TheaterList
-              data={theaters ?? []}
-              selected={selectedCinemas}
-              onSelect={toggleTheater}
-            />
-          </div>
+          <TheaterList data={theaters ?? []} selected={selectedCinemas} onSelect={toggleTheater} />
         </div>
+      </div>
 
-        {/* 하단 버튼 */}
-        <div className="fixed bottom-8 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-6">
-          <Button
-            onClick={handleNext}
-            disabled={selectedCinemas.length === 0}
-            variant="primary"
-            color="red"
-            size="lg"
-            fontType="title-3"
-            className="w-full"
-          >
-            선택완료
-          </Button>
-        </div>
+      {/* 하단 버튼 */}
+      <div className="fixed bottom-8 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-6">
+        <Button
+          onClick={handleNext}
+          disabled={selectedCinemas.length === 0}
+          variant="primary"
+          color="red"
+          size="lg"
+          fontType="title-3"
+          className="w-full"
+        >
+          선택완료
+        </Button>
       </div>
     </div>
   );

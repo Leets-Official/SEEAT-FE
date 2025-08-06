@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Header, BottomNavigation, LevelCard } from '@/components';
-import { EditIcon, ChevronRightIcon, MyProfileIcon } from '@/assets';
+import { Header, BottomNavigation, LevelCard, ProfileImageWithFallback } from '@/components';
+import { EditIcon, ChevronRightIcon } from '@/assets';
 import { useState, useEffect } from 'react';
-import type { UserProfile } from '@/types/user';
+import type { UserProfile, Auditorium } from '@/types/user';
 import type { ApiError } from '@/types/api-response';
 import { getUserProfile } from '@/api/profile/profile.api';
 
@@ -20,13 +20,11 @@ const MyPage: React.FC = () => {
 
   useEffect(() => {
     let isMounted = true;
-
     const fetchUserProfile = async () => {
       try {
-        const data = await getUserProfile();
-
+        const userData = await getUserProfile();
         if (isMounted) {
-          setUser(data);
+          setUser(userData);
         }
       } catch (err) {
         const apiError = err as ApiError;
@@ -39,9 +37,7 @@ const MyPage: React.FC = () => {
         }
       }
     };
-
     fetchUserProfile();
-
     return () => {
       isMounted = false;
     };
@@ -87,15 +83,11 @@ const MyPage: React.FC = () => {
           <section className="rounded-lg bg-gray-800/30 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                {user.profileImageUrl ? (
-                  <img
-                    src={user.profileImageUrl}
-                    alt={`${user.nickname}의 프로필`}
-                    className="h-20 w-20 rounded-full object-cover"
-                  />
-                ) : (
-                  <MyProfileIcon className="h-20 w-20" />
-                )}
+                <ProfileImageWithFallback
+                  src={user.imageUrl}
+                  alt={`${user.nickname}의 프로필`}
+                  className="h-20 w-20 shrink-0"
+                />
                 <span className="text-title-2">{user.nickname}</span>
               </div>
               <button
@@ -105,28 +97,29 @@ const MyPage: React.FC = () => {
               >
                 <EditIcon className="h-5 w-5" />
               </button>
-            </div>
+             </div>
+
             <div className="mt-4 flex flex-col gap-3">
               <div className="flex items-center gap-4">
                 <div className="flex h-[28px] w-[103px] shrink-0 items-center justify-center rounded-md bg-gray-800">
                   <span className="text-caption-1 text-white">선호 장르</span>
                 </div>
                 <div className="flex flex-wrap gap-x-3">
-                  {(user.preferredGenres || []).map((genre) => (
+                  {(user.genres || []).map((genre: string) => (
                     <span key={genre} className="text-caption-2">
                       {genre}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="flex h-[28px] w-[103px] shrink-0 items-center justify-center rounded-md bg-gray-800">
                   <span className="text-caption-1 text-white">자주 가는 영화관</span>
                 </div>
                 <div className="flex flex-col gap-1">
-                  {(user.favoriteTheaters || []).map((theater) => (
-                    <span key={theater} className="text-caption-2 text-gray-500">
-                      {theater}
+                  {(user.auditoriums || []).map((auditorium: Auditorium) => (
+                    <span key={auditorium.id} className="text-caption-2 text-gray-500">
+                      {auditorium.theaterName}
                     </span>
                   ))}
                 </div>
@@ -134,12 +127,10 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          {/* LevelCard api연결전 필수 props 임시값(0)전달 빌드 에러임시 */}
           <LevelCard
-            userLevel={user.level}
-            userProgress={user.progress}
-            currentReviewCount={0}
-            currentLikeCount={0}
+            userProgress={user.levelExp}
+            currentReviewCount={user.reviewCount}
+            currentLikeCount={user.likeCount}
           />
 
           {/* 메뉴 리스트 */}

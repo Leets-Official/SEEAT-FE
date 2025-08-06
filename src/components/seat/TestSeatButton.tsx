@@ -1,5 +1,5 @@
 import { useModalStore } from '@/store';
-import { ConfirmModal, SeatPickerModal } from '@/components';
+import { ConfirmModal } from '@/components';
 import SeatFocusModal from '../common/Modal/SeatModal/SeatFocusModal';
 import SeatWriteModal from '../common/Modal/SeatModal/SeatWriteModal';
 
@@ -39,9 +39,9 @@ export const TestSeatModalButton = () => {
         write 모달 열기
       </button>
 
-      {modalType === 'seatPicker' && (
-        <SeatPickerModal theaterType="IMAX" theaterName="CGV 강남" auditoriumId="13018" />
-      )}
+      {/*{modalType === 'seatPicker' && (
+        <SeatPickerModal theaterName="CGV 강남" auditoriumId="13018" onClose={()=>()}/>
+      )}*/}
 
       {modalType === 'confirm' && (
         <ConfirmModal

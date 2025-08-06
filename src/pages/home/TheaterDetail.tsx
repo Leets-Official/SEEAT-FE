@@ -9,7 +9,7 @@ import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import type { ReviewSummary } from '@/types/review';
 import { getTheaterTags } from '@/api/hashtag/hashtag.api';
 import type { TheaterHashtag } from '@/api/hashtag/hashtag.api';
-import SeatPickerModal from '@/components';
+import { SeatPickerModal } from '@/components';
 //추후 태그 타입 들어오면 수정하기
 
 const CinemaDetailPage = () => {
@@ -184,11 +184,10 @@ const CinemaDetailPage = () => {
           </div>
         </div>
       </div>
-      {isSeatModalOpen && (
+      {isSeatModalOpen && cinema && (
         <SeatPickerModal
-          auditoriumId={auditoriumId!}
-          theaterName={cinema?.theaterName || ''}
-          theaterType={cinema?.screenSize || '기타'} // 임시 값
+          auditoriumId={cinema.auditoriumId}
+          theaterName={cinema.theaterName}
           onClose={() => setIsSeatModalOpen(false)}
         />
       )}

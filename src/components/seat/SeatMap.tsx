@@ -1,5 +1,5 @@
 import SeatRow from './SeatRow';
-import { getMockSeats } from '@/__mocks/mockSeat';
+import type { SeatRatingInfo } from '@/api/theater/theater.api';
 import type { Seat } from '@/types/seat';
 import { useRef } from 'react';
 
@@ -8,7 +8,7 @@ interface SeatMapProps {
   onSeatClick?: (seatId: string) => void;
   focusedSeatIds?: string[]; // seatFocus용
   selectedSeatNames?: string[]; // seatWrite 용
-  isMock?: boolean; // 목데이터용
+  seatData?: SeatRatingInfo[];
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
@@ -17,13 +17,18 @@ const SeatMap = ({
   focusedSeatIds = [],
   selectedSeatNames = [],
   type = 'seatPicker',
+  seatData = [],
 }: SeatMapProps) => {
   const seatRows: Record<string, Seat[]> = {};
   const focusedRef = useRef<HTMLDivElement>(null!);
 
-  const mockSeats = getMockSeats(type, focusedSeatIds);
-  // row별로 묶기
-  mockSeats.forEach((seat) => {
+  // 전체 column 범위 계산
+  const allColumns = seatData.map((s) => s.column);
+  const minColumn = Math.min(...allColumns);
+  const maxColumn = Math.max(...allColumns);
+
+  // row별로 seat 분류
+  seatData.forEach((seat) => {
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
     seatRows[seat.row].push(seat);
   });
@@ -31,18 +36,14 @@ const SeatMap = ({
   return (
     <div className="flex flex-col gap-1">
       {Object.entries(seatRows)
-        .sort(([a], [b]) => a.localeCompare(b)) // row 정렬: A, B, C...
+        .sort(([a], [b]) => a.localeCompare(b))
         .map(([row, seats]) => {
-          // column 정렬
           seats.sort((a, b) => a.column - b.column);
 
-          const min = seats[0].column;
-          const max = seats[seats.length - 1].column;
-
-          const filledRow: (Seat | null)[] = Array(max - min + 1).fill(null);
-
+          // 전체 column 범위 기준으로 null 포함 filledRow 생성
+          const filledRow: (Seat | null)[] = Array(maxColumn - minColumn + 1).fill(null);
           seats.forEach((seat) => {
-            const index = seat.column - min;
+            const index = seat.column - minColumn;
             filledRow[index] = seat;
           });
 

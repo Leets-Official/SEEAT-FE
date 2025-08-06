@@ -22,3 +22,12 @@ export const postRegister = async (
 };
 
 // 로그아웃
+
+// 닉네임 중복 검사
+export const checkNicknameDuplicate = async (nickname: string) => {
+  const res = await api.get('/users', {
+    params: { nickname },
+  });
+
+  return res.data.data;
+};

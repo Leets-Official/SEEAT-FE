@@ -7,9 +7,13 @@ import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { GalleryProfileIcon } from '@/assets';
 import { useImgUpload } from '@/hooks';
 import { useS3UploadFlow } from '@/hooks/useS3UploadFlow';
+import { validateNickname } from '@/utils/validateNickname';
+import { checkNicknameDuplicate } from '@/api/user/users.api';
 
 const OnboardingNicknamePage = () => {
   const [input, setInput] = useState('');
+  const [error, setError] = useState<string | undefined>(undefined);
+
   const navigate = useNavigate();
 
   const setNickname = useOnboardingStore((state) => state.setNickname);
@@ -38,24 +42,50 @@ const OnboardingNicknamePage = () => {
   };
 
   const handleNext = async () => {
-    setNickname(input);
-    console.log('닉네임: ', input);
+    // 1.  유효성 검사
+    const { valid, message } = validateNickname(input);
+    if (!valid) {
+      setError(message);
+      return;
+    }
+
+    try {
+      // 2. 닉네임 중복 검사
+      const nicknameResult = await checkNicknameDuplicate(input);
+      if (nicknameResult.duplicated) {
+        setError(nicknameResult.message);
+        return;
+      }
+
+      setNickname(input); // 중복 아님 → 저장
+    } catch (e) {
+      console.error('닉네임 중복 검사 실패:', e);
+      setError('닉네임 중복 확인 중 오류가 발생했어요.');
+      return;
+    }
+
+    // 3. 이미지 업로드
     if (selectedFiles.length > 0) {
       try {
-        const result = await useS3UploadFlow(selectedFiles);
-        const imageUrl = result[0]?.url;
+        const uploadResult = await useS3UploadFlow(selectedFiles);
+        const imageUrl = uploadResult[0]?.url;
 
         if (imageUrl) {
           setProfileImageFileName(imageUrl);
           console.log('프로필 이미지 URL:', imageUrl);
-          navigate('/onboarding/genre');
         } else {
           console.error('이미지 업로드 실패');
+          setError('이미지 업로드에 실패했어요.');
+          return;
         }
       } catch (e) {
         console.error('이미지 업로드 중 에러 발생', e);
+        setError('이미지 업로드 중 오류가 발생했어요.');
+        return;
       }
     }
+
+    navigate('/onboarding/genre');
   };
 
   return (
@@ -105,12 +135,14 @@ const OnboardingNicknamePage = () => {
             <Input
               required={false}
               value={input}
-              onChange={setInput}
+              onChange={(value) => {
+                setInput(value);
+                setError(undefined);
+              }}
               placeholder="닉네임을 입력해주세요"
+              helperSubText={error}
             />
           </div>
-
-          <p className="text-caption-3 ml-1 text-gray-500">10자 이내로 작성해주세요.</p>
         </div>
 
         {/* 하단 버튼 */}

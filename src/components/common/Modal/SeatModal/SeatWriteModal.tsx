@@ -4,6 +4,7 @@ import { useModalStore } from '@/store/modalStore';
 import ScreenBar from '@/components/seat/ScreenBar';
 import SeatMap from '@/components/seat/SeatMap';
 import { useSelectedSeatsStore } from '@/store';
+import { Button } from '@/components';
 
 interface SeatWriteModalProps {
   auditoriumId: string;
@@ -12,6 +13,8 @@ interface SeatWriteModalProps {
 
 const SeatWriteModal = ({ auditoriumId, theaterName }: SeatWriteModalProps) => {
   const { closeModal } = useModalStore();
+
+  // 선택 좌석 전역상태 관리
   const { selectedSeats, toggleSeat } = useSelectedSeatsStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -20,6 +23,8 @@ const SeatWriteModal = ({ auditoriumId, theaterName }: SeatWriteModalProps) => {
     toggleSeat(seatId);
     console.log('seatId : ', seatId);
   };
+
+  const isDisabled = selectedSeats.length === 0;
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -53,6 +58,11 @@ const SeatWriteModal = ({ auditoriumId, theaterName }: SeatWriteModalProps) => {
                 selectedSeatNames={selectedSeats}
               />
             </div>
+          </div>
+          <div className="px-4" onClick={closeModal}>
+            <Button className="mt-5 w-full" disabled={isDisabled}>
+              선택 완료
+            </Button>
           </div>
         </div>
       </div>

@@ -1,25 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/utils/cn';
+import type { ReactNode } from 'react';
 
 interface CinemaTypeButtonProps {
-  label: string;
   tab: string;
   className?: string;
+  children: ReactNode;
 }
 
-const CinemaTypeButton = ({ label, tab, className }: CinemaTypeButtonProps) => {
+const CinemaTypeButton = ({ tab, className, children }: CinemaTypeButtonProps) => {
   const navigate = useNavigate();
 
   return (
     <button
       onClick={() => navigate(`/theaters?tab=${tab}`)}
       className={cn(
-        'rounded-m flex h-[163px] w-[166px] flex-col items-center bg-gray-800',
+        'rounded-m flex w-full flex-1 cursor-pointer flex-col items-center border border-gray-800 bg-gray-950 px-3 py-5',
         className,
       )}
     >
-      <div className="mt-5 aspect-square w-[60%] bg-gray-700" />
-      <p className="mt-2 text-xl text-white">{label}</p>
+      {children}
     </button>
   );
 };

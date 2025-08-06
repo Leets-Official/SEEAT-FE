@@ -13,11 +13,8 @@ const LoginPage = () => {
 
   return (
     <div className="relative h-screen w-full">
-      {/* 중앙 그래픽 자리 */}
       <div className="flex h-full flex-col items-center justify-start pt-[180px]">
         <img src={RunningGIF} alt="러닝 팝콘" className="mb-4 h-auto w-[385px]" />
-
-        {/* SEEAT 로고 */}
         <SEEATLogo className="mb-10" />
       </div>
 

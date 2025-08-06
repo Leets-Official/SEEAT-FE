@@ -102,14 +102,19 @@ const OnboardingNicknamePage = () => {
 
           {/* 닉네임 입력 */}
           <div className="mb-2">
-            <Input label="" value={input} onChange={setInput} placeholder="닉네임을 입력해주세요" />
+            <Input
+              required={false}
+              value={input}
+              onChange={setInput}
+              placeholder="닉네임을 입력해주세요"
+            />
           </div>
 
           <p className="text-caption-3 ml-1 text-gray-500">10자 이내로 작성해주세요.</p>
         </div>
 
         {/* 하단 버튼 */}
-        <div className="fixed bottom-8 left-1/2 w-full -translate-x-1/2 px-6">
+        <div className="fixed bottom-8 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-6">
           <Button
             onClick={handleNext}
             disabled={!input.trim()}

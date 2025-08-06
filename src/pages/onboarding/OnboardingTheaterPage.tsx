@@ -93,7 +93,7 @@ const OnboardingTheaterPage = () => {
         </div>
 
         {/* 하단 버튼 */}
-        <div className="fixed bottom-8 left-1/2 w-full -translate-x-1/2 px-6">
+        <div className="fixed bottom-8 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-6">
           <Button
             onClick={handleNext}
             disabled={selectedCinemas.length === 0}

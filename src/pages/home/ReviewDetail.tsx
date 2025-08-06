@@ -177,7 +177,7 @@ const ReviewDetailPage = () => {
             </div>
           </div>
 
-          <div className="w-full pt-5">
+          <div className="w-full">
             <div className="my-5 h-px w-full bg-gray-800" />
 
             {/*해시태그 영역*/}

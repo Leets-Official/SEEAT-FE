@@ -1,6 +1,6 @@
 import { ReviewCard, BestCinemaCard, BottomNavigation, Image, Header } from '@/components';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, PlusIcon } from '@/assets';
+import { ArrowRight, DolbyImage, HomeBanner, ImaxImage, PlusIcon } from '@/assets';
 import { getRandomImage } from '@/__mocks';
 import CinemaTypeButton from '@/components/home/CinemaTypeButton';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,6 @@ import type { ApiError } from '@/types/api-response';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const imgUrl = getRandomImage(375, 210);
   const [popularReviews, setPopularReviews] = useState<PopularReview[]>([]);
   const [bestCinemaList, setBestCinemaList] = useState<BestCinema[]>([]);
 
@@ -51,8 +50,8 @@ const HomePage = () => {
       <Header leftSection="LOGO" rightSection="SETTING" className="bg-gray-900" />
       {/* 이미지?*/}
       <div className="pt-[44px]">
-        <div className="mx-auto w-full max-w-[430px] bg-gray-700 pt-6">
-          <Image src={imgUrl} aspectRatio="aspect-[375/210]" className="w-full" />
+        <div className="mx-auto w-full max-w-[430px]">
+          <Image src={HomeBanner} className="w-full" />
         </div>
         <div className="mx-auto w-full px-5">
           {/*영화관 리스트 선택*/}
@@ -60,9 +59,13 @@ const HomePage = () => {
             <div className="mb-2 flex items-center justify-between">
               <p className="text-title-3">영화관 리스트</p>
             </div>
-            <div className="flex justify-center gap-3">
-              <CinemaTypeButton label="IMAX" tab="imax" />
-              <CinemaTypeButton label="Dolby Cinema" tab="dolby" />
+            <div className="mt-3 flex justify-center gap-4">
+              <CinemaTypeButton tab="imax">
+                <ImaxImage />
+              </CinemaTypeButton>
+              <CinemaTypeButton tab="dolby">
+                <DolbyImage />
+              </CinemaTypeButton>
             </div>
           </div>
 

@@ -87,3 +87,10 @@ export interface BookmarkReviewItem {
   createdAt: string;
   rating: number;
 }
+
+export interface PaginatedBookmarkResponse {
+  content: BookmarkReviewItem[];
+  hasNext: boolean;
+  page: number;
+  size: number;
+}

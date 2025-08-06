@@ -17,7 +17,6 @@ import ReviewDetailPage from '@/pages/home/ReviewDetail';
 import PopularReviewPage from '@/pages/home/PopularReview';
 
 import SeatTest from '@/pages/seat/SeatTest';
-import SeatReviewPage from '@/pages/seat';
 
 import { TicketUploadStep } from '@/pages/review/TicketPage';
 import MovieInfoForm from '@/pages/review/MovieInfoStep';
@@ -25,7 +24,7 @@ import CinemaSelect from '@/pages/review/CinemaSelect';
 import RatingStep from '@/pages/review/RatingStep';
 import ReviewTagsPage from '@/pages/review/TagPage';
 import ReviewTextForm from '@/pages/review/ReviewContent';
-
+import SeatReviewPage from '@/pages/home/SeatReviewPage';
 import Search from '@/pages/search/ReviewSearch';
 import ReviewSearchResult from '@/pages/search/ReviewSearchResult';
 import ReviewFilter from '@/pages/search/ReviewFilter';
@@ -92,10 +91,6 @@ const router = createBrowserRouter([
   {
     path: '/review/popular',
     element: <PopularReviewPage />,
-  },
-  {
-    path: '/reviews/:seatId',
-    element: <SeatReviewPage />,
   },
   {
     path: '/seat',
@@ -185,4 +180,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-

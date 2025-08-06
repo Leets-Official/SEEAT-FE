@@ -7,6 +7,7 @@ import { getSeatRatingMap, type SeatRatingInfo } from '@/api/theater/theater.api
 import type { ApiError } from '@/types/api-response';
 
 interface SeatPickerModalProps {
+  theaterType?: string;
   theaterName: string;
   auditoriumId: string;
   seatData?: SeatRatingInfo[];

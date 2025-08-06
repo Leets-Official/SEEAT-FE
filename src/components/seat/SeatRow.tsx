@@ -30,6 +30,7 @@ const SeatRow = ({
             seatLabel={getSeatLabel(seat.row, seat.column)}
             isWheelchair={seat.isWheelchair}
             onClick={onSeatClick}
+            type={seat.type}
             row={seat.row}
             column={seat.column}
             isFocused={type === 'seatFocus' && focusedSeatIds.includes(seat.seatId)}

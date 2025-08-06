@@ -42,7 +42,7 @@ export interface SeatRatingInfo {
   totalReviews: number;
   averageRating: number;
   isWheelchair: boolean;
-  type: 'REVIEWD' | 'UNREVIEWED';
+  type: 'REVIEWED' | 'NO_REVIEW';
 }
 const getSeatRatingMap = async (auditoriumId: string): Promise<SeatRatingInfo[]> => {
   const res = await api.get<ApiResponse<SeatRatingInfo[]>>(`/theaters/seat/rating/${auditoriumId}`);

@@ -103,7 +103,7 @@ const HomePage = () => {
                   <BestCinemaCard
                     key={cinema.auditoriumId}
                     rank={idx + 1}
-                    imageUrl={getRandomImage()} //추후 이미지 추가되면 교체
+                    imageUrl={cinema.image} //추후 이미지 추가되면 교체
                     title={cinema.auditoriumName}
                     rating={cinema.avgRating}
                     reviewCount={cinema.reviewCount}

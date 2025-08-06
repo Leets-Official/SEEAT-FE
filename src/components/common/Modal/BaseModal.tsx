@@ -9,7 +9,7 @@ const BaseModal = ({ children }: BaseModalProps) => {
   const { modalType, closeModal } = useModalStore();
   const isActionType = modalType === 'action';
 
-  // 액션 시트 모달일 때 위치 조정 - TODO: 구현 시 알맞게 위치 수정
+  // 액션 시트 모달일 때 위치
   if (isActionType) {
     return (
       <>

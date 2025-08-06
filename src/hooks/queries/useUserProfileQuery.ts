@@ -9,7 +9,7 @@ export interface UserProfile {
 }
 
 const fetchUserProfile = async (): Promise<UserProfile> => {
-  const res = await api.get('/user/profile');
+  const res = await api.get('/profile');
   return res.data.data;
 };
 

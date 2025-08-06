@@ -4,9 +4,9 @@ export interface User {
   profileImageUrl: string | null;
 }
 
-export interface UserProfile extends User {
-  level: number;
-  progress: number;
-  preferredGenres: string[];
-  favoriteTheaters: string[];
+export interface UserProfile {
+  nickname: string;
+  imageUrl: string | null;
+  genres: string[];
+  auditoriums: string[];
 }

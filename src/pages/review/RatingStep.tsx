@@ -10,7 +10,6 @@ const RatingStep = () => {
   const navigate = useNavigate();
   const { reviewId } = useParams<{ reviewId: string }>();
   const isEdit = !!reviewId;
-  const { tags } = useReviewStore();
 
   useEffect(() => {
     if (!isInitialized && !isEdit) {
@@ -30,10 +29,6 @@ const RatingStep = () => {
       navigate('/review/tag');
     }
   };
-
-  useEffect(() => {
-    console.log('🔍 [RatingPage] Zustand tags 상태:', tags);
-  }, [tags]);
 
   return (
     <ReviewStepLayout

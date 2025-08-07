@@ -72,7 +72,7 @@ export default function ReviewSearchResultPage() {
 
         <div className="my-3 flex justify-start">
           <button
-            onClick={() => window.history.back()}
+            onClick={() => navigate('/search/filter')}
             className="relative flex h-6 w-6 items-center justify-center rounded-md bg-gray-800"
           >
             <FilterIcon className="h-5 w-5 text-gray-400" />
@@ -80,6 +80,7 @@ export default function ReviewSearchResultPage() {
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500" />
             )}
           </button>
+
         </div>
 
         <main className="flex flex-col gap-y-2">

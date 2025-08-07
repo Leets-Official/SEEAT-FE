@@ -41,8 +41,9 @@ export interface UserProfileUpdateRequest {
   genres?: string[];
   auditoriumIds?: string[];
 }
+
 export interface User {
   userId: number;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
 }

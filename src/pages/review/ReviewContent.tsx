@@ -26,7 +26,6 @@ export default function ReviewTextForm() {
 
   const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal, modalType, closeModal } = useModalStore();
-
   const handleSubmit = () => {
     if (!text.trim()) return;
     openModal('confirm');
@@ -141,9 +140,7 @@ export default function ReviewTextForm() {
           subtitle="등록한 후기는 마이페이지에서 확인할 수 있어요."
           cancelText="취소"
           confirmText="등록하기"
-          onConfirm={() => {
-            handleConfirmSubmit();
-          }}
+          onConfirm={handleConfirmSubmit}
         />
       )}
     </>

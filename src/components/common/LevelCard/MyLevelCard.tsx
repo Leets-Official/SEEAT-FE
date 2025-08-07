@@ -48,10 +48,10 @@ const MyLevelCard: React.FC<MyLevelCardProps> = ({
     <div className="w-[335px] h-[320px] bg-[#4242424D] rounded-lg p-4 flex flex-col items-center justify-around mt-4 mx-auto">
       <CharacterComponent className="w-[150px] h-[150px]" />
 
-      <p className="text-center">
+      <div className="flex items-center justify-center gap-x-2">
         <span className="text-title-1 text-red-400">Lv.{userLevel}</span>
-        <span className="text-title-4 text-white"> {levelTitle}</span> 
-      </p>
+         <span className="text-title-4 text-white">{levelTitle}</span>
+      </div>
 
       <div className="w-[295px] h-[12px] bg-gray-950 rounded-full">
         <div className="h-full bg-red-300 rounded-full" style={{ width: `${userProgress}%` }} />

@@ -57,6 +57,10 @@ const MyPage: React.FC = () => {
     navigate('/my/settings');
   };
 
+  const handleLevelCardClick = () => {
+    navigate('/my/level'); // 경로를 '/my/level'로 수정했습니다.
+  };
+
   if (isLoading) {
     return <div>프로필 불러오는 중</div>;
   }
@@ -127,11 +131,13 @@ const MyPage: React.FC = () => {
             </div>
           </section>
 
-          <LevelCard
-            userProgress={user.levelExp}
-            currentReviewCount={user.reviewCount}
-            currentLikeCount={user.likeCount}
-          />
+          <div onClick={handleLevelCardClick} className="cursor-pointer">
+            <LevelCard
+              userProgress={user.levelExp}
+              currentReviewCount={user.reviewCount}
+              currentLikeCount={user.likeCount}
+            />
+          </div>
 
           {/* 메뉴 리스트 */}
           <section>

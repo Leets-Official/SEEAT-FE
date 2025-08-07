@@ -37,7 +37,7 @@ const ReviewDetailPage = () => {
   //사진 슬라이드 시 현재 사진 위치...
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isScrolledPastImage, setIsScrolledPastImage] = useState(false);
-
+  const [focusedSeatIds, setFocusedSeatIds] = useState<string[]>([]);
   useEffect(() => {
     if (!review || !review.imageInfo || review.imageInfo.length === 0) return;
 
@@ -292,9 +292,11 @@ const ReviewDetailPage = () => {
       )}
       {isSeatFocusOpen && (
         <SeatFocusModal
+          onClose={() => setIsSeatFocusOpen(false)}
           auditoriumId={review.auditoriumId}
           theaterName={review.auditoriumName}
-          selectedSeatNumbers={review.seatInfo.map((s) => s.seatId)}
+          focusedSeatIds={focusedSeatIds}
+          selectedSeatNumbers={review.seatInfo.map((s) => s.seatNumber)}
         />
       )}
     </>

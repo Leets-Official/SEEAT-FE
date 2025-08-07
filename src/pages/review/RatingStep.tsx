@@ -1,5 +1,5 @@
 import { useReviewStore } from '@/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { StarFill, StarHalf, StarLine } from '@/assets';
 import { ReviewStepLayout } from '@/components';
 import { useEffect } from 'react';
@@ -8,12 +8,15 @@ import { calculateRatingClick } from '@/utils/rating';
 const RatingStep = () => {
   const { isInitialized, rating, setRating } = useReviewStore();
   const navigate = useNavigate();
+  const { reviewId } = useParams<{ reviewId: string }>();
+  const isEdit = !!reviewId;
+  const { tags } = useReviewStore();
 
   useEffect(() => {
-    if (!isInitialized) {
+    if (!isInitialized && !isEdit) {
       navigate('/review');
     }
-  }, [isInitialized, navigate]);
+  }, [isInitialized, isEdit, navigate]);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>, value: number) => {
     const finalValue = calculateRatingClick(e, value);
@@ -21,8 +24,16 @@ const RatingStep = () => {
   };
 
   const handleNext = () => {
-    navigate('/review/tag');
+    if (isEdit) {
+      navigate(`/review/edit/${reviewId}/tag`);
+    } else {
+      navigate('/review/tag');
+    }
   };
+
+  useEffect(() => {
+    console.log('🔍 [RatingPage] Zustand tags 상태:', tags);
+  }, [tags]);
 
   return (
     <ReviewStepLayout

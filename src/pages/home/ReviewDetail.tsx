@@ -16,7 +16,7 @@ import { getReviewDetail } from '@/api/review/getReviewDetail.api';
 import type { ReviewDetail } from '@/types/review';
 import type { ApiError } from '@/types/api-response';
 import { cn } from '@/utils/cn';
-import { useModalStore, useToastStore } from '@/store';
+import { useModalStore, useReviewStore, useToastStore } from '@/store';
 import ActionModal from '@/components/common/Modal/ActionModal';
 import { deleteReview } from '@/api/review/reviewDelete.api';
 
@@ -29,6 +29,7 @@ const ReviewDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const { openModal, modalType } = useModalStore();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const { setEditMode, setEditReview } = useReviewStore();
 
   //사진 슬라이드 시 현재 사진 위치...
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -204,7 +205,39 @@ const ReviewDetailPage = () => {
         </div>
         {modalType === 'action' && !isConfirmOpen && (
           <ActionModal
-            onEdit={() => console.log('수정하기 클릭')}
+            onEdit={() => {
+              if (!reviewId || !review) return;
+              setEditMode(Number(reviewId));
+
+              // 상태 초기화
+              setEditReview({
+                reviewTitle: review.title,
+                movieTitle: review.movieTitle,
+                cinema: {
+                  name: review.auditoriumName,
+                  hall: review.auditoriumName,
+                  id: '',
+                },
+                seats: review.seatInfo.map((s) => s.seatNumber),
+                seatIds: review.seatInfo.map((s) => s.seatId),
+                text: review.content,
+                rating: review.rating,
+                tags: {
+                  음향: review.hashtags
+                    .filter((tag) => tag.hashTagType === '음향')
+                    .map((t) => t.hashTagId),
+                  관람환경: review.hashtags
+                    .filter((tag) => tag.hashTagType === '관람환경')
+                    .map((t) => t.hashTagId),
+                  동반인: review.hashtags
+                    .filter((tag) => tag.hashTagType === '동반인')
+                    .map((t) => t.hashTagId),
+                },
+              });
+
+              closeModal(); // 모달 닫기
+              navigate(`/review/edit/${reviewId}/rating`); // 수정 페이지로 이동
+            }}
             onDelete={() => {
               setIsConfirmOpen(true);
               closeModal();

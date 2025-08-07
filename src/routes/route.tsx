@@ -124,6 +124,23 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/review/edit/:reviewId',
+    children: [
+      {
+        path: 'rating',
+        element: <RatingStep />,
+      },
+      {
+        path: 'tag',
+        element: <ReviewTagsPage />,
+      },
+      {
+        path: 'form',
+        element: <ReviewTextForm />,
+      },
+    ],
+  },
+  {
     path: '/search',
     element: <Search />,
   },

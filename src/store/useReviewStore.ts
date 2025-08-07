@@ -16,6 +16,19 @@ interface ReviewState {
   rating: number;
   seatIds: string[];
   resetSeats: () => void;
+  isEdit: boolean;
+  editReviewId: number | null;
+  setEditMode: (id: number) => void;
+  setEditReview: (review: {
+    reviewTitle: string;
+    movieTitle: string;
+    cinema: CinemaInfo;
+    seats: string[];
+    seatIds: string[];
+    text: string;
+    rating: number;
+    tags: Record<'음향' | '관람환경' | '동반인', number[]>;
+  }) => void;
   addSeatId: (id: string) => void;
   removeSeatId: (id: string) => void;
   setRating: (value: number) => void;
@@ -41,6 +54,27 @@ export const useReviewStore = create<ReviewState>((set) => ({
   text: '',
   rating: 0,
   isInitialized: false,
+  isEdit: false,
+  editReviewId: null,
+
+  setEditMode: (reviewId) =>
+    set({
+      isEdit: true,
+      editReviewId: reviewId,
+    }),
+
+  setEditReview: (review) =>
+    set({
+      reviewTitle: review.reviewTitle,
+      movieTitle: review.movieTitle,
+      cinema: review.cinema,
+      seats: review.seats,
+      seatIds: review.seatIds,
+      text: review.text,
+      rating: review.rating,
+      tags: review.tags,
+      isInitialized: true,
+    }),
   setInitialized: () => set({ isInitialized: true }),
   setRating: (value) => set({ rating: value }),
   setTitle: (movieTitle) => set({ movieTitle }),
@@ -79,6 +113,8 @@ export const useReviewStore = create<ReviewState>((set) => ({
       },
       seatIds: [],
       isInitialized: false,
+      isEdit: false,
+      editReviewId: null,
     }),
   tags: {
     음향: [],

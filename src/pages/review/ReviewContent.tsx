@@ -7,10 +7,11 @@ import {
 } from '@/components';
 import { PlusIcon } from '@/assets';
 import { useReviewStore, useModalStore } from '@/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useImgUpload } from '@/hooks';
 import { postReview } from '@/api/review/review';
 import type { ApiError } from '@/types/api-response';
+import { patchReview } from '@/api/review/reviewRewrite.api';
 
 const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 30;
@@ -20,6 +21,8 @@ export default function ReviewTextForm() {
     useReviewStore();
   const { images, addImages, removeImage, previewUrls } = useImgUpload(5);
   const navigate = useNavigate();
+  const { reviewId } = useParams<{ reviewId: string }>();
+  const isEdit = !!reviewId;
 
   const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal, modalType, closeModal } = useModalStore();
@@ -33,18 +36,34 @@ export default function ReviewTextForm() {
     try {
       const hashtagIds: number[] = Object.values(tags).flat();
 
-      const { reviewId } = await postReview({
-        seatIds: seatIds,
+      if (isEdit) {
+        await patchReview(Number(reviewId), {
+          title: reviewTitle,
+          rating,
+          content: text,
+          hashtags: hashtagIds,
+          images: [],
+        });
+
+        closeModal();
+        navigate(`/review/${reviewId}`);
+        reset();
+        return;
+      }
+
+      const { reviewId: newId } = await postReview({
+        seatIds,
         title: reviewTitle,
         movieTitle,
         rating,
         content: text,
         hashtags: hashtagIds,
-        imageUrl: [], //이미지 API 연결 후...
+        imageUrl: [],
       });
+
       closeModal();
-      navigate(`/review/${reviewId}`);
-      setTimeout(() => reset(), 0);
+      navigate(`/review/${newId}`);
+      reset();
     } catch (error) {
       const apiError = error as ApiError;
       console.error('리뷰 등록 실패:', apiError.message, apiError.error);

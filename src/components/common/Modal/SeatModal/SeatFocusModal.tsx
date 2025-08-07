@@ -17,6 +17,7 @@ const SeatFocusModal = ({
   theaterName,
   selectedSeatNumbers,
   onClose,
+  focusedSeatIds,
 }: SeatFocusModalProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -24,23 +25,27 @@ const SeatFocusModal = ({
   const seatIds = selectedSeatNumbers.map((num) => getSeatLabel(auditoriumId, num));
 
   useEffect(() => {
-    const container = containerRef.current;
-    const target = container?.querySelector('[data-seat-focus="true"]') as HTMLDivElement;
+    const timer = setTimeout(() => {
+      const container = containerRef.current;
+      const target = container?.querySelector('[data-seat-focus="true"]') as HTMLDivElement;
 
-    if (container && target) {
-      const containerRect = container.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
+      if (container && target) {
+        const containerRect = container.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
 
-      const scrollTop = container.scrollTop + (targetRect.top - containerRect.top) - 100;
-      const scrollLeft = container.scrollLeft + (targetRect.left - containerRect.left) - 50;
+        const scrollTop = container.scrollTop + (targetRect.top - containerRect.top) - 100;
+        const scrollLeft = container.scrollLeft + (targetRect.left - containerRect.left) - 50;
 
-      container.scrollTo({
-        top: scrollTop,
-        left: scrollLeft,
-        behavior: 'smooth',
-      });
-    }
-  }, []);
+        container.scrollTo({
+          top: scrollTop,
+          left: scrollLeft,
+          behavior: 'smooth',
+        });
+      }
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [focusedSeatIds]);
 
   return (
     <div className="fixed inset-0 z-50">

@@ -1,66 +1,105 @@
-import type { ChangeEvent, KeyboardEvent } from 'react';
-import SearchIcon from '@/assets/icons/search.svg?react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Header, SearchInput, Badge, BottomNavigation } from '@/components';
+import api from '@/api/api';
 
-// 부모 컴포넌트로부터 받을 props의 타입을 정의합니다.
-interface SearchInputProps {
-  value: string; // input에 표시될 값
-  placeholder?: string; // 플레이스홀더 텍스트
-  onChange: (value: string) => void; // input 값이 변경될 때 호출될 함수
-  onSearch?: () => void; // 검색을 실행할 때 호출될 함수 (돋보기 클릭 또는 엔터)
-  className?: string; // 추가적인 스타일링을 위한 클래스
-}
+export default function ReviewSearchPage() {
+  const [search, setSearch] = useState('');
+  const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
+  const navigate = useNavigate();
 
-export default function SearchInput({
-  value,
-  placeholder = '검색어를 입력해주세요',
-  onChange,
-  onSearch, // 부모로부터 onSearch 함수를 받아옵니다.
-  className = '',
-}: SearchInputProps) {
-  
-  /**
-   * input에서 키보드를 눌렀을 때 실행되는 함수입니다.
-   * 'Enter' 키가 눌렸을 경우 onSearch 함수를 호출합니다.
-   */
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (onSearch && e.key === 'Enter') {
-      e.preventDefault(); // form 안에서 사용될 경우 페이지 새로고침 방지
-      onSearch();
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
+  // ✅ 최근 검색어 불러오기 (최대 6개)
+  const fetchRecentKeywords = async () => {
+    try {
+      const keywords = await api.get<string[]>('/api/v1/search');
+      setRecentKeywords(keywords.slice(0, 6));
+    } catch (err) {
+      console.error('최근 검색어 조회 실패:', err);
     }
   };
 
-  /**
-   * 돋보기 아이콘 버튼을 클릭했을 때 실행되는 함수입니다.
-   */
-  const handleSearchClick = () => {
-    if (onSearch) {
-      onSearch();
+  // ✅ 검색어 삭제
+  const handleRemove = async (index: number) => {
+    const keyword = recentKeywords[index];
+    try {
+      await api.delete('/api/v1/search', { data: { keyword } });
+      setRecentKeywords(prev => prev.filter((_, i) => i !== index));
+    } catch (err) {
+      console.error('검색어 삭제 실패:', err);
     }
   };
+
+  // ✅ 검색 및 저장
+  const handleSearch = async () => {
+    const trimmed = search.trim();
+    if (!trimmed) {
+      alert('검색어를 입력해주세요.');
+      return;
+    }
+
+    try {
+      // 검색어 저장
+      await api.post('/api/v1/search', { keyword: trimmed });
+
+      // 중복 제거 및 최신순 정렬
+      setRecentKeywords(prev => {
+        const filtered = prev.filter(word => word !== trimmed);
+        return [trimmed, ...filtered].slice(0, 6);
+      });
+
+      // 결과 페이지로 이동
+      navigate(`/search/result?query=${encodeURIComponent(trimmed)}`);
+    } catch (err) {
+      console.error('검색어 저장 실패:', err);
+    }
+  };
+
+  // ✅ 컴포넌트 마운트 시 최근 검색어 불러오기
+  useEffect(() => {
+    fetchRecentKeywords();
+  }, []);
 
   return (
-    <div className={`relative w-full ${className}`}>
-      <input
-        type="text"
-        value={value}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        className="w-full rounded-md border border-gray-800 bg-transparent py-2 pl-4 pr-10 text-white outline-none placeholder:text-gray-500"
-      />
+    <div className="relative flex justify-center min-h-screen text-white">
+      <div className="w-full max-w-[400px] px-4 pt-16 pb-20">
+        <Header leftSection="BACK" onBackClick={handleBackClick}>
+          검색
+        </Header>
 
-      {/* 
-        아이콘을 클릭 가능한 <button>으로 감싸고,
-        onClick 이벤트에 검색 실행 함수를 연결합니다.
-      */}
-      <button
-        type="button"
-        onClick={handleSearchClick}
-        className="absolute right-3 top-1/2 -translate-y-1/2"
-        aria-label="검색 실행" // 스크린 리더 사용자를 위한 접근성 라벨
-      >
-        <SearchIcon className="h-5 w-5 text-gray-700" />
-      </button>
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="검색어를 입력해주세요"
+          onSearch={handleSearch}
+        />
+
+        <div className="mt-6">
+          <h2 className="mb-2 text-title-3">최근 검색어</h2>
+          {recentKeywords.length === 0 ? (
+            <p className="text-sm text-gray-500">최근 검색어가 없습니다.</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {recentKeywords.map((word, index) => (
+                <Badge
+                  key={word}
+                  type="removable"
+                  onRemove={() => handleRemove(index)}
+                >
+                  {word}
+                </Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2">
+        <BottomNavigation />
+      </div>
     </div>
   );
 }

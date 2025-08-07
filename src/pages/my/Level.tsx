@@ -5,6 +5,13 @@ import { LEVELS_DATA } from '@/constants/levelcondition';
 import type { UserGradeResponse } from '@/types/level';
 import { getUserGrade } from '@/api/user/level.api';
 
+const gradeToLevelMap: { [key: string]: number } = {
+  BRONZE: 1,
+  SILVER: 2,
+  GOLD: 3,
+  PLATINUM: 4,
+};
+
 export default function LevelPage() {
   const { data, isLoading, error } = useQuery<UserGradeResponse>({
     queryKey: ['userGrade'],
@@ -12,18 +19,24 @@ export default function LevelPage() {
   });
 
   if (isLoading) return <div className="text-center mt-10">로딩 중...</div>;
-  if (error || !data) return <div className="text-center mt-10 text-red-400">데이터를 불러오지 못했습니다.</div>;
+  if (error || !data || !data.grade) return <div className="text-center mt-10 text-red-400">데이터를 불러오지 못했습니다.</div>;
+
+  const userLevelNumber = gradeToLevelMap[data.grade];
+
+  if (userLevelNumber === undefined) {
+    return <div className="text-center mt-10 text-red-400">알 수 없는 레벨입니다.</div>;
+  }
 
   return (
     <div className="px-4 py-3 text-white min-h-screen font-suit">
       <Header leftSection="BACK" rightSection="NONE"> </Header>
 
-      <div className="pt-[52px]">
-        <MyLevelCard 
-          userLevel={data.grade}
-          userProgress={data.levelExp}
-          currentReviewCount={data.reviewCount}
-          currentLikeCount={data.likeCount}
+      <div className="pt-[44px]">
+        <MyLevelCard
+          userLevel={userLevelNumber}
+          userProgress={data.levelExp || 0}
+          currentReviewCount={data.reviewCount || 0}
+          currentLikeCount={data.likeCount || 0}
         />
       </div>
 

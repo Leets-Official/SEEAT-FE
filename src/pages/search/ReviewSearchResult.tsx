@@ -1,19 +1,74 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useFilter } from '@/contexts/FilterContext';
 import { SearchInput, ReviewCard } from '@/components';
-import { FilterIcon } from '@/assets';
-import { mockMyReviews } from '@/__mocks/mockReviews';
+import { FilterIcon, ChevronIcon } from '@/assets';
+import api from '@/api/api';
+
+interface Review {
+  reviewId: number;
+  content: string;
+  rating: number;
+  movieTitle: string;
+  thumbnailUrl:string;
+  likeCount: number;
+  likedByUser: boolean;
+  hashTags: string[];
+}
 
 export default function ReviewSearchResultPage() {
-  const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get('query') ?? '');
   const { isFiltered } = useFilter();
+  const [results, setResults] = useState<Review[]>([]);
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const keyword = searchParams.get('query') || '';
+        const sort = searchParams.get('sort') || 'POPULAR';
+        const auditoriumId = searchParams.get('auditoriumId');
+
+        const res = await api.get<Review[]>('/search/reviews', {
+          params: {
+            keyword,
+            sort,
+            ...(auditoriumId ? { auditoriumId } : {}),
+          },
+        });
+
+        setResults(res.data);
+      } catch (error) {
+        console.error('검색 결과 조회 실패', error);
+      }
+    };
+
+    fetchResults();
+  }, [searchParams]);
+
+  const handleGoBack = () => {
+    navigate(-1); 
+  };
 
   return (
     <div className="min-h-screen text-white">
       <div className="mx-auto w-full max-w-[400px] px-4">
-        <SearchInput value={search} onChange={setSearch} placeholder="검색어를 입력해주세요" />
+        <div className="flex items-center gap-x-2 py-2"> 
+          <button onClick={handleGoBack}>
+            <ChevronIcon className="h-6 w-6 text-white" />
+          </button>
+          
+          <div className="flex-1 mt-2">
+            <SearchInput
+              value={search}
+              onChange={setSearch}
+              placeholder="검색어를 입력해주세요"
+              onSearch={() => setSearchParams({ query: search })}
+            />
+          </div>
+        </div>
 
         <div className="my-3 flex justify-start">
           <button
@@ -25,20 +80,25 @@ export default function ReviewSearchResultPage() {
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500" />
             )}
           </button>
+
         </div>
 
         <main className="flex flex-col gap-y-2">
-          {mockMyReviews.map((result) => (
-            <ReviewCard
-              key={result.id}
-              imageUrl={result.imageUrl}
-              tags={result.tags}
-              title={result.title}
-              description={result.description}
-              likeCount={result.likeCount}
-              onClick={() => {}}
-            />
-          ))}
+          {results.length > 0 ? (
+            results.map((result) => (
+              <ReviewCard
+                key={result.reviewId}
+                imageUrl={result.thumbnailUrl}
+                tags={result.hashTags}
+                title={result.movieTitle}
+                description={result.content}
+                likeCount={result.likeCount}
+                onClick={() => {}}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-400 mt-12">검색 결과가 없습니다.</p>
+          )}
         </main>
       </div>
     </div>

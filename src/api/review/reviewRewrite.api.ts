@@ -5,7 +5,7 @@ interface ReviewUpdateRequest {
   title: string;
   rating: number;
   content: string;
-  hashtags: string[];
+  hashtags: number[];
   images: string[];
 }
 

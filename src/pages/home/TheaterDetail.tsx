@@ -9,6 +9,7 @@ import { getAuditoriumReviews } from '@/api/review/getAuditoriumReviews.api';
 import type { ReviewSummary } from '@/types/review';
 import { getTheaterTags } from '@/api/hashtag/hashtag.api';
 import type { TheaterHashtag } from '@/api/hashtag/hashtag.api';
+import { SeatPickerModal } from '@/components';
 //추후 태그 타입 들어오면 수정하기
 
 const CinemaDetailPage = () => {
@@ -20,6 +21,7 @@ const CinemaDetailPage = () => {
   const [summary, setSummary] = useState<string | null>(null);
   const [hashtags, setHashtags] = useState<TheaterHashtag[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isSeatModalOpen, setIsSeatModalOpen] = useState(false);
 
   useEffect(() => {
     if (!auditoriumId) return;
@@ -131,7 +133,13 @@ const CinemaDetailPage = () => {
         {/*배치도 사진 들어갈 부분*/}
         <div className="pt-3">
           <div className="max-w-[430px] justify-center bg-gray-950">
-            {cinema?.imageUrl && <Image src={cinema.imageUrl} className="w-full" />}
+            {cinema?.imageUrl && (
+              <Image
+                src={cinema.imageUrl}
+                className="w-full"
+                onClick={() => setIsSeatModalOpen(true)}
+              />
+            )}
           </div>
         </div>
 
@@ -176,6 +184,13 @@ const CinemaDetailPage = () => {
           </div>
         </div>
       </div>
+      {isSeatModalOpen && cinema && (
+        <SeatPickerModal
+          auditoriumId={cinema.auditoriumId}
+          theaterName={cinema.theaterName}
+          onClose={() => setIsSeatModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

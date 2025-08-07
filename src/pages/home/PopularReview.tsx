@@ -36,7 +36,7 @@ const PopularReviewPage = () => {
             title={review.title}
             description={review.content}
             likeCount={review.heartCount}
-            onClick={() => navigate(`review/${review.reviewId}`)}
+            onClick={() => navigate(`/review/${review.reviewId}`)}
           />
         ))}
       </div>

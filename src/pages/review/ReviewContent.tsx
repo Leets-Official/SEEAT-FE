@@ -112,7 +112,7 @@ export default function ReviewTextForm() {
         </div>
 
         {/* 텍스트 입력 */}
-        <div className="flex flex-col gap-12 pt-6">
+        <div className="mb-30 flex flex-col gap-12 pt-6">
           <InputField
             label="제목"
             placeholder="후기의 제목을 적어주세요"

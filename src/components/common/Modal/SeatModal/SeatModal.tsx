@@ -16,18 +16,27 @@ interface SeatModalProps {
   type: SeatModalType;
   auditoriumId: string;
   theaterName?: string;
+  focusedSeatIds: string[];
   theaterType?: CinemaFormat; // IMAX / DOLBY
   selectedSeatNumbers?: string[]; // seatFocus에서만 사용
 }
 
-const SeatModal = ({ type, auditoriumId, theaterName, selectedSeatNumbers }: SeatModalProps) => {
+const SeatModal = ({
+  type,
+  auditoriumId,
+  theaterName,
+  selectedSeatNumbers,
+  focusedSeatIds,
+}: SeatModalProps) => {
   switch (type) {
     case 'seatFocus':
       return (
         <SeatFocusModal
+          onClose={() => useModalStore.getState().closeModal()}
           auditoriumId={auditoriumId}
           theaterName={theaterName ?? ''}
           selectedSeatNumbers={selectedSeatNumbers ?? []}
+          focusedSeatIds={focusedSeatIds}
         />
       );
     case 'seatPicker':

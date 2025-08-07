@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { CloseIcon } from '@/assets';
-import { useModalStore } from '@/store/modalStore';
 import SeatMap from '@/components/seat/SeatMap';
 import ScreenBar from '@/components/seat/ScreenBar';
 import { getSeatLabel } from '@/utils/getSeatLabel';
@@ -9,15 +8,16 @@ interface SeatFocusModalProps {
   auditoriumId: string;
   theaterName: string;
   selectedSeatNumbers: string[];
+  focusedSeatIds: string[];
+  onClose: () => void;
 }
 
 const SeatFocusModal = ({
   auditoriumId,
   theaterName,
   selectedSeatNumbers,
+  onClose,
 }: SeatFocusModalProps) => {
-  const { closeModal } = useModalStore();
-
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +44,7 @@ const SeatFocusModal = ({
 
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-gray-800/20" onClick={closeModal} />
+      <div className="absolute inset-0 bg-gray-800/20" onClick={onClose} />
 
       {/* 모달 */}
       <div className="relative z-10 flex h-full items-center justify-center p-3">
@@ -52,7 +52,7 @@ const SeatFocusModal = ({
           {/* 헤더 */}
           <div className="mb-1 flex items-center justify-between px-2">
             <div className="text-title-3">{selectedSeatNumbers.join(', ')}</div>
-            <CloseIcon className="cursor-pointer" onClick={closeModal} />
+            <CloseIcon className="cursor-pointer" onClick={onClose} />
           </div>
 
           <div className="text-body-2 btn-text-gray-500 mb-4 px-2 text-left">{theaterName}</div>

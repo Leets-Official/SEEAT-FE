@@ -7,6 +7,7 @@ import {
   ProfileImageWithFallback,
   ConfirmModal,
   Loading,
+  SeatFocusModal,
 } from '@/components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -19,6 +20,8 @@ import { cn } from '@/utils/cn';
 import { useModalStore, useReviewStore, useToastStore } from '@/store';
 import ActionModal from '@/components/common/Modal/ActionModal';
 import { deleteReview } from '@/api/review/reviewDelete.api';
+import { ChevronRightIcon } from '@/assets';
+import { getSeatLayout } from '@/api/theater/theater.api';
 
 const ReviewDetailPage = () => {
   const navigate = useNavigate();
@@ -30,10 +33,11 @@ const ReviewDetailPage = () => {
   const { openModal, modalType } = useModalStore();
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { setEditMode, setEditReview } = useReviewStore();
-
+  const [isSeatFocusOpen, setIsSeatFocusOpen] = useState(false);
   //사진 슬라이드 시 현재 사진 위치...
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isScrolledPastImage, setIsScrolledPastImage] = useState(false);
+  const [focusedSeatIds, setFocusedSeatIds] = useState<string[]>([]);
   useEffect(() => {
     if (!review || !review.imageInfo || review.imageInfo.length === 0) return;
 
@@ -58,6 +62,25 @@ const ReviewDetailPage = () => {
       const apiError = error as ApiError;
       console.error('리뷰 삭제 실패:', apiError.error, apiError.message);
       show('후기 삭제에 실패했어요.');
+    }
+  };
+
+  const handleSeatFocus = async () => {
+    if (!review || !review.auditoriumId) return;
+
+    try {
+      const layout = await getSeatLayout(review.auditoriumId);
+
+      const targetSeatIds = layout
+        .filter((s) =>
+          review.seatInfo.map((seat) => seat.seatNumber).includes(`${s.row}${s.column}`),
+        )
+        .map((s) => s.seatId);
+
+      setFocusedSeatIds(targetSeatIds);
+      setIsSeatFocusOpen(true);
+    } catch (err) {
+      console.error('좌석 포커스 모달 에러:', err);
     }
   };
 
@@ -175,6 +198,11 @@ const ReviewDetailPage = () => {
               <span className="text-caption-2 text-white">
                 {review.seatInfo.map((seat) => seat.seatNumber).join(', ')}
               </span>
+              <span>
+                <button className="mt-[7px]" onClick={handleSeatFocus}>
+                  <ChevronRightIcon className="w-4" />
+                </button>
+              </span>
             </div>
           </div>
 
@@ -260,6 +288,15 @@ const ReviewDetailPage = () => {
             console.log('삭제 취소');
             setIsConfirmOpen(false);
           }}
+        />
+      )}
+      {isSeatFocusOpen && (
+        <SeatFocusModal
+          onClose={() => setIsSeatFocusOpen(false)}
+          auditoriumId={review.auditoriumId}
+          theaterName={review.auditoriumName}
+          focusedSeatIds={focusedSeatIds}
+          selectedSeatNumbers={review.seatInfo.map((s) => s.seatNumber)}
         />
       )}
     </>

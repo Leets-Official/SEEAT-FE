@@ -7,9 +7,10 @@ interface Props {
   selected: string[];
   onSelect: (auditoriumId: string) => void;
   onAuditoriumClick?: (auditoriumId: string) => void; // 클릭 prop 추가
+  observerRef?: React.RefObject<HTMLDivElement>;
 }
 
-const TheaterList = ({ data, selected, onSelect, onAuditoriumClick }: Props) => {
+const TheaterList = ({ data, selected, onSelect, onAuditoriumClick, observerRef }: Props) => {
   const [expandedTheater, setExpandedTheater] = useState<string | null>(null);
 
   // theaterName 기준으로 그룹화
@@ -68,6 +69,7 @@ const TheaterList = ({ data, selected, onSelect, onAuditoriumClick }: Props) => 
                       </Button>
                     );
                   })}
+                  {/* <div ref={observerRef} className="h-1" /> */}
                 </div>
               )}
             </div>

@@ -1,5 +1,5 @@
 import api from '@/api/api';
-import type { ApiResponse } from '@/types/api-response';
+import type { ApiResponse, PaginationData } from '@/types/api-response';
 import type { CinemaFormat } from '@/types/onboarding';
 import type { Theater } from '@/types/theater';
 
@@ -14,8 +14,8 @@ const getTheaters = async ({
   type,
   page = 1,
   size = 10,
-}: GetTheatersParams): Promise<Theater[]> => {
-  const res = await api.get<ApiResponse<{ content: Theater[] }>>('/theaters', {
+}: GetTheatersParams): Promise<PaginationData<Theater>> => {
+  const res = await api.get<ApiResponse<PaginationData<Theater>>>('/theaters', {
     params: {
       auditoriumType: type,
       page,
@@ -23,13 +23,20 @@ const getTheaters = async ({
     },
   });
 
-  const content = res.data.data?.content;
+  console.log('🚀 getTheaters API response', res);
+
+  const { content, hasNext, page: currentPage, size: pageSize } = res.data.data;
 
   if (!content) {
     throw new Error('영화관 목록에 응답이 없습니다.');
   }
 
-  return content;
+  return {
+    content,
+    hasNext,
+    page: currentPage,
+    size: pageSize,
+  };
 };
 
 // 좌석 배치도 조회

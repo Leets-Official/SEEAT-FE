@@ -18,3 +18,12 @@ export interface ApiError {
   code: number | string;
   error: FieldError[] | null;
 }
+
+export interface PaginationData<T> {
+  content: T[];
+  hasNext: boolean;
+  page: number;
+  size: number;
+}
+
+export type InfiniteApiResponse<T> = ApiResponse<PaginationData<T>>;

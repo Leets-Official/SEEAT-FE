@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+interface FetchResponse<T> {
+  content: T[];
+  hasNext: boolean;
+  page: number;
+  size: number;
+}
+
 interface UseInfiniteScrollProps<T> {
-  fetchFunction: (
-    page: number,
-    size: number,
-  ) => Promise<{
-    content: T[];
-    hasNext: boolean;
-    page: number;
-    size: number;
-  }>;
+  fetchFunction: (page: number, size: number) => Promise<FetchResponse<T>>;
   pageSize?: number;
 }
 
@@ -18,52 +17,67 @@ export default function useInfiniteScroll<T>({
   pageSize = 10,
 }: UseInfiniteScrollProps<T>) {
   const [data, setData] = useState<T[]>([]);
-  const [page, setPage] = useState(0);
-  const [hasNext, setHasNext] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const pageRef = useRef(1);
+  const hasNextRef = useRef(true);
+  const isLoadingRef = useRef(false);
 
   const loadMore = useCallback(async () => {
-    if (isLoading || !hasNext) return;
+    if (isLoadingRef.current || !hasNextRef.current) return;
 
+    isLoadingRef.current = true;
     setIsLoading(true);
+
     try {
-      const res = await fetchFunction(page, pageSize);
+      const res = await fetchFunction(pageRef.current, pageSize);
       setData((prev) => [...prev, ...res.content]);
-      setHasNext(res.hasNext);
-      setPage(res.page + 1);
+
+      console.log('📦 API 응답:', res);
+
+      hasNextRef.current = res.hasNext;
+      pageRef.current += 1;
     } catch (err) {
       console.error('무한 스크롤 에러:', err);
     } finally {
+      isLoadingRef.current = false;
       setIsLoading(false);
     }
-  }, [fetchFunction, page, pageSize, hasNext, isLoading]);
+  }, [fetchFunction, pageSize]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasNext && !isLoading) {
+        if (entries[0].isIntersecting) {
           loadMore();
         }
       },
       {
         rootMargin: '100px',
-        threshold: 1.0,
+        threshold: 0.3,
       },
     );
 
-    const currentRef = observerRef.current;
-    if (currentRef) observer.observe(currentRef);
+    const current = observerRef.current;
+    if (current) observer.observe(current);
 
     return () => {
-      if (currentRef) observer.unobserve(currentRef);
+      if (current) observer.unobserve(current);
     };
-  }, [loadMore, hasNext, isLoading]);
+  }, [loadMore]);
+
+  const reset = () => {
+    pageRef.current = 0;
+    hasNextRef.current = true;
+    isLoadingRef.current = false;
+    setData([]);
+  };
 
   return {
     data,
     isLoading,
-    observerRef, // 컴포넌트 하단에 ref로 연결
+    observerRef, // 컴포넌트 하단 요소에 연결
+    reset, // 필요 시 외부에서 초기화 가능
   };
 }

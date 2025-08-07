@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { ToggleTab, ReviewStepLayout, TheaterList } from '@/components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useReviewStore } from '@/store';
-import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
+import { getTheaters } from '@/api/theater/theater.api';
 import type { CinemaFormat } from '@/types/onboarding';
+import type { Theater } from '@/types/theater';
 
 export default function CinemaSelect() {
   const { isInitialized } = useReviewStore();
@@ -11,8 +12,12 @@ export default function CinemaSelect() {
 
   const [selectedTab, setSelectedTab] = useState<CinemaFormat>('IMAX');
   const [selectedAuditorium, setSelectedAuditorium] = useState<string | null>(null);
+  const [theaters, setTheaters] = useState<Theater[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasNext, setHasNext] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { data: theaters } = useTheatersQuery({ type: selectedTab, page: 1, size: 10 });
+  const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isInitialized) {
@@ -20,13 +25,68 @@ export default function CinemaSelect() {
     }
   }, [isInitialized, navigate]);
 
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasNext) return;
+
+    setIsLoading(true);
+    try {
+      const res = await getTheaters({ type: selectedTab, page, size: 10 });
+      setTheaters((prev) => [...prev, ...res.content]);
+      setHasNext(res.hasNext);
+      setPage((prev) => prev + 1);
+    } catch (err) {
+      console.error('영화관 목록 로딩 실패:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isLoading, hasNext, page, selectedTab]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isLoading && hasNext) {
+          loadMore();
+        }
+      },
+      {
+        rootMargin: '100px',
+        threshold: 0.7,
+      },
+    );
+
+    if (observerRef.current) observer.observe(observerRef.current);
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [loadMore, isLoading, hasNext]);
+
+  // 탭 변경 시 초기화
+  useEffect(() => {
+    const reset = async () => {
+      setPage(1);
+      setTheaters([]);
+      setHasNext(true);
+      try {
+        const res = await getTheaters({ type: selectedTab, page: 1, size: 10 });
+        setTheaters(res.content);
+        setHasNext(res.hasNext);
+        setPage(2);
+      } catch (err) {
+        console.error('초기 로딩 실패:', err);
+      }
+    };
+
+    reset();
+  }, [selectedTab]);
+
   const handleTabChange = (tab: string) => {
     setSelectedTab(tab as CinemaFormat);
     setSelectedAuditorium(null);
   };
 
   const handleNext = () => {
-    const selected = theaters?.find((d) => d.auditoriumId === selectedAuditorium);
+    const selected = theaters.find((d) => d.auditoriumId === selectedAuditorium);
     if (!selected) return;
 
     navigate('/review/info', {
@@ -57,10 +117,11 @@ export default function CinemaSelect() {
 
       {/* 영화관 목록 */}
       <TheaterList
-        data={theaters ?? []}
+        data={theaters}
         selected={selectedAuditorium ? [selectedAuditorium] : []}
         onSelect={(id) => setSelectedAuditorium(id)}
       />
+      {hasNext && <div ref={observerRef} className="h-[100px]" />}
     </ReviewStepLayout>
   );
 }

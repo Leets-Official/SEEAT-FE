@@ -61,7 +61,7 @@ const OnboardingTheaterPage = () => {
   // 탭 변경 시 초기화
   useEffect(() => {
     const reset = async () => {
-      setPage(0);
+      setPage(1);
       setTheaters([]);
       setHasNext(true);
       try {

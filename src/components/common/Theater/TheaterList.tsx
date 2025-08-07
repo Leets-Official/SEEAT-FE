@@ -6,14 +6,14 @@ interface Props {
   data: Theater[];
   selected: string[];
   onSelect: (auditoriumId: string) => void;
-  onAuditoriumClick?: (auditoriumId: string) => void; // 클릭 prop 추가
+  onAuditoriumClick?: (auditoriumId: string) => void;
   observerRef?: React.RefObject<HTMLDivElement>;
 }
 
-const TheaterList = ({ data, selected, onSelect, onAuditoriumClick, observerRef }: Props) => {
+const TheaterList = ({ data, selected, onSelect, onAuditoriumClick }: Props) => {
   const [expandedTheater, setExpandedTheater] = useState<string | null>(null);
 
-  // theaterName 기준으로 그룹화
+  // 그룹화: theaterName 기준
   const grouped = data.reduce<Record<string, Theater[]>>((acc, cur) => {
     if (!acc[cur.theaterName]) acc[cur.theaterName] = [];
     acc[cur.theaterName].push(cur);
@@ -48,28 +48,35 @@ const TheaterList = ({ data, selected, onSelect, onAuditoriumClick, observerRef 
               {/* 하위 관 목록 */}
               {isExpanded && (
                 <div className="mt-2 flex flex-wrap justify-end gap-2 px-1">
-                  {auditoriums.map((auditorium) => {
-                    const isSelected = isAuditoriumSelected(auditorium.auditoriumId);
-
-                    return (
-                      <Button
-                        key={auditorium.auditoriumId}
-                        onClick={() => {
-                          if (onAuditoriumClick) {
-                            onAuditoriumClick(auditorium.auditoriumId); // 페이지 이동
-                          } else {
-                            onSelect(auditorium.auditoriumId); // 선택만
-                          }
-                        }}
-                        selected={isSelected}
-                        variant="secondary-assistive"
-                        size="md"
-                      >
-                        {auditorium.auditoriumName}
-                      </Button>
+                  {(() => {
+                    // auditoriumId 기준 중복 제거
+                    const uniqueAuditoriums = Array.from(
+                      new Map(auditoriums.map((a) => [a.auditoriumId, a])).values(),
                     );
-                  })}
-                  {/* <div ref={observerRef} className="h-1" /> */}
+
+                    return uniqueAuditoriums.map((auditorium) => {
+                      const isSelected = isAuditoriumSelected(auditorium.auditoriumId);
+
+                      return (
+                        <Button
+                          key={auditorium.auditoriumId}
+                          onClick={() => {
+                            if (onAuditoriumClick) {
+                              onAuditoriumClick(auditorium.auditoriumId);
+                            } else {
+                              onSelect(auditorium.auditoriumId);
+                            }
+                          }}
+                          selected={isSelected}
+                          variant="secondary-assistive"
+                          size="md"
+                          className="min-w-2xs"
+                        >
+                          {auditorium.auditoriumName}
+                        </Button>
+                      );
+                    });
+                  })()}
                 </div>
               )}
             </div>

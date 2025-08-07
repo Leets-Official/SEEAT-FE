@@ -6,8 +6,8 @@ import { useRef } from 'react';
 interface SeatMapProps {
   auditoriumId?: string;
   onSeatClick?: (seatId: string) => void;
-  focusedSeatIds?: string[];
-  selectedSeatNames?: string[];
+  focusedSeatIds?: string[]; // seatFocus용
+  selectedSeatNames?: string[]; // seatWrite용
   seatData?: SeatRatingInfo[];
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }

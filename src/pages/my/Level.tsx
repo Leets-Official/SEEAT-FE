@@ -1,34 +1,47 @@
-// import { HeaderBasic } from '@/components';
-import { LevelInfoCard, MyLevelCard } from '@/components'; 
+import { useQuery } from '@tanstack/react-query';
+import { Header } from '@/components';
+import { LevelInfoCard, MyLevelCard } from '@/components';
 import { LEVELS_DATA } from '@/constants/levelcondition';
+import type { UserGradeResponse } from '@/types/level';
+import { getUserGrade } from '@/api/user/level.api';
+
+const gradeToLevelMap: { [key: string]: number } = {
+  BRONZE: 1,
+  SILVER: 2,
+  GOLD: 3,
+  PLATINUM: 4,
+};
 
 export default function LevelPage() {
-  // 나중에 API
-  const currentUser = {
-    level: 3,
-    progress: 45,
-  };
-    const currentUserStatus = {
-    reviewCount: 5,  
-    likeCount: 12,   
-  };
+  const { data, isLoading, error } = useQuery<UserGradeResponse>({
+    queryKey: ['userGrade'],
+    queryFn: getUserGrade,
+  });
+
+  if (isLoading) return <div className="text-center mt-10">로딩 중...</div>;
+  if (error || !data || !data.grade) return <div className="text-center mt-10 text-red-400">데이터를 불러오지 못했습니다.</div>;
+
+  const userLevelNumber = gradeToLevelMap[data.grade];
+
+  if (userLevelNumber === undefined) {
+    return <div className="text-center mt-10 text-red-400">알 수 없는 레벨입니다.</div>;
+  }
 
   return (
     <div className="px-4 py-3 text-white min-h-screen font-suit">
-      {/* <HeaderBasic>{null}</HeaderBasic> */}
+      <Header leftSection="BACK" rightSection="NONE"> </Header>
 
-      {/* 현재 레벨 박스 */}
-      <MyLevelCard 
-      userLevel={currentUser.level} 
-      userProgress={currentUser.progress}
-      currentReviewCount={currentUserStatus.reviewCount}
-      currentLikeCount={currentUserStatus.likeCount} 
-      />
+      <div className="pt-[44px]">
+        <MyLevelCard
+          userLevel={userLevelNumber}
+          userProgress={data.levelExp || 0}
+          currentReviewCount={data.reviewCount || 0}
+          currentLikeCount={data.likeCount || 0}
+        />
+      </div>
 
-      {/* 구분선 */}
       <div className="w-[335px] h-[1px] bg-[#424242] mt-6 mb-6 mx-auto" />
 
-      {/* 레벨 리스트 */}
       <div className="space-y-4">
         {LEVELS_DATA.map((levelData) => (
           <LevelInfoCard

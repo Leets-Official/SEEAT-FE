@@ -13,10 +13,12 @@ import { postReview } from '@/api/review/review';
 import type { ApiError } from '@/types/api-response';
 import { patchReview } from '@/api/review/reviewRewrite.api';
 
+
 const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
+
   const { text, setText, reviewTitle, setReviewTitle, movieTitle, seatIds, rating, tags, reset } =
     useReviewStore();
   const { images, addImages, removeImage, previewUrls } = useImgUpload(5);
@@ -26,11 +28,11 @@ export default function ReviewTextForm() {
 
   const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal, modalType, closeModal } = useModalStore();
-
   const handleSubmit = () => {
     if (!text.trim()) return;
     openModal('confirm');
   };
+
 
   const handleConfirmSubmit = async () => {
     try {
@@ -69,6 +71,8 @@ export default function ReviewTextForm() {
       console.error('리뷰 등록 실패:', apiError.message, apiError.error);
     }
   };
+
+
 
   return (
     <>
@@ -142,7 +146,8 @@ export default function ReviewTextForm() {
           cancelText="취소"
           confirmText="등록하기"
           onConfirm={() => {
-            handleConfirmSubmit();
+            console.log('후기 등록 로직');
+            closeModal();
           }}
         />
       )}

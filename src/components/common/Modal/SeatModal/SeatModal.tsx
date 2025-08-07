@@ -2,6 +2,7 @@ import type { CinemaFormat } from '@/types/onboarding';
 import SeatFocusModal from './SeatFocusModal';
 import SeatPickerModal from './SeatPickerModal';
 import SeatWriteModal from './SeatWriteModal';
+import { useModalStore } from '@/store';
 
 /*
  * seatFocus: 리뷰 상세 조회 > 좌석 정보 클릭 시
@@ -19,13 +20,7 @@ interface SeatModalProps {
   selectedSeatNumbers?: string[]; // seatFocus에서만 사용
 }
 
-const SeatModal = ({
-  type,
-  auditoriumId,
-  theaterName,
-  theaterType,
-  selectedSeatNumbers,
-}: SeatModalProps) => {
+const SeatModal = ({ type, auditoriumId, theaterName, selectedSeatNumbers }: SeatModalProps) => {
   switch (type) {
     case 'seatFocus':
       return (
@@ -39,12 +34,18 @@ const SeatModal = ({
       return (
         <SeatPickerModal
           auditoriumId={auditoriumId}
-          theaterType={theaterType ?? 'IMAX'}
           theaterName={theaterName ?? ''}
+          onClose={() => useModalStore.getState().closeModal()}
         />
       );
     case 'seatWrite':
-      return <SeatWriteModal auditoriumId={auditoriumId} theaterName={theaterName ?? ''} />;
+      return (
+        <SeatWriteModal
+          auditoriumId={auditoriumId}
+          theaterName={theaterName ?? ''}
+          onClose={() => useModalStore.getState().closeModal()}
+        />
+      );
     default:
       return null;
   }

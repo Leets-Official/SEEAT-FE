@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   ReviewStepLayout,
   Textarea,
@@ -8,33 +7,25 @@ import {
 } from '@/components';
 import { PlusIcon } from '@/assets';
 import { useReviewStore, useModalStore } from '@/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useImgUpload } from '@/hooks';
 import { postReview } from '@/api/review/review';
 import type { ApiError } from '@/types/api-response';
+import { patchReview } from '@/api/review/reviewRewrite.api';
 
 const MAX_IMAGES = 5;
 const MIN_TEXT_LENGTH = 30;
 
 export default function ReviewTextForm() {
-  const {
-    text,
-    setText,
-    reviewTitle,
-    setReviewTitle,
-    isInitialized,
-    movieTitle,
-    seats,
-    rating,
-    tags,
-    reset,
-  } = useReviewStore();
+  const { text, setText, reviewTitle, setReviewTitle, movieTitle, seatIds, rating, tags, reset } =
+    useReviewStore();
   const { images, addImages, removeImage, previewUrls } = useImgUpload(5);
   const navigate = useNavigate();
+  const { reviewId } = useParams<{ reviewId: string }>();
+  const isEdit = !!reviewId;
 
   const isValid = reviewTitle.trim().length > 0 && text.trim().length >= MIN_TEXT_LENGTH;
   const { openModal, modalType, closeModal } = useModalStore();
-
   const handleSubmit = () => {
     if (!text.trim()) return;
     openModal('confirm');
@@ -42,34 +33,41 @@ export default function ReviewTextForm() {
 
   const handleConfirmSubmit = async () => {
     try {
-      const hashtagIds: number[] = Object.values(tags)
-        .flat()
-        .map((tag) => parseInt(tag.replace('#', '')))
-        .filter((id) => !isNaN(id));
+      const hashtagIds: number[] = Object.values(tags).flat();
 
-      const { reviewId } = await postReview({
-        seatIds: seats,
+      if (isEdit) {
+        await patchReview(Number(reviewId), {
+          title: reviewTitle,
+          rating,
+          content: text,
+          hashtags: hashtagIds,
+          images: [],
+        });
+
+        closeModal();
+        navigate(`/review/${reviewId}`);
+        reset();
+        return;
+      }
+
+      const { reviewId: newId } = await postReview({
+        seatIds,
         title: reviewTitle,
         movieTitle,
         rating,
         content: text,
         hashtags: hashtagIds,
-        imageUrl: [], //이미지 API 연결 후...
+        imageUrl: [],
       });
+
       closeModal();
+      navigate(`/review/${newId}`);
       reset();
-      navigate(`review/${reviewId}`);
     } catch (error) {
       const apiError = error as ApiError;
       console.error('리뷰 등록 실패:', apiError.message, apiError.error);
     }
   };
-
-  useEffect(() => {
-    if (!isInitialized) {
-      navigate('/review');
-    }
-  }, [isInitialized, navigate]);
 
   return (
     <>
@@ -142,9 +140,7 @@ export default function ReviewTextForm() {
           subtitle="등록한 후기는 마이페이지에서 확인할 수 있어요."
           cancelText="취소"
           confirmText="등록하기"
-          onConfirm={() => {
-            handleConfirmSubmit();
-          }}
+          onConfirm={handleConfirmSubmit}
         />
       )}
     </>

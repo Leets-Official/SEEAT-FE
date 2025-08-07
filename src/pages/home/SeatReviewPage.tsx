@@ -45,7 +45,7 @@ const SeatReviewPage = () => {
   return (
     <div className="flex min-h-screen flex-col pt-11 pb-5">
       <div className="fixed top-0 right-0 left-0 z-50 bg-gray-900">
-        <Header onBackClick={() => navigate('')} className="bg-gray-900" />
+        <Header onBackClick={() => navigate(-1)} className="bg-gray-900" />
       </div>
       <div className="mx-auto w-full max-w-[430px] space-y-3 px-5 pt-5">
         {!loading && !seatData && (

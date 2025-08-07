@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { Button, ToggleTab, Header, ProgressBar, TheaterList } from '@/components';
 import type { CinemaFormat } from '@/types/onboarding';
+// import { useTheatersQuery } from '@/hooks/queries/useTheatersQuery';
 import { useRegisterMutation } from '@/hooks/mutations/useRegisterMutation';
 import { getTheaters } from '@/api/theater/theater.api';
 import type { Theater } from '@/types/theater';

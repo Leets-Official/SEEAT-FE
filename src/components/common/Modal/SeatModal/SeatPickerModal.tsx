@@ -1,28 +1,43 @@
 import { SeatMap } from '@/components';
-import { useModalStore } from '@/store/modalStore';
 import { CloseIcon } from '@/assets';
 import ScreenBar from '@/components/seat/ScreenBar';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { CinemaFormat } from '@/types/onboarding';
+import { getSeatRatingMap, type SeatRatingInfo } from '@/api/theater/theater.api';
+import type { ApiError } from '@/types/api-response';
 
 interface SeatPickerModalProps {
-  theaterType: CinemaFormat;
+  theaterType?: string;
   theaterName: string;
   auditoriumId: string;
+  seatData?: SeatRatingInfo[];
+  onClose: () => void;
 }
 
-const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
-  const { closeModal } = useModalStore();
+const SeatPickerModal = ({ auditoriumId, onClose }: SeatPickerModalProps) => {
   const nav = useNavigate();
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+  const [seatData, setSeatData] = useState<SeatRatingInfo[]>([]);
 
   const handleSeatClick = (seatId: string) => {
-    closeModal();
+    onClose();
     nav(`/seat/review/${seatId}`);
   };
+
+  useEffect(() => {
+    const fetchSeatData = async () => {
+      try {
+        const res = await getSeatRatingMap(auditoriumId);
+        setSeatData(res);
+      } catch (error) {
+        const apiError = error as ApiError;
+        console.error('좌석 정보 불러오기 실패:', apiError.error, apiError.message);
+      }
+    };
+    fetchSeatData();
+  }, [auditoriumId]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -35,7 +50,7 @@ const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-gray-800/20" onClick={closeModal} />
+      <div className="absolute inset-0 bg-gray-800/20" onClick={onClose} />
 
       {/* 모달 */}
       <div className="relative z-10 flex h-full items-center justify-center p-3">
@@ -43,7 +58,7 @@ const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
           {/* 헤더 */}
           <div className="mb-1 flex items-center justify-between px-2">
             <div className="text-title-3">좌석의 후기를 볼 수 있어요</div>
-            <CloseIcon className="cursor-pointer" onClick={closeModal} />
+            <CloseIcon className="cursor-pointer" onClick={onClose} />
           </div>
 
           <div className="text-body-2 btn-text-gray-500 mb-4 px-2 text-left">
@@ -57,7 +72,7 @@ const SeatPickerModal = ({ auditoriumId }: SeatPickerModalProps) => {
               <SeatMap
                 type="seatPicker"
                 auditoriumId={auditoriumId}
-                isMock
+                seatData={seatData}
                 onSeatClick={handleSeatClick}
               />
             </div>

@@ -1,5 +1,5 @@
 import SeatRow from './SeatRow';
-import { getMockSeats } from '@/__mocks/mockSeat';
+import type { SeatRatingInfo } from '@/api/theater/theater.api';
 import type { Seat } from '@/types/seat';
 import { useRef } from 'react';
 
@@ -8,7 +8,7 @@ interface SeatMapProps {
   onSeatClick?: (seatId: string) => void;
   focusedSeatIds?: string[]; // seatFocus용
   selectedSeatNames?: string[]; // seatWrite 용
-  isMock?: boolean; // 목데이터용
+  seatData?: SeatRatingInfo[];
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
 
@@ -17,13 +17,13 @@ const SeatMap = ({
   focusedSeatIds = [],
   selectedSeatNames = [],
   type = 'seatPicker',
+  seatData = [],
 }: SeatMapProps) => {
   const seatRows: Record<string, Seat[]> = {};
   const focusedRef = useRef<HTMLDivElement>(null!);
 
-  const mockSeats = getMockSeats(type, focusedSeatIds);
   // row별로 묶기
-  mockSeats.forEach((seat) => {
+  seatData.forEach((seat) => {
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
     seatRows[seat.row].push(seat);
   });

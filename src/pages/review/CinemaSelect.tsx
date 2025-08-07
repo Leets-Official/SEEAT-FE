@@ -86,12 +86,13 @@ export default function CinemaSelect() {
   };
 
   const handleNext = () => {
-    const selected = theaters.find((d) => d.auditoriumId === selectedAuditorium);
+    const selected = theaters?.find((d) => d.auditoriumId === selectedAuditorium);
     if (!selected) return;
 
     navigate('/review/info', {
       state: {
         cinema: {
+          id: selected.auditoriumId,
           name: selected.theaterName,
           hall: selected.auditoriumName,
         },
@@ -107,7 +108,7 @@ export default function CinemaSelect() {
           <ToggleTab
             options={[
               { label: 'IMAX', value: 'IMAX' },
-              { label: 'Dolby Cinema', value: 'Dolby' },
+              { label: 'Dolby Cinema', value: 'Dolby Cinema' },
             ]}
             selected={selectedTab}
             onSelect={handleTabChange}

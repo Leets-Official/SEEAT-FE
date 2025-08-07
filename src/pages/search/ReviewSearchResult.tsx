@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import { SearchInput, ReviewCard, Header } from '@/components';
+import { SearchInput, ReviewCard } from '@/components';
 import { FilterIcon } from '@/assets';
 import { mockMyReviews } from '@/__mocks/mockReviews';
 
@@ -11,34 +11,23 @@ export default function ReviewSearchResultPage() {
   const { isFiltered } = useFilter();
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="mx-auto w-full max-w-[400px] px-4 pb-10">
-        <Header leftSection="BACK" onBackClick={() => navigate(-1)}>
-          검색 결과
-        </Header>
+    <div className="min-h-screen text-white">
+      <div className="mx-auto w-full max-w-[400px] px-4">
+        <SearchInput value={search} onChange={setSearch} placeholder="검색어를 입력해주세요" />
 
-        <div className="my-3">
-          <SearchInput
-            value={search}
-            // 수정된 부분: 이벤트 객체가 아닌 값을 직접 받도록 수정
-            onChange={setSearch} 
-            placeholder="다시 검색해보세요"
-          />
-        </div>
-
-        <div className="flex justify-start">
+        <div className="my-3 flex justify-start">
           <button
             onClick={() => navigate('/search/filter')}
             className="relative flex h-6 w-6 items-center justify-center rounded-md bg-gray-800"
           >
             <FilterIcon className="h-5 w-5 text-gray-400" />
             {isFiltered && (
-              <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />
+              <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500" />
             )}
           </button>
         </div>
 
-        <main className="mt-3 flex flex-col gap-y-2">
+        <main className="flex flex-col gap-y-2">
           {mockMyReviews.map((result) => (
             <ReviewCard
               key={result.id}

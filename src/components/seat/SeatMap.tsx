@@ -1,15 +1,15 @@
 import SeatRow from './SeatRow';
-import type { SeatRatingInfo } from '@/api/theater/theater.api';
-import type { Seat } from '@/types/seat';
-import { getSeatLayout } from '@/api/theater/theater.api';
 import { useEffect, useRef, useState } from 'react';
+import type { Seat } from '@/types/seat';
+import type { SeatRatingInfo } from '@/api/theater/theater.api';
+import { getSeatLayout } from '@/api/theater/theater.api';
 import type { ApiError } from '@/types/api-response';
 
 interface SeatMapProps {
   auditoriumId?: string;
   onSeatClick?: (seatId: string) => void;
-  focusedSeatIds?: string[]; // seatFocus용
-  selectedSeatNames?: string[]; // seatWrite 용
+  focusedSeatIds?: string[];
+  selectedSeatNames?: string[];
   seatData?: SeatRatingInfo[];
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
 }
@@ -19,13 +19,13 @@ const SeatMap = ({
   onSeatClick,
   focusedSeatIds = [],
   selectedSeatNames = [],
-  type = 'seatPicker',
   seatData = [],
+  type = 'seatPicker',
 }: SeatMapProps) => {
   const [autoSeatData, setAutoSeatData] = useState<Seat[]>([]);
-  const focusedRef = useRef<HTMLDivElement>(null!);
+  const focusedRef = useRef<HTMLDivElement>(null);
 
-  // row별로 묶기
+  //  seatFocus 모드일 때만 서버에서 좌석 배치도 불러오기
   useEffect(() => {
     const fetch = async () => {
       if (type === 'seatFocus' && auditoriumId) {
@@ -35,7 +35,6 @@ const SeatMap = ({
             ...seat,
             column: Number(seat.column),
           }));
-
           setAutoSeatData(parsedData);
         } catch (error) {
           const apiError = error as ApiError;
@@ -46,43 +45,39 @@ const SeatMap = ({
     fetch();
   }, [type, auditoriumId]);
 
+  // 사용할 seatData 결정
   const dataToRender = type === 'seatFocus' ? autoSeatData : seatData;
 
+  //  row별로 그룹핑 + 전체 column 범위 추출
   const seatRows: Record<string, Seat[]> = {};
+  const allColumns = new Set<number>();
+
   dataToRender.forEach((seat) => {
     if (!seatRows[seat.row]) seatRows[seat.row] = [];
     seatRows[seat.row].push(seat);
+    allColumns.add(seat.column);
   });
+
+  const minColumn = Math.min(...Array.from(allColumns));
+  const maxColumn = Math.max(...Array.from(allColumns));
 
   return (
     <div className="flex flex-col gap-1">
       {Object.entries(seatRows)
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([row, seats]) => {
-          seats.sort((a, b) => a.column - b.column);
-
-          const min = seats[0].column;
-          const max = seats[seats.length - 1].column;
-
-          const filledRow: (Seat | null)[] = Array(max - min + 1).fill(null);
-
-          seats.forEach((seat) => {
-            const index = seat.column - min;
-            filledRow[index] = seat;
-          });
-
-          return (
-            <SeatRow
-              key={row}
-              rowSeats={filledRow}
-              onSeatClick={onSeatClick}
-              focusedSeatIds={focusedSeatIds}
-              selectedSeatNames={selectedSeatNames}
-              focusedRef={focusedRef}
-              type={type}
-            />
-          );
-        })}
+        .map(([row, seats]) => (
+          <SeatRow
+            key={row}
+            rowSeats={seats}
+            onSeatClick={onSeatClick}
+            focusedSeatIds={focusedSeatIds}
+            selectedSeatNames={selectedSeatNames}
+            focusedRef={focusedRef as React.RefObject<HTMLDivElement>}
+            type={type}
+            minColumn={minColumn}
+            maxColumn={maxColumn}
+          />
+        ))}
     </div>
   );
 };

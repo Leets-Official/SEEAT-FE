@@ -3,12 +3,14 @@ import type { ReviewedSeat } from '@/types/seat';
 import { getSeatLabel } from '@/utils/getSeatLabel';
 
 interface SeatRowProps {
-  rowSeats: (ReviewedSeat | null)[];
+  rowSeats: ReviewedSeat[];
   onSeatClick?: (seatId: string) => void;
   focusedSeatIds?: string[];
   selectedSeatNames?: string[];
   focusedRef?: React.RefObject<HTMLDivElement>;
   type?: 'seatFocus' | 'seatPicker' | 'seatWrite';
+  minColumn: number;
+  maxColumn: number;
 }
 
 const SeatRow = ({
@@ -18,10 +20,19 @@ const SeatRow = ({
   selectedSeatNames = [],
   focusedRef,
   type = 'seatPicker',
+  minColumn,
+  maxColumn,
 }: SeatRowProps) => {
+  const filledRow: (ReviewedSeat | null)[] = Array(maxColumn - minColumn + 1).fill(null);
+
+  rowSeats.forEach((seat) => {
+    const index = seat.column - minColumn;
+    filledRow[index] = seat;
+  });
+
   return (
     <div className="flex gap-1">
-      {rowSeats.map((seat, idx) =>
+      {filledRow.map((seat, idx) =>
         seat ? (
           <SeatItem
             key={seat.seatId}

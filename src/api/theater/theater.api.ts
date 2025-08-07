@@ -23,7 +23,7 @@ const getTheaters = async ({
     },
   });
 
-  console.log('🚀 getTheaters API response', res);
+  console.log('getTheaters API 응답', res.data.data);
 
   const { content, hasNext, page: currentPage, size: pageSize } = res.data.data;
 

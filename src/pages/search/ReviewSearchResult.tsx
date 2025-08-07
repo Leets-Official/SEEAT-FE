@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-// useNavigate 훅을 import 합니다.
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useFilter } from '@/contexts/FilterContext';
 import { SearchInput, ReviewCard } from '@/components';
-// ChevronIcon을 import 합니다.
 import { FilterIcon, ChevronIcon } from '@/assets';
 import api from '@/api/api';
 
@@ -24,7 +22,6 @@ export default function ReviewSearchResultPage() {
   const { isFiltered } = useFilter();
   const [results, setResults] = useState<Review[]>([]);
   
-  // useNavigate 훅을 초기화합니다.
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,9 +48,7 @@ export default function ReviewSearchResultPage() {
     fetchResults();
   }, [searchParams]);
 
-  // 뒤로가기 버튼 클릭 핸들러
   const handleGoBack = () => {
-    // navigate(-1)은 브라우저의 "뒤로 가기"와 동일하게 동작합니다.
     navigate(-1); 
   };
 

@@ -3,18 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { SearchInput, Badge, BottomNavigation } from '@/components';
 import api from '@/api/api';
 
+type Keyword = {
+  content: string;
+};
+
 export default function ReviewSearchPage() {
   const [search, setSearch] = useState('');
-  const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
+  const [recentKeywords, setRecentKeywords] = useState<Keyword[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecentKeywords = async () => {
       try {
-        const res = await api.get<string[]>('/api/v1/search');
-        setRecentKeywords(res.data); 
+        const res = await api.get('/search');
+
+        if (res.data?.success && Array.isArray(res.data.data)) {
+          setRecentKeywords(res.data.data);
+        } else {
+          console.warn('유효하지 않은 검색어 응답:', res.data);
+          setRecentKeywords([]);
+        }
       } catch (error) {
         console.error('최근 검색어 조회 실패', error);
+        setRecentKeywords([]);
       }
     };
 
@@ -31,10 +42,10 @@ export default function ReviewSearchPage() {
   };
 
   const handleRemove = async (index: number) => {
-    const keyword = recentKeywords[index];
+    const keyword = recentKeywords[index].content;
 
     try {
-      await api.delete('/api/v1/search', {
+      await api.delete('/search', {
         params: { keyword },
       });
       setRecentKeywords((prev) => prev.filter((_, i) => i !== index));
@@ -56,15 +67,19 @@ export default function ReviewSearchPage() {
         <div className="mt-6">
           <h2 className="mb-2 text-title-3">최근 검색어</h2>
           <div className="flex flex-wrap gap-2">
-            {recentKeywords.map((word, index) => (
-              <Badge
-                key={index}
-                type="removable"
-                onRemove={() => handleRemove(index)}
-              >
-                {word}
-              </Badge>
-            ))}
+            {recentKeywords.length > 0 ? (
+              recentKeywords.map((wordObj, index) => (
+                <Badge
+                  key={index}
+                  type="removable"
+                  onRemove={() => handleRemove(index)}
+                >
+                  {wordObj.content}
+                </Badge>
+              ))
+            ) : (
+              <p className="text-body-3 text-gray-400">최근 검색어가 없습니다.</p>
+            )}
           </div>
         </div>
       </div>

@@ -5,16 +5,15 @@ import type { GenreType } from '@/types/movieGenre';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import { useOnboardingStore } from '@/store/useOnboardingStore';
 import { genreMap, genreOptions } from '@/types/movieGenre';
-import { useModalStore } from '@/store';
-import ActionModal from '@/components/common/Modal/ActionModal';
+import { chunkArray } from '@/utils/chunkArray';
 
 const OnboardingGenrePage = () => {
   const navigate = useNavigate();
+  const chunkedGenres = chunkArray(genreOptions, 4);
+
   const { setSelectedGenres } = useOnboardingStore();
 
   const [localSelectedGenres, setLocalSelectedGenres] = useState<GenreType[]>([]);
-
-  const { openModal, modalType } = useModalStore();
 
   const toggleGenre = (genre: GenreType) => {
     const isSelected = localSelectedGenres.includes(genre);
@@ -35,60 +34,59 @@ const OnboardingGenrePage = () => {
   };
 
   return (
-    <div className="relative mx-auto min-h-screen w-full max-w-[375px] bg-gray-900 pb-32 text-white">
+    <div className="relative mx-auto min-h-screen w-full pb-32">
       {/* 상단 헤더 */}
-      {/* <Header leftSection="BACK" className="bg-gray-900" /> */}
-      <Header rightSection="DETAIL" onDetailClick={() => openModal('action')} />
+      <Header leftSection="BACK" className="bg-gray-900 pt-4" />
 
       {/* 진행도 바 */}
-      <ProgressBar currentStep={2} totalSteps={3} />
+      <div className="pt-[34px]">
+        <ProgressBar currentStep={2} totalSteps={3} />
 
-      {/* 콘텐츠 영역 */}
-      <div className="mt-6 px-6">
-        {/* 타이틀 */}
-        <h1 className="text-title-2 mb-1 text-white">좋아하는 장르를 선택해주세요</h1>
-        <p className="text-caption-2 mb-6 text-red-300">최대 5개까지 추가할 수 있어요.</p>
+        {/* 콘텐츠 영역 */}
+        <div className="mt-2 px-6">
+          {/* 타이틀 */}
+          <h1 className="text-title-2 mb-1">좋아하는 장르를 선택해주세요</h1>
+          <p className="text-caption-2 mb-6 text-red-300">최대 5개까지 추가할 수 있어요.</p>
 
-        {/* 장르 선택 버튼 */}
-        <div className="mb-20 flex flex-wrap gap-3">
-          {genreOptions.map((genre: GenreType) => {
-            const isSelected = localSelectedGenres.includes(genre);
-            return (
-              <Button
-                key={genre}
-                variant="secondary-assistive"
-                selected={isSelected}
-                onClick={() => toggleGenre(genre)}
-                fontType="body-1"
-                className="px-4 py-1"
-              >
-                {genre}
-              </Button>
-            );
-          })}
+          {/* 장르 선택 버튼 */}
+          <div className="flex flex-col gap-y-3">
+            {chunkedGenres.map((group, rowIndex) => (
+              <div key={rowIndex} className="flex gap-x-4">
+                {group.map((genre) => {
+                  const isSelected = localSelectedGenres.includes(genre);
+                  return (
+                    <Button
+                      key={genre}
+                      variant="secondary-assistive"
+                      selected={isSelected}
+                      onClick={() => toggleGenre(genre)}
+                      fontType="body-1"
+                      className="px-4 py-1"
+                    >
+                      {genre}
+                    </Button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 하단 버튼 */}
+        <div className="fixed bottom-8 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-6">
+          <Button
+            onClick={handleNext}
+            disabled={localSelectedGenres.length === 0}
+            variant="primary"
+            color="red"
+            size="lg"
+            fontType="title-3"
+            className="w-full"
+          >
+            다음
+          </Button>
         </div>
       </div>
-
-      {/* 하단 버튼 */}
-      <div className="fixed bottom-8 left-1/2 w-full max-w-[375px] -translate-x-1/2 px-6">
-        <Button
-          onClick={handleNext}
-          disabled={localSelectedGenres.length === 0}
-          variant="primary"
-          color="red"
-          size="lg"
-          fontType="title-3"
-          className="w-full"
-        >
-          다음
-        </Button>
-      </div>
-      {modalType === 'action' && (
-        <ActionModal
-          onEdit={() => console.log('수정하기 클릭')}
-          onDelete={() => console.log('삭제하기 클릭')}
-        />
-      )}
     </div>
   );
 };

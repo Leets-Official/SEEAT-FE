@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Header, Button } from '@/components';
 import type { GenreType } from '@/types/movieGenre';
 
-const GENRES: GenreType[] = ['액션', '로맨스', 'SF', '호러', '코미디', '다큐', '애니메이션'];
+const GENRES: GenreType[] = ['액션', '로맨스', 'SF', '호러', '코미디', '애니메이션'];
 const MAX_SELECTABLE_GENRES = 3;
 
 export default function SelectGenre() {
   const navigate = useNavigate();
-  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>(['SF', '호러', '로맨스']);
+  const location = useLocation();
+  const [selectedGenres, setSelectedGenres] = useState<GenreType[]>([]);
 
   const handleGenreClick = (genre: GenreType) => {
     setSelectedGenres((prevSelected) => {
@@ -24,17 +25,21 @@ export default function SelectGenre() {
   };
 
   const handleConfirmSelection = () => {
-    console.log('선택된 장르:', selectedGenres);
-    navigate(-1);
+    navigate('/my/profile-edit', {
+      state: {
+        genres: selectedGenres,
+        nickname: location.state?.nickname,
+        auditoriums: location.state?.auditoriums,
+      },
+    });
   };
 
   return (
-    <div className="flex h-screen flex-col p-4">
+    <div className="flex h-screen flex-col p-4 pt-[48px]">
       <Header leftSection="BACK" rightSection="KEBAB" className="bg-gray-900" />
 
       <main className="flex-grow pt-4">
         <h2 className="text-title-2 mb-2 text-white">좋아하는 장르를 선택해주세요</h2>
-
         <p className="text-caption-2 mb-6 text-red-300">
           최대 {MAX_SELECTABLE_GENRES}개까지 선택할 수 있어요.
         </p>

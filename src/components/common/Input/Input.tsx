@@ -3,7 +3,7 @@ import { PlusIcon } from '@/assets';
 import { cn } from '@/utils/cn';
 
 interface InputProps {
-  label: string;
+  label?: string;
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -13,6 +13,7 @@ interface InputProps {
   onClickPlus?: () => void;
   readOnly?: boolean;
   className?: string;
+  required?: boolean;
 }
 
 export default function InputField({
@@ -25,6 +26,7 @@ export default function InputField({
   placeholderColorType = 'gray',
   onClickPlus,
   readOnly = false,
+  required = true,
   className,
 }: InputProps) {
   // 포커스 상태를 관리하여 동적 스타일링에 사용합니다.
@@ -35,9 +37,9 @@ export default function InputField({
 
   return (
     <div className={cn('flex flex-col gap-1', className)}>
-      <label className="text-caption-2 h-[20px] text-gray-300">
-        {label} <span className="text-red-400">*</span>
-      </label>
+      <div className="text-caption-2 text-gray-200">
+        {label} {required && <span className="text-red-400">*</span>}
+      </div>
 
       <div
         className={cn(

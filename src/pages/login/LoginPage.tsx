@@ -12,28 +12,27 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="relative h-screen w-full">
-      <div className="flex h-full flex-col items-center justify-start pt-[180px]">
+    <div className="flex h-screen flex-col items-center justify-between px-6 py-10">
+      {/* 로고 영역 */}
+      <div className="mt-24 flex flex-col items-center">
         <img src={RunningGIF} alt="러닝 팝콘" className="mb-4 h-auto w-[385px]" />
-        <SEEATLogo className="mb-10" />
+        <SEEATLogo className="mb-8" />
       </div>
 
-      {/* 소셜 로그인 버튼 */}
-      <div className="absolute bottom-40 left-0 w-full">
-        <div className="flex w-full flex-col gap-4 px-6">
-          {/* 카카오 로그인 */}
+      {/* 로그인 버튼 영역 */}
+      <div className="w-full max-w-md">
+        <div className="flex w-full flex-col gap-4">
           <button
             onClick={handleKakaoLogin}
-            className="bg-kakao text-title-3 rounded-m flex h-12 w-full cursor-pointer items-center justify-center gap-2 py-6.5 text-gray-950"
+            className="bg-kakao text-title-3 rounded-m flex h-12 w-full cursor-pointer items-center justify-center gap-2 text-gray-950"
           >
             <KakaoIcon className="h-6 w-6" />
             카카오로 시작하기
           </button>
 
-          {/* 네이버 로그인 */}
           <button
             onClick={handleNaverLogin}
-            className="bg-naver rounded-m text-title-3 flex h-12 cursor-pointer items-center justify-center gap-2 py-6.5"
+            className="bg-naver rounded-m text-title-3 mb-16 flex h-12 w-full cursor-pointer items-center justify-center gap-2"
           >
             <NaverIcon className="h-6 w-6" />
             네이버로 시작하기
